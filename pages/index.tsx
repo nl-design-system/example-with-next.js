@@ -5,7 +5,7 @@ import {
   UtrechtSeparator,
   UtrechtButton,
   UtrechtDocument,
-} from "@utrecht/component-library-react";
+} from "@utrecht/web-component-library-react";
 
 export default function Home() {
   return (
@@ -28,30 +28,22 @@ export default function Home() {
           <div>
             <a href="https://nextjs.org/docs">
               <UtrechtHeading level={2}>Documentation &rarr;</UtrechtHeading>
-              <UtrechtParagraph>
-                Find in-depth information about Next.js features and API.
-              </UtrechtParagraph>
+              <UtrechtParagraph>Find in-depth information about Next.js features and API.</UtrechtParagraph>
             </a>
 
             <a href="https://nextjs.org/learn">
               <UtrechtHeading level={2}>Learn &rarr;</UtrechtHeading>
-              <UtrechtParagraph>
-                Learn about Next.js in an interactive course with quizzes!
-              </UtrechtParagraph>
+              <UtrechtParagraph>Learn about Next.js in an interactive course with quizzes!</UtrechtParagraph>
             </a>
 
             <a href="https://github.com/vercel/next.js/tree/master/examples">
               <UtrechtHeading level={2}>Examples &rarr;</UtrechtHeading>
-              <UtrechtParagraph>
-                Discover and deploy boilerplate example Next.js projects.
-              </UtrechtParagraph>
+              <UtrechtParagraph>Discover and deploy boilerplate example Next.js projects.</UtrechtParagraph>
             </a>
 
             <a href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app">
               <UtrechtHeading level={2}>Deploy &rarr;</UtrechtHeading>
-              <UtrechtParagraph>
-                Instantly deploy your Next.js site to a public URL with Vercel.
-              </UtrechtParagraph>
+              <UtrechtParagraph>Instantly deploy your Next.js site to a public URL with Vercel.</UtrechtParagraph>
             </a>
           </div>
         </main>

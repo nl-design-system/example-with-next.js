@@ -17,8 +17,9 @@
   },
   "devDependencies": {
     "@types/react": "17.0.11",
-    "@utrecht/component-library": "file:../utrecht/packages/component-library",
-    "@utrecht/component-library-react": "file:../utrecht/packages/component-library-react",
+    "@utrecht/web-component-library-stencil": "*",
+    "@utrecht/web-component-library-react": "*",
+    "@utrecht/design-tokens": "*",
     "eslint": "7.29.0",
     "eslint-config-next": "11.0.0",
     "typescript": "4.3.4"
