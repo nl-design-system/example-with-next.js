@@ -1,0 +1,17 @@
+version: '3.5'
+
+services:
+  nlportalnext:
+    build:
+      context: ./
+      target: nl_portal_next
+    #user: "node" change for production
+    environment:
+      - NODE_ENV=dev #change to production for production
+    volumes:
+      - ./:/home/node/app
+    expose:
+      - "3000"
+    command: "npm run dev"
+
+
