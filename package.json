@@ -17,11 +17,13 @@
   },
   "devDependencies": {
     "@types/react": "17.0.11",
-    "@utrecht/web-component-library-stencil": "*",
-    "@utrecht/web-component-library-react": "*",
-    "@utrecht/design-tokens": "*",
+    "@utrecht/design-tokens": "1.0.0-alpha.36",
+    "@utrecht/web-component-library-angular": "1.0.0-alpha.26",
+    "@utrecht/web-component-library-react": "1.0.0-alpha.42",
+    "@utrecht/web-component-library-stencil": "1.0.0-alpha.42",
     "eslint": "7.29.0",
     "eslint-config-next": "11.0.0",
+    "next-transpile-modules": "8.0.0",
     "typescript": "4.3.4"
   }
 }
