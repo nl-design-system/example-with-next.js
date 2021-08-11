@@ -1,17 +1,20 @@
-version: '3.5'
-
+---
+version: "3"
 services:
-  nlportalnext:
+  dev:
     build:
-      context: ./
-      target: nl_portal_next
-    #user: "node" change for production
-    environment:
-      - NODE_ENV=dev #change to production for production
-    volumes:
-      - ./:/home/node/app
-    expose:
-      - "3000"
-    command: "npm run dev"
-
-
+      args:
+        - "BUILD_DATE=${BUILD_DATE}"
+        - "HTTPS_PROXY=${HTTPS_PROXY}"
+        - "HTTP_PROXY=${HTTP_PROXY}"
+        - "NODE_ENV=production"
+        - "NO_PROXY=${NO_PROXY}"
+        - "NPM_REGISTRY=${NPM_REGISTRY}"
+        - "NPM_TOKEN=${NPM_TOKEN}"
+        - "VCS_REF=${VCS_REF}"
+        - "VERSION=${VERSION}"
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "3000:3000"
+    command: "start"
