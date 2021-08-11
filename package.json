@@ -10,6 +10,7 @@
     "prettier": "prettier --write ."
   },
   "dependencies": {
+    "@gemeente-denhaag/denhaag-component-library": "^0.2.3-alpha.7",
     "@utrecht/design-tokens": "1.0.0-alpha.36",
     "@utrecht/web-component-library-react": "1.0.0-alpha.42",
     "@utrecht/web-component-library-stencil": "1.0.0-alpha.42",

@@ -14,6 +14,8 @@
 
 # production
 /build
+/.cache
+/.npm
 
 # misc
 .DS_Store
