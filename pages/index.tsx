@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Image from "next/image";
 import {
   UtrechtHeading,
   UtrechtParagraph,
@@ -8,6 +9,7 @@ import {
 } from "@utrecht/web-component-library-react";
 import { AlternateLangNavComponent } from "../src/AlternateLangNavComponent";
 
+import cityScape from "../src/img/amersfoort-koppelpoort.jpg";
 export default function Home() {
   const locales = [
     {
@@ -69,6 +71,27 @@ export default function Home() {
             </a>
           </div>
         </main>
+        <aside>
+          <figure>
+            <Image src={cityScape} alt="Amersfoort, Koppelpoort" />
+            <figcaption>
+              <details>
+                <summary>Koppelpoort in Amersfoort</summary>
+                <div>
+                  <div>
+                    Bron: <a href="https://flickr.com/photos/aldovanzeeland/2628937998/">Aldo van Zeeland, Flickr</a>
+                  </div>
+                  <div>
+                    Licentie:{" "}
+                    <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/2.0/" hrefLang="en">
+                      Creative Commons Attribution-NonCommercial-NoDerivs 2.0 Generic
+                    </a>
+                  </div>
+                </div>
+              </details>
+            </figcaption>
+          </figure>
+        </aside>
 
         <footer>
           <a
