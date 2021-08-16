@@ -3,4 +3,8 @@ const withTM = require('next-transpile-modules')(['@utrecht/web-component-librar
 module.exports = {
   reactStrictMode: true,
   ...withTM(),
+  i18n: {
+    locales: ['en', 'nl'],
+    defaultLocale: 'en',
+  },
 };
