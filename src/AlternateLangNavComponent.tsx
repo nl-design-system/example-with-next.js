@@ -4,6 +4,67 @@ import clsx from "clsx";
 
 const LinkSeparator = () => <span aria-hidden="true"> | </span>;
 
+export const AlternateLangLink = ({
+  children,
+  current,
+  href,
+  hrefLang,
+  lang,
+  title,
+}: {
+  children: any;
+  current: boolean;
+  href?: string;
+  hrefLang: string;
+  lang: string;
+  title: string;
+}) => (
+  <a
+    className={clsx("utrecht-link", "utrecht-link--alternate-lang", current && "utrecht-link--current-lang")}
+    href={href}
+    aria-current={current ? "page" : undefined}
+    title={title}
+    hrefLang={hrefLang}
+    lang={lang}
+  >
+    {children}
+  </a>
+);
+
+export const AlternateLangNextLink = ({
+  children,
+  current,
+  href,
+  hrefLang,
+  lang,
+  title,
+}: {
+  children: any;
+  current: boolean;
+  href?: string;
+  hrefLang: string;
+  lang: string;
+  title: string;
+}) => (
+  <Link href={href} locale={lang}>
+    <a
+      className={clsx("utrecht-link", "utrecht-link--alternate-lang", current && "utrecht-link--current-lang")}
+      aria-current={current ? "page" : undefined}
+      title={title}
+      hrefLang={hrefLang}
+      lang={lang}
+    >
+      {children}
+    </a>
+  </Link>
+);
+
+export const AlternateLangNavContainer = ({ children }: { children: any }) => (
+  <div className="utrecht-alternate-lang-nav" role="group">
+    {children}
+  </div>
+);
+
 export const AlternateLangNavComponent = ({
   currentLang,
   locales,
@@ -14,24 +75,18 @@ export const AlternateLangNavComponent = ({
   const { asPath, locale } = useRouter();
 
   return (
-    <div className="utrecht-alternate-lang-nav" role="group">
+    <AlternateLangNavContainer>
       {locales
         .map(({ hrefLang, lang, textContent, title }) => (
-          <Link href={asPath} locale={lang}>
-            <a
-              className={clsx(
-                "utrecht-link",
-                "utrecht-link--alternate-lang",
-                lang === currentLang && "utrecht-link--current-lang"
-              )}
-              aria-current={lang === currentLang ? "page" : undefined}
-              title={title}
-              hrefLang={hrefLang}
-              lang={lang}
-            >
-              {textContent}
-            </a>
-          </Link>
+          <AlternateLangNextLink
+            current={lang === currentLang}
+            href={asPath}
+            hrefLang={hrefLang}
+            lang={lang}
+            title={title}
+          >
+            {textContent}
+          </AlternateLangNextLink>
         ))
         .map((link, index) =>
           index >= 1 ? (
@@ -43,6 +98,6 @@ export const AlternateLangNavComponent = ({
             link
           )
         )}
-    </div>
+    </AlternateLangNavContainer>
   );
 };
