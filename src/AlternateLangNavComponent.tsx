@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import clsx from "clsx";
@@ -41,7 +42,7 @@ export const AlternateLangNextLink = ({
 }: {
   children: any;
   current: boolean;
-  href?: string;
+  href: string;
   hrefLang: string;
   lang: string;
   title: string;
@@ -79,6 +80,7 @@ export const AlternateLangNavComponent = ({
       {locales
         .map(({ hrefLang, lang, textContent, title }) => (
           <AlternateLangNextLink
+            key={hrefLang}
             current={lang === currentLang}
             href={asPath}
             hrefLang={hrefLang}
@@ -90,10 +92,10 @@ export const AlternateLangNavComponent = ({
         ))
         .map((link, index) =>
           index >= 1 ? (
-            <>
+            <Fragment key={index}>
               <LinkSeparator />
               {link}
-            </>
+            </Fragment>
           ) : (
             link
           )
