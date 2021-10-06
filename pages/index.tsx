@@ -6,6 +6,7 @@ import {
   UtrechtSeparator,
   UtrechtButton,
   UtrechtDocument,
+  UtrechtPageFooter,
 } from "@utrecht/web-component-library-react";
 import { AlternateLangNavComponent } from "../src/AlternateLangNavComponent";
 
@@ -106,6 +107,9 @@ export default function Home() {
         <form>
           <UtrechtButton>Click me</UtrechtButton>
         </form>
+        <UtrechtPageFooter>
+          <nl-theme-switcher></nl-theme-switcher>
+        </UtrechtPageFooter>
       </UtrechtDocument>
     </>
   );
