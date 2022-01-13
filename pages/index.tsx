@@ -11,7 +11,8 @@ import {
 import { AlternateLangNavComponent } from "../src/AlternateLangNavComponent";
 
 import cityScape from "../src/img/amersfoort-koppelpoort.jpg";
-export default function Home() {
+
+export default async function Home() {
   const locales = [
     {
       lang: "en",
@@ -26,7 +27,6 @@ export default function Home() {
       textContent: "NL",
     },
   ];
-
   return (
     <>
       <UtrechtDocument>
@@ -107,9 +107,6 @@ export default function Home() {
         <form>
           <UtrechtButton>Click me</UtrechtButton>
         </form>
-        <UtrechtPageFooter>
-          <nl-theme-switcher></nl-theme-switcher>
-        </UtrechtPageFooter>
       </UtrechtDocument>
     </>
   );
