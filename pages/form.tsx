@@ -8,7 +8,7 @@ import {
   UtrechtParagraph,
 } from "@utrecht/web-component-library-react";
 import { Note } from "../src/components/demo/Note";
-import { FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useReducer, useState } from "react";
 import { FormField } from "../src/components/FormField";
 import { FormLabel } from "../src/components/FormLabel";
 import { TextInput } from "../src/components/TextInput";
@@ -22,6 +22,7 @@ import { Textarea } from "../src/components/Textarea";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { LanguageToggle } from "../src/components/LanguageToggle";
+import { DemoForm } from "../types/DemoForm";
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {
@@ -30,10 +31,16 @@ export const getServerSideProps = async ({ locale }: { locale: string }) => ({
 });
 
 export default function Form() {
-  const [gender, setGender] = useState<"female" | "male" | "unknown">();
-  const [givenName, setGivenName] = useState<string>();
-  const [preferLetter, setPreferLetter] = useState(false);
-  const [consent, setConsent] = useState(false);
+  function handleFormChange(state: DemoForm, action: Partial<DemoForm>) {
+    return { ...state, ...action };
+  }
+
+  const initialFormState: Partial<DemoForm> = {
+    "accept-data-handling": false,
+    "subscribe-newsletter": false,
+  };
+
+  const [formState, dispatch] = useReducer(handleFormChange, initialFormState as DemoForm);
   const [showNotes, setShowNotes] = useState(false);
 
   const { t } = useTranslation("form");
@@ -41,13 +48,8 @@ export default function Form() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const formData = {
-      "given-name": givenName,
-      gender: gender,
-    };
-
     const res = await fetch("/api/form", {
-      body: JSON.stringify(formData),
+      body: JSON.stringify(formState),
       headers: {
         "Content-Type": "application/json",
       },
@@ -59,10 +61,20 @@ export default function Form() {
     console.log("RESULT", result);
   };
   const demo1 = () => {
-    setGender("female");
-    setPreferLetter(true);
-    setGivenName("Yolijn");
-    setConsent(true);
+    dispatch({
+      gender: "female",
+      "given-name": "Yolijn",
+      "contact-preference": "letter",
+      "accept-data-handling": true,
+    });
+  };
+
+  const handleInputChange = (change: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    dispatch({ [change.target.name]: change.target.value });
+  };
+
+  const handleCheckboxChange = (change: ChangeEvent<HTMLInputElement>) => {
+    dispatch({ [change.target.name]: change.target.checked });
   };
 
   return (
@@ -108,12 +120,12 @@ export default function Form() {
               id="given-name"
               name="given-name"
               autoComplete="given-name"
-              defaultValue={givenName}
-              onChange={(change) => setGivenName(change.target.value)}
+              defaultValue={formState["given-name"]}
+              onChange={handleInputChange}
               required
               aria-describedby="given-name-required"
             />
-            {!givenName && (
+            {!formState["given-name"] && (
               <FormFieldDescription id="given-name-required" invalid>
                 <UtrechtParagraph>{t("given-name-required")}</UtrechtParagraph>
               </FormFieldDescription>
@@ -128,7 +140,13 @@ export default function Form() {
           )}
           <FormField>
             <FormLabel htmlFor="family-name">{t("family-name")}</FormLabel>
-            <TextInput id="family-name" name="family-name" autoComplete="family-name" />
+            <TextInput
+              id="family-name"
+              name="family-name"
+              autoComplete="family-name"
+              defaultValue={formState["family-name"]}
+              onChange={handleInputChange}
+            />
           </FormField>
           {showNotes && (
             <Note>
@@ -139,7 +157,12 @@ export default function Form() {
           )}
           <FormField>
             <FormLabel htmlFor="given-name-initials">{t("given-name-initials")}</FormLabel>
-            <TextInput id="given-name-initials" name="given-name-initials" />
+            <TextInput
+              id="given-name-initials"
+              name="given-name-initials"
+              defaultValue={formState["given-name-initials"]}
+              onChange={handleInputChange}
+            />
           </FormField>
           {showNotes && (
             <Note>
@@ -151,7 +174,13 @@ export default function Form() {
           )}
           <FormField>
             <FormLabel htmlFor="family-name-prefix">{t("family-name-prefix")}</FormLabel>
-            <TextInput id="family-name-prefix" name="family-name-prefix" autoComplete="honorific-prefix" />
+            <TextInput
+              id="family-name-prefix"
+              name="family-name-prefix"
+              autoComplete="honorific-prefix"
+              defaultValue={formState["family-name-prefix"]}
+              onChange={handleInputChange}
+            />
           </FormField>
 
           {showNotes && (
@@ -163,7 +192,12 @@ export default function Form() {
           )}
           <FormField>
             <FormLabel htmlFor="name-original-writing">{t("name-original-writing")}</FormLabel>
-            <TextInput id="name-original-writing" name="name-original-writing" />
+            <TextInput
+              id="name-original-writing"
+              name="name-original-writing"
+              defaultValue={formState["name-original-writing"]}
+              onChange={handleInputChange}
+            />
           </FormField>
           {showNotes && (
             <Note>
@@ -174,7 +208,12 @@ export default function Form() {
           )}
           <FormField>
             <FormLabel htmlFor="manner-of-address">{t("manner-of-address")}</FormLabel>
-            <TextInput id="manner-of-address" name="manner-of-address" />
+            <TextInput
+              id="manner-of-address"
+              name="manner-of-address"
+              defaultValue={formState["manner-of-address"]}
+              onChange={handleInputChange}
+            />
           </FormField>
 
           {showNotes && (
@@ -194,8 +233,8 @@ export default function Form() {
                 id="gender-female"
                 name="gender"
                 value="female"
-                checked={gender === "female"}
-                onChange={() => setGender("female")}
+                checked={formState.gender === "female"}
+                onChange={handleInputChange}
                 aria-describedby="gender-required"
               />
             </FormField>
@@ -207,8 +246,8 @@ export default function Form() {
                 id="gender-male"
                 name="gender"
                 value="male"
-                checked={gender === "male"}
-                onChange={() => setGender("male")}
+                checked={formState.gender === "male"}
+                onChange={handleInputChange}
                 aria-describedby="gender-required"
               />
             </FormField>
@@ -220,8 +259,8 @@ export default function Form() {
                 id="gender-unknown"
                 name="gender"
                 value="unknown"
-                checked={gender === "unknown"}
-                onChange={() => setGender("unknown")}
+                checked={formState.gender === "unknown"}
+                onChange={handleInputChange}
                 aria-describedby="gender-required"
               />
             </FormField>
@@ -238,7 +277,13 @@ export default function Form() {
           )}
           <FormField>
             <FormLabel htmlFor="bday">{t("bday")}</FormLabel>
-            <DateInput id="bday" autoComplete="bday" name="bday" />
+            <DateInput
+              id="bday"
+              autoComplete="bday"
+              name="bday"
+              defaultValue={formState.bday}
+              onChange={handleInputChange}
+            />
           </FormField>
 
           {showNotes && (
@@ -249,7 +294,13 @@ export default function Form() {
           )}
           <FormField>
             <FormLabel htmlFor="bsn">{t("bsn")}</FormLabel>
-            <TextInput id="bsn" name="bsn" inputMode="numeric" />
+            <TextInput
+              id="bsn"
+              name="bsn"
+              inputMode="numeric"
+              defaultValue={formState.bsn}
+              onChange={handleInputChange}
+            />
           </FormField>
         </div>
         <div className="form-section">
@@ -264,7 +315,13 @@ export default function Form() {
           )}
           <FormField>
             <FormLabel htmlFor="email">{t("email")}</FormLabel>
-            <TextInput type="email" id="email" name="email" />
+            <TextInput
+              type="email"
+              id="email"
+              name="email"
+              defaultValue={formState.email}
+              onChange={handleInputChange}
+            />
           </FormField>
 
           {showNotes && (
@@ -278,13 +335,27 @@ export default function Form() {
           )}
           <FormField>
             <FormLabel htmlFor="tel">{t("tel")}</FormLabel>
-            <TextInput type="tel" id="tel" name="tel" autoComplete="tel" />
+            <TextInput
+              type="tel"
+              id="tel"
+              name="tel"
+              autoComplete="tel"
+              defaultValue={formState.tel}
+              onChange={handleInputChange}
+            />
           </FormField>
 
           {showNotes && <Note>Mobiel telefoonnummer</Note>}
           <FormField>
             <FormLabel htmlFor="tel-mobile">{t("tel-mobile")}</FormLabel>
-            <TextInput type="tel" id="tel-mobile" name="tel-mobile" autoComplete="tel mobile" />
+            <TextInput
+              type="tel"
+              id="tel-mobile"
+              name="tel-mobile"
+              autoComplete="tel mobile"
+              defaultValue={formState["tel-mobile"]}
+              onChange={handleInputChange}
+            />
           </FormField>
 
           {showNotes && (
@@ -295,11 +366,25 @@ export default function Form() {
           )}
           <FormField>
             <FormLabel htmlFor="tel-daytime">{t("tel-daytime")}</FormLabel>
-            <TextInput type="tel" id="tel-daytime" name="tel-daytime" autoComplete="tel" />
+            <TextInput
+              type="tel"
+              id="tel-daytime"
+              name="tel-daytime"
+              autoComplete="tel"
+              defaultValue={formState["tel-daytime"]}
+              onChange={handleInputChange}
+            />
           </FormField>
           <FormField>
             <FormLabel htmlFor="tel-evening">{t("tel-evening")}</FormLabel>
-            <TextInput type="tel" id="tel-evening" name="tel-evening" autoComplete="tel" />
+            <TextInput
+              type="tel"
+              id="tel-evening"
+              name="tel-evening"
+              autoComplete="tel"
+              defaultValue={formState["tel-evening"]}
+              onChange={handleInputChange}
+            />
           </FormField>
 
           {showNotes && (
@@ -321,35 +406,73 @@ export default function Form() {
             <FieldsetLegend>{t("address")}</FieldsetLegend>
             <FormField>
               <FormLabel htmlFor="postal-code">{t("postal-code")}</FormLabel>
-              <TextInput id="postal-code" name="postal-code" autoComplete="postal-code" />
+              <TextInput
+                id="postal-code"
+                name="postal-code"
+                autoComplete="postal-code"
+                defaultValue={formState["postal-code"]}
+                onChange={handleInputChange}
+              />
             </FormField>
             <FormField>
               <FormLabel htmlFor="house-number">{t("house-number")}</FormLabel>
-              <TextInput id="house-number" name="house-number" inputMode="numeric" />
+              <TextInput
+                id="house-number"
+                name="house-number"
+                inputMode="numeric"
+                defaultValue={formState["house-number"]}
+                onChange={handleInputChange}
+              />
             </FormField>
             <FormField>
               <FormLabel htmlFor="house-number-letter">{t("house-number-letter-suffix")}</FormLabel>
-              <TextInput id="house-number-letter" name="house-number-letter" />
+              <TextInput
+                id="house-number-letter"
+                name="house-number-letter"
+                defaultValue={formState["house-number-letter"]}
+                onChange={handleInputChange}
+              />
             </FormField>
             <FormField>
               <FormLabel htmlFor="house-number-suffix">{t("house-number-suffix")}</FormLabel>
-              <TextInput id="house-number-suffix" name="house-number-suffix" />
+              <TextInput
+                id="house-number-suffix"
+                name="house-number-suffix"
+                defaultValue={formState["house-number-suffix"]}
+                onChange={handleInputChange}
+              />
             </FormField>
             <FormField>
               <FormLabel htmlFor="street">{t("street")}</FormLabel>
-              <TextInput id="street" name="street" />
+              <TextInput id="street" name="street" defaultValue={formState.street} onChange={handleInputChange} />
             </FormField>
             <FormField>
               <FormLabel htmlFor="place-of-residence">{t("place-of-residence")}</FormLabel>
-              <TextInput id="place-of-residence" name="place-of-residence" />
+              <TextInput
+                id="place-of-residence"
+                name="place-of-residence"
+                defaultValue={formState["place-of-residence"]}
+                onChange={handleInputChange}
+              />
             </FormField>
             <FormField>
               <FormLabel htmlFor="municipality">{t("municipality")}</FormLabel>
-              <TextInput id="municipality" name="municipality" />
+              <TextInput
+                id="municipality"
+                name="municipality"
+                defaultValue={formState.municipality}
+                onChange={handleInputChange}
+              />
             </FormField>
             <FormField>
               <FormLabel htmlFor="country">{t("country")}</FormLabel>
-              <TextInput id="country" name="country" autoComplete="country-name" />
+              <TextInput
+                id="country"
+                name="country"
+                autoComplete="country-name"
+                defaultValue={formState.country}
+                onChange={handleInputChange}
+              />
             </FormField>
           </Fieldset>
 
@@ -361,7 +484,12 @@ export default function Form() {
           )}
           <FormField>
             <FormLabel htmlFor="location-description">{t("location-description")}</FormLabel>
-            <Textarea id="location-description" name="location-description" />
+            <Textarea
+              id="location-description"
+              name="location-description"
+              defaultValue={formState["location-description"]}
+              onChange={handleInputChange}
+            />
           </FormField>
 
           {showNotes && <Note> voorkeur contactwijze: brief / telefoon / e-mail </Note>}
@@ -374,8 +502,9 @@ export default function Form() {
               <RadioButton
                 id="contact-letter"
                 name="contact-preference"
-                value="contact-letter"
-                defaultChecked={preferLetter}
+                value="letter"
+                checked={formState["contact-preference"] === "letter"}
+                onChange={handleInputChange}
                 required
               />
             </FormField>
@@ -383,13 +512,27 @@ export default function Form() {
               <FormLabel type="radio" htmlFor="contact-phone">
                 {t("contact-phone")}
               </FormLabel>
-              <RadioButton id="contact-phone" name="contact-preference" value="contact-phone" required />
+              <RadioButton
+                id="contact-phone"
+                name="contact-preference"
+                value="phone"
+                checked={formState["contact-preference"] === "phone"}
+                onChange={handleInputChange}
+                required
+              />
             </FormField>
             <FormField>
               <FormLabel type="radio" htmlFor="contact-email">
                 {t("contact-email")}
               </FormLabel>
-              <RadioButton id="contact-email" name="contact-preference" value="contact-email" required />
+              <RadioButton
+                id="contact-email"
+                name="contact-preference"
+                value="email"
+                checked={formState["contact-preference"] === "email"}
+                onChange={handleInputChange}
+                required
+              />
             </FormField>
           </Fieldset>
         </div>
@@ -404,19 +547,38 @@ export default function Form() {
           )}
           <FormField>
             <FormLabel htmlFor="kvk-number">{t("kvk-number")}</FormLabel>
-            <TextInput id="kvk-number" name="kvk-number" inputMode="numeric" />
+            <TextInput
+              id="kvk-number"
+              name="kvk-number"
+              inputMode="numeric"
+              defaultValue={formState["kvk-number"]}
+              onChange={handleInputChange}
+            />
           </FormField>
 
           {showNotes && <Note>Bedrijfsnaam </Note>}
           <FormField>
             <FormLabel htmlFor="organization">{t("organization")}</FormLabel>
-            <TextInput id="organization" name="organization" autoComplete="organization" />
+            <TextInput
+              id="organization"
+              name="organization"
+              autoComplete="organization"
+              defaultValue={formState.organization}
+              onChange={handleInputChange}
+            />
           </FormField>
 
           {showNotes && <Note>Website </Note>}
           <FormField>
             <FormLabel htmlFor="website">{t("website")}</FormLabel>
-            <TextInput type="url" id="website" name="website" autoComplete="url" />
+            <TextInput
+              type="url"
+              id="website"
+              name="website"
+              autoComplete="url"
+              defaultValue={formState.website}
+              onChange={handleInputChange}
+            />
           </FormField>
         </div>
         <div className="form-section">
@@ -425,13 +587,13 @@ export default function Form() {
           {showNotes && <Note>IBAN </Note>}
           <FormField>
             <FormLabel htmlFor="iban">{t("iban")}</FormLabel>
-            <TextInput id="iban" name="iban" />
+            <TextInput id="iban" name="iban" defaultValue={formState.iban} onChange={handleInputChange} />
           </FormField>
 
           {showNotes && <Note>BIC </Note>}
           <FormField>
             <FormLabel htmlFor="bic">{t("bic")}</FormLabel>
-            <TextInput id="bic" name="bic" />
+            <TextInput id="bic" name="bic" defaultValue={formState.bic} onChange={handleInputChange} />
           </FormField>
         </div>
         <div className="form-section">
@@ -444,7 +606,13 @@ export default function Form() {
             </Note>
           )}
           <FormField>
-            <Checkbox id="accept-data-handling" name="accept-data-handling" defaultChecked={consent} required />
+            <Checkbox
+              id="accept-data-handling"
+              name="accept-data-handling"
+              checked={formState["accept-data-handling"]}
+              onChange={handleCheckboxChange}
+              required
+            />
             <FormLabel type="checkbox" htmlFor="accept-data-handling">
               {t("accept-data-handling")}
             </FormLabel>
@@ -454,7 +622,12 @@ export default function Form() {
             <Note>Checkbox voor op de hoogte blijven TODO: richtlijnen over `checked` state bij aanvang</Note>
           )}
           <FormField>
-            <Checkbox id="subscribe-newsletter" name="subscribe-newsletter" />
+            <Checkbox
+              id="subscribe-newsletter"
+              name="subscribe-newsletter"
+              checked={formState["subscribe-newsletter"]}
+              onChange={handleCheckboxChange}
+            />
             <FormLabel type="checkbox" htmlFor="subscribe-newsletter">
               {t("subscribe-newsletter")}
             </FormLabel>

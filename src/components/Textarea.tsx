@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
+import { TextareaHTMLAttributes } from "react";
 
 interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   id: string;
