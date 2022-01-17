@@ -694,8 +694,8 @@ export default function Form() {
               {/* <!-- How annoying is it to have a screen reader repeat the name and say "heading level 2 Persoonsgegevens, definition list Persoonsgegevens"? --> */}
               <div>
                 <dt>{t("manner-of-address")}</dt>
-                <DataListValue value={formState["house-number"]} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formState["house-number"]}</span>
+                <DataListValue value={formState["manner-of-address"]} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{formState["manner-of-address"]}</span>
                 </DataListValue>
               </div>
               <div>
