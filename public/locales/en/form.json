@@ -1,7 +1,7 @@
 {
   "accept-data-handling": "I accept handing of this personal data",
   "address": "Address",
-  "bank-details": "Bank details",
+  "financial-details": "Bank details",
   "bday": "Birthday",
   "bic": "BIC",
   "bsn": "BSN",
@@ -12,6 +12,7 @@
   "contact-phone": "Phone",
   "contact-preference": "Preferred way of contacting you",
   "country": "Country",
+  "data-item-input-empty": "Nothing entered",
   "email": "E-mail",
   "family-name-prefix": "Family name prefix",
   "family-name": "Surname",

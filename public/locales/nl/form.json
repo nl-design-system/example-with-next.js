@@ -1,7 +1,7 @@
 {
   "accept-data-handling": "Ik ga akkoord met het verwerken van bovenstaande gegevens",
   "address": "Adres",
-  "bank-details": "Bankgegevens",
+  "financial-details": "Bankgegevens",
   "bday": "Geboortedatum",
   "bic": "BIC",
   "bsn": "BSN",
@@ -12,6 +12,7 @@
   "contact-email": "E-mail",
   "contact-phone": "Telefoon",
   "country": "Land",
+  "data-item-input-empty": "Niets ingevuld",
   "email": "E-mail",
   "family-name-prefix": "Tussenvoegsels",
   "family-name": "Achternaam",
