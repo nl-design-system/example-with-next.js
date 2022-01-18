@@ -1,12 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
 import Head from "next/head";
-import {
-  UtrechtButton,
-  UtrechtDocument,
-  UtrechtHeading1,
-  UtrechtHeading2,
-  UtrechtParagraph,
-} from "@utrecht/web-component-library-react";
 import { Note } from "../src/components/demo/Note";
 import { ChangeEvent, FormEvent, useReducer, useState } from "react";
 import { FormField } from "../src/components/FormField";
@@ -25,6 +18,8 @@ import { LanguageToggle } from "../src/components/LanguageToggle";
 import { DemoForm } from "../types/DemoForm";
 import { EmptyIndicator } from "../src/components/EmptyIndicator";
 import { DataListValue } from "../src/components/DataListValue";
+import { Document, Heading1, Heading2, Paragraph } from "../src/components";
+import { Button } from "../src/components/Button";
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {
@@ -118,7 +113,7 @@ export default function Form() {
   };
 
   return (
-    <UtrechtDocument>
+    <Document>
       <Head>
         <title>{t("page-title")}</title>
         <link rel="stylesheet" type="text/css" href="https://unpkg.com/@utrecht/component-library-css/dist/bem.css" />
@@ -129,7 +124,7 @@ export default function Form() {
           href="https://unpkg.com/@gemeente-denhaag/design-tokens-components/dist/theme/index.css"
         />
       </Head>
-      <UtrechtHeading1>{t("page-title")}</UtrechtHeading1>
+      <Heading1>{t("page-title")}</Heading1>
       <LanguageToggle />
       {!submitted || loading ? (
         <>
@@ -146,14 +141,14 @@ export default function Form() {
           </FormField>
           <form onSubmit={handleSubmit}>
             <div className="form-section">
-              <UtrechtHeading2>{t("personal-details")}</UtrechtHeading2>
+              <Heading2>{t("personal-details")}</Heading2>
               {showNotes && (
                 <Note>
-                  <UtrechtParagraph>
+                  <Paragraph>
                     Voornaam (of "Voornam(en)" of "Voornaam (1 of meerdere)" of "Voornaam of voornamen"?) De "1 of
                     meerdere" variant werkt voor screenreaders, Nederlands B1 en Google Translate Opmerking: Is alleen
                     "Voornamen" onduidelijk voor mensen met maar 1 voornaam? Hoe zit het met mensen zonder voornaam?
-                  </UtrechtParagraph>
+                  </Paragraph>
                 </Note>
               )}
               <FormField>
@@ -169,7 +164,7 @@ export default function Form() {
                 />
                 {!formState["given-name"] && (
                   <FormFieldDescription id="given-name-required" invalid>
-                    <UtrechtParagraph>{t("given-name-required")}</UtrechtParagraph>
+                    <Paragraph>{t("given-name-required")}</Paragraph>
                   </FormFieldDescription>
                 )}
               </FormField>
@@ -307,7 +302,7 @@ export default function Form() {
                   />
                 </FormField>
                 <FormFieldDescription invalid id="gender-required">
-                  <UtrechtParagraph>{t("gender-required")}</UtrechtParagraph>
+                  <Paragraph>{t("gender-required")}</Paragraph>
                 </FormFieldDescription>
               </Fieldset>
 
@@ -346,7 +341,7 @@ export default function Form() {
               </FormField>
             </div>
             <div className="form-section">
-              <UtrechtHeading2>{t("contact-details")}</UtrechtHeading2>
+              <Heading2>{t("contact-details")}</Heading2>
 
               {showNotes && (
                 <Note>
@@ -580,7 +575,7 @@ export default function Form() {
               </Fieldset>
             </div>
             <div className="form-section">
-              <UtrechtHeading2>{t("commercial-details")}</UtrechtHeading2>
+              <Heading2>{t("commercial-details")}</Heading2>
 
               {showNotes && (
                 <Note>
@@ -625,7 +620,7 @@ export default function Form() {
               </FormField>
             </div>
             <div className="form-section">
-              <UtrechtHeading2>{t("financial-details")}</UtrechtHeading2>
+              <Heading2>{t("financial-details")}</Heading2>
 
               {showNotes && <Note>IBAN </Note>}
               <FormField>
@@ -640,7 +635,7 @@ export default function Form() {
               </FormField>
             </div>
             <div className="form-section">
-              <UtrechtHeading2>{t("other-fields")}</UtrechtHeading2>
+              <Heading2>{t("other-fields")}</Heading2>
 
               {showNotes && (
                 <Note>
@@ -676,13 +671,13 @@ export default function Form() {
                 </FormLabel>
               </FormField>
             </div>
-            <UtrechtButton type="submit" disabled={loading} busy={loading}>
+            <Button type="submit" disabled={loading} busy={loading}>
               {t("submit")}
-            </UtrechtButton>
+            </Button>
           </form>
           <div>
-            <UtrechtButton onClick={demo1}>Demo 1</UtrechtButton>
-            <UtrechtButton onClick={demo2}>Demo 2</UtrechtButton>
+            <Button onClick={demo1}>Demo 1</Button>
+            <Button onClick={demo2}>Demo 2</Button>
           </div>
         </>
       ) : (
@@ -891,9 +886,9 @@ export default function Form() {
               </div>
             </dl>
           </section>
-          <UtrechtButton onClick={() => setSubmitted(false)}>Back</UtrechtButton>
+          <Button onClick={() => setSubmitted(false)}>Back</Button>
         </>
       )}
-    </UtrechtDocument>
+    </Document>
   );
 }
