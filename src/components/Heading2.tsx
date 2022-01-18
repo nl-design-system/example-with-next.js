@@ -4,11 +4,11 @@
  */
 
 import clsx from "clsx";
-import { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes, PropsWithChildren } from "react";
 
 export type Heading2Props = InputHTMLAttributes<HTMLHeadingElement>;
 
-export const Heading2 = ({ children, className, ...restProps }: Heading2Props) => (
+export const Heading2 = ({ children, className, ...restProps }: PropsWithChildren<Heading2Props>) => (
   <h2 {...restProps} className={clsx("utrecht-heading-2", className)}>
     {children}
   </h2>

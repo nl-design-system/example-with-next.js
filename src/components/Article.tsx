@@ -4,11 +4,11 @@
  */
 
 import clsx from "clsx";
-import { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes, PropsWithChildren } from "react";
 
 export type ArticleProps = InputHTMLAttributes<HTMLElement>;
 
-export const Article = ({ children, className, ...restProps }: ArticleProps) => (
+export const Article = ({ children, className, ...restProps }: PropsWithChildren<ArticleProps>) => (
   <article {...restProps} className={clsx("utrecht-article", className)}>
     {children}
   </article>

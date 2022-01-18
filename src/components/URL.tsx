@@ -4,11 +4,11 @@
  */
 
 import clsx from "clsx";
-import { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes, PropsWithChildren } from "react";
 
 export type URLProps = InputHTMLAttributes<HTMLElement>;
 
-export const URL = ({ children, className, ...restProps }: URL) => (
+export const URL = ({ children, className, ...restProps }: PropsWithChildren<URLProps>) => (
   <bdi {...restProps} className={clsx("utrecht-url", className)}>
     {children}
   </bdi>
