@@ -4,11 +4,11 @@
  */
 
 import clsx from "clsx";
-import { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes, PropsWithChildren } from "react";
 
 export type BackdropProps = InputHTMLAttributes<HTMLDivElement>;
 
-export const Backdrop = ({ children, className, ...restProps }: BackdropProps) => (
+export const Backdrop = ({ children, className, ...restProps }: PropsWithChildren<BackdropProps>) => (
   <div {...restProps} className={clsx("utrecht-backdrop", className)}>
     {children}
   </div>

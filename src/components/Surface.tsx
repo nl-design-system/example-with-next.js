@@ -4,11 +4,11 @@
  */
 
 import clsx from "clsx";
-import { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes, PropsWithChildren } from "react";
 
 export type SurfaceProps = InputHTMLAttributes<HTMLDivElement>;
 
-export const Surface = ({ children, className, ...restProps }: SurfaceProps) => (
+export const Surface = ({ children, className, ...restProps }: PropsWithChildren<SurfaceProps>) => (
   <div {...restProps} className={clsx("utrecht-surface", className)}>
     {children}
   </div>

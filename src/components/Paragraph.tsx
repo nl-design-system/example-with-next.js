@@ -4,13 +4,13 @@
  */
 
 import clsx from "clsx";
-import { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes, PropsWithChildren } from "react";
 
 export interface ParagraphProps extends InputHTMLAttributes<HTMLParagraphElement> {
   lead?: boolean;
 }
 
-export const Paragraph = ({ children, className, lead, ...restProps }: ParagraphProps) => (
+export const Paragraph = ({ children, className, lead, ...restProps }: PropsWithChildren<ParagraphProps>) => (
   <p {...restProps} className={clsx("utrecht-paragraph", lead && "utrecht-paragraph--lead", className)}>
     {children}
   </p>
