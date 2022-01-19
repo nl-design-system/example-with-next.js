@@ -73,7 +73,7 @@ export const AlternateLangNavComponent = ({
   currentLang?: string;
   locales: { hrefLang: string; lang: string; textContent: string; title: string }[];
 }) => {
-  const { asPath, locale } = useRouter();
+  const { asPath } = useRouter();
 
   return (
     <AlternateLangNavContainer>
