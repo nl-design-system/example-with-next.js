@@ -2,24 +2,29 @@
 import Head from "next/head";
 import { Note } from "../src/components/demo/Note";
 import { ChangeEvent, FormEvent, useReducer, useState } from "react";
-import { FormField } from "../src/components/FormField";
-import { FormLabel } from "../src/components/FormLabel";
-import { TextInput } from "../src/components/TextInput";
-import { FormFieldDescription } from "../src/components/FormFieldDescription";
-import { Fieldset } from "../src/components/Fieldset";
-import { FieldsetLegend } from "../src/components/FieldsetLegend";
-import { RadioButton } from "../src/components/RadioButton";
 import { DateInput } from "../src/components/DateInput";
-import { Checkbox } from "../src/components/Checkbox";
-import { Textarea } from "../src/components/Textarea";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { LanguageToggle } from "../src/components/LanguageToggle";
 import { DemoForm } from "../types/DemoForm";
 import { EmptyIndicator } from "../src/components/EmptyIndicator";
 import { DataListValue } from "../src/components/DataListValue";
-import { Document, Heading1, Heading2, Paragraph } from "../src/components";
-import { Button } from "../src/components/Button";
+import {
+  Button,
+  Checkbox,
+  Document,
+  Fieldset,
+  FieldsetLegend,
+  FormField,
+  FormFieldDescription,
+  FormLabel,
+  Heading1,
+  Heading2,
+  Paragraph,
+  RadioButton,
+  Textarea,
+  TextInput,
+} from "../src/components/utrecht";
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {

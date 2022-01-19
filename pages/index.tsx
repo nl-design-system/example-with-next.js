@@ -1,7 +1,6 @@
 import Head from "next/head";
-import Image from "next/image";
 import { LanguageToggle } from "../src/components/LanguageToggle";
-import { Document } from "../src/components";
+import { Document } from "../src/components/utrecht";
 
 export default function Home() {
   return (

@@ -1,42 +1,18 @@
 /* eslint-disable react/no-unescaped-entities */
 import Head from "next/head";
 import { UtrechtButton } from "@utrecht/web-component-library-react";
-import { Note } from "../src/components/demo/Note";
-import { ChangeEvent, FormEvent, useReducer, useState } from "react";
 import {
-  Article,
-  Checkbox,
-  DateInput,
   Document,
   Fieldset,
   FieldsetLegend,
   FormField,
   FormLabel,
   Heading1,
-  Heading2,
-  Heading3,
-  Heading4,
-  Heading5,
-  Heading6,
-  OrderedList,
-  OrderedListItem,
-  Paragraph,
-  RadioButton,
-  Separator,
-  Surface,
-  Textarea,
   TextInput,
-  UnorderedList,
-  UnorderedListItem,
-  URL,
-} from "../src/components";
-
+} from "../src/components/utrecht";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { LanguageToggle } from "../src/components/LanguageToggle";
-import { DemoForm } from "../types/DemoForm";
-import { EmptyIndicator } from "../src/components/EmptyIndicator";
-import { DataListValue } from "../src/components/DataListValue";
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {

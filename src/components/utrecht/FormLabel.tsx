@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { HTMLAttributes, LabelHTMLAttributes, PropsWithChildren } from "react";
+import { LabelHTMLAttributes, PropsWithChildren } from "react";
 
 interface Props extends LabelHTMLAttributes<HTMLLabelElement> {
   htmlFor: string;

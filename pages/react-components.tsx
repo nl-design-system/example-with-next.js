@@ -1,7 +1,6 @@
 import {
   Article,
   Checkbox,
-  DateInput,
   Document,
   Fieldset,
   FieldsetLegend,
@@ -23,8 +22,9 @@ import {
   TextInput,
   UnorderedList,
   UnorderedListItem,
-  URL,
-} from "../src/components";
+} from "../src/components/utrecht";
+
+import { DateInput } from "../src/components";
 
 export default function ReactComponents() {
   return (
