@@ -6,7 +6,7 @@ import { DateInput } from "../src/components/DateInput";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { LanguageToggle } from "../src/components/LanguageToggle";
-import { DemoForm } from "../types/DemoForm";
+import { DemoFormChecked, DemoFormInput } from "../types/DemoForm";
 import { EmptyIndicator } from "../src/components/EmptyIndicator";
 import { DataListValue } from "../src/components/DataListValue";
 import {
@@ -32,17 +32,88 @@ export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   },
 });
 
+const trimWhitespace = (value: string) => value.trim();
+const normalizeWhitespace = (value: string) => value.replace(/\s+/g, " ");
+const removeWhitespace = (value: string) => value.replace(/\s+/g, "");
+// const toInteger = (value: string): number => parseInt(value, 10);
+
+const normalizers: Partial<{ [Property in keyof DemoFormInput]: ((value: string) => string)[] }> = {
+  "given-name": [trimWhitespace, normalizeWhitespace],
+  iban: [removeWhitespace],
+  "kvk-number": [removeWhitespace],
+};
+
+type FormInput = { [Property in keyof DemoFormInput]: string };
+
 export default function Form() {
-  function handleFormChange(state: DemoForm, action: Partial<DemoForm>) {
-    return { ...state, ...action };
+  function normalizeInput(partial: Partial<FormInput>) {
+    return Object.entries(partial).reduce((normalized, entry) => {
+      const [key, value] = entry as [keyof DemoFormInput, string];
+      const configuredNormalizers = normalizers[key];
+
+      if (Array.isArray(configuredNormalizers)) {
+        return {
+          ...normalized,
+          [key]: configuredNormalizers.reduce((n, fn) => fn(n), value),
+        };
+      }
+
+      return { ...normalized, [key]: value };
+    }, {});
   }
 
-  const initialFormState: Partial<DemoForm> = {
+  function handleFormInputChange(
+    state: FormInput,
+    { event, partial }: { event: "change" | "blur"; partial: Partial<FormInput> }
+  ) {
+    if (event === "blur") {
+      return { ...state, ...normalizeInput(partial) };
+    }
+
+    return { ...state, ...partial };
+  }
+
+  function handleFormChecked(state: DemoFormChecked, partial: Partial<DemoFormChecked>) {
+    return { ...state, ...partial };
+  }
+
+  const initialFormChecked: DemoFormChecked = {
     "accept-data-handling": false,
     "subscribe-newsletter": false,
   };
 
-  const [formState, dispatch] = useReducer(handleFormChange, initialFormState as DemoForm);
+  const defaultFormInput: Omit<FormInput, "gender" | "contact-preference"> = {
+    "given-name": "",
+    "family-name": "",
+    "given-name-initials": "",
+    "family-name-prefix": "",
+    "name-original-writing": "",
+    "manner-of-address": "",
+    bday: "",
+    bsn: "",
+    "postal-code": "",
+    "house-number": "",
+    "house-number-letter": "",
+    "house-number-suffix": "",
+    street: "",
+    "place-of-residence": "",
+    municipality: "",
+    country: "",
+    email: "",
+    tel: "",
+    "tel-mobile": "",
+    "tel-daytime": "",
+    "tel-evening": "",
+    "location-description": "",
+    iban: "",
+    bic: "",
+    "kvk-number": "",
+    organization: "",
+    website: "",
+  };
+
+  const [formCheckedState, dispatchFormCheck] = useReducer(handleFormChecked, initialFormChecked);
+  const [formInputState, dispatchFormInputState] = useReducer(handleFormInputChange, defaultFormInput as FormInput);
   const [showNotes, setShowNotes] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -59,7 +130,7 @@ export default function Form() {
     }, 2000);
 
     const res = await fetch("/api/form", {
-      body: JSON.stringify(formState),
+      body: JSON.stringify(formInputState),
       headers: {
         "Content-Type": "application/json",
       },
@@ -71,50 +142,77 @@ export default function Form() {
     console.log("RESULT", result);
   };
   const demo1 = () => {
-    dispatch({
-      gender: "female",
-      "given-name": "Yolijn",
-      "contact-preference": "letter",
+    clear();
+    dispatchFormInputState({
+      event: "blur",
+      partial: {
+        gender: "female",
+        "given-name": "Pipa   Porretje",
+        "family-name": "Yo   Yo   Ko",
+        "contact-preference": "letter",
+      },
+    });
+
+    dispatchFormCheck({
       "accept-data-handling": true,
     });
+  };
+
+  const clear = () => {
+    dispatchFormInputState({ event: "change", partial: defaultFormInput });
+    dispatchFormCheck(initialFormChecked);
   };
 
   const demo2 = () => {
-    dispatch({
-      "given-name": "Bobby",
-      "family-name": "Tables",
-      "family-name-prefix": "on the",
-      "given-name-initials": "B",
-      "name-original-writing": "Robert'); DROP TABLE Students--",
-      "manner-of-address": "little",
-      gender: "male",
-      bday: "2001-02-03",
-      bsn: 123456789,
-      email: "btables@hotcakes.com",
-      tel: "02012345678",
-      "tel-mobile": "06123456789",
-      "tel-daytime": "06123456789",
-      "tel-evening": "02012345678",
-      "postal-code": "4242BT",
-      "house-number": 21,
-      "house-number-letter": "Z",
-      "house-number-suffix": "achterste voren",
-      street: "Wasstraat",
-      "place-of-residence": "Groet",
-      municipality: "Schoorl",
-      country: "Fantasieland",
-      "location-description": "",
-      "contact-preference": "email",
+    clear();
+    dispatchFormInputState({
+      event: "blur",
+      partial: {
+        "given-name": "Bobby",
+        "family-name": "Tables",
+        "family-name-prefix": "on the",
+        "given-name-initials": "B",
+        "name-original-writing": "Robert'); DROP TABLE Students--",
+        "manner-of-address": "little",
+        gender: "male",
+        bday: "2001-02-03",
+        bsn: "123456789",
+        email: "btables@hotcakes.com",
+        tel: "02012345678",
+        "tel-mobile": "06123456789",
+        "tel-daytime": "06123456789",
+        "tel-evening": "02012345678",
+        "postal-code": "4242BT",
+        "house-number": "21",
+        "house-number-letter": "Z",
+        "house-number-suffix": "achterste voren",
+        street: "Wasstraat",
+        "place-of-residence": "Groet",
+        municipality: "Schoorl",
+        country: "Fantasieland",
+        "location-description": "",
+        "contact-preference": "email",
+      },
+    });
+
+    dispatchFormCheck({
       "accept-data-handling": true,
     });
+
+    console.log(formInputState);
+    console.log(formCheckedState);
   };
 
   const handleInputChange = (change: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    dispatch({ [change.target.name]: change.target.value });
+    dispatchFormInputState({ event: "change", partial: { [change.target.name]: change.target.value } });
+  };
+
+  const handleInputBlur = (change: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    dispatchFormInputState({ event: "blur", partial: { [change.target.name]: change.target.value } });
   };
 
   const handleCheckboxChange = (change: ChangeEvent<HTMLInputElement>) => {
-    dispatch({ [change.target.name]: change.target.checked });
+    dispatchFormCheck({ [change.target.name]: change.target.checked });
   };
 
   return (
@@ -159,15 +257,16 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="given-name">{t("given-name")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   id="given-name"
                   name="given-name"
                   autoComplete="given-name"
-                  defaultValue={formState["given-name"]}
+                  value={formInputState["given-name"]}
                   onChange={handleInputChange}
                   required
                   aria-describedby="given-name-required"
                 />
-                {!formState["given-name"] && (
+                {!formInputState["given-name"] && (
                   <FormFieldDescription id="given-name-required" invalid>
                     <Paragraph>{t("given-name-required")}</Paragraph>
                   </FormFieldDescription>
@@ -183,10 +282,11 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="family-name">{t("family-name")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   id="family-name"
                   name="family-name"
                   autoComplete="family-name"
-                  defaultValue={formState["family-name"]}
+                  value={formInputState["family-name"]}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -194,15 +294,16 @@ export default function Form() {
                 <Note>
                   Voorletters Opmerking: Hoe moeten deze ingevoerd worden? Gescheiden door spaties, punten, moet er wel
                   validatie op? Geen autoComplete, niet in definititie van basis registratie personen Voorlopige
-                  conclusie: Vermijd voorletters{" "}
+                  conclusie: Vermijd voorletters
                 </Note>
               )}
               <FormField>
                 <FormLabel htmlFor="given-name-initials">{t("given-name-initials")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   id="given-name-initials"
                   name="given-name-initials"
-                  defaultValue={formState["given-name-initials"]}
+                  value={formInputState["given-name-initials"]}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -217,10 +318,11 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="family-name-prefix">{t("family-name-prefix")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   id="family-name-prefix"
                   name="family-name-prefix"
                   autoComplete="honorific-prefix"
-                  defaultValue={formState["family-name-prefix"]}
+                  value={formInputState["family-name-prefix"]}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -235,9 +337,10 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="name-original-writing">{t("name-original-writing")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   id="name-original-writing"
                   name="name-original-writing"
-                  defaultValue={formState["name-original-writing"]}
+                  value={formInputState["name-original-writing"]}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -251,9 +354,10 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="manner-of-address">{t("manner-of-address")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   id="manner-of-address"
                   name="manner-of-address"
-                  defaultValue={formState["manner-of-address"]}
+                  value={formInputState["manner-of-address"]}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -275,7 +379,7 @@ export default function Form() {
                     id="gender-female"
                     name="gender"
                     value="female"
-                    checked={formState.gender === "female"}
+                    checked={formInputState.gender === "female"}
                     onChange={handleInputChange}
                     aria-describedby="gender-required"
                   />
@@ -288,7 +392,7 @@ export default function Form() {
                     id="gender-male"
                     name="gender"
                     value="male"
-                    checked={formState.gender === "male"}
+                    checked={formInputState.gender === "male"}
                     onChange={handleInputChange}
                     aria-describedby="gender-required"
                   />
@@ -301,7 +405,7 @@ export default function Form() {
                     id="gender-unknown"
                     name="gender"
                     value="unknown"
-                    checked={formState.gender === "unknown"}
+                    checked={formInputState.gender === "unknown"}
                     onChange={handleInputChange}
                     aria-describedby="gender-required"
                   />
@@ -323,7 +427,7 @@ export default function Form() {
                   id="bday"
                   autoComplete="bday"
                   name="bday"
-                  defaultValue={formState.bday}
+                  value={formInputState.bday}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -337,10 +441,11 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="bsn">{t("bsn")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   id="bsn"
                   name="bsn"
                   inputMode="numeric"
-                  defaultValue={formState.bsn}
+                  value={formInputState.bsn}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -358,10 +463,11 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="email">{t("email")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   type="email"
                   id="email"
                   name="email"
-                  defaultValue={formState.email}
+                  value={formInputState.email}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -379,11 +485,12 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="tel">{t("tel")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   type="tel"
                   id="tel"
                   name="tel"
                   autoComplete="tel"
-                  defaultValue={formState.tel}
+                  value={formInputState.tel}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -392,11 +499,12 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="tel-mobile">{t("tel-mobile")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   type="tel"
                   id="tel-mobile"
                   name="tel-mobile"
                   autoComplete="tel mobile"
-                  defaultValue={formState["tel-mobile"]}
+                  value={formInputState["tel-mobile"]}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -410,22 +518,24 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="tel-daytime">{t("tel-daytime")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   type="tel"
                   id="tel-daytime"
                   name="tel-daytime"
                   autoComplete="tel"
-                  defaultValue={formState["tel-daytime"]}
+                  value={formInputState["tel-daytime"]}
                   onChange={handleInputChange}
                 />
               </FormField>
               <FormField>
                 <FormLabel htmlFor="tel-evening">{t("tel-evening")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   type="tel"
                   id="tel-evening"
                   name="tel-evening"
                   autoComplete="tel"
-                  defaultValue={formState["tel-evening"]}
+                  value={formInputState["tel-evening"]}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -450,70 +560,83 @@ export default function Form() {
                 <FormField>
                   <FormLabel htmlFor="postal-code">{t("postal-code")}</FormLabel>
                   <TextInput
+                    onBlur={handleInputBlur}
                     id="postal-code"
                     name="postal-code"
                     autoComplete="postal-code"
-                    defaultValue={formState["postal-code"]}
+                    value={formInputState["postal-code"]}
                     onChange={handleInputChange}
                   />
                 </FormField>
                 <FormField>
                   <FormLabel htmlFor="house-number">{t("house-number")}</FormLabel>
                   <TextInput
+                    onBlur={handleInputBlur}
                     id="house-number"
                     name="house-number"
                     inputMode="numeric"
-                    defaultValue={formState["house-number"]}
+                    value={formInputState["house-number"]}
                     onChange={handleInputChange}
                   />
                 </FormField>
                 <FormField>
                   <FormLabel htmlFor="house-number-letter">{t("house-number-letter-suffix")}</FormLabel>
                   <TextInput
+                    onBlur={handleInputBlur}
                     id="house-number-letter"
                     name="house-number-letter"
-                    defaultValue={formState["house-number-letter"]}
+                    value={formInputState["house-number-letter"]}
                     onChange={handleInputChange}
                   />
                 </FormField>
                 <FormField>
                   <FormLabel htmlFor="house-number-suffix">{t("house-number-suffix")}</FormLabel>
                   <TextInput
+                    onBlur={handleInputBlur}
                     id="house-number-suffix"
                     name="house-number-suffix"
-                    defaultValue={formState["house-number-suffix"]}
+                    value={formInputState["house-number-suffix"]}
                     onChange={handleInputChange}
                   />
                 </FormField>
                 <FormField>
                   <FormLabel htmlFor="street">{t("street")}</FormLabel>
-                  <TextInput id="street" name="street" defaultValue={formState.street} onChange={handleInputChange} />
+                  <TextInput
+                    onBlur={handleInputBlur}
+                    id="street"
+                    name="street"
+                    value={formInputState.street}
+                    onChange={handleInputChange}
+                  />
                 </FormField>
                 <FormField>
                   <FormLabel htmlFor="place-of-residence">{t("place-of-residence")}</FormLabel>
                   <TextInput
+                    onBlur={handleInputBlur}
                     id="place-of-residence"
                     name="place-of-residence"
-                    defaultValue={formState["place-of-residence"]}
+                    value={formInputState["place-of-residence"]}
                     onChange={handleInputChange}
                   />
                 </FormField>
                 <FormField>
                   <FormLabel htmlFor="municipality">{t("municipality")}</FormLabel>
                   <TextInput
+                    onBlur={handleInputBlur}
                     id="municipality"
                     name="municipality"
-                    defaultValue={formState.municipality}
+                    value={formInputState.municipality}
                     onChange={handleInputChange}
                   />
                 </FormField>
                 <FormField>
                   <FormLabel htmlFor="country">{t("country")}</FormLabel>
                   <TextInput
+                    onBlur={handleInputBlur}
                     id="country"
                     name="country"
                     autoComplete="country-name"
-                    defaultValue={formState.country}
+                    value={formInputState.country}
                     onChange={handleInputChange}
                   />
                 </FormField>
@@ -528,9 +651,10 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="location-description">{t("location-description")}</FormLabel>
                 <Textarea
+                  onBlur={handleInputBlur}
                   id="location-description"
                   name="location-description"
-                  defaultValue={formState["location-description"]}
+                  value={formInputState["location-description"]}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -546,7 +670,7 @@ export default function Form() {
                     id="contact-letter"
                     name="contact-preference"
                     value="letter"
-                    checked={formState["contact-preference"] === "letter"}
+                    checked={formInputState["contact-preference"] === "letter"}
                     onChange={handleInputChange}
                     required
                   />
@@ -559,7 +683,7 @@ export default function Form() {
                     id="contact-phone"
                     name="contact-preference"
                     value="phone"
-                    checked={formState["contact-preference"] === "phone"}
+                    checked={formInputState["contact-preference"] === "phone"}
                     onChange={handleInputChange}
                     required
                   />
@@ -572,7 +696,7 @@ export default function Form() {
                     id="contact-email"
                     name="contact-preference"
                     value="email"
-                    checked={formState["contact-preference"] === "email"}
+                    checked={formInputState["contact-preference"] === "email"}
                     onChange={handleInputChange}
                     required
                   />
@@ -591,10 +715,11 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="kvk-number">{t("kvk-number")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   id="kvk-number"
                   name="kvk-number"
                   inputMode="numeric"
-                  defaultValue={formState["kvk-number"]}
+                  value={formInputState["kvk-number"]}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -603,10 +728,11 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="organization">{t("organization")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   id="organization"
                   name="organization"
                   autoComplete="organization"
-                  defaultValue={formState.organization}
+                  value={formInputState.organization}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -615,11 +741,12 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="website">{t("website")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   type="url"
                   id="website"
                   name="website"
                   autoComplete="url"
-                  defaultValue={formState.website}
+                  value={formInputState.website}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -630,13 +757,25 @@ export default function Form() {
               {showNotes && <Note>IBAN </Note>}
               <FormField>
                 <FormLabel htmlFor="iban">{t("iban")}</FormLabel>
-                <TextInput id="iban" name="iban" defaultValue={formState.iban} onChange={handleInputChange} />
+                <TextInput
+                  onBlur={handleInputBlur}
+                  id="iban"
+                  name="iban"
+                  value={formInputState.iban}
+                  onChange={handleInputChange}
+                />
               </FormField>
 
               {showNotes && <Note>BIC </Note>}
               <FormField>
                 <FormLabel htmlFor="bic">{t("bic")}</FormLabel>
-                <TextInput id="bic" name="bic" defaultValue={formState.bic} onChange={handleInputChange} />
+                <TextInput
+                  onBlur={handleInputBlur}
+                  id="bic"
+                  name="bic"
+                  value={formInputState.bic}
+                  onChange={handleInputChange}
+                />
               </FormField>
             </div>
             <div className="form-section">
@@ -652,7 +791,7 @@ export default function Form() {
                 <Checkbox
                   id="accept-data-handling"
                   name="accept-data-handling"
-                  checked={formState["accept-data-handling"]}
+                  checked={formCheckedState["accept-data-handling"]}
                   onChange={handleCheckboxChange}
                   required
                 />
@@ -668,7 +807,7 @@ export default function Form() {
                 <Checkbox
                   id="subscribe-newsletter"
                   name="subscribe-newsletter"
-                  checked={formState["subscribe-newsletter"]}
+                  checked={formCheckedState["subscribe-newsletter"]}
                   onChange={handleCheckboxChange}
                 />
                 <FormLabel type="checkbox" htmlFor="subscribe-newsletter">
@@ -683,6 +822,7 @@ export default function Form() {
           <div>
             <Button onClick={demo1}>Demo 1</Button>
             <Button onClick={demo2}>Demo 2</Button>
+            <Button onClick={clear}>Reset</Button>
           </div>
         </>
       ) : (
@@ -694,57 +834,69 @@ export default function Form() {
               {/* <!-- How annoying is it to have a screen reader repeat the name and say "heading level 2 Persoonsgegevens, definition list Persoonsgegevens"? --> */}
               <div>
                 <dt>{t("manner-of-address")}</dt>
-                <DataListValue value={formState["manner-of-address"]} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formState["manner-of-address"]}</span>
+                <DataListValue
+                  value={formInputState["manner-of-address"]}
+                  emptyDescription={t("data-item-input-empty")}
+                >
+                  <span className="notranslate">{formInputState["manner-of-address"]}</span>
                 </DataListValue>
               </div>
               <div>
-                <dt>{t("given-name-initials")}</dt>{" "}
-                <DataListValue value={formState["given-name-initials"]} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formState["given-name-initials"]}</span>
+                <dt>{t("given-name-initials")}</dt>
+                <DataListValue
+                  value={formInputState["given-name-initials"]}
+                  emptyDescription={t("data-item-input-empty")}
+                >
+                  <span className="notranslate">{formInputState["given-name-initials"]}</span>
                 </DataListValue>
               </div>
               <div>
                 <dt>{t("given-name")}</dt>
-                <DataListValue value={formState["given-name"]} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formState["given-name"]}</span>
+                <DataListValue value={formInputState["given-name"]} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{formInputState["given-name"]}</span>
                 </DataListValue>
               </div>
               <div>
-                <dt>{t("family-name-prefix")}</dt>{" "}
-                <DataListValue value={formState["family-name-prefix"]} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formState["family-name-prefix"]}</span>
+                <dt>{t("family-name-prefix")}</dt>
+                <DataListValue
+                  value={formInputState["family-name-prefix"]}
+                  emptyDescription={t("data-item-input-empty")}
+                >
+                  <span className="notranslate">{formInputState["family-name-prefix"]}</span>
                 </DataListValue>
               </div>
               <div>
                 <dt>{t("family-name")}</dt>
-                <DataListValue value={formState["family-name"]} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formState["family-name"]}</span>
+                <DataListValue value={formInputState["family-name"]} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{formInputState["family-name"]}</span>
                 </DataListValue>
               </div>
               <div>
-                <dt>{t("name-original-writing")}</dt>{" "}
-                <DataListValue value={formState["name-original-writing"]} emptyDescription={t("data-item-input-empty")}>
-                  <bdi className="notranslate">{formState["name-original-writing"]}</bdi>
+                <dt>{t("name-original-writing")}</dt>
+                <DataListValue
+                  value={formInputState["name-original-writing"]}
+                  emptyDescription={t("data-item-input-empty")}
+                >
+                  <bdi className="notranslate">{formInputState["name-original-writing"]}</bdi>
                 </DataListValue>
               </div>
               <div>
                 <dt>{t("gender")}</dt>
-                <DataListValue value={formState.gender} emptyDescription={t("data-item-input-empty")}>
-                  {t(`gender-${formState.gender}`)}
+                <DataListValue value={formInputState.gender} emptyDescription={t("data-item-input-empty")}>
+                  {t(`gender-${formInputState.gender}`)}
                 </DataListValue>
               </div>
               <div>
                 <dt>{t("bsn")}</dt>
-                <DataListValue value={formState.bsn} emptyDescription={t("data-item-input-empty")}>
-                  {formState.bsn}
+                <DataListValue value={formInputState.bsn} emptyDescription={t("data-item-input-empty")}>
+                  {formInputState.bsn}
                 </DataListValue>
               </div>
               <div>
                 <dt>{t("bday")}</dt>
-                <DataListValue value={formState.bday} emptyDescription={t("data-item-input-empty")}>
+                <DataListValue value={formInputState.bday} emptyDescription={t("data-item-input-empty")}>
                   {/* TODO: Use library to display ISO8601 in human readable format */}
-                  <time dateTime={formState.bday}>{formState.bday}</time>
+                  <time dateTime={formInputState.bday}>{formInputState.bday}</time>
                 </DataListValue>
               </div>
             </dl>
@@ -759,87 +911,102 @@ export default function Form() {
               </div>
               <div>
                 <dt>{t("house-number")}</dt>
-                <DataListValue value={formState["house-number"]} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formState["house-number"]}</span>
+                <DataListValue value={formInputState["house-number"]} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{formInputState["house-number"]}</span>
                 </DataListValue>
               </div>
               <div>
                 <dt>{t("house-number-letter")}</dt>
-                <DataListValue value={formState["house-number-letter"]} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formState["house-number-letter"]}</span>
+                <DataListValue
+                  value={formInputState["house-number-letter"]}
+                  emptyDescription={t("data-item-input-empty")}
+                >
+                  <span className="notranslate">{formInputState["house-number-letter"]}</span>
                 </DataListValue>
               </div>
               <div>
                 <dt>{t("house-number-suffix")}</dt>
-                <DataListValue value={formState["house-number-suffix"]} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formState["house-number-suffix"]}</span>
+                <DataListValue
+                  value={formInputState["house-number-suffix"]}
+                  emptyDescription={t("data-item-input-empty")}
+                >
+                  <span className="notranslate">{formInputState["house-number-suffix"]}</span>
                 </DataListValue>
               </div>
               <div>
                 <dt>{t("street")}</dt>
-                <DataListValue value={formState.street} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formState.street}</span>
+                <DataListValue value={formInputState.street} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{formInputState.street}</span>
                 </DataListValue>
               </div>
               <div>
                 <dt>{t("place-of-residence")}</dt>
-                <DataListValue value={formState["place-of-residence"]} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formState["place-of-residence"]}</span>
+                <DataListValue
+                  value={formInputState["place-of-residence"]}
+                  emptyDescription={t("data-item-input-empty")}
+                >
+                  <span className="notranslate">{formInputState["place-of-residence"]}</span>
                 </DataListValue>
               </div>
               <div>
                 <dt>{t("municipality")}</dt>
-                <DataListValue value={formState.municipality} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formState.municipality}</span>
+                <DataListValue value={formInputState.municipality} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{formInputState.municipality}</span>
                 </DataListValue>
               </div>
               <div>
                 <dt>{t("country")}</dt>
-                <DataListValue value={formState.country} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formState.country}</span>
+                <DataListValue value={formInputState.country} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{formInputState.country}</span>
                 </DataListValue>
               </div>
               <div>
                 <dt>{t("email")}</dt>
-                <DataListValue value={formState.email} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formState.email}</span>
+                <DataListValue value={formInputState.email} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{formInputState.email}</span>
                 </DataListValue>
               </div>
               <div>
                 <dt>{t("tel")}</dt>
-                <DataListValue value={formState.tel} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formState.tel}</span>
+                <DataListValue value={formInputState.tel} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{formInputState.tel}</span>
                 </DataListValue>
               </div>
               <div>
                 <dt>{t("tel-mobile")}</dt>
-                <DataListValue value={formState["tel-mobile"]} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formState["tel-mobile"]}</span>
+                <DataListValue value={formInputState["tel-mobile"]} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{formInputState["tel-mobile"]}</span>
                 </DataListValue>
               </div>
               <div>
                 <dt>{t("tel-daytime")}</dt>
-                <DataListValue value={formState["tel-daytime"]} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formState["tel-daytime"]}</span>
+                <DataListValue value={formInputState["tel-daytime"]} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{formInputState["tel-daytime"]}</span>
                 </DataListValue>
               </div>
               <div>
                 <dt>{t("tel-evening")}</dt>
-                <DataListValue value={formState["tel-evening"]} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formState["tel-evening"]}</span>
+                <DataListValue value={formInputState["tel-evening"]} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{formInputState["tel-evening"]}</span>
                 </DataListValue>
               </div>
               <div>
                 <dt>{t("location-description")}</dt>
-                <DataListValue value={formState["location-description"]} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formState["location-description"]}</span>
+                <DataListValue
+                  value={formInputState["location-description"]}
+                  emptyDescription={t("data-item-input-empty")}
+                >
+                  <span className="notranslate">{formInputState["location-description"]}</span>
                 </DataListValue>
               </div>
               <div>
                 <dt>{t("contact-preference")}</dt>
-                <DataListValue value={formState["contact-preference"]} emptyDescription={t("data-item-input-empty")}>
+                <DataListValue
+                  value={formInputState["contact-preference"]}
+                  emptyDescription={t("data-item-input-empty")}
+                >
                   <span>
-                    {t(`contact-${formState["contact-preference"]}`) || (
+                    {t(`contact-${formInputState["contact-preference"]}`) || (
                       <EmptyIndicator title={t("data-item-input-empty")} />
                     )}
                   </span>
@@ -854,14 +1021,14 @@ export default function Form() {
               {/* <!-- How annoying is it to have a screen reader repeat the name and say "heading level 2 Persoonsgegevens, definition list Persoonsgegevens"? --> */}
               <div>
                 <dt>{t("iban")}</dt>
-                <DataListValue value={formState.iban} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formState.iban}</span>
+                <DataListValue value={formInputState.iban} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{formInputState.iban}</span>
                 </DataListValue>
               </div>
               <div>
                 <dt>{t("bic")}</dt>
-                <DataListValue value={formState.bic} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formState.bic}</span>
+                <DataListValue value={formInputState.bic} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{formInputState.bic}</span>
                 </DataListValue>
               </div>
             </dl>
@@ -873,20 +1040,20 @@ export default function Form() {
               {/* <!-- How annoying is it to have a screen reader repeat the name and say "heading level 2 Persoonsgegevens, definition list Persoonsgegevens"? --> */}
               <div>
                 <dt>{t("kvk-number")}</dt>
-                <DataListValue value={formState["kvk-number"]} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formState["kvk-number"]}</span>
+                <DataListValue value={formInputState["kvk-number"]} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{formInputState["kvk-number"]}</span>
                 </DataListValue>
               </div>
               <div>
                 <dt>{t("organization")}</dt>
-                <DataListValue value={formState.organization} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formState.organization}</span>
+                <DataListValue value={formInputState.organization} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{formInputState.organization}</span>
                 </DataListValue>
               </div>
               <div>
                 <dt>{t("website")}</dt>
-                <DataListValue value={formState.website} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formState.website}</span>
+                <DataListValue value={formInputState.website} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{formInputState.website}</span>
                 </DataListValue>
               </div>
             </dl>

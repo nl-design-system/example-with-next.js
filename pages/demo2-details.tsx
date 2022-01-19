@@ -4,7 +4,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "react-i18next";
 import { DataListValue } from "../src/components/DataListValue";
 import { EmptyIndicator } from "../src/components/EmptyIndicator";
-import { DemoForm } from "../types/DemoForm";
+import { DemoFormInput } from "../types/DemoForm";
 import { LanguageToggle } from "../src/components/LanguageToggle";
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
@@ -42,7 +42,7 @@ export default function Demo2Details() {
     "location-description": "",
     "contact-preference": "email",
     "accept-data-handling": true,
-  } as DemoForm;
+  } as DemoFormInput;
 
   return (
     <UtrechtDocument>
