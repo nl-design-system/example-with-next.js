@@ -6,7 +6,7 @@ import { DateInput } from "../src/components/DateInput";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { LanguageToggle } from "../src/components/LanguageToggle";
-import { DemoForm, DemoFormChecked, DemoFormInput } from "../types/DemoForm";
+import { DemoFormChecked, DemoFormInput } from "../types/DemoForm";
 import { EmptyIndicator } from "../src/components/EmptyIndicator";
 import { DataListValue } from "../src/components/DataListValue";
 import {
@@ -43,27 +43,34 @@ const normalizers: Partial<{ [Property in keyof DemoFormInput]: ((value: string)
   "kvk-number": [removeWhitespace],
 };
 
-// const removeWhitespaceConfig: (keyof DemoForm)[] = [];
+type FormInput = { [Property in keyof DemoFormInput]: string };
 
 export default function Form() {
-  function handleFormInputChange(
-    state: DemoFormInput,
-    partial: { [Property in keyof Partial<DemoFormInput>]: string }
-  ) {
-    console.log("NORMALIZE");
-    const normalizedPartial = Object.entries(partial).reduce((normalized, [key, value]) => {
-      return {
-        ...normalized,
-        [key]:
-          normalizers[key as keyof DemoFormInput] && Array.isArray(normalizers[key as keyof DemoFormInput])
-            ? normalizers[key as keyof DemoFormInput]!.reduce((result, fn) => fn(result), value)
-            : value,
-      };
+  function normalizeInput(partial: Partial<FormInput>) {
+    return Object.entries(partial).reduce((normalized, entry) => {
+      const [key, value] = entry as [keyof DemoFormInput, string];
+      const configuredNormalizers = normalizers[key];
+
+      if (Array.isArray(configuredNormalizers)) {
+        return {
+          ...normalized,
+          [key]: configuredNormalizers.reduce((n, fn) => fn(n), value),
+        };
+      }
+
+      return { ...normalized, [key]: value };
     }, {});
+  }
 
-    console.log(partial, normalizedPartial);
+  function handleFormInputChange(
+    state: FormInput,
+    { event, partial }: { event: "change" | "blur"; partial: Partial<FormInput> }
+  ) {
+    if (event === "blur") {
+      return { ...state, ...normalizeInput(partial) };
+    }
 
-    return { ...state, ...normalizedPartial };
+    return { ...state, ...partial };
   }
 
   function handleFormChecked(state: DemoFormChecked, partial: Partial<DemoFormChecked>) {
@@ -75,8 +82,38 @@ export default function Form() {
     "subscribe-newsletter": false,
   };
 
+  const defaultFormInput: Omit<FormInput, "gender" | "contact-preference"> = {
+    "given-name": "",
+    "family-name": "",
+    "given-name-initials": "",
+    "family-name-prefix": "",
+    "name-original-writing": "",
+    "manner-of-address": "",
+    bday: "",
+    bsn: "",
+    "postal-code": "",
+    "house-number": "",
+    "house-number-letter": "",
+    "house-number-suffix": "",
+    street: "",
+    "place-of-residence": "",
+    municipality: "",
+    country: "",
+    email: "",
+    tel: "",
+    "tel-mobile": "",
+    "tel-daytime": "",
+    "tel-evening": "",
+    "location-description": "",
+    iban: "",
+    bic: "",
+    "kvk-number": "",
+    organization: "",
+    website: "",
+  };
+
   const [formCheckedState, dispatchFormCheck] = useReducer(handleFormChecked, initialFormChecked);
-  const [formInputState, dispatchFormInputState] = useReducer(handleFormInputChange, {} as DemoFormInput);
+  const [formInputState, dispatchFormInputState] = useReducer(handleFormInputChange, defaultFormInput as FormInput);
   const [showNotes, setShowNotes] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -105,52 +142,73 @@ export default function Form() {
     console.log("RESULT", result);
   };
   const demo1 = () => {
+    clear();
     dispatchFormInputState({
-      gender: "female",
-      "given-name": "Yolijn",
-      "contact-preference": "letter",
+      event: "blur",
+      partial: {
+        gender: "female",
+        "given-name": "Pipa   Porretje",
+        "family-name": "Yo   Yo   Ko",
+        "contact-preference": "letter",
+      },
     });
 
     dispatchFormCheck({
       "accept-data-handling": true,
     });
+  };
+
+  const clear = () => {
+    dispatchFormInputState({ event: "change", partial: defaultFormInput });
+    dispatchFormCheck(initialFormChecked);
   };
 
   const demo2 = () => {
+    clear();
     dispatchFormInputState({
-      "given-name": "Bobby",
-      "family-name": "Tables",
-      "family-name-prefix": "on the",
-      "given-name-initials": "B",
-      "name-original-writing": "Robert'); DROP TABLE Students--",
-      "manner-of-address": "little",
-      gender: "male",
-      bday: "2001-02-03",
-      bsn: "123456789",
-      email: "btables@hotcakes.com",
-      tel: "02012345678",
-      "tel-mobile": "06123456789",
-      "tel-daytime": "06123456789",
-      "tel-evening": "02012345678",
-      "postal-code": "4242BT",
-      "house-number": "21",
-      "house-number-letter": "Z",
-      "house-number-suffix": "achterste voren",
-      street: "Wasstraat",
-      "place-of-residence": "Groet",
-      municipality: "Schoorl",
-      country: "Fantasieland",
-      "location-description": "",
-      "contact-preference": "email",
+      event: "blur",
+      partial: {
+        "given-name": "Bobby",
+        "family-name": "Tables",
+        "family-name-prefix": "on the",
+        "given-name-initials": "B",
+        "name-original-writing": "Robert'); DROP TABLE Students--",
+        "manner-of-address": "little",
+        gender: "male",
+        bday: "2001-02-03",
+        bsn: "123456789",
+        email: "btables@hotcakes.com",
+        tel: "02012345678",
+        "tel-mobile": "06123456789",
+        "tel-daytime": "06123456789",
+        "tel-evening": "02012345678",
+        "postal-code": "4242BT",
+        "house-number": "21",
+        "house-number-letter": "Z",
+        "house-number-suffix": "achterste voren",
+        street: "Wasstraat",
+        "place-of-residence": "Groet",
+        municipality: "Schoorl",
+        country: "Fantasieland",
+        "location-description": "",
+        "contact-preference": "email",
+      },
     });
 
     dispatchFormCheck({
       "accept-data-handling": true,
     });
+
+    console.log(formInputState);
+    console.log(formCheckedState);
   };
 
   const handleInputChange = (change: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    dispatchFormInputState({ [change.target.name]: change.target.value });
+    dispatchFormInputState({ event: "change", partial: { [change.target.name]: change.target.value } });
+  };
+
+  const handleInputBlur = (change: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    dispatchFormInputState({ event: "blur", partial: { [change.target.name]: change.target.value } });
   };
 
   const handleCheckboxChange = (change: ChangeEvent<HTMLInputElement>) => {
@@ -199,10 +257,11 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="given-name">{t("given-name")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   id="given-name"
                   name="given-name"
                   autoComplete="given-name"
-                  defaultValue={formInputState["given-name"]}
+                  value={formInputState["given-name"]}
                   onChange={handleInputChange}
                   required
                   aria-describedby="given-name-required"
@@ -223,10 +282,11 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="family-name">{t("family-name")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   id="family-name"
                   name="family-name"
                   autoComplete="family-name"
-                  defaultValue={formInputState["family-name"]}
+                  value={formInputState["family-name"]}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -240,9 +300,10 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="given-name-initials">{t("given-name-initials")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   id="given-name-initials"
                   name="given-name-initials"
-                  defaultValue={formInputState["given-name-initials"]}
+                  value={formInputState["given-name-initials"]}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -257,10 +318,11 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="family-name-prefix">{t("family-name-prefix")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   id="family-name-prefix"
                   name="family-name-prefix"
                   autoComplete="honorific-prefix"
-                  defaultValue={formInputState["family-name-prefix"]}
+                  value={formInputState["family-name-prefix"]}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -275,9 +337,10 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="name-original-writing">{t("name-original-writing")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   id="name-original-writing"
                   name="name-original-writing"
-                  defaultValue={formInputState["name-original-writing"]}
+                  value={formInputState["name-original-writing"]}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -291,9 +354,10 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="manner-of-address">{t("manner-of-address")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   id="manner-of-address"
                   name="manner-of-address"
-                  defaultValue={formInputState["manner-of-address"]}
+                  value={formInputState["manner-of-address"]}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -363,7 +427,7 @@ export default function Form() {
                   id="bday"
                   autoComplete="bday"
                   name="bday"
-                  defaultValue={formInputState.bday}
+                  value={formInputState.bday}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -377,10 +441,11 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="bsn">{t("bsn")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   id="bsn"
                   name="bsn"
                   inputMode="numeric"
-                  defaultValue={formInputState.bsn}
+                  value={formInputState.bsn}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -398,10 +463,11 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="email">{t("email")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   type="email"
                   id="email"
                   name="email"
-                  defaultValue={formInputState.email}
+                  value={formInputState.email}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -419,11 +485,12 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="tel">{t("tel")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   type="tel"
                   id="tel"
                   name="tel"
                   autoComplete="tel"
-                  defaultValue={formInputState.tel}
+                  value={formInputState.tel}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -432,11 +499,12 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="tel-mobile">{t("tel-mobile")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   type="tel"
                   id="tel-mobile"
                   name="tel-mobile"
                   autoComplete="tel mobile"
-                  defaultValue={formInputState["tel-mobile"]}
+                  value={formInputState["tel-mobile"]}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -450,22 +518,24 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="tel-daytime">{t("tel-daytime")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   type="tel"
                   id="tel-daytime"
                   name="tel-daytime"
                   autoComplete="tel"
-                  defaultValue={formInputState["tel-daytime"]}
+                  value={formInputState["tel-daytime"]}
                   onChange={handleInputChange}
                 />
               </FormField>
               <FormField>
                 <FormLabel htmlFor="tel-evening">{t("tel-evening")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   type="tel"
                   id="tel-evening"
                   name="tel-evening"
                   autoComplete="tel"
-                  defaultValue={formInputState["tel-evening"]}
+                  value={formInputState["tel-evening"]}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -490,75 +560,83 @@ export default function Form() {
                 <FormField>
                   <FormLabel htmlFor="postal-code">{t("postal-code")}</FormLabel>
                   <TextInput
+                    onBlur={handleInputBlur}
                     id="postal-code"
                     name="postal-code"
                     autoComplete="postal-code"
-                    defaultValue={formInputState["postal-code"]}
+                    value={formInputState["postal-code"]}
                     onChange={handleInputChange}
                   />
                 </FormField>
                 <FormField>
                   <FormLabel htmlFor="house-number">{t("house-number")}</FormLabel>
                   <TextInput
+                    onBlur={handleInputBlur}
                     id="house-number"
                     name="house-number"
                     inputMode="numeric"
-                    defaultValue={formInputState["house-number"]}
+                    value={formInputState["house-number"]}
                     onChange={handleInputChange}
                   />
                 </FormField>
                 <FormField>
                   <FormLabel htmlFor="house-number-letter">{t("house-number-letter-suffix")}</FormLabel>
                   <TextInput
+                    onBlur={handleInputBlur}
                     id="house-number-letter"
                     name="house-number-letter"
-                    defaultValue={formInputState["house-number-letter"]}
+                    value={formInputState["house-number-letter"]}
                     onChange={handleInputChange}
                   />
                 </FormField>
                 <FormField>
                   <FormLabel htmlFor="house-number-suffix">{t("house-number-suffix")}</FormLabel>
                   <TextInput
+                    onBlur={handleInputBlur}
                     id="house-number-suffix"
                     name="house-number-suffix"
-                    defaultValue={formInputState["house-number-suffix"]}
+                    value={formInputState["house-number-suffix"]}
                     onChange={handleInputChange}
                   />
                 </FormField>
                 <FormField>
                   <FormLabel htmlFor="street">{t("street")}</FormLabel>
                   <TextInput
+                    onBlur={handleInputBlur}
                     id="street"
                     name="street"
-                    defaultValue={formInputState.street}
+                    value={formInputState.street}
                     onChange={handleInputChange}
                   />
                 </FormField>
                 <FormField>
                   <FormLabel htmlFor="place-of-residence">{t("place-of-residence")}</FormLabel>
                   <TextInput
+                    onBlur={handleInputBlur}
                     id="place-of-residence"
                     name="place-of-residence"
-                    defaultValue={formInputState["place-of-residence"]}
+                    value={formInputState["place-of-residence"]}
                     onChange={handleInputChange}
                   />
                 </FormField>
                 <FormField>
                   <FormLabel htmlFor="municipality">{t("municipality")}</FormLabel>
                   <TextInput
+                    onBlur={handleInputBlur}
                     id="municipality"
                     name="municipality"
-                    defaultValue={formInputState.municipality}
+                    value={formInputState.municipality}
                     onChange={handleInputChange}
                   />
                 </FormField>
                 <FormField>
                   <FormLabel htmlFor="country">{t("country")}</FormLabel>
                   <TextInput
+                    onBlur={handleInputBlur}
                     id="country"
                     name="country"
                     autoComplete="country-name"
-                    defaultValue={formInputState.country}
+                    value={formInputState.country}
                     onChange={handleInputChange}
                   />
                 </FormField>
@@ -573,9 +651,10 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="location-description">{t("location-description")}</FormLabel>
                 <Textarea
+                  onBlur={handleInputBlur}
                   id="location-description"
                   name="location-description"
-                  defaultValue={formInputState["location-description"]}
+                  value={formInputState["location-description"]}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -636,10 +715,11 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="kvk-number">{t("kvk-number")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   id="kvk-number"
                   name="kvk-number"
                   inputMode="numeric"
-                  defaultValue={formInputState["kvk-number"]}
+                  value={formInputState["kvk-number"]}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -648,10 +728,11 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="organization">{t("organization")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   id="organization"
                   name="organization"
                   autoComplete="organization"
-                  defaultValue={formInputState.organization}
+                  value={formInputState.organization}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -660,11 +741,12 @@ export default function Form() {
               <FormField>
                 <FormLabel htmlFor="website">{t("website")}</FormLabel>
                 <TextInput
+                  onBlur={handleInputBlur}
                   type="url"
                   id="website"
                   name="website"
                   autoComplete="url"
-                  defaultValue={formInputState.website}
+                  value={formInputState.website}
                   onChange={handleInputChange}
                 />
               </FormField>
@@ -675,13 +757,25 @@ export default function Form() {
               {showNotes && <Note>IBAN </Note>}
               <FormField>
                 <FormLabel htmlFor="iban">{t("iban")}</FormLabel>
-                <TextInput id="iban" name="iban" defaultValue={formInputState.iban} onChange={handleInputChange} />
+                <TextInput
+                  onBlur={handleInputBlur}
+                  id="iban"
+                  name="iban"
+                  value={formInputState.iban}
+                  onChange={handleInputChange}
+                />
               </FormField>
 
               {showNotes && <Note>BIC </Note>}
               <FormField>
                 <FormLabel htmlFor="bic">{t("bic")}</FormLabel>
-                <TextInput id="bic" name="bic" defaultValue={formInputState.bic} onChange={handleInputChange} />
+                <TextInput
+                  onBlur={handleInputBlur}
+                  id="bic"
+                  name="bic"
+                  value={formInputState.bic}
+                  onChange={handleInputChange}
+                />
               </FormField>
             </div>
             <div className="form-section">
@@ -728,6 +822,7 @@ export default function Form() {
           <div>
             <Button onClick={demo1}>Demo 1</Button>
             <Button onClick={demo2}>Demo 2</Button>
+            <Button onClick={clear}>Reset</Button>
           </div>
         </>
       ) : (
