@@ -4,9 +4,9 @@
  */
 
 import clsx from "clsx";
-import { InputHTMLAttributes, PropsWithChildren } from "react";
+import { HTMLAttributes, PropsWithChildren } from "react";
 
-export interface ParagraphProps extends InputHTMLAttributes<HTMLParagraphElement> {
+export interface ParagraphProps extends HTMLAttributes<HTMLParagraphElement> {
   lead?: boolean;
 }
 

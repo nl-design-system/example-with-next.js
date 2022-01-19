@@ -4,9 +4,9 @@
  */
 
 import clsx from "clsx";
-import { InputHTMLAttributes, PropsWithChildren } from "react";
+import { HTMLAttributes, PropsWithChildren } from "react";
 
-export interface UnorderedListProps extends InputHTMLAttributes<HTMLUListElement> {
+export interface UnorderedListProps extends HTMLAttributes<HTMLUListElement> {
   nested?: boolean;
 }
 

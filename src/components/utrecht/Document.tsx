@@ -4,9 +4,9 @@
  */
 
 import clsx from "clsx";
-import { InputHTMLAttributes, PropsWithChildren } from "react";
+import { HTMLAttributes, PropsWithChildren } from "react";
 
-export type DocumentProps = InputHTMLAttributes<HTMLDivElement>;
+export type DocumentProps = HTMLAttributes<HTMLDivElement>;
 
 export const Document = ({ children, className, ...restProps }: PropsWithChildren<DocumentProps>) => (
   <div {...restProps} className={clsx("utrecht-document", className)}>
