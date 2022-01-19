@@ -4,9 +4,9 @@
  */
 
 import clsx from "clsx";
-import { InputHTMLAttributes, PropsWithChildren } from "react";
+import { LiHTMLAttributes, PropsWithChildren } from "react";
 
-export type OrderedListItemProps = InputHTMLAttributes<HTMLLIElement>;
+export type OrderedListItemProps = LiHTMLAttributes<HTMLLIElement>;
 
 export const OrderedListItem = ({ children, className, ...restProps }: PropsWithChildren<OrderedListItemProps>) => (
   <li {...restProps} className={clsx("utrecht-ordered-list__item", className)}>

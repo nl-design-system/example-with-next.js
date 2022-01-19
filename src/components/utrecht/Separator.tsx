@@ -4,9 +4,9 @@
  */
 
 import clsx from "clsx";
-import { InputHTMLAttributes } from "react";
+import { HTMLAttributes } from "react";
 
-export type SeparatorProps = InputHTMLAttributes<HTMLHRElement>;
+export type SeparatorProps = HTMLAttributes<HTMLHRElement>;
 
 export const Separator = ({ className, ...restProps }: SeparatorProps) => (
   <hr {...restProps} className={clsx("utrecht-separator", className)} />

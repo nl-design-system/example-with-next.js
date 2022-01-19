@@ -4,9 +4,9 @@
  */
 
 import clsx from "clsx";
-import { InputHTMLAttributes, PropsWithChildren } from "react";
+import { LiHTMLAttributes, PropsWithChildren } from "react";
 
-export type UnorderedListItemProps = InputHTMLAttributes<HTMLLIElement>;
+export type UnorderedListItemProps = LiHTMLAttributes<HTMLLIElement>;
 
 export const UnorderedListItem = ({ children, className, ...restProps }: PropsWithChildren<UnorderedListItemProps>) => (
   <li {...restProps} className={clsx("utrecht-unordered-list__item", className)}>
