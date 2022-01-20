@@ -9,6 +9,10 @@ import { LanguageToggle } from "../src/components/LanguageToggle";
 import { DemoForm } from "../types/DemoForm";
 import { EmptyIndicator } from "../src/components/EmptyIndicator";
 import { DataListValue } from "../src/components/DataListValue";
+import { SaveButton } from "../src/components/SaveButton";
+import voorvoegsels from "../src/data/voorvoegsels.json";
+import landen from "../src/data/landen.json";
+
 import {
   Button,
   Checkbox,
@@ -16,7 +20,6 @@ import {
   Fieldset,
   FieldsetLegend,
   FormField,
-  FormFieldDescription,
   FormLabel,
   Heading1,
   Heading2,
@@ -25,6 +28,15 @@ import {
   Textarea,
   TextInput,
 } from "../src/components/utrecht";
+
+import {
+  InputGivenName,
+  InputFamilyName,
+  InputBSN,
+  InputGender,
+  InputHouseNumber,
+  InputEmail,
+} from "../src/components/input";
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {
@@ -156,23 +168,19 @@ export default function Form() {
                   </Paragraph>
                 </Note>
               )}
-              <FormField>
-                <FormLabel htmlFor="given-name">{t("given-name")}</FormLabel>
-                <TextInput
-                  id="given-name"
-                  name="given-name"
-                  autoComplete="given-name"
-                  defaultValue={formState["given-name"]}
-                  onChange={handleInputChange}
-                  required
-                  aria-describedby="given-name-required"
-                />
-                {!formState["given-name"] && (
-                  <FormFieldDescription id="given-name-required" invalid>
-                    <Paragraph>{t("given-name-required")}</Paragraph>
-                  </FormFieldDescription>
-                )}
-              </FormField>
+              <InputGivenName
+                id="given-name2"
+                name="given-name"
+                defaultValue={formState["given-name"]}
+                onChange={handleInputChange}
+                required
+                errors={[
+                  {
+                    id: "38a70b93-a7b3-4f91-9725-8ee2871b335b",
+                    message: t("given-name-required"),
+                  },
+                ]}
+              ></InputGivenName>
               {showNotes && (
                 <Note>
                   Achternaam (of "Achternaam of achternamen (of "Achternaam (1 of meerdere)" Mijn Overheid, basis
@@ -181,15 +189,42 @@ export default function Form() {
                 </Note>
               )}
               <FormField>
-                <FormLabel htmlFor="family-name">{t("family-name")}</FormLabel>
-                <TextInput
-                  id="family-name"
-                  name="family-name"
-                  autoComplete="family-name"
-                  defaultValue={formState["family-name"]}
+                <FormLabel htmlFor="adelijke-titel-predicaat">{t("adelijke-titel-predicaat")}</FormLabel>
+                <select
+                  className="utrecht-select"
+                  id="adelijke-titel-predicaat"
+                  name="adelijke-titel-predicaat"
+                  defaultValue={formState["adelijke-titel-predicaat"]}
                   onChange={handleInputChange}
-                />
+                >
+                  <option></option>
+                  {[
+                    { value: "B", label: "baron" },
+                    { value: "BS", label: "barones" },
+                    { value: "G", label: "graaf" },
+                    { value: "GI", label: "graving" },
+                    { value: "H", label: "hertog" },
+                    { value: "HI", label: "hertogin" },
+                    { value: "JH", label: "jonkheer" },
+                    { value: "JV", label: "jonkvrouw" },
+                    { value: "M", label: "markies" },
+                    { value: "MI", label: "markiezin" },
+                    { value: "P", label: "prins" },
+                    { value: "PS", label: "prinses" },
+                    { value: "R", label: "ridder" },
+                  ].map(({ value, label }) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  ))}
+                </select>
               </FormField>
+              <InputFamilyName
+                id="family-name"
+                name="family-name"
+                defaultValue={formState["family-name"]}
+                onChange={handleInputChange}
+              ></InputFamilyName>
               {showNotes && (
                 <Note>
                   Voorletters Opmerking: Hoe moeten deze ingevoerd worden? Gescheiden door spaties, punten, moet er wel
@@ -219,10 +254,16 @@ export default function Form() {
                 <TextInput
                   id="family-name-prefix"
                   name="family-name-prefix"
+                  list="family-name-prefix-datalist"
                   autoComplete="honorific-prefix"
                   defaultValue={formState["family-name-prefix"]}
                   onChange={handleInputChange}
                 />
+                <datalist id="family-name-prefix-datalist">
+                  {voorvoegsels.map((voorvoegsel) => (
+                    <option key={voorvoegsel}>{voorvoegsel}</option>
+                  ))}
+                </datalist>
               </FormField>
 
               {showNotes && (
@@ -265,52 +306,14 @@ export default function Form() {
                   dus geen select gebruiken. TODO: richtlijnen wanneer geslacht wel/niet nodig is.
                 </Note>
               )}
-              <Fieldset aria-required="true" aria-invalid="true">
-                <FieldsetLegend>{t("gender")}</FieldsetLegend>
-                <FormField>
-                  <FormLabel type="radio" htmlFor="gender-female">
-                    {t("gender-female")}
-                  </FormLabel>
-                  <RadioButton
-                    id="gender-female"
-                    name="gender"
-                    value="female"
-                    checked={formState.gender === "female"}
-                    onChange={handleInputChange}
-                    aria-describedby="gender-required"
-                  />
-                </FormField>
-                <FormField>
-                  <FormLabel type="radio" htmlFor="gender-male">
-                    {t("gender-male")}
-                  </FormLabel>
-                  <RadioButton
-                    id="gender-male"
-                    name="gender"
-                    value="male"
-                    checked={formState.gender === "male"}
-                    onChange={handleInputChange}
-                    aria-describedby="gender-required"
-                  />
-                </FormField>
-                <FormField>
-                  <FormLabel type="radio" htmlFor="gender-unknown">
-                    {t("gender-unknown")}
-                  </FormLabel>
-                  <RadioButton
-                    id="gender-unknown"
-                    name="gender"
-                    value="unknown"
-                    checked={formState.gender === "unknown"}
-                    onChange={handleInputChange}
-                    aria-describedby="gender-required"
-                  />
-                </FormField>
-                <FormFieldDescription invalid id="gender-required">
-                  <Paragraph>{t("gender-required")}</Paragraph>
-                </FormFieldDescription>
-              </Fieldset>
-
+              <InputGender
+                id="gender"
+                required
+                invalid
+                value={formState.gender}
+                onChange={handleInputChange}
+                errors={[{ id: "gender-required", message: t("gender-required") }]}
+              ></InputGender>
               {showNotes && (
                 <Note>
                   Geboortedatum Opmerking: Wordt vaak opgelost met een date picker, maar die zijn lang niet altijd
@@ -327,6 +330,24 @@ export default function Form() {
                   onChange={handleInputChange}
                 />
               </FormField>
+              <FormField>
+                <FormLabel htmlFor="country-of-birth">{t("country-of-birth")}</FormLabel>
+                <TextInput
+                  id="country-of-birth"
+                  name="country-of-birth"
+                  list="country-of-birth-list"
+                  defaultValue={formState["country-of-birth"]}
+                  onChange={handleInputChange}
+                />
+                <datalist id="country-of-birth-list">
+                  <option></option>
+                  {landen
+                    .sort((a, b) => (a.naam === b.naam ? 0 : a.naam > b.naam ? 1 : -1))
+                    .map(({ code, naam }) => (
+                      <option key={code}>{naam}</option>
+                    ))}
+                </datalist>
+              </FormField>
 
               {showNotes && (
                 <Note>
@@ -334,16 +355,7 @@ export default function Form() {
                   samen met een uitleg waar je deze kan vinden bijvoorbeeld?
                 </Note>
               )}
-              <FormField>
-                <FormLabel htmlFor="bsn">{t("bsn")}</FormLabel>
-                <TextInput
-                  id="bsn"
-                  name="bsn"
-                  inputMode="numeric"
-                  defaultValue={formState.bsn}
-                  onChange={handleInputChange}
-                />
-              </FormField>
+              <InputBSN id="bsn" name="bsn" defaultValue={formState.bsn} onChange={handleInputChange}></InputBSN>
             </div>
             <div className="form-section">
               <Heading2>{t("contact-details")}</Heading2>
@@ -355,17 +367,7 @@ export default function Form() {
                   opties binnen e-mail adressen. TODO: opnemen in richtlijnen.
                 </Note>
               )}
-              <FormField>
-                <FormLabel htmlFor="email">{t("email")}</FormLabel>
-                <TextInput
-                  type="email"
-                  id="email"
-                  name="email"
-                  defaultValue={formState.email}
-                  onChange={handleInputChange}
-                />
-              </FormField>
-
+              <InputEmail id="email" name="email" defaultValue={formState.email} onChange={handleInputChange} />
               {showNotes && (
                 <Note>
                   Telefoonnummer Opmerking: als je het verplicht maakt, dan is het niet accessible, want wat als je niet
@@ -457,6 +459,12 @@ export default function Form() {
                     onChange={handleInputChange}
                   />
                 </FormField>
+                <InputHouseNumber
+                  id="house-number"
+                  name="house-number"
+                  defaultValue={formState["house-number"]}
+                  onChange={handleInputChange}
+                ></InputHouseNumber>
                 <FormField>
                   <FormLabel htmlFor="house-number">{t("house-number")}</FormLabel>
                   <TextInput
@@ -699,7 +707,7 @@ export default function Form() {
                 </DataListValue>
               </div>
               <div>
-                <dt>{t("given-name-initials")}</dt>{" "}
+                <dt>{t("given-name-initials")}</dt>
                 <DataListValue value={formState["given-name-initials"]} emptyDescription={t("data-item-input-empty")}>
                   <span className="notranslate">{formState["given-name-initials"]}</span>
                 </DataListValue>
@@ -891,6 +899,7 @@ export default function Form() {
               </div>
             </dl>
           </section>
+          <SaveButton>save-progress</SaveButton>
           <Button onClick={() => setSubmitted(false)}>Back</Button>
         </>
       )}

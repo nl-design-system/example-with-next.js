@@ -15,8 +15,10 @@ export const FormFieldDescription = ({
   warning,
   className,
   children,
+  ...restProps
 }: PropsWithChildren<Props>) => (
   <div
+    {...restProps}
     id={id}
     className={clsx(
       "utrecht-form-field-description",
