@@ -1133,6 +1133,7 @@ export default function Form() {
                 </FormLabel>
               </FormField>
             </div>
+            <SaveButton>save-progress</SaveButton>
             <Button type="submit" disabled={loading} busy={loading}>
               {t("submit")}
             </Button>

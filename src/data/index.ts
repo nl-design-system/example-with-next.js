@@ -120,7 +120,7 @@ export const placeOfBirthValidation = {
   pattern: teletex,
 };
 
-export const GeslachtsaanduidingType = 'M' | 'O' | 'V';
+export type GeslachtsaanduidingType = 'M' | 'O' | 'V';
 
 export const GeslachtsaanduidingDefault = 'O';
 

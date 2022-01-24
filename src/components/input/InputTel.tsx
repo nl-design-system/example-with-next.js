@@ -9,7 +9,12 @@ interface InputTelProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "typ
   errors?: ValidationError[];
 }
 
-export const def = {
+interface TelInputAttributes extends Pick<InputHTMLAttributes<HTMLInputElement>, "autoComplete"> {
+  label: string;
+  type: "tel";
+}
+
+export const def: TelInputAttributes = {
   label: "tel",
   autoComplete: "tel",
   type: "tel",
