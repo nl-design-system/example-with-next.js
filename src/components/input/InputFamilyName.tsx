@@ -20,10 +20,10 @@ export const InputFamilyName = ({ id, autoComplete, errors, ...restProps }: Inpu
 
   return (
     <FormField id={id}>
-      <FormLabel htmlFor={`${id}-input}`}>{t(def.label)}</FormLabel>
+      <FormLabel htmlFor={`${id}-input`}>{t(def.label)}</FormLabel>
       <TextInput
         {...restProps}
-        id={`${id}-input}`}
+        id={`${id}-input`}
         autoComplete={`${def.autoComplete} ${autoComplete}`}
         aria-describedby={errors ? errors.map(({ id }) => id).join(" ") : undefined}
       />

@@ -20,11 +20,11 @@ export const InputBSN = ({ id, autoComplete, errors, ...restProps }: InputBSNPro
 
   return (
     <FormField id={id}>
-      <FormLabel htmlFor={`${id}-input}`}>{t(def.label)}</FormLabel>
+      <FormLabel htmlFor={`${id}-input`}>{t(def.label)}</FormLabel>
       <TextInput
         {...restProps}
         inputMode={def.numeric ? "numeric" : undefined}
-        id={`${id}-input}`}
+        id={`${id}-input`}
         autoComplete={`${def.autoComplete} ${autoComplete}`}
         aria-describedby={errors ? errors.map(({ id }) => id).join(" ") : undefined}
       />

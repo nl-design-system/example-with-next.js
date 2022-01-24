@@ -20,11 +20,11 @@ export const InputTel = ({ id, autoComplete, errors, ...restProps }: InputTelPro
 
   return (
     <FormField id={id}>
-      <FormLabel htmlFor={`${id}-input}`}>{t(def.label)}</FormLabel>
+      <FormLabel htmlFor={`${id}-input`}>{t(def.label)}</FormLabel>
       <TextInput
         {...restProps}
         type={def.type}
-        id={`${id}-input}`}
+        id={`${id}-input`}
         autoComplete={`${def.autoComplete} ${autoComplete}`}
         aria-describedby={errors ? errors.map(({ id }) => id).join(" ") : undefined}
       />
