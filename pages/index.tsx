@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import { LanguageToggle } from "../src/components/LanguageToggle";
 import { Document } from "../src/components/utrecht";
 
@@ -17,13 +18,13 @@ export default function Home() {
             <LanguageToggle />
             <ul>
               <li>
-                <a href="/react-components">React components</a>
+                <Link href="/react-components">React components</Link>
               </li>
               <li>
-                <a href="/marriage-witness-form">Getuigen uitnodigen</a>
+                <Link href="/marriage-witness-form">Getuigen uitnodigen</Link>
               </li>
               <li>
-                <a href="/marriage-witness-data">Getuigen overzicht</a>
+                <Link href="/marriage-witness-data">Getuigen overzicht</Link>
               </li>
             </ul>
           </nav>
