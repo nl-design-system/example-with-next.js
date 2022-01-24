@@ -1,5 +1,7 @@
+import clsx from "clsx";
 import { PropsWithChildren } from "react";
 import { EmptyIndicator } from "./EmptyIndicator";
+import style from "./DataListValue.module.css";
 
 interface Props {
   value?: number | string;
@@ -9,5 +11,7 @@ interface Props {
 export const DataListValue = ({ value, children, emptyDescription }: PropsWithChildren<Props>) => {
   const empty = value === undefined || value === "" || value === null;
 
-  return <dd>{empty ? <EmptyIndicator title={emptyDescription} /> : children}</dd>;
+  return (
+    <dd className={clsx(style["data-list-value"])}>{empty ? <EmptyIndicator title={emptyDescription} /> : children}</dd>
+  );
 };
