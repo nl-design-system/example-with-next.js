@@ -1,0 +1,39 @@
+export type BSNType = string;
+
+/*
+The following info is obtained from Logisch Ontwerp GBA 3.14:
+- elementnummer: 01.20
+- numeric
+- fixed length of 9
+- "Burgerservicenummer"
+- "(9*s0)+(8*s1)+(7*s2)+...+(2*s7)-(1*s8) is deelbaar door 11.
+*/
+
+export const validation = {
+  minLength: 9,
+  maxLength: 9,
+  numeric: true,
+  pattern: '^[0-9]{9}$',
+};
+
+/*
+export const validate = (str: string) =>
+  /^[0-9]{9}$/.test(str) &&
+  String(str)
+    .split('')
+    .map((str) => parseInt(str, 10))
+    .reverse()
+    .map((n, index) => n * (index + 1))
+    .reduce((a, b, index) => (index === 0 ? a - b : a + b), 0) %
+    11 ===
+    0;
+*/
+export const validate = (str: string) => {
+  if (/^[0-9]{9}$/.test(str)) {
+    const n = String(str)
+      .split('')
+      .map((str) => parseInt(str, 10));
+    return (9 * n[0] + 8 * n[1] + 7 * n[2] + 6 * n[3] + 5 * n[4] + 4 * n[5] + 3 * n[6] + 2 * n[7] - n[8]) % 11 === 0;
+  }
+  return false;
+};

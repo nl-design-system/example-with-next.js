@@ -1,10 +1,12 @@
 import clsx from "clsx";
 import { InputHTMLAttributes } from "react";
 
+export type TextInputTypes = "text" | "email" | "tel" | "url" | "password";
+
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
   invalid?: boolean;
-  type?: "text" | "email" | "tel" | "url" | "password";
+  type?: TextInputTypes;
 }
 
 export const TextInput = ({
