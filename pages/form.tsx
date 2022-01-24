@@ -18,7 +18,6 @@ export const getServerSideProps = async ({ locale }: { locale: string }) => ({
 });
 
 export default function Form() {
-  const [showNotes, setShowNotes] = useState(false);
   const [data, setData] = useState<DemoForm>();
 
   const { t } = useTranslation("form");
@@ -44,18 +43,7 @@ export default function Form() {
         </>
       ) : (
         <>
-          <FormField>
-            <Checkbox
-              id="hide-notes"
-              name="hide-notes"
-              onChange={(e) => setShowNotes(e.target.checked)}
-              checked={showNotes}
-            />
-            <FormLabel type="checkbox" htmlFor="hide-notes">
-              Toon notities
-            </FormLabel>
-          </FormField>
-          <BasicForm setDetails={setData} showNotes={showNotes} />
+          <BasicForm setDetails={setData} />
         </>
       )}
     </Document>

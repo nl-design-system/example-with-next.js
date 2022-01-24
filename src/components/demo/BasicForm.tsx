@@ -22,12 +22,10 @@ import { Checkbox } from "../utrecht/Checkbox";
 import { FormField } from "../utrecht/FormField";
 import { FormLabel } from "../utrecht/FormLabel";
 import { Heading2 } from "../utrecht/Heading2";
-import { Paragraph } from "../utrecht/Paragraph";
 import { TextInput } from "../utrecht/TextInput";
 import voorvoegsels from "../../data/voorvoegsels.json";
 import landen from "../../data/landen.json";
 
-import { Note } from "./Note";
 import { InputGender } from "../input/InputGender";
 import { DateInput } from "../DateInput";
 import { InputBSN, InputEmail, InputHouseNumber } from "../input";
@@ -35,12 +33,11 @@ import { Button, Fieldset, FieldsetLegend, RadioButton, Textarea } from "../utre
 import { SaveButton } from "../SaveButton";
 
 interface Props {
-  showNotes?: boolean;
   setDetails: Dispatch<SetStateAction<DemoForm | undefined>>;
 }
 type FormInput = { [Property in keyof DemoFormInput]: string };
 
-export const BasicForm = ({ setDetails, showNotes }: Props) => {
+export const BasicForm = ({ setDetails }: Props) => {
   const trimWhitespace = (value: string) => value.trim();
   const normalizeWhitespace = (value: string) => value.replace(/\s+/g, " ");
   const removeWhitespace = (value: string) => value.replace(/\s+/g, "");
@@ -227,15 +224,6 @@ export const BasicForm = ({ setDetails, showNotes }: Props) => {
       <form onSubmit={handleSubmit}>
         <div className="form-section">
           <Heading2>{t("personal-details")}</Heading2>
-          {showNotes && (
-            <Note>
-              <Paragraph>
-                Voornaam (of "Voornam(en)" of "Voornaam (1 of meerdere)" of "Voornaam of voornamen"?) De "1 of meerdere"
-                variant werkt voor screenreaders, Nederlands B1 en Google Translate Opmerking: Is alleen "Voornamen"
-                onduidelijk voor mensen met maar 1 voornaam? Hoe zit het met mensen zonder voornaam?
-              </Paragraph>
-            </Note>
-          )}
           <InputGivenName
             id="given-name2"
             name="given-name"
@@ -252,13 +240,6 @@ export const BasicForm = ({ setDetails, showNotes }: Props) => {
               },
             ]}
           ></InputGivenName>
-          {showNotes && (
-            <Note>
-              Achternaam (of "Achternaam of achternamen (of "Achternaam (1 of meerdere)" Mijn Overheid, basis
-              registratie personen: "De geslachtsnaam is hetzelfde als de achternaam. Heeft de geslachtsnaam een
-              voorvoegsel, zoals “de” of “van”? Dan is het voorvoegsel vermeld bij Voorvoegsels geslachtsnaam"
-            </Note>
-          )}
           <FormField>
             <FormLabel htmlFor="adelijke-titel-predicaat">{t("adelijke-titel-predicaat")}</FormLabel>
             <select
@@ -299,13 +280,6 @@ export const BasicForm = ({ setDetails, showNotes }: Props) => {
             pattern={geslachtsnaamValidation.pattern}
             onChange={handleInputChange}
           ></InputFamilyName>
-          {showNotes && (
-            <Note>
-              Voorletters Opmerking: Hoe moeten deze ingevoerd worden? Gescheiden door spaties, punten, moet er wel
-              validatie op? Geen autoComplete, niet in definititie van basis registratie personen Voorlopige conclusie:
-              Vermijd voorletters
-            </Note>
-          )}
           <FormField>
             <FormLabel htmlFor="given-name-initials">{t("given-name-initials")}</FormLabel>
             <TextInput
@@ -316,14 +290,6 @@ export const BasicForm = ({ setDetails, showNotes }: Props) => {
               onChange={handleInputChange}
             />
           </FormField>
-          {showNotes && (
-            <Note>
-              Tussenvoegsels naam Opmerking: Waarom horen deze niet bij de achternaam? Wat als een achternaam uit 2
-              delen bestaat en het tweede deel ook voorvoegsels heeft? "de Vries - de Boer" Weetje dat belgische
-              achtnamen niet dezelfde regels kennen voor hoofdletters. Een nederlandse "van der Valk" wordt daar "Van
-              Der Valk". Geen autoComplete
-            </Note>
-          )}
           <FormField>
             <FormLabel htmlFor="family-name-prefix">{t("family-name-prefix")}</FormLabel>
             <TextInput
@@ -343,14 +309,6 @@ export const BasicForm = ({ setDetails, showNotes }: Props) => {
               ))}
             </datalist>
           </FormField>
-
-          {showNotes && (
-            <Note>
-              Naam in origineel schrift Opmerking: waarom? Wanneer gebruiken, hoe zorg je dat dit niet in de andere naam
-              velden is ingevoerd? Geen autoComplete? Of hoe weten we dat dit niet gecomplete wordt in origineel
-              schrift?
-            </Note>
-          )}
           <FormField>
             <FormLabel htmlFor="name-original-writing">{t("name-original-writing")}</FormLabel>
             <TextInput
@@ -361,13 +319,6 @@ export const BasicForm = ({ setDetails, showNotes }: Props) => {
               onChange={handleInputChange}
             />
           </FormField>
-          {showNotes && (
-            <Note>
-              Aanspreekvorm / mogelijke titulatuur TODO: Richtlijnen Wanneer gebruiken? Hoe valt deze samen met gender?
-              Is een vrij invoerveld zodat alle soorten titulatuur en combinaties door de persoon zelf gekozen kunnen
-              worden.
-            </Note>
-          )}
           <FormField>
             <FormLabel htmlFor="manner-of-address">{t("manner-of-address")}</FormLabel>
             <TextInput
@@ -378,14 +329,6 @@ export const BasicForm = ({ setDetails, showNotes }: Props) => {
               onChange={handleInputChange}
             />
           </FormField>
-
-          {showNotes && (
-            <Note>
-              Geslacht (M/V/NB/onbekend) Opmerking: Basis registratie ondersteund 'M/V/onbekend' Gemeente Amsterdam zegt
-              vermijdt 'select' voor weinig (hoeveel is weinig?) options. Als we aannemen dat 3 weinig is, dan dus geen
-              select gebruiken. TODO: richtlijnen wanneer geslacht wel/niet nodig is.
-            </Note>
-          )}
           <InputGender
             id="gender"
             required
@@ -394,12 +337,6 @@ export const BasicForm = ({ setDetails, showNotes }: Props) => {
             onChange={handleInputChange}
             errors={[{ id: "gender-required", message: t("gender-required") }]}
           ></InputGender>
-          {showNotes && (
-            <Note>
-              Geboortedatum Opmerking: Wordt vaak opgelost met een date picker, maar die zijn lang niet altijd
-              bruikbaar. TODO: richtlijnen voor welke (meerdere?) types input bruikbaar zijn
-            </Note>
-          )}
           <FormField>
             <FormLabel htmlFor="bday">{t("bday")}</FormLabel>
             <DateInput
@@ -441,13 +378,6 @@ export const BasicForm = ({ setDetails, showNotes }: Props) => {
                 ))}
             </datalist>
           </FormField>
-
-          {showNotes && (
-            <Note>
-              BSN Opmerking: is bsn voor iedereen goed te begrijpen, wanneer te gebruiken. Moet het gebruikt worden
-              samen met een uitleg waar je deze kan vinden bijvoorbeeld?
-            </Note>
-          )}
           <InputBSN
             id="bsn"
             name="bsn"
@@ -461,14 +391,6 @@ export const BasicForm = ({ setDetails, showNotes }: Props) => {
         </div>
         <div className="form-section">
           <Heading2>{t("contact-details")}</Heading2>
-
-          {showNotes && (
-            <Note>
-              E-mailadres (vaak verplicht omdat het verplicht is een bevestiging te sturen - heb je er zelf geen dan van
-              iemand anders) Opmerking: waarschijnlijk wil je dit niet al te veel valideren, er zijn veel valide opties
-              binnen e-mail adressen. TODO: opnemen in richtlijnen.
-            </Note>
-          )}
           <InputEmail
             id="email"
             name="email"
@@ -476,15 +398,6 @@ export const BasicForm = ({ setDetails, showNotes }: Props) => {
             onBlur={handleInputBlur}
             onChange={handleInputChange}
           />
-          {showNotes && (
-            <Note>
-              Telefoonnummer Opmerking: als je het verplicht maakt, dan is het niet accessible, want wat als je niet kan
-              opnemen/horen? TODO: richtlijnen Opmerking: wat als je internationale nummers moet ondersteunen? Mag +,
-              misschien niet teveel validatie? Todo: testen of losse velden voor mobiel/vast nummer nog nuttig zijn en
-              de uitkomst documenteren Daarnaast heeft lang niet iedereen meer een vast nummer, en wel mobiel. Wil je na
-              het formulier een bevestiging sturen? Dan is misschien mobiel belangrijker dan 'telefoonnummer'.
-            </Note>
-          )}
           <FormField>
             <FormLabel htmlFor="tel">{t("tel")}</FormLabel>
             <TextInput
@@ -497,8 +410,6 @@ export const BasicForm = ({ setDetails, showNotes }: Props) => {
               onChange={handleInputChange}
             />
           </FormField>
-
-          {showNotes && <Note>Mobiel telefoonnummer</Note>}
           <FormField>
             <FormLabel htmlFor="tel-mobile">{t("tel-mobile")}</FormLabel>
             <TextInput
@@ -511,13 +422,6 @@ export const BasicForm = ({ setDetails, showNotes }: Props) => {
               onChange={handleInputChange}
             />
           </FormField>
-
-          {showNotes && (
-            <Note>
-              Telefoon overdag / 's avonds -- vaak genoemd in formulieren workshop Opmerking: wordt gebruikgt in plaats
-              van tel-mobile en tel?
-            </Note>
-          )}
           <FormField>
             <FormLabel htmlFor="tel-daytime">{t("tel-daytime")}</FormLabel>
             <TextInput
@@ -542,22 +446,6 @@ export const BasicForm = ({ setDetails, showNotes }: Props) => {
               onChange={handleInputChange}
             />
           </FormField>
-
-          {showNotes && (
-            <Note>
-              Adres - Postcode -- als eerste omdat de validatie/invullen van het adres hier op gebaseerd kunnen worden.
-              TODO richtlijnen validatie (irritante whitespace contraints voorkomen) - Huisnummer -- als tweede omdat
-              het samen met postcode in nederland tot een uniek adres leidt. Kent geen autoComplete, potentieel minder
-              gebruiksvriendelijk dan een algemeen adres veld. - Huisnummer letter (helemaal los van 'toevoeging' in
-              steden zoals Den Haag) Kadestraal nummer bijvoorbeeld 24 en 24a zijn los gesplitste panden geworden? TODO:
-              UITZOEKEN - Huisnummer toevoeging (bijvoorbeeld verdieping) BV 24b 3v ? - Straatnaam -- geen autocompleet
-              voor straatnaam zonder huisnummer - Woonplaats -- geen autoComplete - Gemeente -- geen autoComplete heel
-              nederland specifiek, guidelines nodig wanneer deze te gebruiken - Land Opmerking formulieren workshop:
-              autoComplete Nederlands adres op basis van postcode Meerdere adressen mogelijk: Postadres, Briefadres /
-              Woonadres / Factuuradres / Overweeg deze optioneel te maken zodat óf deze óf de locatiebeschrijving kan
-              worden ingevuld.
-            </Note>
-          )}
           <Fieldset>
             <FieldsetLegend>{t("address")}</FieldsetLegend>
             <FormField>
@@ -658,13 +546,6 @@ export const BasicForm = ({ setDetails, showNotes }: Props) => {
               />
             </FormField>
           </Fieldset>
-
-          {showNotes && (
-            <Note>
-              Locatie beschrijving Te gebruiken als iemand geen adres hebt/weet? Bijvoorbeeld "melden overlast" Vrij
-              invoerveld voor locatie: "onder brug tegenover Albert Heijn" / gebruik maken van locatie device?
-            </Note>
-          )}
           <FormField>
             <FormLabel htmlFor="location-description">{t("location-description")}</FormLabel>
             <Textarea
@@ -719,7 +600,6 @@ export const BasicForm = ({ setDetails, showNotes }: Props) => {
               />
             </FormField>
           </Fieldset>
-          {showNotes && <Note> voorkeur contactwijze: brief / telefoon / e-mail </Note>}
           <Fieldset>
             <FieldsetLegend>{t("contact-preference")}</FieldsetLegend>
             <FormField>
@@ -765,13 +645,6 @@ export const BasicForm = ({ setDetails, showNotes }: Props) => {
         </div>
         <div className="form-section">
           <Heading2>{t("commercial-details")}</Heading2>
-
-          {showNotes && (
-            <Note>
-              KvK nummer Opmerking: Is hier standaard validatie voor? Kan op basis van KvK nummer de bedrijfsnaam worden
-              getoond?
-            </Note>
-          )}
           <FormField>
             <FormLabel htmlFor="kvk-number">{t("kvk-number")}</FormLabel>
             <TextInput
@@ -783,8 +656,6 @@ export const BasicForm = ({ setDetails, showNotes }: Props) => {
               onChange={handleInputChange}
             />
           </FormField>
-
-          {showNotes && <Note>Bedrijfsnaam </Note>}
           <FormField>
             <FormLabel htmlFor="organization">{t("organization")}</FormLabel>
             <TextInput
@@ -796,8 +667,6 @@ export const BasicForm = ({ setDetails, showNotes }: Props) => {
               onChange={handleInputChange}
             />
           </FormField>
-
-          {showNotes && <Note>Website </Note>}
           <FormField>
             <FormLabel htmlFor="website">{t("website")}</FormLabel>
             <TextInput
@@ -813,8 +682,6 @@ export const BasicForm = ({ setDetails, showNotes }: Props) => {
         </div>
         <div className="form-section">
           <Heading2>{t("financial-details")}</Heading2>
-
-          {showNotes && <Note>IBAN </Note>}
           <FormField>
             <FormLabel htmlFor="iban">{t("iban")}</FormLabel>
             <TextInput
@@ -825,8 +692,6 @@ export const BasicForm = ({ setDetails, showNotes }: Props) => {
               onChange={handleInputChange}
             />
           </FormField>
-
-          {showNotes && <Note>BIC </Note>}
           <FormField>
             <FormLabel htmlFor="bic">{t("bic")}</FormLabel>
             <TextInput
@@ -840,13 +705,6 @@ export const BasicForm = ({ setDetails, showNotes }: Props) => {
         </div>
         <div className="form-section">
           <Heading2>{t("other-fields")}</Heading2>
-
-          {showNotes && (
-            <Note>
-              Checkbox voor akkoord gegevensverwerking Opmerking: wanneer toegevoegd is hij waarschijnlijk required.
-              Moeten we richtlijnen toevoegen wanneer deze toegevoegd dient te worden?
-            </Note>
-          )}
           <FormField>
             <Checkbox
               id="accept-data-handling"
@@ -859,10 +717,6 @@ export const BasicForm = ({ setDetails, showNotes }: Props) => {
               {t("accept-data-handling")}
             </FormLabel>
           </FormField>
-
-          {showNotes && (
-            <Note>Checkbox voor op de hoogte blijven TODO: richtlijnen over `checked` state bij aanvang</Note>
-          )}
           <FormField>
             <Checkbox
               id="subscribe-newsletter"
