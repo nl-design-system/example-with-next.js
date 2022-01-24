@@ -6,7 +6,7 @@ import { DateInput } from "../src/components/DateInput";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { LanguageToggle } from "../src/components/LanguageToggle";
-import { DemoFormChecked, DemoFormInput } from "../types/DemoForm";
+import { DemoForm, DemoFormChecked, DemoFormInput } from "../types/DemoForm";
 import { EmptyIndicator } from "../src/components/EmptyIndicator";
 import { DataListValue } from "../src/components/DataListValue";
 import { SaveButton } from "../src/components/SaveButton";
@@ -62,12 +62,18 @@ export const getServerSideProps = async ({ locale }: { locale: string }) => ({
 const trimWhitespace = (value: string) => value.trim();
 const normalizeWhitespace = (value: string) => value.replace(/\s+/g, " ");
 const removeWhitespace = (value: string) => value.replace(/\s+/g, "");
-// const toInteger = (value: string): number => parseInt(value, 10);
+const normalizeUnicode = (value: string) => value.normalize("NFC");
+const toInteger = (value: string): number => parseInt(value, 10);
 
 const normalizers: Partial<{ [Property in keyof DemoFormInput]: ((value: string) => string)[] }> = {
-  "given-name": [trimWhitespace, normalizeWhitespace],
+  "given-name": [trimWhitespace, normalizeWhitespace, normalizeUnicode],
+  "family-name": [trimWhitespace, normalizeWhitespace, normalizeUnicode],
   iban: [removeWhitespace],
   "kvk-number": [removeWhitespace],
+};
+
+const convertTypes: Partial<{ [Property in keyof DemoFormInput]: (value: string) => number | boolean }> = {
+  "kvk-number": toInteger,
 };
 
 type FormInput = { [Property in keyof DemoFormInput]: string };
@@ -76,16 +82,17 @@ export default function Form() {
   function normalizeInput(partial: Partial<FormInput>) {
     return Object.entries(partial).reduce((normalized, entry) => {
       const [key, value] = entry as [keyof DemoFormInput, string];
-      const configuredNormalizers = normalizers[key];
+      const configuredNormalizers = normalizers[key] || [];
+      const convertType = convertTypes[key];
 
-      if (Array.isArray(configuredNormalizers)) {
+      if (convertType) {
         return {
           ...normalized,
-          [key]: configuredNormalizers.reduce((n, fn) => fn(n), value),
+          [key]: convertType(configuredNormalizers.reduce((n, fn) => fn(n), value)),
         };
       }
 
-      return { ...normalized, [key]: value };
+      return { ...normalized, [key]: configuredNormalizers.reduce((n, fn) => fn(n), value) };
     }, {});
   }
 
@@ -142,15 +149,14 @@ export default function Form() {
   const [formCheckedState, dispatchFormCheck] = useReducer(handleFormChecked, initialFormChecked);
   const [formInputState, dispatchFormInputState] = useReducer(handleFormInputChange, defaultFormInput as FormInput);
   const [showNotes, setShowNotes] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [data, setData] = useState<DemoForm>();
 
   const { t } = useTranslation("form");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
-    setSubmitted(true);
 
     setTimeout(() => {
       setLoading(false);
@@ -167,6 +173,7 @@ export default function Form() {
     const result = await res.json();
 
     console.log("RESULT", result);
+    setData(result);
   };
   const demo1 = () => {
     clear();
@@ -175,7 +182,7 @@ export default function Form() {
       partial: {
         gender: "female",
         "given-name": "Pipa   Porretje",
-        "family-name": "Yo   Yo   Ko",
+        "family-name": "\u0041\u006d\u0065\u0301\u006c\u0069\u0065",
         "contact-preference": "letter",
       },
     });
@@ -225,12 +232,9 @@ export default function Form() {
     dispatchFormCheck({
       "accept-data-handling": true,
     });
-
-    console.log(formInputState);
-    console.log(formCheckedState);
   };
 
-  const handleInputChange = (change: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (change: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     dispatchFormInputState({ event: "change", partial: { [change.target.name]: change.target.value } });
   };
 
@@ -256,7 +260,215 @@ export default function Form() {
       </Head>
       <Heading1>{t("page-title")}</Heading1>
       <LanguageToggle />
-      {!submitted || loading ? (
+      {data ? (
+        <>
+          <section>
+            <h2 id="h2">{t("personal-details")}</h2>
+            {/* <!-- test <dl> met aria-describedby --> */}
+            <dl aria-describedby="h2">
+              {/* <!-- How annoying is it to have a screen reader repeat the name and say "heading level 2 Persoonsgegevens, definition list Persoonsgegevens"? --> */}
+              <div>
+                <dt>{t("manner-of-address")}</dt>
+                <DataListValue value={data["manner-of-address"]} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{data["manner-of-address"]}</span>
+                </DataListValue>
+              </div>
+              <div>
+                <dt>{t("given-name-initials")}</dt>
+                <DataListValue value={data["given-name-initials"]} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{data["given-name-initials"]}</span>
+                </DataListValue>
+              </div>
+              <div>
+                <dt>{t("given-name")}</dt>
+                <DataListValue value={data["given-name"]} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{data["given-name"]}</span>
+                </DataListValue>
+              </div>
+              <div>
+                <dt>{t("family-name-prefix")}</dt>
+                <DataListValue value={data["family-name-prefix"]} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{data["family-name-prefix"]}</span>
+                </DataListValue>
+              </div>
+              <div>
+                <dt>{t("family-name")}</dt>
+                <DataListValue value={data["family-name"]} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{data["family-name"]}</span>
+                </DataListValue>
+              </div>
+              <div>
+                <dt>{t("name-original-writing")}</dt>
+                <DataListValue value={data["name-original-writing"]} emptyDescription={t("data-item-input-empty")}>
+                  <bdi className="notranslate">{data["name-original-writing"]}</bdi>
+                </DataListValue>
+              </div>
+              <div>
+                <dt>{t("gender")}</dt>
+                <DataListValue value={data.gender} emptyDescription={t("data-item-input-empty")}>
+                  {t(`gender-${data.gender}`)}
+                </DataListValue>
+              </div>
+              <div>
+                <dt>{t("bsn")}</dt>
+                <DataListValue value={data.bsn} emptyDescription={t("data-item-input-empty")}>
+                  {data.bsn}
+                </DataListValue>
+              </div>
+              <div>
+                <dt>{t("bday")}</dt>
+                <DataListValue value={data.bday} emptyDescription={t("data-item-input-empty")}>
+                  {/* TODO: Use library to display ISO8601 in human readable format */}
+                  <time dateTime={data.bday}>{data.bday}</time>
+                </DataListValue>
+              </div>
+            </dl>
+          </section>
+          <section>
+            <h2 id="h2">{t("contact-details")}</h2>
+            {/* <!-- test <dl> met aria-describedby --> */}
+            <dl aria-describedby="h2">
+              {/* <!-- How annoying is it to have a screen reader repeat the name and say "heading level 2 Persoonsgegevens, definition list Persoonsgegevens"? --> */}
+              <div>
+                <dt>{t("postal-code")}</dt>
+              </div>
+              <div>
+                <dt>{t("house-number")}</dt>
+                <DataListValue value={data["house-number"]} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{data["house-number"]}</span>
+                </DataListValue>
+              </div>
+              <div>
+                <dt>{t("house-number-letter")}</dt>
+                <DataListValue value={data["house-number-letter"]} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{data["house-number-letter"]}</span>
+                </DataListValue>
+              </div>
+              <div>
+                <dt>{t("house-number-suffix")}</dt>
+                <DataListValue value={data["house-number-suffix"]} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{data["house-number-suffix"]}</span>
+                </DataListValue>
+              </div>
+              <div>
+                <dt>{t("street")}</dt>
+                <DataListValue value={data.street} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{data.street}</span>
+                </DataListValue>
+              </div>
+              <div>
+                <dt>{t("place-of-residence")}</dt>
+                <DataListValue value={data["place-of-residence"]} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{data["place-of-residence"]}</span>
+                </DataListValue>
+              </div>
+              <div>
+                <dt>{t("municipality")}</dt>
+                <DataListValue value={data.municipality} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{data.municipality}</span>
+                </DataListValue>
+              </div>
+              <div>
+                <dt>{t("country")}</dt>
+                <DataListValue value={data.country} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{data.country}</span>
+                </DataListValue>
+              </div>
+              <div>
+                <dt>{t("email")}</dt>
+                <DataListValue value={data.email} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{data.email}</span>
+                </DataListValue>
+              </div>
+              <div>
+                <dt>{t("tel")}</dt>
+                <DataListValue value={data.tel} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{data.tel}</span>
+                </DataListValue>
+              </div>
+              <div>
+                <dt>{t("tel-mobile")}</dt>
+                <DataListValue value={data["tel-mobile"]} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{data["tel-mobile"]}</span>
+                </DataListValue>
+              </div>
+              <div>
+                <dt>{t("tel-daytime")}</dt>
+                <DataListValue value={data["tel-daytime"]} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{data["tel-daytime"]}</span>
+                </DataListValue>
+              </div>
+              <div>
+                <dt>{t("tel-evening")}</dt>
+                <DataListValue value={data["tel-evening"]} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{data["tel-evening"]}</span>
+                </DataListValue>
+              </div>
+              <div>
+                <dt>{t("location-description")}</dt>
+                <DataListValue value={data["location-description"]} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{data["location-description"]}</span>
+                </DataListValue>
+              </div>
+              <div>
+                <dt>{t("contact-preference")}</dt>
+                <DataListValue value={data["contact-preference"]} emptyDescription={t("data-item-input-empty")}>
+                  <span>
+                    {t(`contact-${data["contact-preference"]}`) || (
+                      <EmptyIndicator title={t("data-item-input-empty")} />
+                    )}
+                  </span>
+                </DataListValue>
+              </div>
+            </dl>
+          </section>
+          <section>
+            <h2 id="h2">{t("financial-details")}</h2>
+            {/* <!-- test <dl> met aria-describedby --> */}
+            <dl aria-describedby="h2">
+              {/* <!-- How annoying is it to have a screen reader repeat the name and say "heading level 2 Persoonsgegevens, definition list Persoonsgegevens"? --> */}
+              <div>
+                <dt>{t("iban")}</dt>
+                <DataListValue value={data.iban} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{data.iban}</span>
+                </DataListValue>
+              </div>
+              <div>
+                <dt>{t("bic")}</dt>
+                <DataListValue value={data.bic} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{data.bic}</span>
+                </DataListValue>
+              </div>
+            </dl>
+          </section>
+          <section>
+            <h2 id="h2">{t("commercial-details")}</h2>
+            {/* <!-- test <dl> met aria-describedby --> */}
+            <dl aria-describedby="h2">
+              {/* <!-- How annoying is it to have a screen reader repeat the name and say "heading level 2 Persoonsgegevens, definition list Persoonsgegevens"? --> */}
+              <div>
+                <dt>{t("kvk-number")}</dt>
+                <DataListValue value={data["kvk-number"]} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{data["kvk-number"]}</span>
+                </DataListValue>
+              </div>
+              <div>
+                <dt>{t("organization")}</dt>
+                <DataListValue value={data.organization} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{data.organization}</span>
+                </DataListValue>
+              </div>
+              <div>
+                <dt>{t("website")}</dt>
+                <DataListValue value={data.website} emptyDescription={t("data-item-input-empty")}>
+                  <span className="notranslate">{data.website}</span>
+                </DataListValue>
+              </div>
+            </dl>
+          </section>
+          <Button onClick={() => setData(undefined)}>Back</Button>
+        </>
+      ) : (
         <>
           <FormField>
             <Checkbox
@@ -311,7 +523,6 @@ export default function Form() {
                   id="adelijke-titel-predicaat"
                   name="adelijke-titel-predicaat"
                   value={formInputState["adelijke-titel-predicaat"]}
-                  onBlur={handleInputBlur}
                   onChange={handleInputChange}
                 >
                   <option></option>
@@ -931,242 +1142,6 @@ export default function Form() {
             <Button onClick={demo2}>Demo 2</Button>
             <Button onClick={clear}>Reset</Button>
           </div>
-        </>
-      ) : (
-        <>
-          <section>
-            <h2 id="h2">{t("personal-details")}</h2>
-            {/* <!-- test <dl> met aria-describedby --> */}
-            <dl aria-describedby="h2">
-              {/* <!-- How annoying is it to have a screen reader repeat the name and say "heading level 2 Persoonsgegevens, definition list Persoonsgegevens"? --> */}
-              <div>
-                <dt>{t("manner-of-address")}</dt>
-                <DataListValue
-                  value={formInputState["manner-of-address"]}
-                  emptyDescription={t("data-item-input-empty")}
-                >
-                  <span className="notranslate">{formInputState["manner-of-address"]}</span>
-                </DataListValue>
-              </div>
-              <div>
-                <dt>{t("given-name-initials")}</dt>
-                <DataListValue
-                  value={formInputState["given-name-initials"]}
-                  emptyDescription={t("data-item-input-empty")}
-                >
-                  <span className="notranslate">{formInputState["given-name-initials"]}</span>
-                </DataListValue>
-              </div>
-              <div>
-                <dt>{t("given-name")}</dt>
-                <DataListValue value={formInputState["given-name"]} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formInputState["given-name"]}</span>
-                </DataListValue>
-              </div>
-              <div>
-                <dt>{t("family-name-prefix")}</dt>
-                <DataListValue
-                  value={formInputState["family-name-prefix"]}
-                  emptyDescription={t("data-item-input-empty")}
-                >
-                  <span className="notranslate">{formInputState["family-name-prefix"]}</span>
-                </DataListValue>
-              </div>
-              <div>
-                <dt>{t("family-name")}</dt>
-                <DataListValue value={formInputState["family-name"]} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formInputState["family-name"]}</span>
-                </DataListValue>
-              </div>
-              <div>
-                <dt>{t("name-original-writing")}</dt>
-                <DataListValue
-                  value={formInputState["name-original-writing"]}
-                  emptyDescription={t("data-item-input-empty")}
-                >
-                  <bdi className="notranslate">{formInputState["name-original-writing"]}</bdi>
-                </DataListValue>
-              </div>
-              <div>
-                <dt>{t("gender")}</dt>
-                <DataListValue value={formInputState.gender} emptyDescription={t("data-item-input-empty")}>
-                  {t(`gender-${formInputState.gender}`)}
-                </DataListValue>
-              </div>
-              <div>
-                <dt>{t("bsn")}</dt>
-                <DataListValue value={formInputState.bsn} emptyDescription={t("data-item-input-empty")}>
-                  {formInputState.bsn}
-                </DataListValue>
-              </div>
-              <div>
-                <dt>{t("bday")}</dt>
-                <DataListValue value={formInputState.bday} emptyDescription={t("data-item-input-empty")}>
-                  {/* TODO: Use library to display ISO8601 in human readable format */}
-                  <time dateTime={formInputState.bday}>{formInputState.bday}</time>
-                </DataListValue>
-              </div>
-            </dl>
-          </section>
-          <section>
-            <h2 id="h2">{t("contact-details")}</h2>
-            {/* <!-- test <dl> met aria-describedby --> */}
-            <dl aria-describedby="h2">
-              {/* <!-- How annoying is it to have a screen reader repeat the name and say "heading level 2 Persoonsgegevens, definition list Persoonsgegevens"? --> */}
-              <div>
-                <dt>{t("postal-code")}</dt>
-              </div>
-              <div>
-                <dt>{t("house-number")}</dt>
-                <DataListValue value={formInputState["house-number"]} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formInputState["house-number"]}</span>
-                </DataListValue>
-              </div>
-              <div>
-                <dt>{t("house-number-letter")}</dt>
-                <DataListValue
-                  value={formInputState["house-number-letter"]}
-                  emptyDescription={t("data-item-input-empty")}
-                >
-                  <span className="notranslate">{formInputState["house-number-letter"]}</span>
-                </DataListValue>
-              </div>
-              <div>
-                <dt>{t("house-number-suffix")}</dt>
-                <DataListValue
-                  value={formInputState["house-number-suffix"]}
-                  emptyDescription={t("data-item-input-empty")}
-                >
-                  <span className="notranslate">{formInputState["house-number-suffix"]}</span>
-                </DataListValue>
-              </div>
-              <div>
-                <dt>{t("street")}</dt>
-                <DataListValue value={formInputState.street} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formInputState.street}</span>
-                </DataListValue>
-              </div>
-              <div>
-                <dt>{t("place-of-residence")}</dt>
-                <DataListValue
-                  value={formInputState["place-of-residence"]}
-                  emptyDescription={t("data-item-input-empty")}
-                >
-                  <span className="notranslate">{formInputState["place-of-residence"]}</span>
-                </DataListValue>
-              </div>
-              <div>
-                <dt>{t("municipality")}</dt>
-                <DataListValue value={formInputState.municipality} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formInputState.municipality}</span>
-                </DataListValue>
-              </div>
-              <div>
-                <dt>{t("country")}</dt>
-                <DataListValue value={formInputState.country} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formInputState.country}</span>
-                </DataListValue>
-              </div>
-              <div>
-                <dt>{t("email")}</dt>
-                <DataListValue value={formInputState.email} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formInputState.email}</span>
-                </DataListValue>
-              </div>
-              <div>
-                <dt>{t("tel")}</dt>
-                <DataListValue value={formInputState.tel} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formInputState.tel}</span>
-                </DataListValue>
-              </div>
-              <div>
-                <dt>{t("tel-mobile")}</dt>
-                <DataListValue value={formInputState["tel-mobile"]} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formInputState["tel-mobile"]}</span>
-                </DataListValue>
-              </div>
-              <div>
-                <dt>{t("tel-daytime")}</dt>
-                <DataListValue value={formInputState["tel-daytime"]} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formInputState["tel-daytime"]}</span>
-                </DataListValue>
-              </div>
-              <div>
-                <dt>{t("tel-evening")}</dt>
-                <DataListValue value={formInputState["tel-evening"]} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formInputState["tel-evening"]}</span>
-                </DataListValue>
-              </div>
-              <div>
-                <dt>{t("location-description")}</dt>
-                <DataListValue
-                  value={formInputState["location-description"]}
-                  emptyDescription={t("data-item-input-empty")}
-                >
-                  <span className="notranslate">{formInputState["location-description"]}</span>
-                </DataListValue>
-              </div>
-              <div>
-                <dt>{t("contact-preference")}</dt>
-                <DataListValue
-                  value={formInputState["contact-preference"]}
-                  emptyDescription={t("data-item-input-empty")}
-                >
-                  <span>
-                    {t(`contact-${formInputState["contact-preference"]}`) || (
-                      <EmptyIndicator title={t("data-item-input-empty")} />
-                    )}
-                  </span>
-                </DataListValue>
-              </div>
-            </dl>
-          </section>
-          <section>
-            <h2 id="h2">{t("financial-details")}</h2>
-            {/* <!-- test <dl> met aria-describedby --> */}
-            <dl aria-describedby="h2">
-              {/* <!-- How annoying is it to have a screen reader repeat the name and say "heading level 2 Persoonsgegevens, definition list Persoonsgegevens"? --> */}
-              <div>
-                <dt>{t("iban")}</dt>
-                <DataListValue value={formInputState.iban} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formInputState.iban}</span>
-                </DataListValue>
-              </div>
-              <div>
-                <dt>{t("bic")}</dt>
-                <DataListValue value={formInputState.bic} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formInputState.bic}</span>
-                </DataListValue>
-              </div>
-            </dl>
-          </section>
-          <section>
-            <h2 id="h2">{t("commercial-details")}</h2>
-            {/* <!-- test <dl> met aria-describedby --> */}
-            <dl aria-describedby="h2">
-              {/* <!-- How annoying is it to have a screen reader repeat the name and say "heading level 2 Persoonsgegevens, definition list Persoonsgegevens"? --> */}
-              <div>
-                <dt>{t("kvk-number")}</dt>
-                <DataListValue value={formInputState["kvk-number"]} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formInputState["kvk-number"]}</span>
-                </DataListValue>
-              </div>
-              <div>
-                <dt>{t("organization")}</dt>
-                <DataListValue value={formInputState.organization} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formInputState.organization}</span>
-                </DataListValue>
-              </div>
-              <div>
-                <dt>{t("website")}</dt>
-                <DataListValue value={formInputState.website} emptyDescription={t("data-item-input-empty")}>
-                  <span className="notranslate">{formInputState.website}</span>
-                </DataListValue>
-              </div>
-            </dl>
-          </section>
-          <SaveButton>save-progress</SaveButton>
-          <Button onClick={() => setSubmitted(false)}>Back</Button>
         </>
       )}
     </Document>

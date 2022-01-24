@@ -4,12 +4,14 @@ import { FinancialDetails } from './FinancialDetails';
 import { PersonalDetails } from './PersonalDetails';
 import { ForeignAddress } from './ForeignAddress';
 
-export interface DemoFormChecked
+export interface DemoFormInput
   extends PersonalDetails,
     ContactDetails,
     FinancialDetails,
     CommercialDetails,
-    ForeignAddress {
+    ForeignAddress {}
+
+export interface DemoFormChecked {
   'accept-data-handling': boolean;
   'subscribe-newsletter': boolean;
 }
