@@ -12,6 +12,21 @@ import { DataListValue } from "../src/components/DataListValue";
 import { SaveButton } from "../src/components/SaveButton";
 import voorvoegsels from "../src/data/voorvoegsels.json";
 import landen from "../src/data/landen.json";
+import {
+  bsnValidation,
+  voornaamValidation,
+  voorvoegselGeslachtsnaamValidation,
+  geslachtsnaamValidation,
+  placeOfBirthValidation,
+  huisletterValidation,
+  postcodeValidation,
+  huisnummertoevoegingValidation,
+  locatiebeschrijvingValidation,
+  woonplaatsnaamValidation,
+  adresRegel1Validation,
+  adresRegel2Validation,
+  adresRegel3Validation,
+} from "../src/data";
 
 import {
   Button,
@@ -272,6 +287,8 @@ export default function Form() {
                 value={formInputState["given-name"]}
                 onBlur={handleInputBlur}
                 onChange={handleInputChange}
+                maxLength={voornaamValidation.maxLength}
+                pattern={voornaamValidation.pattern}
                 required
                 errors={[
                   {
@@ -324,6 +341,8 @@ export default function Form() {
                 name="family-name"
                 value={formInputState["family-name"]}
                 onBlur={handleInputBlur}
+                maxLength={geslachtsnaamValidation.maxLength}
+                pattern={geslachtsnaamValidation.pattern}
                 onChange={handleInputChange}
               ></InputFamilyName>
               {showNotes && (
@@ -360,6 +379,8 @@ export default function Form() {
                   list="family-name-prefix-datalist"
                   autoComplete="honorific-prefix"
                   value={formInputState["family-name-prefix"]}
+                  maxLength={voorvoegselGeslachtsnaamValidation.maxLength}
+                  pattern={voorvoegselGeslachtsnaamValidation.pattern}
                   onChange={handleInputChange}
                 />
                 <datalist id="family-name-prefix-datalist">
@@ -436,6 +457,18 @@ export default function Form() {
                 />
               </FormField>
               <FormField>
+                <FormLabel htmlFor="place-of-birth">{t("place-of-birth")}</FormLabel>
+                <TextInput
+                  id="place-of-birth"
+                  name="place-of-birth"
+                  value={formInputState["place-of-birth"]}
+                  maxLength={placeOfBirthValidation.maxLength}
+                  pattern={placeOfBirthValidation.pattern}
+                  onBlur={handleInputBlur}
+                  onChange={handleInputChange}
+                />
+              </FormField>
+              <FormField>
                 <FormLabel htmlFor="country-of-birth">{t("country-of-birth")}</FormLabel>
                 <TextInput
                   id="country-of-birth"
@@ -464,8 +497,11 @@ export default function Form() {
               <InputBSN
                 id="bsn"
                 name="bsn"
-                value={formState.bsn}
+                value={formInputState.bsn}
                 onBlur={handleInputBlur}
+                minLength={bsnValidation.minLength}
+                maxLength={bsnValidation.maxLength}
+                pattern={bsnValidation.pattern}
                 onChange={handleInputChange}
               ></InputBSN>
             </div>
@@ -482,7 +518,7 @@ export default function Form() {
               <InputEmail
                 id="email"
                 name="email"
-                value={formState.email}
+                value={formInputState.email}
                 onBlur={handleInputBlur}
                 onChange={handleInputChange}
               />
@@ -579,6 +615,7 @@ export default function Form() {
                     name="postal-code"
                     autoComplete="postal-code"
                     value={formInputState["postal-code"]}
+                    pattern={postcodeValidation.pattern}
                     onChange={handleInputChange}
                   />
                 </FormField>
@@ -607,6 +644,8 @@ export default function Form() {
                     id="house-number-letter"
                     name="house-number-letter"
                     value={formInputState["house-number-letter"]}
+                    maxLength={huisletterValidation.maxLength}
+                    pattern={huisletterValidation.pattern}
                     onChange={handleInputChange}
                   />
                 </FormField>
@@ -617,6 +656,7 @@ export default function Form() {
                     id="house-number-suffix"
                     name="house-number-suffix"
                     value={formInputState["house-number-suffix"]}
+                    pattern={huisnummertoevoegingValidation.pattern}
                     onChange={handleInputChange}
                   />
                 </FormField>
@@ -637,6 +677,9 @@ export default function Form() {
                     id="place-of-residence"
                     name="place-of-residence"
                     value={formInputState["place-of-residence"]}
+                    minLength={woonplaatsnaamValidation.minLength}
+                    maxLength={woonplaatsnaamValidation.maxLength}
+                    pattern={woonplaatsnaamValidation.pattern}
                     onChange={handleInputChange}
                   />
                 </FormField>
@@ -676,10 +719,53 @@ export default function Form() {
                   id="location-description"
                   name="location-description"
                   value={formInputState["location-description"]}
+                  maxLength={locatiebeschrijvingValidation.maxLength}
                   onChange={handleInputChange}
                 />
               </FormField>
 
+              <Fieldset>
+                <FieldsetLegend>Buitenlands adres</FieldsetLegend>
+                <FormField>
+                  <FormLabel htmlFor="address-line1">Regel 1</FormLabel>
+                  <TextInput
+                    id="address-line1"
+                    name="address-line1"
+                    maxLength={adresRegel1Validation.maxLength}
+                    pattern={adresRegel1Validation.pattern}
+                    autoComplete="address-line1"
+                    value={formInputState["address-line1"]}
+                    onBlur={handleInputBlur}
+                    onChange={handleInputChange}
+                  />
+                </FormField>
+                <FormField>
+                  <FormLabel htmlFor="address-line2">Regel 2</FormLabel>
+                  <TextInput
+                    id="address-line2"
+                    name="address-line2"
+                    maxLength={adresRegel2Validation.maxLength}
+                    pattern={adresRegel2Validation.pattern}
+                    autoComplete="address-line2"
+                    value={formInputState["address-line2"]}
+                    onBlur={handleInputBlur}
+                    onChange={handleInputChange}
+                  />
+                </FormField>
+                <FormField>
+                  <FormLabel htmlFor="address-line3">Regel 3</FormLabel>
+                  <TextInput
+                    id="address-line3"
+                    name="address-line3"
+                    maxLength={adresRegel3Validation.maxLength}
+                    pattern={adresRegel3Validation.pattern}
+                    autoComplete="address-line3"
+                    value={formInputState["address-line3"]}
+                    onBlur={handleInputBlur}
+                    onChange={handleInputChange}
+                  />
+                </FormField>
+              </Fieldset>
               {showNotes && <Note> voorkeur contactwijze: brief / telefoon / e-mail </Note>}
               <Fieldset>
                 <FieldsetLegend>{t("contact-preference")}</FieldsetLegend>
