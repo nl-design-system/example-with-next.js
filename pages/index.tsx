@@ -18,6 +18,9 @@ export default function Home() {
             <LanguageToggle />
             <ul>
               <li>
+                <Link href="/form">Form Example</Link>
+              </li>
+              <li>
                 <Link href="/react-components">React components</Link>
               </li>
               <li>
