@@ -26,7 +26,16 @@ export default function Home() {
               <li>
                 <Link href="/marriage-witness-data">Getuigen overzicht</Link>
               </li>
+              <li>
+                <Link href="/huwelijksplanner-step-0">Huwelijksplanner stap 0</Link>
+              </li>
             </ul>
+            <form>
+              <input type="radio" name="a" value="1" />
+              <input type="radio" name="a" value="2" />
+              <input type="radio" name="a" value="3" />
+              <input type="submit" />
+            </form>
           </nav>
         </header>
       </Document>

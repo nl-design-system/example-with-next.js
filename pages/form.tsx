@@ -6,7 +6,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { LanguageToggle } from "../src/components/LanguageToggle";
 import { DemoForm } from "../types/DemoForm";
 
-import { Button, Checkbox, Document, FormField, FormLabel, Heading1 } from "../src/components/utrecht";
+import { Button, Document, Heading1 } from "../src/components/utrecht";
 
 import { FormDetails } from "../src/components/demo/FormDetails";
 import { BasicForm } from "../src/components/demo/BasicForm";

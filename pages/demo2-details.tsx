@@ -71,7 +71,7 @@ export default function Demo2Details() {
             </DataListValue>
           </div>
           <div>
-            <dt>{t("given-name-initials")}</dt>{" "}
+            <dt>{t("given-name-initials")}</dt>
             <DataListValue value={formState["given-name-initials"]} emptyDescription={t("data-item-input-empty")}>
               <span className="notranslate">{formState["given-name-initials"]}</span>
             </DataListValue>
@@ -83,7 +83,7 @@ export default function Demo2Details() {
             </DataListValue>
           </div>
           <div>
-            <dt>{t("family-name-prefix")}</dt>{" "}
+            <dt>{t("family-name-prefix")}</dt>
             <DataListValue value={formState["family-name-prefix"]} emptyDescription={t("data-item-input-empty")}>
               <span className="notranslate">{formState["family-name-prefix"]}</span>
             </DataListValue>
@@ -95,7 +95,7 @@ export default function Demo2Details() {
             </DataListValue>
           </div>
           <div>
-            <dt>{t("name-original-writing")}</dt>{" "}
+            <dt>{t("name-original-writing")}</dt>
             <DataListValue value={formState["name-original-writing"]} emptyDescription={t("data-item-input-empty")}>
               <bdi className="notranslate">{formState["name-original-writing"]}</bdi>
             </DataListValue>

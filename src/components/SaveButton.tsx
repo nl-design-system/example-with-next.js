@@ -9,7 +9,7 @@ import { Button } from "./utrecht";
 type SaveButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const SaveButton = ({ children, ...restProps }: PropsWithChildren<SaveButtonProps>) => (
-  <Button {...restProps} type="submit" formNoValidate>
+  <Button {...restProps} type="button" formNoValidate>
     {children}
   </Button>
 );

@@ -31,24 +31,84 @@ import { DateInput } from "../DateInput";
 import { InputBSN, InputEmail, InputHouseNumber } from "../input";
 import { Button, Fieldset, FieldsetLegend, RadioButton, Textarea } from "../utrecht";
 import { SaveButton } from "../SaveButton";
+import { ValidationMessages } from "../ValidationMessages";
 
 interface Props {
   setDetails: Dispatch<SetStateAction<DemoForm | undefined>>;
 }
 type FormInput = { [Property in keyof DemoFormInput]: string };
 
+type FormValidationError = {
+  id: string;
+  message: string;
+};
+
+type FormInputValidityState = {
+  [Property in keyof DemoFormInput]: {
+    errors: FormValidationError[];
+  };
+};
+
+type FormValidationFunction = (value: string) => FormValidationError[];
+
+const flattenArray: <T>(a: T[], b: T[]) => T[] = (a, b) => [...a, ...b];
+
+export const ValidationIcon = (errors: FormValidationError[]) => {
+  // Icon that can be displayed in the form label,
+  // just in case the validation messages fall outside of the viewport.
+  // Perhaps if you click the icon (should be large enough)
+  // the browser should scroll to the validation messages, ideally keeping the
+  // form input visible too.
+  return errors?.length > 0 ? (
+    <>
+      {" "}
+      <span title="has validation message" aria-hidden="true">
+        ⚠️
+      </span>
+    </>
+  ) : null;
+};
+
 export const BasicForm = ({ setDetails }: Props) => {
+  const { t } = useTranslation("form");
+
   const trimWhitespace = (value: string) => value.trim();
   const normalizeWhitespace = (value: string) => value.replace(/\s+/g, " ");
   const removeWhitespace = (value: string) => value.replace(/\s+/g, "");
   const normalizeUnicode = (value: string) => value.normalize("NFC");
   const toInteger = (value: string): number => parseInt(value, 10);
+  const toUpperCase = (value: string): string => String(value).toUpperCase();
 
   const normalizers: Partial<{ [Property in keyof DemoFormInput]: ((value: string) => string)[] }> = {
     "given-name": [trimWhitespace, normalizeWhitespace, normalizeUnicode],
     "family-name": [trimWhitespace, normalizeWhitespace, normalizeUnicode],
     iban: [removeWhitespace],
     "kvk-number": [removeWhitespace],
+    "postal-code": [removeWhitespace, toUpperCase],
+  };
+
+  const validators: Partial<{ [Property in keyof DemoFormInput]: FormValidationFunction[] }> = {
+    "postal-code": [
+      (value) => {
+        const errors = [];
+        if (value.length > 6) {
+          errors.push({
+            id: "3c1ac06c-80f0-41fc-ad37-7637ebd2e1ce",
+            message: t("invalid-max-length"),
+          });
+        }
+        if (
+          typeof postcodeValidation.pattern == "string" &&
+          !new RegExp(`^(?:${postcodeValidation.pattern})$`).test(value)
+        ) {
+          errors.push({
+            id: "3249dd09-baa8-498e-9709-af3062737f50",
+            message: t("invalid-pattern"),
+          });
+        }
+        return errors;
+      },
+    ],
   };
 
   const convertTypes: Partial<{ [Property in keyof DemoFormInput]: (value: string) => number | boolean }> = {
@@ -155,7 +215,24 @@ export const BasicForm = ({ setDetails }: Props) => {
   };
 
   const [formCheckedState, dispatchFormCheck] = useReducer(handleFormChecked, initialFormChecked);
+
+  const validateFormInputChange = (data: FormInput, { event }): FormInputValidityState => {
+    console.log("validate", data, event);
+    return {
+      "postal-code": {
+        errors:
+          validators["postal-code"]
+            ?.map((validator) => validator(data["postal-code"] || ""))
+            .reduce(flattenArray, []) || [],
+      },
+    };
+  };
+
   const [formInputState, dispatchFormInputState] = useReducer(handleFormInputChange, defaultFormInput as FormInput);
+  const [formValidityState, validateFormInputState] = useReducer(
+    validateFormInputChange,
+    defaultFormInput as FormInput
+  );
   const [loading, setLoading] = useState(false);
 
   const clear = () => {
@@ -217,8 +294,6 @@ export const BasicForm = ({ setDetails }: Props) => {
     });
   };
 
-  const { t } = useTranslation("form");
-
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -233,12 +308,7 @@ export const BasicForm = ({ setDetails }: Props) => {
             maxLength={voornaamValidation.maxLength}
             pattern={voornaamValidation.pattern}
             required
-            errors={[
-              {
-                id: "38a70b93-a7b3-4f91-9725-8ee2871b335b",
-                message: t("given-name-required"),
-              },
-            ]}
+            errors={formValidityState["given-name"].errors}
           ></InputGivenName>
           <FormField>
             <FormLabel htmlFor="adelijke-titel-predicaat">{t("adelijke-titel-predicaat")}</FormLabel>
@@ -449,7 +519,10 @@ export const BasicForm = ({ setDetails }: Props) => {
           <Fieldset>
             <FieldsetLegend>{t("address")}</FieldsetLegend>
             <FormField>
-              <FormLabel htmlFor="postal-code">{t("postal-code")}</FormLabel>
+              <FormLabel htmlFor="postal-code">
+                {t("postal-code")}
+                <ValidationIcon errors={formValidityState["postal-code"].errors} />
+              </FormLabel>
               <TextInput
                 onBlur={handleInputBlur}
                 id="postal-code"
@@ -459,6 +532,7 @@ export const BasicForm = ({ setDetails }: Props) => {
                 pattern={postcodeValidation.pattern}
                 onChange={handleInputChange}
               />
+              <ValidationMessages errors={formValidityState["postal-code"].errors} />
             </FormField>
             <InputHouseNumber
               id="house-number"
