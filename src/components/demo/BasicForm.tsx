@@ -61,7 +61,6 @@ export const ValidationIcon = (errors: FormValidationError[]) => {
   // form input visible too.
   return errors?.length > 0 ? (
     <>
-      {" "}
       <span title="has validation message" aria-hidden="true">
         ⚠️
       </span>

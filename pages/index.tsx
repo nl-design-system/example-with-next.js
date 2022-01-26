@@ -27,7 +27,30 @@ export default function Home() {
                 <Link href="/marriage-witness-data">Getuigen overzicht</Link>
               </li>
               <li>
-                <Link href="/huwelijksplanner-step-0">Huwelijksplanner stap 0</Link>
+                Huwelijksplanner
+                <ul>
+                  <li>
+                    <Link href="/huwelijksplanner-step-0">Stap 0</Link>
+                  </li>
+                  <li>
+                    <Link href="/huwelijksplanner-step-1">Stap 1</Link>
+                  </li>
+                  <li>
+                    <Link href="/huwelijksplanner-step-2">Stap 2</Link>
+                  </li>
+                  <li>
+                    <Link href="/huwelijksplanner-step-3">Stap 3</Link>
+                  </li>
+                  <li>
+                    <Link href="/huwelijksplanner-step-4">Stap 4</Link>
+                  </li>
+                  <li>
+                    <Link href="/huwelijksplanner-step-5">Stap 5</Link>
+                  </li>
+                  <li>
+                    <Link href="/huwelijksplanner-step-6">Stap 6</Link>
+                  </li>
+                </ul>
               </li>
             </ul>
             <form>

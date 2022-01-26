@@ -16,25 +16,31 @@ import {
   PageContent,
   PageContentMain,
   PageHeader,
+  TextInput,
+  OrderedList,
+  OrderedListItem,
 } from "../src/components/utrecht";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { LanguageToggle } from "../src/components/LanguageToggle";
-import { DateInput } from "../src/components/DateInput";
+import { DataListValue, DataNumeric, DataNoTranslate, OptionalIndicator } from "../src/components";
+import { exampleState } from "../src/data/huwelijksplanner-state";
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ["huwelijksplanner-step-3"])),
+    ...(await serverSideTranslations(locale, ["huwelijksplanner-step-4", "form"])),
   },
 });
 
 export default function MultistepForm1() {
-  const { t } = useTranslation("huwelijksplanner-step-3");
+  const { t } = useTranslation(["huwelijksplanner-step-4", "form"]);
+  const data = { ...exampleState };
+
   return (
     <Document>
       <Head>
         <title>
-          {t("huwelijksplanner-step-3:title")}
+          {t("huwelijksplanner-step-4:title")}
           {" — "}
           {t("common:website-name")}
         </title>
@@ -52,10 +58,11 @@ export default function MultistepForm1() {
         </PageHeader>
         <PageContent>
           <PageContentMain>
-            <form method="POST" action="/api/huwelijksplanner-step-3">
-              <Heading1>{t("huwelijksplanner-step-3:heading-1")}</Heading1>
+            <form method="POST" action="/api/huwelijksplanner-step-6">
+              <Heading1>{t("huwelijksplanner-step-5:heading-6")}</Heading1>
               {/*TODO: Previous button */}
               {/*TODO: Step indicator component */}
+              <Paragraph lead>Stap 3 — Meld je voorgenomen huwelijk</Paragraph>
               {/*TODO: Banner / card */}
               <div>
                 <div>LOCATIE STADSKANTOOR - EENVOUDIG TROUWEN</div>
@@ -63,23 +70,29 @@ export default function MultistepForm1() {
                 <div>Kosten: € 168</div>
               </div>
               <section>
-                <Heading2>Meld je voorgenomen huwelijk</Heading2>
+                <Heading2>Gelukt!</Heading2>
                 <Paragraph>
-                  Je logt hier in met DigID. Zo geef je door aan de gemeente dat je wil gaan trouwen.
+                  {data.partner2["given-name"]} heeft met DigID ingelogd. Nu kunnen jullie verder met het plannen van
+                  het huwelijk. Er volgen nog een paar stappen:
                 </Paragraph>
-                <Paragraph>Na deze stap vragen we ook aan je partner om in te loggen met DigID.</Paragraph>
-                {/*TODO: DigiD button */}
+                <OrderedList>
+                  <OrderedListItem>
+                    Je kunt alvast de getuigen uitnodigen en/of extra’s aanschaffen om je huwelijk nog leuker te maken.
+                    Dat kan natuurlijk ook later
+                  </OrderedListItem>
+                  <OrderedListItem>
+                    De gemeente Utrecht checkt een aantal dingen, bijvoorbeeld of {data.partner2["given-name"]} geen
+                    broer of zus van je is
+                  </OrderedListItem>
+                  <OrderedListItem>Dan kun je betalen en is de reservering van je huwelijk klaar</OrderedListItem>
+                </OrderedList>
                 <Button type="submit" name="type">
-                  Meld voorgenomen huwelijk
+                  Laat de gemeente checken en ga betalen
                 </Button>
-              </section>
-              <section>
-                <Heading2>Meer informatie</Heading2>
-                <Paragraph>
-                  <Link href="/" external target="_blank">
-                    Vraag DigiD aan
-                  </Link>
-                </Paragraph>
+                <Paragraph>of</Paragraph>
+                <Button type="submit" name="type">
+                  vul aan met getuiges en extra's
+                </Button>
               </section>
             </form>
           </PageContentMain>

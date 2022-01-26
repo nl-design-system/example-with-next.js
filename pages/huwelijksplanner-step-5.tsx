@@ -16,25 +16,29 @@ import {
   PageContent,
   PageContentMain,
   PageHeader,
+  TextInput,
 } from "../src/components/utrecht";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { LanguageToggle } from "../src/components/LanguageToggle";
-import { DateInput } from "../src/components/DateInput";
+import { DataListValue, DataNumeric, DataNoTranslate, OptionalIndicator } from "../src/components";
+import { exampleState } from "../src/data/huwelijksplanner-state";
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ["huwelijksplanner-step-3"])),
+    ...(await serverSideTranslations(locale, ["huwelijksplanner-step-4", "form"])),
   },
 });
 
 export default function MultistepForm1() {
-  const { t } = useTranslation("huwelijksplanner-step-3");
+  const { t } = useTranslation(["huwelijksplanner-step-4", "form"]);
+  const data = { ...exampleState };
+
   return (
     <Document>
       <Head>
         <title>
-          {t("huwelijksplanner-step-3:title")}
+          {t("huwelijksplanner-step-4:title")}
           {" — "}
           {t("common:website-name")}
         </title>
@@ -52,10 +56,11 @@ export default function MultistepForm1() {
         </PageHeader>
         <PageContent>
           <PageContentMain>
-            <form method="POST" action="/api/huwelijksplanner-step-3">
-              <Heading1>{t("huwelijksplanner-step-3:heading-1")}</Heading1>
+            <form method="POST" action="/api/huwelijksplanner-step-5">
+              <Heading1>{t("huwelijksplanner-step-5:heading-1")}</Heading1>
               {/*TODO: Previous button */}
               {/*TODO: Step indicator component */}
+              <Paragraph lead>Stap 3 — Meld je voorgenomen huwelijk</Paragraph>
               {/*TODO: Banner / card */}
               <div>
                 <div>LOCATIE STADSKANTOOR - EENVOUDIG TROUWEN</div>
@@ -63,23 +68,37 @@ export default function MultistepForm1() {
                 <div>Kosten: € 168</div>
               </div>
               <section>
-                <Heading2>Meld je voorgenomen huwelijk</Heading2>
+                <Heading2>Nodig je partner uit</Heading2>
                 <Paragraph>
-                  Je logt hier in met DigID. Zo geef je door aan de gemeente dat je wil gaan trouwen.
+                  We hebben jouw gegevens ontvangen. Je kunt nu je partner uitnodigen om ook in te loggen met DigID. Zo
+                  bevestigt je partner dat jullie het huwelijk willen regelen.
                 </Paragraph>
-                <Paragraph>Na deze stap vragen we ook aan je partner om in te loggen met DigID.</Paragraph>
-                {/*TODO: DigiD button */}
+                <Fieldset>
+                  <FieldsetLegend>Partner</FieldsetLegend>
+                  <FormField>
+                    <FormLabel htmlFor="partner-name">{t("form:name")}</FormLabel>
+                    <TextInput
+                      id="partner-name"
+                      autoComplete="section-partner name"
+                      type="text"
+                      value={data.partnerInvitation["name"]}
+                      required
+                    />
+                  </FormField>
+                  <FormField>
+                    <FormLabel htmlFor="partner-email">{t("form:email")}</FormLabel>
+                    <TextInput
+                      id="partner-email"
+                      autoComplete="section-partner email"
+                      type="email"
+                      value={data.partnerInvitation["email"]}
+                      required
+                    />
+                  </FormField>
+                </Fieldset>
                 <Button type="submit" name="type">
-                  Meld voorgenomen huwelijk
+                  Verstuur uitnodiging
                 </Button>
-              </section>
-              <section>
-                <Heading2>Meer informatie</Heading2>
-                <Paragraph>
-                  <Link href="/" external target="_blank">
-                    Vraag DigiD aan
-                  </Link>
-                </Paragraph>
               </section>
             </form>
           </PageContentMain>

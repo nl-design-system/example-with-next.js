@@ -4,8 +4,7 @@ import { Document, FormField, FormLabel, Heading1, Heading2, TextInput } from ".
 import { DataNoTranslate, DataNumeric } from "../src/components";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { LanguageToggle } from "../src/components/LanguageToggle";
-import { DataListValue } from "../src/components/DataListValue";
+import { DataListValue, LanguageToggle, OptionalIndicator } from "../src/components";
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {
@@ -32,8 +31,6 @@ export default function Form() {
     "postal-code": "3582JH",
     "place-of-residence": "Utrecht",
   };
-
-  const OptionalIndicator = () => <span>{`(${t("optional")})`}</span>;
 
   return (
     <Document>
