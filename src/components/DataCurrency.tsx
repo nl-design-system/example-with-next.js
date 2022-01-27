@@ -4,14 +4,26 @@
  */
 
 import clsx from "clsx";
-import { InputHTMLAttributes, PropsWithChildren } from "react";
+import { HTMLAttributes } from "react";
 
-interface DataCurrencyProps extends InputHTMLAttributes<HTMLDataElement> {
-  value: string;
+interface DataCurrencyProps extends HTMLAttributes<HTMLDataElement> {
+  currency: string;
+  amount: string | number;
+  locale: string;
 }
 
-export const DataCurrency = ({ children, className, ...restProps }: PropsWithChildren<DataCurrencyProps>) => (
-  <data {...restProps} className={clsx("data", "data--currency", className)}>
-    {children}
+export const DataCurrency = ({ children, currency, amount, locale, className, ...restProps }: DataCurrencyProps) => (
+  <data
+    {...restProps}
+    value={`${currency} ${amount}`}
+    className={clsx("data", "data--currency", "data--numeric", className)}
+  >
+    {new Intl.NumberFormat(locale, {
+      style: "currency",
+      currency,
+    })
+      .format(typeof amount == "string" ? parseFloat(amount) : amount)
+      // TODO: Support currency symbol AFTER the number
+      .replace(/(?![^\d]) (?![\d])/, "\u00A0")}
   </data>
 );

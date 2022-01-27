@@ -32,16 +32,12 @@ import { InputBSN, InputEmail, InputHouseNumber } from "../input";
 import { Button, Fieldset, FieldsetLegend, RadioButton, Textarea } from "../utrecht";
 import { SaveButton } from "../SaveButton";
 import { ValidationMessages } from "../ValidationMessages";
+import { FormValidationError, ValidationIcon } from "../ValidationIcon";
 
 interface Props {
   setDetails: Dispatch<SetStateAction<DemoForm | undefined>>;
 }
 type FormInput = { [Property in keyof DemoFormInput]: string };
-
-type FormValidationError = {
-  id: string;
-  message: string;
-};
 
 type FormInputValidityState = {
   [Property in keyof DemoFormInput]: {
@@ -52,21 +48,6 @@ type FormInputValidityState = {
 type FormValidationFunction = (value: string) => FormValidationError[];
 
 const flattenArray: <T>(a: T[], b: T[]) => T[] = (a, b) => [...a, ...b];
-
-export const ValidationIcon = (errors: FormValidationError[]) => {
-  // Icon that can be displayed in the form label,
-  // just in case the validation messages fall outside of the viewport.
-  // Perhaps if you click the icon (should be large enough)
-  // the browser should scroll to the validation messages, ideally keeping the
-  // form input visible too.
-  return errors?.length > 0 ? (
-    <>
-      <span title="has validation message" aria-hidden="true">
-        ⚠️
-      </span>
-    </>
-  ) : null;
-};
 
 export const BasicForm = ({ setDetails }: Props) => {
   const { t } = useTranslation("form");

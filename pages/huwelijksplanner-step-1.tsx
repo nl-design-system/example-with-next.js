@@ -3,8 +3,6 @@ import Head from "next/head";
 import {
   Document,
   Paragraph,
-  UnorderedList,
-  UnorderedListItem,
   Heading1,
   Heading2,
   Link,

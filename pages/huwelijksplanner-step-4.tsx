@@ -2,9 +2,6 @@
 import Head from "next/head";
 import {
   Document,
-  RadioButton,
-  Fieldset,
-  FieldsetLegend,
   Paragraph,
   FormField,
   FormLabel,
@@ -23,6 +20,8 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { LanguageToggle } from "../src/components/LanguageToggle";
 import { DataListValue, DataNumeric, DataNoTranslate, OptionalIndicator } from "../src/components";
 import { exampleState } from "../src/data/huwelijksplanner-state";
+import { ReservationCard } from "../src/components/huwelijksplanner/ReservationCard";
+import { useRouter } from "next/router";
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {
@@ -33,6 +32,7 @@ export const getServerSideProps = async ({ locale }: { locale: string }) => ({
 export default function MultistepForm1() {
   const { t } = useTranslation(["huwelijksplanner-step-4", "form"]);
   const data = { ...exampleState };
+  const locale = useRouter().locale || "en";
 
   return (
     <Document>
@@ -62,11 +62,7 @@ export default function MultistepForm1() {
               {/*TODO: Step indicator component */}
               <Paragraph lead>Stap 3 — Meld je voorgenomen huwelijk</Paragraph>
               {/*TODO: Banner / card */}
-              <div>
-                <div>LOCATIE STADSKANTOOR - EENVOUDIG TROUWEN</div>
-                <div>14 April 2021 (10.00 - 10.15 uur)</div>
-                <div>Kosten: € 168</div>
-              </div>
+              {data["reservation"] ? <ReservationCard reservation={data["reservation"]} locale={locale} /> : ""}
               <section>
                 {/*TODO: Banner / card */}
                 <section>

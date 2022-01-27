@@ -1,3 +1,23 @@
+/**
+ * @license EUPL-1.2
+ * Copyright (c) 2022 Robbert Broersma
+ */
+
 label {
   display: block;
+}
+
+.data--numeric {
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.data--password {
+  /* unabiguous rendering */
+  font-variant-ligatures: none;
+  font-variant-numeric: slashed-zero;
+}
+
+.data--email,
+.data--url {
+  font-variant-ligatures: none;
 }

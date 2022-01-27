@@ -141,13 +141,13 @@ export default function Form() {
         <p>Deze gegevens kun je zelf invullen of wijzigen.</p>
         <FormField>
           <FormLabel htmlFor="tel">
-            {t("tel")} <OptionalIndicator />
+            {t("tel")} <OptionalIndicator title={t("form:optional")} />
           </FormLabel>
           <TextInput id="tel" type="tel" />
         </FormField>
         <FormField>
           <FormLabel htmlFor="email">
-            {t("email")} <OptionalIndicator />
+            {t("email")} <OptionalIndicator title={t("form:optional")} />
           </FormLabel>
           <TextInput id="email" type="email" />
         </FormField>

@@ -1,63 +1,63 @@
-interface BSN {
+export interface BSN {
   bsn: string;
 }
 
-interface GivenName {
+export interface GivenName {
   "given-name": string;
 }
 
-interface FamilyName {
+export interface FamilyName {
   "family-name": string;
 }
 
-interface FamilyNamePrefix {
+export interface FamilyNamePrefix {
   "family-name-prefix": string;
 }
 
-interface DateOfBirth {
+export interface DateOfBirth {
   bday: string;
 }
 
-interface PlaceOfBirth {
+export interface PlaceOfBirth {
   "place-of-birth": string;
 }
 
-interface Street {
+export interface Street {
   street: string;
 }
 
-interface HouseNumber {
+export interface HouseNumber {
   "house-number": string;
 }
-interface HouseLetter {
+export interface HouseLetter {
   "house-number-letter": string;
 }
-interface HouseNumberSuffix {
+export interface HouseNumberSuffix {
   "house-number-suffix": string;
 }
-interface PostalCode {
+export interface PostalCode {
   "postal-code": string;
 }
-interface PlaceOfResidence {
+export interface PlaceOfResidence {
   "place-of-residence": string;
 }
-interface TelephoneNumber {
+export interface TelephoneNumber {
   tel: string;
 }
-interface Email {
+export interface Email {
   email: string;
 }
-interface Salutation {
+export interface Salutation {
   salutation: string;
 }
-interface Name {
+export interface Name {
   name: string;
 }
-interface IndicatieCurateleRegister {
+export interface IndicatieCurateleRegister {
   "indicatie-curateleregister": number;
 }
 
-interface Invitee extends Email, Name {}
+export interface Invitee extends Email, Name {}
 
 // TODO:
 // Indicatie curateleregister
@@ -85,7 +85,17 @@ export interface HuwelijksplannerPartner
   "marital-status"?: string;
 }
 
-interface TODO {
+export interface Reservation {
+  expiry: string;
+  "ceremony-type": string;
+  "ceremony-start": string;
+  "ceremony-end": string;
+  "ceremony-location": string;
+  "ceremony-price-currency": string;
+  "ceremony-price-amount": string;
+}
+
+export interface TODO {
   partnerInvitation: Invitee;
   partner1: HuwelijksplannerPartner;
   partner2: HuwelijksplannerPartner;
@@ -99,6 +109,7 @@ interface TODO {
   "ceremony-end": string;
   "ceremony-price": string;
   "registration-type": string;
+  reservation?: Reservation;
 }
 
 export interface HuwelijksplannerState extends TODO {}
@@ -148,10 +159,35 @@ export const exampleState: HuwelijksplannerState = {
     "indicatie-curateleregister": 0,
     "marital-status": "",
   },
+  reservation: {
+    expiry: "FIXME: over 2 uur",
+    "ceremony-type": "Eenvoudig huwelijk",
+    "ceremony-start": "2021-04-14T09:00+01:00",
+    "ceremony-end": "2021-04-14T09:10+01:00",
+    "ceremony-location": "Locatie Stadskantoor",
+    "ceremony-price-currency": "EUR",
+    "ceremony-price-amount": "168",
+  },
   "registration-type": "Huwelijk",
   "ceremony-type": "Eenvoudig huwelijk",
   "ceremony-start": "2021-04-14T09:00+01:00",
   "ceremony-end": "2021-04-14T09:10+01:00",
   "ceremony-location": "Locatie Stadskantoor",
   "ceremony-price": "EUR 168",
+  legalWitness1: {
+    name: "",
+    email: "",
+  },
+  legalWitness2: {
+    name: "",
+    email: "",
+  },
+  legalWitness3: {
+    name: "",
+    email: "",
+  },
+  legalWitness4: {
+    name: "",
+    email: "",
+  },
 };

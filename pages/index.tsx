@@ -30,10 +30,10 @@ export default function Home() {
                 Huwelijksplanner
                 <ul>
                   <li>
-                    <Link href="/huwelijksplanner-step-0">Stap 0</Link>
+                    <Link href="/huwelijksplanner-step-0">Stap 0: Regel je huwelijk of geregistreerd partnerschap</Link>
                   </li>
                   <li>
-                    <Link href="/huwelijksplanner-step-1">Stap 1</Link>
+                    <Link href="/huwelijksplanner-step-1">Stap 1: Trouwen of geregistreerd partnerschap</Link>
                   </li>
                   <li>
                     <Link href="/huwelijksplanner-step-2">Stap 2</Link>
@@ -49,6 +49,9 @@ export default function Home() {
                   </li>
                   <li>
                     <Link href="/huwelijksplanner-step-6">Stap 6</Link>
+                  </li>
+                  <li>
+                    <Link href="/huwelijksplanner-step-invite-witness">Stap: Nodig alvast getuigen uit</Link>
                   </li>
                 </ul>
               </li>
