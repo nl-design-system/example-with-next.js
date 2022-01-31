@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import Head from "next/head";
 import { LanguageToggle } from "../src/components/LanguageToggle";
 import {
@@ -51,7 +52,9 @@ export default function Home() {
                     <Link href="/form-input-voornaam">Voornaam</Link>
                   </UnorderedListItem>
                   <UnorderedListItem>Adelijke titel of predicaat</UnorderedListItem>
-                  <UnorderedListItem>Tussenvoegsel</UnorderedListItem>
+                  <UnorderedListItem>
+                    <Link href="/form-input-tussenvoegsels">Tussenvoegsel</Link>
+                  </UnorderedListItem>
                   <UnorderedListItem>Achternaam</UnorderedListItem>
                   <UnorderedListItem>Voorletters</UnorderedListItem>
                   <UnorderedListItem>Geslacht</UnorderedListItem>

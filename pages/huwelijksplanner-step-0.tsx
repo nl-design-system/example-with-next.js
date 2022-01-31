@@ -25,7 +25,7 @@ export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   },
 });
 
-export default function () {
+export default function HuwelijksplannerStep0() {
   const { t } = useTranslation("huwelijksplanner-step-0");
 
   return (

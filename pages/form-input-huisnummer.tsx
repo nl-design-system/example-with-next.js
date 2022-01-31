@@ -1,18 +1,43 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Paragraph, Heading1, Heading2 } from "../src/components/utrecht";
 import { DocumentationPage } from "../src/components/DocumentationPage";
+import { ExampleBox } from "../src/components";
+import { useState } from "react";
+import { InputHouseNumber } from "../src/components/input";
 
-export default function () {
+export const HouseNumberExample = () => {
+  const [value, setValue] = useState("");
+  return (
+    <>
+      <InputHouseNumber
+        id="house-number"
+        name="house-number"
+        maxLength={5}
+        value={value}
+        onChange={(event) => {
+          setValue(event.target.value);
+        }}
+      ></InputHouseNumber>
+    </>
+  );
+};
+
+export default function FormInputHuisnummerDocumentation() {
   return (
     <DocumentationPage title="Huisnummer">
       <Heading1>Huisnummer</Heading1>
       <Paragraph>
         Deze pagina gaat over de invoer van het nummer gedeelte, dat komt na de straatnaam en komt voor de huisletter en
-        eventuele toevoeging op het huisnummer.
+        eventuele toevoeging op het huisnummer. Deze pagina gaat alleen over huisnummers in Nederland, voor adressen in
+        het buitenland hebben we geen documentatie.
       </Paragraph>
       <Heading2>Validatie</Heading2>
       <Paragraph>
         Het BRP houdt een maximumlengte aan van 5 cijfers, waarmee het hoogst mogelijk huisnummer 99999 is.
+      </Paragraph>
+      <Paragraph>
+        Gebruik je een korter maximum, bijvoorbeeld <code>maxlength="4"</code>, dan levert dat problemen op voor hoge
+        huisnummers die in Nederland voorkomen.
       </Paragraph>
       <Paragraph>
         Het huisnummer is numeriek, toevoegingen op het huisnummer worden meestal apart ingevuld en opgeslagen.
@@ -26,6 +51,10 @@ export default function () {
         gebruiken: <code>inputMode="numeric"</code>. Dan is <code>type="number"</code> gebruiken niet nodig, want een
         spinner voor een huisnummer invoeren is niet erg handig.
       </Paragraph>
+      <Heading2>Voorbeeld</Heading2>
+      <ExampleBox>
+        <HouseNumberExample />
+      </ExampleBox>
     </DocumentationPage>
   );
 }

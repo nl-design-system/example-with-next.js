@@ -1,12 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useState, PropsWithChildren } from "react";
+import { useState } from "react";
 import { Paragraph, Heading1, Heading2 } from "../src/components/utrecht";
 import { DocumentationPage } from "../src/components/DocumentationPage";
 import { InputEmail } from "../src/components/input";
-import { DataListValue } from "../src/components";
+import { DataListValue, ExampleBox } from "../src/components";
 import { useTranslation } from "next-i18next";
-
-const Example = ({ children }: PropsWithChildren<{}>) => <div className="example">{children}</div>;
 
 const InputEmailExample = () => {
   const { t } = useTranslation("form");
@@ -31,7 +29,7 @@ const InputEmailExample = () => {
   );
 };
 
-export default function () {
+export default function FormInputEmailDocumentation() {
   return (
     <DocumentationPage title="E-mailadres">
       <Heading1>E-mailadres</Heading1>
@@ -40,20 +38,33 @@ export default function () {
         Door gebruik te maken van <code>&lt;input type="email"&gt;</code> kan de browser al helpen om te controleren of
         de notitie een correct e-mailadres is.
       </Paragraph>
+      <Paragraph>
+        Wacht met validatie tot de gebruiker de kans heeft gehad de invoer compleet te krijgen. Bijvoorbeeld: laat niet
+        gelijk bij de eerste invoer de melding zien dat het apenstaartje nog ontbreekt.
+      </Paragraph>
       <Heading2>Design</Heading2>
       <Paragraph>Visuele lengte van invoerveld: standaard-lengte.</Paragraph>
       <Paragraph>
         Gebruik een lettertype zonder ligaturen om ambiguiteit te vermijden. Met CSS kan dat met:{" "}
         <code>font-variant-ligatures: none;</code>
       </Paragraph>
+      <Paragraph>
+        Door <code>type="email"</code> te gebruiken kan de browser een op touchscreens een aangepast toetsenbord
+        aanbieden voor e-mailadressen.
+      </Paragraph>
       <Heading2>Autocomplete</Heading2>
       <Paragraph>
-        Gebruik voor HTML: <code>&lt;input type="email" autocomplete="email"&gt;</code>
+        Gebruik voor HTML: <code>autocomplete="email"</code>
+      </Paragraph>
+      <Heading2>Content</Heading2>
+      <Paragraph>
+        Vraag alleen om gegevens als ze echt nodig zijn, en laat dan weten waarvoor de informatie nodig is.
+        Bijvoorbeeld: "We sturen je een bevestiging naar dit e-mailadres."
       </Paragraph>
       <Heading2>Voorbeeld</Heading2>
-      <Example>
+      <ExampleBox>
         <InputEmailExample />
-      </Example>
+      </ExampleBox>
     </DocumentationPage>
   );
 }

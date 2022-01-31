@@ -2,7 +2,7 @@
 import { Paragraph, Heading1, Heading2 } from "../src/components/utrecht";
 import { DocumentationPage } from "../src/components/DocumentationPage";
 
-export default function () {
+export default function FormInputVoornaamDocumentation() {
   return (
     <DocumentationPage title="Voornaam / Voornamen">
       <Heading1>Voornaam / Voornamen</Heading1>

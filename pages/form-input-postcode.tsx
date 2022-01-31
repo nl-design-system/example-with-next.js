@@ -2,7 +2,7 @@
 import { Paragraph, Heading1, Heading2 } from "../src/components/utrecht";
 import { DocumentationPage } from "../src/components/DocumentationPage";
 
-export default function () {
+export default function FormInputPostcodeDocumentation() {
   return (
     <DocumentationPage title="Postcode">
       <Heading1>Postcode</Heading1>
@@ -38,7 +38,7 @@ export default function () {
       </Paragraph>
       <Heading2>Autocomplete</Heading2>
       <Paragraph>
-        Gebruik voor HTML: <code>autocomplete="zipcode"</code>.
+        Gebruik voor HTML: <code>autocomplete="postal-code"</code>.
       </Paragraph>
       <Heading2>Voorbeeld</Heading2>
       <Paragraph>TODO</Paragraph>

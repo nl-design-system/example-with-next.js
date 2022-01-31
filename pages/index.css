@@ -70,9 +70,12 @@ label {
   margin-block-start: var(--utrecht-space-block-xl);
 }
 
-.example {
+.example-box {
   border: 1px solid silver;
   padding: 1em;
+}
+:not([hidden]) + .example-box {
+  margin-top: 1em;
 }
 
 .data-list-value--email,

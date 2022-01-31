@@ -343,7 +343,6 @@ export const BasicForm = ({ setDetails }: Props) => {
               id="family-name-prefix"
               name="family-name-prefix"
               list="family-name-prefix-datalist"
-              autoComplete="honorific-prefix"
               value={formInputState["family-name-prefix"]}
               maxLength={voorvoegselGeslachtsnaamValidation.maxLength}
               pattern={voorvoegselGeslachtsnaamValidation.pattern}
