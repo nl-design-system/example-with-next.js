@@ -11,7 +11,8 @@
     "prettier": "prettier --write ."
   },
   "dependencies": {
-    "@utrecht/design-tokens": "1.0.0-alpha.97",
+    "@utrecht/component-library-css": "1.0.0-alpha.166",
+    "@utrecht/design-tokens": "1.0.0-alpha.159",
     "@utrecht/web-component-library-react": "1.0.0-alpha.103",
     "@utrecht/web-component-library-stencil": "1.0.0-alpha.103",
     "clsx": "1.1.1",

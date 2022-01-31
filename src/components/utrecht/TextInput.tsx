@@ -16,7 +16,9 @@ export const TextInput = ({
   required,
   className,
   type = "text",
+  maxLength,
   inputMode,
+  style,
   ...restProps
 }: Props) => (
   <input
@@ -32,8 +34,14 @@ export const TextInput = ({
       invalid && "utrecht-textbox--invalid",
       readOnly && "utrecht-textbox--readonly",
       required && "utrecht-textbox--required",
+      typeof maxLength === "number" && "utrecht-textbox--maxlength",
       className
     )}
+    style={{
+      ["--maxlength" as any]: typeof maxLength === "number" ? maxLength : undefined,
+      ...style,
+    }}
+    maxLength={maxLength}
     disabled={disabled}
     readOnly={readOnly}
     required={required}

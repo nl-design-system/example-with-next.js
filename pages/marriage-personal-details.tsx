@@ -36,13 +36,6 @@ export default function Form() {
     <Document>
       <Head>
         <title>{t("marriage:page-title")}</title>
-        <link rel="stylesheet" type="text/css" href="https://unpkg.com/@utrecht/component-library-css/dist/bem.css" />
-        <link rel="stylesheet" type="text/css" href="https://unpkg.com/@utrecht/design-tokens/dist/theme/index.css" />
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="https://unpkg.com/@gemeente-denhaag/design-tokens-components/dist/theme/index.css"
-        />
       </Head>
       <LanguageToggle />
       <Heading1>{t("marriage:page-title")}</Heading1>

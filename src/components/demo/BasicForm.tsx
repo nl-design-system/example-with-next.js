@@ -39,11 +39,11 @@ interface Props {
 }
 type FormInput = { [Property in keyof DemoFormInput]: string };
 
-type FormInputValidityState = {
+type FormInputValidityState = Partial<{
   [Property in keyof DemoFormInput]: {
     errors: FormValidationError[];
   };
-};
+}>;
 
 type FormValidationFunction = (value: string) => FormValidationError[];
 
@@ -192,11 +192,12 @@ export const BasicForm = ({ setDetails }: Props) => {
     "kvk-number": "",
     organization: "",
     website: "",
+    "year-of-establishment": undefined,
   };
 
   const [formCheckedState, dispatchFormCheck] = useReducer(handleFormChecked, initialFormChecked);
 
-  const validateFormInputChange = (data: FormInput, { event }): FormInputValidityState => {
+  const validateFormInputChange = (data: FormInput, { event }: { event: FormEvent }): FormInputValidityState => {
     console.log("validate", data, event);
     return {
       "postal-code": {
@@ -209,10 +210,7 @@ export const BasicForm = ({ setDetails }: Props) => {
   };
 
   const [formInputState, dispatchFormInputState] = useReducer(handleFormInputChange, defaultFormInput as FormInput);
-  const [formValidityState, validateFormInputState] = useReducer(
-    validateFormInputChange,
-    defaultFormInput as FormInput
-  );
+  const [formValidityState, _] = useReducer(validateFormInputChange, defaultFormInput as FormInput);
   const [loading, setLoading] = useState(false);
 
   const clear = () => {
@@ -507,6 +505,10 @@ export const BasicForm = ({ setDetails }: Props) => {
                 onBlur={handleInputBlur}
                 id="postal-code"
                 name="postal-code"
+                style={{
+                  ["--maxlength" as any]: 7, // Room for "1234 AB" with space, even though it will be normalized
+                }}
+                className="utrecht-textbox--maxlength"
                 autoComplete="postal-code"
                 value={formInputState["postal-code"]}
                 pattern={postcodeValidation.pattern}
@@ -517,6 +519,7 @@ export const BasicForm = ({ setDetails }: Props) => {
             <InputHouseNumber
               id="house-number"
               name="house-number"
+              maxLength={5}
               value={formInputState["house-number"]}
               onBlur={handleInputBlur}
               onChange={handleInputChange}
@@ -526,6 +529,7 @@ export const BasicForm = ({ setDetails }: Props) => {
               <TextInput
                 onBlur={handleInputBlur}
                 id="house-number"
+                maxLength={5}
                 name="house-number"
                 inputMode="numeric"
                 value={formInputState["house-number"]}
@@ -550,6 +554,10 @@ export const BasicForm = ({ setDetails }: Props) => {
                 onBlur={handleInputBlur}
                 id="house-number-suffix"
                 name="house-number-suffix"
+                style={{
+                  ["--maxlength" as any]: 4,
+                }}
+                className="utrecht-textbox--maxlength"
                 value={formInputState["house-number-suffix"]}
                 pattern={huisnummertoevoegingValidation.pattern}
                 onChange={handleInputChange}
@@ -706,6 +714,9 @@ export const BasicForm = ({ setDetails }: Props) => {
               id="kvk-number"
               name="kvk-number"
               inputMode="numeric"
+              maxLength={
+                8
+              } /* Volgens kvk.nl: "Als je je bedrijf inschrijft in het Handelsregister krijg je een uniek 8-cijferig KVK-nummer." */
               value={formInputState["kvk-number"]}
               onChange={handleInputChange}
             />
@@ -718,6 +729,18 @@ export const BasicForm = ({ setDetails }: Props) => {
               name="organization"
               autoComplete="organization"
               value={formInputState.organization}
+              onChange={handleInputChange}
+            />
+          </FormField>
+          <FormField>
+            <FormLabel htmlFor="year-of-establishment">{t("year-of-establishment")}</FormLabel>
+            <TextInput
+              onBlur={handleInputBlur}
+              id="year-of-establishment"
+              name="year-of-establishment"
+              inputMode="numeric"
+              maxLength={4}
+              value={formInputState["year-of-establishment"]}
               onChange={handleInputChange}
             />
           </FormField>
@@ -752,6 +775,7 @@ export const BasicForm = ({ setDetails }: Props) => {
               onBlur={handleInputBlur}
               id="bic"
               name="bic"
+              maxLength={11} /* ISO 9362: 8 or 11 chars */
               value={formInputState.bic}
               onChange={handleInputChange}
             />

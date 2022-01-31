@@ -11,13 +11,15 @@ import {
   PageContent,
   PageContentMain,
   PageHeader,
+  PageFooter,
 } from "../src/components/utrecht";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { LanguageToggle } from "../src/components/LanguageToggle";
 import { ReservationCard } from "../src/components/huwelijksplanner/ReservationCard";
 import { useRouter } from "next/router";
 import { exampleState } from "../src/data/huwelijksplanner-state";
+import { PageHeaderTemplate } from "../src/components/huwelijksplanner/PageHeaderTemplate";
+import { PageFooterTemplate } from "../src/components/huwelijksplanner/PageFooterTemplate";
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {
@@ -38,17 +40,10 @@ export default function MultistepForm1() {
           {" — "}
           {t("common:website-name")}
         </title>
-        <link rel="stylesheet" type="text/css" href="https://unpkg.com/@utrecht/component-library-css/dist/bem.css" />
-        <link rel="stylesheet" type="text/css" href="https://unpkg.com/@utrecht/design-tokens/dist/theme/index.css" />
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="https://unpkg.com/@gemeente-denhaag/design-tokens-components/dist/theme/index.css"
-        />
       </Head>
       <Page>
         <PageHeader>
-          <LanguageToggle />
+          <PageHeaderTemplate />
         </PageHeader>
         <PageContent>
           <PageContentMain>
@@ -79,7 +74,10 @@ export default function MultistepForm1() {
               </section>
             </form>
           </PageContentMain>
-        </PageContent>
+        </PageContent>{" "}
+        <PageFooter>
+          <PageFooterTemplate />
+        </PageFooter>
       </Page>
     </Document>
   );

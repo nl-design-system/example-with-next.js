@@ -48,13 +48,6 @@ export default function Demo2Details() {
     <UtrechtDocument>
       <Head>
         <title>{t("page-title")}</title>
-        <link rel="stylesheet" type="text/css" href="https://unpkg.com/@utrecht/component-library-css/dist/bem.css" />
-        <link rel="stylesheet" type="text/css" href="https://unpkg.com/@utrecht/design-tokens/dist/theme/index.css" />
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="https://unpkg.com/@gemeente-denhaag/design-tokens-components/dist/theme/index.css"
-        />
       </Head>
       <UtrechtHeading1>{t("page-title")}</UtrechtHeading1>
       <LanguageToggle />

@@ -3,13 +3,23 @@ import Head from "next/head";
 import { useState } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { LanguageToggle } from "../src/components/LanguageToggle";
 import { DemoForm } from "../types/DemoForm";
 
-import { Button, Document, Heading1 } from "../src/components/utrecht";
+import {
+  Button,
+  Document,
+  Heading1,
+  Page,
+  PageHeader,
+  PageContent,
+  PageContentMain,
+  PageFooter,
+} from "../src/components/utrecht";
 
 import { FormDetails } from "../src/components/demo/FormDetails";
 import { BasicForm } from "../src/components/demo/BasicForm";
+import { PageHeaderTemplate } from "../src/components/huwelijksplanner/PageHeaderTemplate";
+import { PageFooterTemplate } from "../src/components/huwelijksplanner/PageFooterTemplate";
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {
@@ -26,26 +36,30 @@ export default function Form() {
     <Document>
       <Head>
         <title>{t("page-title")}</title>
-        <link rel="stylesheet" type="text/css" href="https://unpkg.com/@utrecht/component-library-css/dist/bem.css" />
-        <link rel="stylesheet" type="text/css" href="https://unpkg.com/@utrecht/design-tokens/dist/theme/index.css" />
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="https://unpkg.com/@gemeente-denhaag/design-tokens-components/dist/theme/index.css"
-        />
       </Head>
-      <Heading1>{t("page-title")}</Heading1>
-      <LanguageToggle />
-      {data ? (
-        <>
-          <FormDetails {...data} />
-          <Button onClick={() => setData(undefined)}>Back</Button>
-        </>
-      ) : (
-        <>
-          <BasicForm setDetails={setData} />
-        </>
-      )}
+      <Page>
+        <PageHeader>
+          <PageHeaderTemplate />
+        </PageHeader>
+        <PageContent>
+          <PageContentMain>
+            <Heading1>{t("page-title")}</Heading1>
+            {data ? (
+              <>
+                <FormDetails {...data} />
+                <Button onClick={() => setData(undefined)}>Back</Button>
+              </>
+            ) : (
+              <>
+                <BasicForm setDetails={setData} />
+              </>
+            )}
+          </PageContentMain>
+        </PageContent>{" "}
+        <PageFooter>
+          <PageFooterTemplate />
+        </PageFooter>
+      </Page>
     </Document>
   );
 }

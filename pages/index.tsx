@@ -18,7 +18,21 @@ export default function Home() {
             <LanguageToggle />
             <ul>
               <li>
+                <Link href="/form">Form of forms</Link>
+              </li>
+              <li>
                 <Link href="/react-components">React components</Link>
+              </li>
+              <li>
+                Components
+                <ul>
+                  <li>
+                    <Link href="/form-step-1">Form step #1</Link>
+                  </li>
+                  <li>
+                    <Link href="/form-step-2">Form step #2</Link>
+                  </li>
+                </ul>
               </li>
               <li>
                 <Link href="/marriage-witness-form">Getuigen uitnodigen</Link>

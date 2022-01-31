@@ -21,3 +21,37 @@ label {
 .data--url {
   font-variant-ligatures: none;
 }
+
+.utrecht-page-content {
+  background-color: white;
+}
+
+.utrecht-page-footer {
+  --utrecht-heading-2-color: currentColor;
+  --utrecht-heading-3-color: currentColor;
+}
+
+.utrecht-theme,
+.utrecht-document {
+  --utrecht-typography-sans-serif-font-family: "Lucida Grande", Arial, sans-serif;
+  --utrecht-document-font-family: "Lucida Grande", Arial, sans-serif;
+}
+
+.utrecht-textbox {
+  --char-width: 1em;
+}
+
+.utrecht-textbox--numeric {
+  --char-width: 1ch;
+}
+.utrecht-textbox--maxlength {
+  box-sizing: content-box;
+  inline-size: calc(var(--maxlength) * var(--char-width));
+  max-inline-size: 100%;
+  /* n times the width of 0 is appropriate for numbers, but too small for letters */
+  /* max width of 4 can obscure input if the length is exceeded, perhaps the maxlength should not apply to `--invalid` */
+}
+
+.utrecht-form-field + .utrecht-form-field {
+  margin-block-start: var(--utrecht-space-block-xl);
+}
