@@ -21,7 +21,9 @@ import { useRouter } from "next/router";
 
 export default function FormStep2() {
   const main = useRef<HTMLFormElement>(null);
-  const [rel, setRel] = useState<string>();
+  const prevButton = useRef<HTMLButtonElement | null>(null);
+  const nextButton = useRef<HTMLButtonElement | null>(null);
+  const [submitter, setSubmitter] = useState<HTMLButtonElement | null>();
   const router = useRouter();
   useEffect(() => {
     if (main.current) {
@@ -31,11 +33,12 @@ export default function FormStep2() {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // debugger;
+    let rel = submitter ? submitter.value : "next";
     if (rel === "prev") {
       router.push("/form-step-1");
       console.log(1);
     } else {
-      router.push("/form-step-3");
+      router.push("/form-step-2");
       console.log(3);
     }
   };
@@ -63,11 +66,13 @@ export default function FormStep2() {
                   type="submit"
                   name="rel"
                   value="back"
-                  onClick={() => {
-                    setRel("prev");
+                  ref={prevButton}
+                  onClick={(evt) => {
+                    console.log(evt);
+                    setSubmitter(prevButton.current);
                   }}
                 >
-                  Back
+                  <span>Back</span>
                 </Button>
               </Paragraph>
               <Paragraph>
@@ -75,8 +80,9 @@ export default function FormStep2() {
                   type="submit"
                   name="rel"
                   value="next"
+                  ref={nextButton}
                   onClick={() => {
-                    setRel("next");
+                    setSubmitter(nextButton.current);
                   }}
                 >
                   Next

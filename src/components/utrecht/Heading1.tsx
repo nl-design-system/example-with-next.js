@@ -4,12 +4,14 @@
  */
 
 import clsx from "clsx";
-import { HTMLAttributes, PropsWithChildren } from "react";
+import { HTMLAttributes, PropsWithChildren, ForwardedRef, forwardRef } from "react";
 
 export type Heading1Props = HTMLAttributes<HTMLHeadingElement>;
 
-export const Heading1 = ({ children, className, ...restProps }: PropsWithChildren<Heading1Props>) => (
-  <h1 {...restProps} className={clsx("utrecht-heading-1", className)}>
-    {children}
-  </h1>
+export const Heading1 = forwardRef(
+  ({ children, className, ...restProps }: PropsWithChildren<Heading1Props>, ref: ForwardedRef<HTMLHeadingElement>) => (
+    <h1 {...restProps} ref={ref} className={clsx("utrecht-heading-1", className)}>
+      {children}
+    </h1>
+  )
 );

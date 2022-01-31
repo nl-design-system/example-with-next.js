@@ -4,12 +4,14 @@
  */
 
 import clsx from "clsx";
-import { HTMLAttributes, PropsWithChildren } from "react";
+import { HTMLAttributes, PropsWithChildren, forwardRef, ForwardedRef } from "react";
 
 export type SurfaceProps = HTMLAttributes<HTMLDivElement>;
 
-export const Surface = ({ children, className, ...restProps }: PropsWithChildren<SurfaceProps>) => (
-  <div {...restProps} className={clsx("utrecht-surface", className)}>
-    {children}
-  </div>
+export const Surface = forwardRef(
+  ({ children, className, ...restProps }: PropsWithChildren<SurfaceProps>, ref: ForwardedRef<HTMLDivElement>) => (
+    <div {...restProps} ref={ref} className={clsx("utrecht-surface", className)}>
+      {children}
+    </div>
+  )
 );

@@ -4,14 +4,19 @@
  */
 
 import clsx from "clsx";
-import { HTMLAttributes, PropsWithChildren } from "react";
+import { HTMLAttributes, PropsWithChildren, ForwardedRef, forwardRef } from "react";
 
 export interface ParagraphProps extends HTMLAttributes<HTMLParagraphElement> {
   lead?: boolean;
 }
 
-export const Paragraph = ({ children, className, lead, ...restProps }: PropsWithChildren<ParagraphProps>) => (
-  <p {...restProps} className={clsx("utrecht-paragraph", lead && "utrecht-paragraph--lead", className)}>
-    {children}
-  </p>
+export const Paragraph = forwardRef(
+  (
+    { children, className, lead, ...restProps }: PropsWithChildren<ParagraphProps>,
+    ref: ForwardedRef<HTMLParagraphElement>
+  ) => (
+    <p {...restProps} ref={ref} className={clsx("utrecht-paragraph", lead && "utrecht-paragraph--lead", className)}>
+      {children}
+    </p>
+  )
 );

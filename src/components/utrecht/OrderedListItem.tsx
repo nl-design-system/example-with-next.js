@@ -4,12 +4,17 @@
  */
 
 import clsx from "clsx";
-import { LiHTMLAttributes, PropsWithChildren } from "react";
+import { LiHTMLAttributes, PropsWithChildren, forwardRef, ForwardedRef } from "react";
 
 export type OrderedListItemProps = LiHTMLAttributes<HTMLLIElement>;
 
-export const OrderedListItem = ({ children, className, ...restProps }: PropsWithChildren<OrderedListItemProps>) => (
-  <li {...restProps} className={clsx("utrecht-ordered-list__item", className)}>
-    {children}
-  </li>
+export const OrderedListItem = forwardRef(
+  (
+    { children, className, ...restProps }: PropsWithChildren<OrderedListItemProps>,
+    ref: ForwardedRef<HTMLLIElement>
+  ) => (
+    <li {...restProps} ref={ref} className={clsx("utrecht-ordered-list__item", className)}>
+      {children}
+    </li>
+  )
 );

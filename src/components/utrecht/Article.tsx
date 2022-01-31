@@ -4,12 +4,14 @@
  */
 
 import clsx from "clsx";
-import { HTMLAttributes, PropsWithChildren } from "react";
+import { HTMLAttributes, PropsWithChildren, forwardRef, ForwardedRef } from "react";
 
 export type ArticleProps = HTMLAttributes<HTMLElement>;
 
-export const Article = ({ children, className, ...restProps }: PropsWithChildren<ArticleProps>) => (
-  <article {...restProps} className={clsx("utrecht-article", className)}>
-    {children}
-  </article>
+export const Article = forwardRef(
+  ({ children, className, ...restProps }: PropsWithChildren<ArticleProps>, ref: ForwardedRef<HTMLElement>) => (
+    <article {...restProps} ref={ref} className={clsx("utrecht-article", className)}>
+      {children}
+    </article>
+  )
 );

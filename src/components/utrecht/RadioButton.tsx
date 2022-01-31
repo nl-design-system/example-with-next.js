@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes, ForwardedRef, forwardRef } from "react";
 
 interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "readOnly"> {
   invalid?: boolean;
@@ -7,19 +7,22 @@ interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "re
   value: string;
 }
 
-export const RadioButton = ({ disabled, invalid, required, className, ...restProps }: Props) => (
-  <input
-    {...restProps}
-    type="radio"
-    className={clsx(
-      "utrecht-radio-button",
-      "utrecht-radio-button--html-input",
-      disabled && "utrecht-radio-button--disabled",
-      invalid && "utrecht-radio-button--invalid",
-      required && "utrecht-radio-button--required",
-      className
-    )}
-    disabled={disabled}
-    required={required}
-  />
+export const RadioButton = forwardRef(
+  ({ disabled, invalid, required, className, ...restProps }: Props, ref: ForwardedRef<HTMLInputElement>) => (
+    <input
+      {...restProps}
+      ref={ref}
+      type="radio"
+      className={clsx(
+        "utrecht-radio-button",
+        "utrecht-radio-button--html-input",
+        disabled && "utrecht-radio-button--disabled",
+        invalid && "utrecht-radio-button--invalid",
+        required && "utrecht-radio-button--required",
+        className
+      )}
+      disabled={disabled}
+      required={required}
+    />
+  )
 );

@@ -4,12 +4,14 @@
  */
 
 import clsx from "clsx";
-import { HTMLAttributes, PropsWithChildren } from "react";
+import { HTMLAttributes, PropsWithChildren, ForwardedRef, forwardRef } from "react";
 
 export type DocumentProps = HTMLAttributes<HTMLDivElement>;
 
-export const Document = ({ children, className, ...restProps }: PropsWithChildren<DocumentProps>) => (
-  <div {...restProps} className={clsx("utrecht-document", className)}>
-    {children}
-  </div>
+export const Document = forwardRef(
+  ({ children, className, ...restProps }: PropsWithChildren<DocumentProps>, ref: ForwardedRef<HTMLDivElement>) => (
+    <div {...restProps} ref={ref} className={clsx("utrecht-document", className)}>
+      {children}
+    </div>
+  )
 );

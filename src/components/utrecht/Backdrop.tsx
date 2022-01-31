@@ -4,12 +4,14 @@
  */
 
 import clsx from "clsx";
-import { HTMLAttributes, PropsWithChildren } from "react";
+import { HTMLAttributes, PropsWithChildren, ForwardedRef, forwardRef } from "react";
 
 export type BackdropProps = HTMLAttributes<HTMLDivElement>;
 
-export const Backdrop = ({ children, className, ...restProps }: PropsWithChildren<BackdropProps>) => (
-  <div {...restProps} className={clsx("utrecht-backdrop", className)}>
-    {children}
-  </div>
+export const Backdrop = forwardRef(
+  ({ children, className, ...restProps }: PropsWithChildren<BackdropProps>, ref: ForwardedRef<HTMLDivElement>) => (
+    <div {...restProps} ref={ref} className={clsx("utrecht-backdrop", className)}>
+      {children}
+    </div>
+  )
 );

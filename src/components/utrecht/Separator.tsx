@@ -4,10 +4,10 @@
  */
 
 import clsx from "clsx";
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, forwardRef, ForwardedRef } from "react";
 
 export type SeparatorProps = HTMLAttributes<HTMLHRElement>;
 
-export const Separator = ({ className, ...restProps }: SeparatorProps) => (
-  <hr {...restProps} className={clsx("utrecht-separator", className)} />
-);
+export const Separator = forwardRef(({ className, ...restProps }: SeparatorProps, ref: ForwardedRef<HTMLHRElement>) => (
+  <hr {...restProps} ref={ref} className={clsx("utrecht-separator", className)} />
+));

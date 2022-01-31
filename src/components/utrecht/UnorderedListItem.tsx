@@ -4,12 +4,17 @@
  */
 
 import clsx from "clsx";
-import { LiHTMLAttributes, PropsWithChildren } from "react";
+import { LiHTMLAttributes, PropsWithChildren, ForwardedRef, forwardRef } from "react";
 
 export type UnorderedListItemProps = LiHTMLAttributes<HTMLLIElement>;
 
-export const UnorderedListItem = ({ children, className, ...restProps }: PropsWithChildren<UnorderedListItemProps>) => (
-  <li {...restProps} className={clsx("utrecht-unordered-list__item", className)}>
-    {children}
-  </li>
+export const UnorderedListItem = forwardRef(
+  (
+    { children, className, ...restProps }: PropsWithChildren<UnorderedListItemProps>,
+    ref: ForwardedRef<HTMLLIElement>
+  ) => (
+    <li {...restProps} ref={ref} className={clsx("utrecht-unordered-list__item", className)}>
+      {children}
+    </li>
+  )
 );
