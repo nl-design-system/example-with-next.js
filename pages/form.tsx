@@ -1,4 +1,4 @@
-import Head from "next/head";
+/* eslint-disable react/no-unescaped-entities */
 import { useState } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -19,6 +19,8 @@ import { FormDetails } from "../src/components/demo/FormDetails";
 import { BasicForm } from "../src/components/demo/BasicForm";
 import { PageHeaderTemplate } from "../src/components/huwelijksplanner/PageHeaderTemplate";
 import { PageFooterTemplate } from "../src/components/huwelijksplanner/PageFooterTemplate";
+import Head from "next/head";
+import { ThemeSwitcher } from "../src/components/ThemeSwitcher";
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {
@@ -54,10 +56,11 @@ export default function Form() {
               </>
             )}
           </PageContentMain>
-        </PageContent>{" "}
+        </PageContent>
         <PageFooter>
           <PageFooterTemplate />
         </PageFooter>
+        <ThemeSwitcher />
       </Page>
     </Document>
   );

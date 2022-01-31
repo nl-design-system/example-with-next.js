@@ -6,23 +6,18 @@ import "@utrecht/component-library-css/dist/bem.css";
 import { appWithTranslation } from "next-i18next";
 import "./index.css";
 import "../src/components/SkipLink.css";
+import { ThemeProvider } from "../src/context/ThemeContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     import("@utrecht/web-component-library-stencil/dist/utrecht/utrecht.esm.js");
   }, []);
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.async = true;
-    script.src = "https://unpkg.com/@nl-design-system-unstable/theme-switcher";
-    document.body.appendChild(script);
-  }, []);
 
-  useEffect(() => {
-    document.documentElement.classList.add("utrecht-theme");
-  }, []);
-
-  return <Component {...pageProps} />;
+  return (
+    <ThemeProvider>
+      <Component {...pageProps} />
+    </ThemeProvider>
+  );
 }
 
 export default appWithTranslation(MyApp);
