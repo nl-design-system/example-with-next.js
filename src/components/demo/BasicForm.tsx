@@ -47,8 +47,6 @@ type FormInputValidityState = Partial<{
 
 type FormValidationFunction = (value: string) => FormValidationError[];
 
-const flattenArray: <T>(a: T[], b: T[]) => T[] = (a, b) => [...a, ...b];
-
 export const BasicForm = ({ setDetails }: Props) => {
   const { t } = useTranslation("form");
 
@@ -114,17 +112,17 @@ export const BasicForm = ({ setDetails }: Props) => {
 
   function handleFormInputChange(
     state: FormInput,
-    { event, partial }: { event: "change" | "blur"; partial: Partial<FormInput> }
+    { event, input }: { event: "change" | "blur"; input: Partial<FormInput> }
   ) {
     if (event === "blur") {
-      return { ...state, ...normalizeInput(partial) };
+      return { ...state, ...normalizeInput(input) };
     }
 
-    return { ...state, ...partial };
+    return { ...state, ...input };
   }
 
-  function handleFormChecked(state: DemoFormChecked, partial: Partial<DemoFormChecked>) {
-    return { ...state, ...partial };
+  function handleFormChecked(state: DemoFormChecked, input: Partial<DemoFormChecked>) {
+    return { ...state, ...input };
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -148,11 +146,13 @@ export const BasicForm = ({ setDetails }: Props) => {
   };
 
   const handleInputChange = (change: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    dispatchFormInputState({ event: "change", partial: { [change.target.name]: change.target.value } });
+    dispatchFormInputState({ event: "change", input: { [change.target.name]: change.target.value } });
   };
 
   const handleInputBlur = (change: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    dispatchFormInputState({ event: "blur", partial: { [change.target.name]: change.target.value } });
+    const input = { [change.target.name]: change.target.value };
+    dispatchFormInputState({ event: "blur", input });
+    validateFormInput(input);
   };
 
   const handleCheckboxChange = (change: ChangeEvent<HTMLInputElement>) => {
@@ -197,24 +197,22 @@ export const BasicForm = ({ setDetails }: Props) => {
 
   const [formCheckedState, dispatchFormCheck] = useReducer(handleFormChecked, initialFormChecked);
 
-  const validateFormInputChange = (data: FormInput, { event }: { event: FormEvent }): FormInputValidityState => {
-    console.log("validate", data, event);
-    return {
-      "postal-code": {
-        errors:
-          validators["postal-code"]
-            ?.map((validator) => validator(data["postal-code"] || ""))
-            .reduce(flattenArray, []) || [],
-      },
-    };
+  const validateFormInputChange = (
+    validityState: FormInputValidityState,
+    input: Partial<FormInput>
+  ): FormInputValidityState => {
+    return Object.entries(input).reduce((state, [key, value]) => {
+      const errors = validators[key as keyof DemoFormInput]?.flatMap((validator) => validator(value));
+      return errors ? { ...state, [key]: { errors } } : state;
+    }, validityState);
   };
 
   const [formInputState, dispatchFormInputState] = useReducer(handleFormInputChange, defaultFormInput as FormInput);
-  const [formValidityState, _] = useReducer(validateFormInputChange, defaultFormInput as FormInput);
+  const [formValidityState, validateFormInput] = useReducer(validateFormInputChange, {});
   const [loading, setLoading] = useState(false);
 
   const clear = () => {
-    dispatchFormInputState({ event: "change", partial: defaultFormInput });
+    dispatchFormInputState({ event: "change", input: defaultFormInput });
     dispatchFormCheck(initialFormChecked);
   };
 
@@ -222,7 +220,7 @@ export const BasicForm = ({ setDetails }: Props) => {
     clear();
     dispatchFormInputState({
       event: "blur",
-      partial: {
+      input: {
         gender: "female",
         "given-name": "Pipa   Porretje",
         "family-name": "\u0041\u006d\u0065\u0301\u006c\u0069\u0065",
@@ -239,7 +237,7 @@ export const BasicForm = ({ setDetails }: Props) => {
     clear();
     dispatchFormInputState({
       event: "blur",
-      partial: {
+      input: {
         "given-name": "Bobby",
         "family-name": "Tables",
         "family-name-prefix": "on the",
@@ -286,7 +284,7 @@ export const BasicForm = ({ setDetails }: Props) => {
             maxLength={voornaamValidation.maxLength}
             pattern={voornaamValidation.pattern}
             required
-            errors={formValidityState["given-name"].errors}
+            errors={formValidityState["given-name"]?.errors}
           ></InputGivenName>
           <FormField>
             <FormLabel htmlFor="adelijke-titel-predicaat">{t("adelijke-titel-predicaat")}</FormLabel>
@@ -499,7 +497,7 @@ export const BasicForm = ({ setDetails }: Props) => {
             <FormField>
               <FormLabel htmlFor="postal-code">
                 {t("postal-code")}
-                <ValidationIcon errors={formValidityState["postal-code"].errors} />
+                <ValidationIcon errors={formValidityState["postal-code"]?.errors} />
               </FormLabel>
               <TextInput
                 onBlur={handleInputBlur}
@@ -514,7 +512,7 @@ export const BasicForm = ({ setDetails }: Props) => {
                 pattern={postcodeValidation.pattern}
                 onChange={handleInputChange}
               />
-              <ValidationMessages errors={formValidityState["postal-code"].errors} />
+              <ValidationMessages errors={formValidityState["postal-code"]?.errors} />
             </FormField>
             <InputHouseNumber
               id="house-number"
