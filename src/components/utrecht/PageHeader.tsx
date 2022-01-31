@@ -15,3 +15,5 @@ export const PageHeader = forwardRef(
     </header>
   )
 );
+
+PageHeader.displayName = "utrecht-page-header";

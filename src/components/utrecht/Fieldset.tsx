@@ -10,3 +10,5 @@ export const Fieldset = forwardRef(
     </fieldset>
   )
 );
+
+Fieldset.displayName = "utrecht-form-fieldset";

@@ -15,3 +15,5 @@ export const PageFooter = forwardRef(
     </footer>
   )
 );
+
+PageFooter.displayName = "utrecht-page-footer";

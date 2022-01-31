@@ -15,3 +15,5 @@ export const Heading6 = forwardRef(
     </h6>
   )
 );
+
+Heading6.displayName = "utrecht-heading-6";

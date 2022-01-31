@@ -29,3 +29,5 @@ export const FormFieldDescription = forwardRef(
     </div>
   )
 );
+
+FormFieldDescription.displayName = "utrecht-form-field-description";

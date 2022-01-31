@@ -30,3 +30,5 @@ export const Textarea = forwardRef(
     />
   )
 );
+
+Textarea.displayName = "utrecht-textarea";

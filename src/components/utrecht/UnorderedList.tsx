@@ -24,3 +24,5 @@ export const UnorderedList = forwardRef(
     </ul>
   )
 );
+
+UnorderedList.displayName = "utrecht-unordered-list";

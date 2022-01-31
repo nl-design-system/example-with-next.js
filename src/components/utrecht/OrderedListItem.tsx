@@ -18,3 +18,5 @@ export const OrderedListItem = forwardRef(
     </li>
   )
 );
+
+OrderedListItem.displayName = "utrecht-ordered-list__item";

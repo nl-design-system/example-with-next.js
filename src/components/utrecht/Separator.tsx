@@ -11,3 +11,5 @@ export type SeparatorProps = HTMLAttributes<HTMLHRElement>;
 export const Separator = forwardRef(({ className, ...restProps }: SeparatorProps, ref: ForwardedRef<HTMLHRElement>) => (
   <hr {...restProps} ref={ref} className={clsx("utrecht-separator", className)} />
 ));
+
+Separator.displayName = "utrecht-separator";

@@ -15,3 +15,5 @@ export const URL = forwardRef(
     </bdi>
   )
 );
+
+URL.displayName = "utrecht-url";

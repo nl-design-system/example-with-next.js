@@ -55,3 +55,5 @@ export const TextInput = forwardRef(
     />
   )
 );
+
+TextInput.displayName = "utrecht-textbox";

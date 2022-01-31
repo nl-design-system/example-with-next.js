@@ -16,6 +16,8 @@ export const PageContent = forwardRef(
   )
 );
 
+PageContent.displayName = "utrecht-page-content";
+
 export type PageContentMainProps = HTMLAttributes<HTMLDivElement>;
 
 export const PageContentMain = forwardRef(
@@ -28,3 +30,5 @@ export const PageContentMain = forwardRef(
     </main>
   )
 );
+
+PageContentMain.displayName = "utrecht-page-content__main";

@@ -15,3 +15,5 @@ export const OrderedList = forwardRef(
     </ol>
   )
 );
+
+OrderedList.displayName = "utrecht-ordered-list";

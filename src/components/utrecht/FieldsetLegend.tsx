@@ -10,3 +10,5 @@ export const FieldsetLegend = forwardRef(
     </legend>
   )
 );
+
+FieldsetLegend.displayName = "utrecht-form-fieldset__legend";

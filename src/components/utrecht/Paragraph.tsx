@@ -20,3 +20,5 @@ export const Paragraph = forwardRef(
     </p>
   )
 );
+
+Paragraph.displayName = "utrecht-paragraph";

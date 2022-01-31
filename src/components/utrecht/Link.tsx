@@ -55,3 +55,5 @@ export const Link = forwardRef(
     </a>
   )
 );
+
+Link.displayName = "utrecht-link";

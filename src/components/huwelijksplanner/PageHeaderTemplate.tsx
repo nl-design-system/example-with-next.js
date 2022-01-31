@@ -3,12 +3,13 @@
  * Copyright (c) 2021 Robbert Broersma
  */
 
+import { Link } from "../utrecht/Link";
 import { LanguageToggle } from "../LanguageToggle";
 
 export const PageHeaderTemplate = () => (
   <>
     <p>
-      <a href="/">home</a>
+      <Link href="/">home</Link>
     </p>
     <LanguageToggle />
   </>

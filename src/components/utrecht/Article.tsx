@@ -15,3 +15,5 @@ export const Article = forwardRef(
     </article>
   )
 );
+
+Article.displayName = "utrecht-article";

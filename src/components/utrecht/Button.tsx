@@ -29,3 +29,5 @@ export const Button = forwardRef(
     );
   }
 );
+
+Button.displayName = "utrecht-button";
