@@ -3,6 +3,20 @@
  * Copyright (c) 2022 Robbert Broersma
  */
 
+:root {
+  --utrecht-paragraph-margin-block-start: 1em;
+  --utrecht-paragraph-margin-block-end: 1em;
+}
+
+:not([hidden]) + .utrecht-paragraph {
+  --utrecht-distanced: 1;
+}
+
+.utrecht-paragraph {
+  margin-block-start: calc(var(--utrecht-distanced, 0) * var(--utrecht-paragraph-margin-block-start));
+  margin-block-end: calc(var(--utrecht-distanced, 0) * var(--utrecht-paragraph-margin-block-end));
+}
+
 label {
   display: block;
 }
@@ -54,4 +68,14 @@ label {
 
 .utrecht-form-field + .utrecht-form-field {
   margin-block-start: var(--utrecht-space-block-xl);
+}
+
+.example {
+  border: 1px solid silver;
+  padding: 1em;
+}
+
+.data-list-value--email,
+.data-list-value--url {
+  font-variant-ligatures: none;
 }

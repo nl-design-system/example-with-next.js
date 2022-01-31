@@ -25,7 +25,7 @@ export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   },
 });
 
-export default function MultistepForm0() {
+export default function () {
   const { t } = useTranslation("huwelijksplanner-step-0");
 
   return (

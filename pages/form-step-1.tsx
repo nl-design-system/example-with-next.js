@@ -16,7 +16,7 @@ import { PageHeaderTemplate } from "../src/components/huwelijksplanner/PageHeade
 import { PageFooterTemplate } from "../src/components/huwelijksplanner/PageFooterTemplate";
 import { useRouter } from "next/router";
 
-export default function MultistepForm0() {
+export default function () {
   const router = useRouter();
   const main = useRef<HTMLFormElement>(null);
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {

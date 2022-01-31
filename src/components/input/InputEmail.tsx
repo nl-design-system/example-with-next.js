@@ -32,6 +32,7 @@ export const InputEmail = ({ id, autoComplete, errors, ...restProps }: InputEmai
         id={`${id}-input`}
         autoComplete={`${def.autoComplete} ${autoComplete}`}
         aria-describedby={errors ? errors.map(({ id }) => id).join(" ") : undefined}
+        className="utrecht-textbox--url"
       />
       <ValidationMessages errors={errors}></ValidationMessages>
     </FormField>

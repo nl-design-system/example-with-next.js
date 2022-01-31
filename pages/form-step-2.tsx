@@ -26,8 +26,16 @@ export default function FormStep2() {
   const [submitter, setSubmitter] = useState<HTMLButtonElement | null>();
   const router = useRouter();
   useEffect(() => {
+    console.log("focus maybe", main.current);
     if (main.current) {
+      const tabIndex = main.current.tabIndex;
+      main.current.tabIndex = -1;
       main.current.focus();
+      if (tabIndex === -1) {
+        main.current.removeAttribute("tabindex");
+      } else {
+        main.current.tabIndex = tabIndex;
+      }
     }
   });
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
