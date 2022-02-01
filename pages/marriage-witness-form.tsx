@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import Head from "next/head";
 import { UtrechtButton } from "@utrecht/web-component-library-react";
 import {

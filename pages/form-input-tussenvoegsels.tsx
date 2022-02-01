@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import { Paragraph, Heading1, Heading2, Link } from "../src/components/utrecht";
 import { DocumentationPage } from "../src/components/DocumentationPage";
 

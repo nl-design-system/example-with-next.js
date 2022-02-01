@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import Head from "next/head";
 import { Document, Heading1, Heading2, URL } from "../src/components/utrecht";
 import { useTranslation } from "next-i18next";

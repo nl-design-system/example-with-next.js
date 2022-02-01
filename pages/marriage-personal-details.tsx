@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import Head from "next/head";
 import { Document, FormField, FormLabel, Heading1, Heading2, TextInput } from "../src/components/utrecht";
 import { DataNoTranslate, DataNumeric } from "../src/components";

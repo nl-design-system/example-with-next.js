@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import { useRef, useEffect, FormEvent } from "react";
 import Head from "next/head";
 import {
