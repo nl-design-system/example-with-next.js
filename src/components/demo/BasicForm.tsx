@@ -15,6 +15,9 @@ import {
   voornaamValidation,
   voorvoegselGeslachtsnaamValidation,
   woonplaatsnaamValidation,
+  huisnummerValidation,
+  kvkValidation,
+  FormFieldDefinition,
 } from "../../data";
 import { InputFamilyName } from "../input/InputFamilyName";
 import { InputGivenName } from "../input/InputGivenName";
@@ -47,6 +50,58 @@ type FormInputValidityState = Partial<{
 
 type FormValidationFunction = (value: string) => FormValidationError[];
 
+const errorIds = (errors: FormValidationError[] | undefined): string | undefined =>
+  errors ? errors.map(({ id }) => id).join(" ") : undefined;
+
+const createValidators = (def: FormFieldDefinition): FormValidationFunction[] => {
+  const validators: FormValidationFunction[] = [];
+  if (typeof def.maxLength === "number") {
+    validators.push((value: string): FormValidationError[] => {
+      if (typeof def.maxLength === "number" && value.length > def.maxLength) {
+        return [
+          {
+            id: "3c1ac06c-80f0-41fc-ad37-7637ebd2e1ce",
+            message: "invalid-max-length",
+          },
+        ];
+      } else {
+        return [];
+      }
+    });
+  }
+  if (typeof def.minLength === "number") {
+    validators.push((value: string): FormValidationError[] => {
+      if (typeof def.minLength === "number" && value.length < def.minLength) {
+        return [
+          {
+            id: "2ea07f70-e269-477a-91d7-9ea3f24a0aa3",
+            message: "invalid-min-length",
+          },
+        ];
+      } else {
+        return [];
+      }
+    });
+  }
+  if (typeof def.pattern === "string") {
+    validators.push((value: string): FormValidationError[] => {
+      if (typeof def.pattern === "string" && !new RegExp("^(?:" + def.pattern + ")$").test(value)) {
+        return [
+          {
+            id: "3249dd09-baa8-498e-9709-af3062737f50",
+            message: "invalid-pattern",
+          },
+        ];
+      } else {
+        return [];
+      }
+    });
+  }
+  return validators;
+};
+
+type FormNormalizeFunction = (value: string) => string | number;
+
 export const BasicForm = ({ setDetails }: Props) => {
   const { t } = useTranslation("form");
 
@@ -54,39 +109,51 @@ export const BasicForm = ({ setDetails }: Props) => {
   const normalizeWhitespace = (value: string) => value.replace(/\s+/g, " ");
   const removeWhitespace = (value: string) => value.replace(/\s+/g, "");
   const normalizeUnicode = (value: string) => value.normalize("NFC");
-  const toInteger = (value: string): number => parseInt(value, 10);
+  const toInteger = (value: string): number | string => (/^[\d+]$/.test(value) ? parseInt(value, 10) : value);
   const toUpperCase = (value: string): string => String(value).toUpperCase();
+  const formatPostCodeWithSpace = (value: string): string =>
+    value.replace(/^\s*([0-9]{4})\s*([A-Za-z]{2})\s*$/, "$1 $2").toUpperCase();
 
-  const normalizers: Partial<{ [Property in keyof DemoFormInput]: ((value: string) => string)[] }> = {
+  const integerNormalizers: FormNormalizeFunction[] = [removeWhitespace];
+
+  // By removing whitespace from telephone numbers, it might be more difficult
+  // for users to check correctness, because they prefer their own arbitrary
+  // grouping. Perhaps this type of normalization should only happen in the backend.
+  const telNormalizers: FormNormalizeFunction[] = [];
+
+  const normalizers: Partial<{ [Property in keyof DemoFormInput]: FormNormalizeFunction[] }> = {
     "given-name": [trimWhitespace, normalizeWhitespace, normalizeUnicode],
+    "family-name-prefix": [trimWhitespace, normalizeWhitespace, normalizeUnicode],
     "family-name": [trimWhitespace, normalizeWhitespace, normalizeUnicode],
+    street: [trimWhitespace, normalizeWhitespace, normalizeUnicode],
     iban: [removeWhitespace],
-    "kvk-number": [removeWhitespace],
-    "postal-code": [removeWhitespace, toUpperCase],
+    "kvk-number": [...integerNormalizers],
+    "postal-code": [removeWhitespace, toUpperCase, formatPostCodeWithSpace],
+    bsn: [removeWhitespace],
+    "house-number": [...integerNormalizers],
+    "house-number-letter": [removeWhitespace],
+    "year-of-establishment": [...integerNormalizers],
+    email: [trimWhitespace],
+    country: [trimWhitespace],
+    "place-of-residence": [trimWhitespace],
+    tel: [...telNormalizers],
+    "tel-mobile": [...telNormalizers],
+    "tel-daytime": [...telNormalizers],
+    "tel-evening": [...telNormalizers],
   };
 
   const validators: Partial<{ [Property in keyof DemoFormInput]: FormValidationFunction[] }> = {
-    "postal-code": [
-      (value) => {
-        const errors = [];
-        if (value.length > 6) {
-          errors.push({
-            id: "3c1ac06c-80f0-41fc-ad37-7637ebd2e1ce",
-            message: t("invalid-max-length"),
-          });
-        }
-        if (
-          typeof postcodeValidation.pattern == "string" &&
-          !new RegExp(`^(?:${postcodeValidation.pattern})$`).test(value)
-        ) {
-          errors.push({
-            id: "3249dd09-baa8-498e-9709-af3062737f50",
-            message: t("invalid-pattern"),
-          });
-        }
-        return errors;
-      },
-    ],
+    bsn: createValidators(bsnValidation),
+    "given-name": createValidators(voornaamValidation),
+    "family-name-prefix": createValidators(voorvoegselGeslachtsnaamValidation),
+    "family-name": createValidators(geslachtsnaamValidation),
+    "postal-code": createValidators(postcodeValidation),
+    "house-number": createValidators(huisnummerValidation),
+    "house-number-letter": createValidators(huisletterValidation),
+    "address-line1": createValidators(adresRegel1Validation),
+    "address-line2": createValidators(adresRegel2Validation),
+    "address-line3": createValidators(adresRegel3Validation),
+    "kvk-number": createValidators(kvkValidation),
   };
 
   const convertTypes: Partial<{ [Property in keyof DemoFormInput]: (value: string) => number | boolean }> = {
@@ -279,6 +346,7 @@ export const BasicForm = ({ setDetails }: Props) => {
             id="given-name2"
             name="given-name"
             value={formInputState["given-name"]}
+            spellCheck={false}
             onBlur={handleInputBlur}
             onChange={handleInputChange}
             maxLength={voornaamValidation.maxLength}
@@ -322,6 +390,7 @@ export const BasicForm = ({ setDetails }: Props) => {
             name="family-name"
             value={formInputState["family-name"]}
             onBlur={handleInputBlur}
+            spellCheck={false}
             maxLength={geslachtsnaamValidation.maxLength}
             pattern={geslachtsnaamValidation.pattern}
             onChange={handleInputChange}
@@ -331,6 +400,7 @@ export const BasicForm = ({ setDetails }: Props) => {
             <TextInput
               onBlur={handleInputBlur}
               id="given-name-initials"
+              spellCheck={false}
               name="given-name-initials"
               value={formInputState["given-name-initials"]}
               onChange={handleInputChange}
@@ -343,6 +413,7 @@ export const BasicForm = ({ setDetails }: Props) => {
               id="family-name-prefix"
               name="family-name-prefix"
               list="family-name-prefix-datalist"
+              spellCheck={false}
               value={formInputState["family-name-prefix"]}
               maxLength={voorvoegselGeslachtsnaamValidation.maxLength}
               pattern={voorvoegselGeslachtsnaamValidation.pattern}
@@ -361,6 +432,7 @@ export const BasicForm = ({ setDetails }: Props) => {
               id="name-original-writing"
               name="name-original-writing"
               value={formInputState["name-original-writing"]}
+              spellCheck={false}
               onChange={handleInputChange}
             />
           </FormField>
@@ -400,6 +472,7 @@ export const BasicForm = ({ setDetails }: Props) => {
               value={formInputState["place-of-birth"]}
               maxLength={placeOfBirthValidation.maxLength}
               pattern={placeOfBirthValidation.pattern}
+              spellCheck={false}
               onBlur={handleInputBlur}
               onChange={handleInputChange}
             />
@@ -411,6 +484,7 @@ export const BasicForm = ({ setDetails }: Props) => {
               name="country-of-birth"
               list="country-of-birth-list"
               value={formInputState["country-of-birth"]}
+              spellCheck={false}
               onBlur={handleInputBlur}
               onChange={handleInputChange}
             />
@@ -430,9 +504,11 @@ export const BasicForm = ({ setDetails }: Props) => {
             onBlur={handleInputBlur}
             minLength={bsnValidation.minLength}
             maxLength={bsnValidation.maxLength}
+            spellCheck={bsnValidation.spellCheck}
             pattern={bsnValidation.pattern}
             onChange={handleInputChange}
           ></InputBSN>
+          <ValidationMessages errors={formValidityState["bsn"]?.errors} />
         </div>
         <div className="form-section">
           <Heading2>{t("contact-details")}</Heading2>
@@ -440,6 +516,7 @@ export const BasicForm = ({ setDetails }: Props) => {
             id="email"
             name="email"
             value={formInputState.email}
+            spellCheck={false}
             onBlur={handleInputBlur}
             onChange={handleInputChange}
           />
@@ -450,10 +527,13 @@ export const BasicForm = ({ setDetails }: Props) => {
               type="tel"
               id="tel"
               name="tel"
+              spellCheck={false}
               autoComplete="tel"
               value={formInputState.tel}
               onChange={handleInputChange}
+              aria-describedby={errorIds(formValidityState["tel"]?.errors)}
             />
+            <ValidationMessages errors={formValidityState["tel"]?.errors} />
           </FormField>
           <FormField>
             <FormLabel htmlFor="tel-mobile">{t("tel-mobile")}</FormLabel>
@@ -462,10 +542,13 @@ export const BasicForm = ({ setDetails }: Props) => {
               type="tel"
               id="tel-mobile"
               name="tel-mobile"
+              spellCheck={false}
               autoComplete="tel mobile"
               value={formInputState["tel-mobile"]}
               onChange={handleInputChange}
+              aria-describedby={errorIds(formValidityState["tel-mobile"]?.errors)}
             />
+            <ValidationMessages errors={formValidityState["tel-mobile"]?.errors} />
           </FormField>
           <FormField>
             <FormLabel htmlFor="tel-daytime">{t("tel-daytime")}</FormLabel>
@@ -474,10 +557,13 @@ export const BasicForm = ({ setDetails }: Props) => {
               type="tel"
               id="tel-daytime"
               name="tel-daytime"
+              spellCheck={false}
               autoComplete="tel"
               value={formInputState["tel-daytime"]}
               onChange={handleInputChange}
+              aria-describedby={errorIds(formValidityState["tel-daytime"]?.errors)}
             />
+            <ValidationMessages errors={formValidityState["tel-daytime"]?.errors} />
           </FormField>
           <FormField>
             <FormLabel htmlFor="tel-evening">{t("tel-evening")}</FormLabel>
@@ -486,10 +572,13 @@ export const BasicForm = ({ setDetails }: Props) => {
               type="tel"
               id="tel-evening"
               name="tel-evening"
+              spellCheck={false}
               autoComplete="tel"
               value={formInputState["tel-evening"]}
               onChange={handleInputChange}
+              aria-describedby={errorIds(formValidityState["tel-evening"]?.errors)}
             />
+            <ValidationMessages errors={formValidityState["tel-evening"]?.errors} />
           </FormField>
           <Fieldset>
             <FieldsetLegend>{t("address")}</FieldsetLegend>
@@ -502,6 +591,7 @@ export const BasicForm = ({ setDetails }: Props) => {
                 onBlur={handleInputBlur}
                 id="postal-code"
                 name="postal-code"
+                spellCheck={false}
                 style={{
                   ["--maxlength" as any]: 7, // Room for "1234 AB" with space, even though it will be normalized
                 }}
@@ -510,28 +600,34 @@ export const BasicForm = ({ setDetails }: Props) => {
                 value={formInputState["postal-code"]}
                 pattern={postcodeValidation.pattern}
                 onChange={handleInputChange}
+                aria-describedby={errorIds(formValidityState["postal-code"]?.errors)}
               />
               <ValidationMessages errors={formValidityState["postal-code"]?.errors} />
             </FormField>
             <InputHouseNumber
               id="house-number"
               name="house-number"
-              maxLength={5}
+              maxLength={huisnummerValidation.maxLength}
+              spellCheck={huisnummerValidation.spellCheck}
               value={formInputState["house-number"]}
               onBlur={handleInputBlur}
               onChange={handleInputChange}
             ></InputHouseNumber>
+            <ValidationMessages errors={formValidityState["house-number"]?.errors} />
             <FormField>
               <FormLabel htmlFor="house-number">{t("house-number")}</FormLabel>
               <TextInput
                 onBlur={handleInputBlur}
                 id="house-number"
                 maxLength={5}
+                spellCheck={false}
                 name="house-number"
                 inputMode="numeric"
                 value={formInputState["house-number"]}
                 onChange={handleInputChange}
+                aria-describedby={errorIds(formValidityState["house-number"]?.errors)}
               />
+              <ValidationMessages errors={formValidityState["house-number"]?.errors} />
             </FormField>
             <FormField>
               <FormLabel htmlFor="house-number-letter">{t("house-number-letter-suffix")}</FormLabel>
@@ -539,11 +635,14 @@ export const BasicForm = ({ setDetails }: Props) => {
                 onBlur={handleInputBlur}
                 id="house-number-letter"
                 name="house-number-letter"
+                spellCheck={false}
                 value={formInputState["house-number-letter"]}
                 maxLength={huisletterValidation.maxLength}
                 pattern={huisletterValidation.pattern}
                 onChange={handleInputChange}
+                aria-describedby={errorIds(formValidityState["house-number-letter"]?.errors)}
               />
+              <ValidationMessages errors={formValidityState["house-number-letter"]?.errors} />
             </FormField>
             <FormField>
               <FormLabel htmlFor="house-number-suffix">{t("house-number-suffix")}</FormLabel>
@@ -554,11 +653,14 @@ export const BasicForm = ({ setDetails }: Props) => {
                 style={{
                   ["--maxlength" as any]: 4,
                 }}
+                spellCheck={false}
                 className="utrecht-textbox--maxlength"
                 value={formInputState["house-number-suffix"]}
                 pattern={huisnummertoevoegingValidation.pattern}
                 onChange={handleInputChange}
+                aria-describedby={errorIds(formValidityState["house-number-suffix"]?.errors)}
               />
+              <ValidationMessages errors={formValidityState["house-number-suffix"]?.errors} />
             </FormField>
             <FormField>
               <FormLabel htmlFor="street">{t("street")}</FormLabel>
@@ -566,9 +668,12 @@ export const BasicForm = ({ setDetails }: Props) => {
                 onBlur={handleInputBlur}
                 id="street"
                 name="street"
+                spellCheck={false}
                 value={formInputState.street}
                 onChange={handleInputChange}
+                aria-describedby={errorIds(formValidityState["street"]?.errors)}
               />
+              <ValidationMessages errors={formValidityState["street"]?.errors} />
             </FormField>
             <FormField>
               <FormLabel htmlFor="place-of-residence">{t("place-of-residence")}</FormLabel>
@@ -577,21 +682,27 @@ export const BasicForm = ({ setDetails }: Props) => {
                 id="place-of-residence"
                 name="place-of-residence"
                 value={formInputState["place-of-residence"]}
+                spellCheck={false}
                 minLength={woonplaatsnaamValidation.minLength}
                 maxLength={woonplaatsnaamValidation.maxLength}
                 pattern={woonplaatsnaamValidation.pattern}
                 onChange={handleInputChange}
+                aria-describedby={errorIds(formValidityState["place-of-residence"]?.errors)}
               />
+              <ValidationMessages errors={formValidityState["place-of-residence"]?.errors} />
             </FormField>
             <FormField>
               <FormLabel htmlFor="municipality">{t("municipality")}</FormLabel>
               <TextInput
                 onBlur={handleInputBlur}
+                spellCheck={false}
                 id="municipality"
                 name="municipality"
                 value={formInputState.municipality}
                 onChange={handleInputChange}
+                aria-describedby={errorIds(formValidityState["municipality"]?.errors)}
               />
+              <ValidationMessages errors={formValidityState["municipality"]?.errors} />
             </FormField>
             <FormField>
               <FormLabel htmlFor="country">{t("country")}</FormLabel>
@@ -599,10 +710,13 @@ export const BasicForm = ({ setDetails }: Props) => {
                 onBlur={handleInputBlur}
                 id="country"
                 name="country"
+                spellCheck={false}
                 autoComplete="country-name"
                 value={formInputState.country}
                 onChange={handleInputChange}
+                aria-describedby={errorIds(formValidityState["country"]?.errors)}
               />
+              <ValidationMessages errors={formValidityState["country"]?.errors} />
             </FormField>
           </Fieldset>
           <FormField>
@@ -611,10 +725,13 @@ export const BasicForm = ({ setDetails }: Props) => {
               onBlur={handleInputBlur}
               id="location-description"
               name="location-description"
+              spellCheck={true}
               value={formInputState["location-description"]}
               maxLength={locatiebeschrijvingValidation.maxLength}
               onChange={handleInputChange}
+              aria-describedby={errorIds(formValidityState["location-description"]?.errors)}
             />
+            <ValidationMessages errors={formValidityState["location-description"]?.errors} />
           </FormField>
 
           <Fieldset>
@@ -626,11 +743,14 @@ export const BasicForm = ({ setDetails }: Props) => {
                 name="address-line1"
                 maxLength={adresRegel1Validation.maxLength}
                 pattern={adresRegel1Validation.pattern}
+                spellCheck={false}
                 autoComplete="address-line1"
                 value={formInputState["address-line1"]}
                 onBlur={handleInputBlur}
                 onChange={handleInputChange}
+                aria-describedby={errorIds(formValidityState["address-line1"]?.errors)}
               />
+              <ValidationMessages errors={formValidityState["address-line1"]?.errors} />
             </FormField>
             <FormField>
               <FormLabel htmlFor="address-line2">Regel 2</FormLabel>
@@ -638,12 +758,15 @@ export const BasicForm = ({ setDetails }: Props) => {
                 id="address-line2"
                 name="address-line2"
                 maxLength={adresRegel2Validation.maxLength}
+                spellCheck={false}
                 pattern={adresRegel2Validation.pattern}
                 autoComplete="address-line2"
                 value={formInputState["address-line2"]}
                 onBlur={handleInputBlur}
                 onChange={handleInputChange}
+                aria-describedby={errorIds(formValidityState["address-line2"]?.errors)}
               />
+              <ValidationMessages errors={formValidityState["address-line2"]?.errors} />
             </FormField>
             <FormField>
               <FormLabel htmlFor="address-line3">Regel 3</FormLabel>
@@ -652,11 +775,14 @@ export const BasicForm = ({ setDetails }: Props) => {
                 name="address-line3"
                 maxLength={adresRegel3Validation.maxLength}
                 pattern={adresRegel3Validation.pattern}
+                spellCheck={false}
                 autoComplete="address-line3"
                 value={formInputState["address-line3"]}
                 onBlur={handleInputBlur}
                 onChange={handleInputChange}
+                aria-describedby={errorIds(formValidityState["address-line3"]?.errors)}
               />
+              <ValidationMessages errors={formValidityState["address-line3"]?.errors} />
             </FormField>
           </Fieldset>
           <Fieldset>
@@ -710,13 +836,16 @@ export const BasicForm = ({ setDetails }: Props) => {
               onBlur={handleInputBlur}
               id="kvk-number"
               name="kvk-number"
+              spellCheck={false}
               inputMode="numeric"
               maxLength={
                 8
               } /* Volgens kvk.nl: "Als je je bedrijf inschrijft in het Handelsregister krijg je een uniek 8-cijferig KVK-nummer." */
               value={formInputState["kvk-number"]}
               onChange={handleInputChange}
+              aria-describedby={errorIds(formValidityState["kvk-number"]?.errors)}
             />
+            <ValidationMessages errors={formValidityState["kvk-number"]?.errors} />
           </FormField>
           <FormField>
             <FormLabel htmlFor="organization">{t("organization")}</FormLabel>
@@ -724,10 +853,13 @@ export const BasicForm = ({ setDetails }: Props) => {
               onBlur={handleInputBlur}
               id="organization"
               name="organization"
+              spellCheck={false}
               autoComplete="organization"
               value={formInputState.organization}
               onChange={handleInputChange}
+              aria-describedby={errorIds(formValidityState["organization"]?.errors)}
             />
+            <ValidationMessages errors={formValidityState["organization"]?.errors} />
           </FormField>
           <FormField>
             <FormLabel htmlFor="year-of-establishment">{t("year-of-establishment")}</FormLabel>
@@ -736,10 +868,13 @@ export const BasicForm = ({ setDetails }: Props) => {
               id="year-of-establishment"
               name="year-of-establishment"
               inputMode="numeric"
+              spellCheck={false}
               maxLength={4}
               value={formInputState["year-of-establishment"]}
               onChange={handleInputChange}
+              aria-describedby={errorIds(formValidityState["year-of-establishment"]?.errors)}
             />
+            <ValidationMessages errors={formValidityState["year-of-establishment"]?.errors} />
           </FormField>
           <FormField>
             <FormLabel htmlFor="website">{t("website")}</FormLabel>
@@ -749,9 +884,12 @@ export const BasicForm = ({ setDetails }: Props) => {
               id="website"
               name="website"
               autoComplete="url"
+              spellCheck={false}
               value={formInputState.website}
               onChange={handleInputChange}
+              aria-describedby={errorIds(formValidityState["website"]?.errors)}
             />
+            <ValidationMessages errors={formValidityState["website"]?.errors} />
           </FormField>
         </div>
         <div className="form-section">
@@ -762,9 +900,12 @@ export const BasicForm = ({ setDetails }: Props) => {
               onBlur={handleInputBlur}
               id="iban"
               name="iban"
+              spellCheck={false}
               value={formInputState.iban}
               onChange={handleInputChange}
+              aria-describedby={errorIds(formValidityState["iban"]?.errors)}
             />
+            <ValidationMessages errors={formValidityState["iban"]?.errors} />
           </FormField>
           <FormField>
             <FormLabel htmlFor="bic">{t("bic")}</FormLabel>
@@ -772,10 +913,13 @@ export const BasicForm = ({ setDetails }: Props) => {
               onBlur={handleInputBlur}
               id="bic"
               name="bic"
+              spellCheck={false}
               maxLength={11} /* ISO 9362: 8 or 11 chars */
               value={formInputState.bic}
               onChange={handleInputChange}
+              aria-describedby={errorIds(formValidityState["bic"]?.errors)}
             />
+            <ValidationMessages errors={formValidityState["bic"]?.errors} />
           </FormField>
         </div>
         <div className="form-section">

@@ -96,6 +96,7 @@ export default function Home() {
                   <UnorderedListItem>Controle ingevoerde gegevens</UnorderedListItem>
                 </UnorderedList>
               </UnorderedListItem>
+              {/*
               <UnorderedListItem>
                 <Link href="/marriage-witness-form">Getuigen uitnodigen</Link>
               </UnorderedListItem>
@@ -131,6 +132,7 @@ export default function Home() {
                   </UnorderedListItem>
                 </UnorderedList>
               </UnorderedListItem>
+            */}
             </UnorderedList>
           </PageContent>
         </Page>

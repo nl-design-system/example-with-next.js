@@ -1,3 +1,33 @@
+export interface FormFieldDefinition {
+  maxLength?: number;
+  minLength?: number;
+  integer?: boolean;
+  numeric?: boolean;
+  pattern?: string;
+  spellCheck?: boolean;
+  autoComplete?: string | string[];
+  caseInsensitive?: boolean;
+  multiline?: boolean;
+  translate?: boolean;
+}
+
+const createDefinition = (def: FormFieldDefinition): FormFieldDefinition => {
+  if (def.integer) {
+    def = {
+      ...def,
+      numeric: true,
+    };
+  }
+
+  if (def.numeric) {
+    def = {
+      spellCheck: false,
+      ...def,
+    };
+  }
+  return def;
+};
+
 export type BSNType = string;
 
 // Compared to JavaScript regular expressions, the [ and ] character need extra escaping in HTML `pattern` attributes
@@ -16,12 +46,12 @@ The following info is obtained from Logisch Ontwerp GBA 3.14:
 - "(9*s0)+(8*s1)+(7*s2)+...+(2*s7)-(1*s8) is deelbaar door 11.
 */
 
-export const bsnValidation = {
+export const bsnValidation: FormFieldDefinition = createDefinition({
   minLength: 9,
   maxLength: 9,
-  numeric: true,
-  pattern: '^[0-9]{9}$',
-};
+  integer: true,
+  pattern: '[0-9]{9}',
+});
 
 /*
 export const validate = (str: string) =>
@@ -57,11 +87,11 @@ The following info is obtained from Logisch Ontwerp GBA 3.14:
 Wat alfanumeriek betekent vraag ik me af: waarom numeriek in voornamen, en welke letters zijn allemaal toegestaan? Ook IJslandse karakters? Koppelstreepje?
 */
 
-export const voornaamValidation = {
+export const voornaamValidation: FormFieldDefinition = createDefinition({
   minLength: 1,
   maxLength: 200,
   pattern: teletex,
-};
+});
 
 /*
 The following info is obtained from Logisch Ontwerp GBA 3.14:
@@ -74,11 +104,11 @@ Gebaseerd op die lijst kun je een regexp maken waaraan elk voorvoegsel voldoet.
 De maxLength is gebaseerd op de voorvoegseltabel
 */
 
-export const voorvoegselGeslachtsnaamValidation = {
+export const voorvoegselGeslachtsnaamValidation: FormFieldDefinition = createDefinition({
   minLength: 1,
   maxLength: 10,
-  pattern: "^[A-Za-z' ]{0,10}$",
-};
+  pattern: "[A-Za-z' ]{0,10}",
+});
 
 /*
 The following info is obtained from Logisch Ontwerp GBA 3.14:
@@ -87,11 +117,11 @@ The following info is obtained from Logisch Ontwerp GBA 3.14:
 - lengte: 1-200
 - alfanumeriek
 */
-export const geslachtsnaamValidation = {
+export const geslachtsnaamValidation: FormFieldDefinition = createDefinition({
   minLength: 1,
   maxLength: 200,
   pattern: teletex,
-};
+});
 
 /*
 The following info is obtained from Logisch Ontwerp GBA 3.14:
@@ -104,9 +134,9 @@ The following info is obtained from Logisch Ontwerp GBA 3.14:
 Opmerkingen:
 - is er een edge case dat iemand is geboren in een andere tijdzone waar het al "de volgende dag is" ten op zichte van Nederland, en daardoor de datum in de toekomst ligt
 */
-export const bdayValidation = {
+export const bdayValidation: FormFieldDefinition = createDefinition({
   //
-};
+});
 
 /*
 The following info is obtained from Logisch Ontwerp GBA 3.14:
@@ -114,11 +144,11 @@ The following info is obtained from Logisch Ontwerp GBA 3.14:
 - elementnaam "Geboorteland"
 - landcode uit "Tabel 34, Landentabel"
  */
-export const placeOfBirthValidation = {
+export const placeOfBirthValidation: FormFieldDefinition = createDefinition({
   minLength: 1,
   maxLength: 40,
   pattern: teletex,
-};
+});
 
 export type GeslachtsaanduidingType = 'M' | 'O' | 'V';
 
@@ -139,6 +169,9 @@ https://nl.wikipedia.org/wiki/Huisnummer
 
 Wikipedia zegt dat er huisnummers zijn die in de tienduizenden lopen in Nederland, daarmee is maxLength 5 nodig
 */
+export const huisnummerValidation: FormFieldDefinition = createDefinition({
+  maxLength: 5,
+});
 
 /*
 
@@ -149,10 +182,10 @@ lijkt maxLength 1 te zijn
 pattern "^[A-Za-z]?$"
 */
 
-export const huisletterValidation = {
+export const huisletterValidation: FormFieldDefinition = createDefinition({
   maxLength: 1,
-  pattern: '^[A-Za-z]?$',
-};
+  pattern: '[A-Za-z]?',
+});
 
 /*
 
@@ -163,11 +196,11 @@ Huisnummertoevoeging
 - alfanumeriek
 */
 
-export const huisnummertoevoegingValidation = {
+export const huisnummertoevoegingValidation: FormFieldDefinition = createDefinition({
   minLength: 1,
   maxLength: 4,
   pattern: teletex,
-};
+});
 
 /*
 
@@ -177,11 +210,12 @@ Postcode
 - lengte 6
 - alfanumeriek
 */
-export const postcodeValidation = {
+export const postcodeValidation: FormFieldDefinition = createDefinition({
   minLength: 6,
   maxLength: 6,
+  caseInsensitive: true,
   pattern: '[0-9]{4}[A-Za-z]{2}',
-};
+});
 
 /*
 
@@ -192,11 +226,11 @@ Woonplaatsnaam
 - alfanumeriek
 */
 
-export const woonplaatsnaamValidation = {
+export const woonplaatsnaamValidation: FormFieldDefinition = createDefinition({
   minLength: 1,
   maxLength: 80,
   pattern: teletex,
-};
+});
 
 /*
 
@@ -205,11 +239,11 @@ Locatiebeschrijving
 - elementnummer 12.10
 - lengte 1-35
 */
-export const locatiebeschrijvingValidation = {
+export const locatiebeschrijvingValidation: FormFieldDefinition = createDefinition({
   minLength: 1,
   maxLength: 35,
   pattern: teletexMultiline,
-};
+});
 
 /*
 
@@ -218,11 +252,11 @@ Regel 1 adres buitenland
 - elementnummer 13.30
 - lengte 1-35
 */
-export const adresRegel1Validation = {
+export const adresRegel1Validation: FormFieldDefinition = createDefinition({
   minLength: 1,
   maxLength: 35,
   pattern: teletex,
-};
+});
 
 /*
 
@@ -231,11 +265,11 @@ Regel 2 adres buitenland
 - elementnummer 13.40
 - lengte 1-35
 */
-export const adresRegel2Validation = {
+export const adresRegel2Validation: FormFieldDefinition = createDefinition({
   minLength: 1,
   maxLength: 35,
   pattern: teletex,
-};
+});
 
 /*
 
@@ -244,11 +278,11 @@ Regel 3 adres buitenland
 - elementnummer 13.50
 - lengte 1-35
 */
-export const adresRegel3Validation = {
+export const adresRegel3Validation: FormFieldDefinition = createDefinition({
   minLength: 1,
   maxLength: 35,
   pattern: teletex,
-};
+});
 
 /*
 
@@ -262,11 +296,11 @@ effectief dus `boolean`, maar met mogelijkheden tot uitbreiding
 
 */
 
-export const indicatieCurateleregisterValidation = {
+export const indicatieCurateleregisterValidation: FormFieldDefinition = createDefinition({
   minLength: 1,
   maxLength: 1,
   numeric: true,
-};
+});
 
 /*
 
@@ -277,8 +311,14 @@ Nummer Nederlands reisdocument
 - alfanumeriek
 */
 
-export const reisdocumentValidation = {
+export const reisdocumentValidation: FormFieldDefinition = createDefinition({
   minLength: 9,
   maxLength: 9,
-  pattern: '^[A-Za-z0-9]{9}$',
-};
+  pattern: '[A-Za-z0-9]{9}',
+});
+
+export const kvkValidation: FormFieldDefinition = createDefinition({
+  minLength: 8,
+  maxLength: 8,
+  pattern: '[0-9]{8}',
+});

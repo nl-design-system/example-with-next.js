@@ -16,6 +16,11 @@ export default function FormInputVoornaamDocumentation() {
       </Paragraph>
       <Heading2>Design</Heading2>
       <Paragraph>Lengte van invoerveld: nog te bepalen.</Paragraph>
+      <Heading2>Autocomplete</Heading2>
+      <Paragraph>
+        Voor het veld "Voornaam" gebruik je in HTML: <code>autocomplete="given-name"</code>. Voor het veld "Voornamen"
+        is er geen equivalent in HTML, omdat <code>given-name</code> en <code>additional-names</code> zijn opgesplitst.
+      </Paragraph>
       <Heading2>Content</Heading2>
       <Paragraph>Voornaam of voornamen? Nog uitzoeken.</Paragraph>
     </DocumentationPage>
