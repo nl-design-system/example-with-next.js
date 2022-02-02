@@ -17,7 +17,6 @@ import {
   woonplaatsnaamValidation,
   huisnummerValidation,
   kvkValidation,
-  FormFieldDefinition,
 } from "../../data";
 import { InputFamilyName } from "../input/InputFamilyName";
 import { InputGivenName } from "../input/InputGivenName";
@@ -35,20 +34,26 @@ import { InputBSN, InputEmail, InputHouseNumber } from "../input";
 import { Button, Fieldset, FieldsetLegend, RadioButton, Textarea } from "../utrecht";
 import { SaveButton } from "../SaveButton";
 import { ValidationMessages } from "../ValidationMessages";
-import { FormValidationError, ValidationIcon } from "../ValidationIcon";
+import { ValidationIcon } from "../ValidationIcon";
+import {
+  FormFieldDefinition,
+  FormFieldState,
+  FormValidationError,
+  FormValidationFunction,
+  FormNormalizeFunction,
+} from "../input/model";
+import { Input } from "../input/Input";
 
 interface Props {
   setDetails: Dispatch<SetStateAction<DemoForm | undefined>>;
 }
 type FormInput = { [Property in keyof DemoFormInput]: string };
 
-type FormInputValidityState = Partial<{
+export type FormInputValidityState = Partial<{
   [Property in keyof DemoFormInput]: {
     errors: FormValidationError[];
   };
 }>;
-
-type FormValidationFunction = (value: string) => FormValidationError[];
 
 const errorIds = (errors: FormValidationError[] | undefined): string | undefined =>
   errors ? errors.map(({ id }) => id).join(" ") : undefined;
@@ -99,8 +104,6 @@ const createValidators = (def: FormFieldDefinition): FormValidationFunction[] =>
   }
   return validators;
 };
-
-type FormNormalizeFunction = (value: string) => string | number;
 
 export const BasicForm = ({ setDetails }: Props) => {
   const { t } = useTranslation("form");
@@ -154,6 +157,29 @@ export const BasicForm = ({ setDetails }: Props) => {
     "address-line2": createValidators(adresRegel2Validation),
     "address-line3": createValidators(adresRegel3Validation),
     "kvk-number": createValidators(kvkValidation),
+  };
+
+  const formFields: { [index: string]: FormFieldState } = {
+    "given-name": {
+      id: "516a5fb3-ed7d-4045-97ef-42016a1f8740",
+      labelKey: "given-name",
+      name: "given-name",
+      required: false,
+      fieldType: "input",
+      inputSubtype: "text",
+      definition: voornaamValidation,
+      validators: createValidators(voornaamValidation),
+      normalizers: [trimWhitespace, normalizeWhitespace, normalizeUnicode],
+      inputState: {
+        dirty: false,
+        value: "",
+        invalid: false,
+        errors: [],
+      },
+      outputState: {
+        value: null,
+      },
+    },
   };
 
   const convertTypes: Partial<{ [Property in keyof DemoFormInput]: (value: string) => number | boolean }> = {
@@ -342,6 +368,7 @@ export const BasicForm = ({ setDetails }: Props) => {
       <form onSubmit={handleSubmit}>
         <div className="form-section">
           <Heading2>{t("personal-details")}</Heading2>
+          <Input field={formFields["given-name"]} />
           <InputGivenName
             id="given-name2"
             name="given-name"

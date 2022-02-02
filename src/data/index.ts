@@ -1,15 +1,4 @@
-export interface FormFieldDefinition {
-  maxLength?: number;
-  minLength?: number;
-  integer?: boolean;
-  numeric?: boolean;
-  pattern?: string;
-  spellCheck?: boolean;
-  autoComplete?: string | string[];
-  caseInsensitive?: boolean;
-  multiline?: boolean;
-  translate?: boolean;
-}
+import { FormFieldDefinition } from '../components/input/model';
 
 const createDefinition = (def: FormFieldDefinition): FormFieldDefinition => {
   if (def.integer) {

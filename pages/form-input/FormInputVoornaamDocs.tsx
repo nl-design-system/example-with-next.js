@@ -1,9 +1,8 @@
-import { Paragraph, Heading1, Heading2 } from "../src/components/utrecht";
-import { DocumentationPage } from "../src/components/DocumentationPage";
+import { Paragraph, Heading1, Heading2 } from "../../src/components/utrecht";
 
-export default function FormInputVoornaamDocumentation() {
+export function FormInputVoornaamDocs() {
   return (
-    <DocumentationPage title="Voornaam / Voornamen">
+    <>
       <Heading1>Voornaam / Voornamen</Heading1>
       <Heading2>Validatie</Heading2>
       <Paragraph>
@@ -23,6 +22,9 @@ export default function FormInputVoornaamDocumentation() {
       </Paragraph>
       <Heading2>Content</Heading2>
       <Paragraph>Voornaam of voornamen? Nog uitzoeken.</Paragraph>
-    </DocumentationPage>
+    </>
   );
 }
+
+FormInputVoornaamDocs.title = "Voornaam / Voornamen";
+FormInputVoornaamDocs.slug = "voornaam";

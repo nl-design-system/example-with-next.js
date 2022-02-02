@@ -1,9 +1,8 @@
-import { Paragraph, Heading1, Heading2 } from "../src/components/utrecht";
-import { DocumentationPage } from "../src/components/DocumentationPage";
+import { Paragraph, Heading1, Heading2 } from "../../src/components/utrecht";
 
-export default function FormInputPostcodeDocumentation() {
+export function FormInputPostcodeDocs() {
   return (
-    <DocumentationPage title="Postcode">
+    <>
       <Heading1>Postcode</Heading1>
       <Paragraph>
         Deze pagina gaat over een invoer van een Nederlandse postcode, er is nog geen pagina over invoer van Europese of
@@ -41,6 +40,9 @@ export default function FormInputPostcodeDocumentation() {
       </Paragraph>
       <Heading2>Voorbeeld</Heading2>
       <Paragraph>TODO</Paragraph>
-    </DocumentationPage>
+    </>
   );
 }
+
+FormInputPostcodeDocs.slug = "postcode";
+FormInputPostcodeDocs.title = "Postcode";

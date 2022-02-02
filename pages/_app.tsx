@@ -5,6 +5,7 @@ import "@utrecht/design-tokens/dist/index.css";
 import "@utrecht/component-library-css/dist/bem.css";
 import { appWithTranslation } from "next-i18next";
 import "./index.css";
+import "../src/components/SkipLink.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {

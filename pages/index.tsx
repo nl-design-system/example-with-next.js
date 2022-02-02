@@ -48,11 +48,11 @@ export default function Home() {
                 Form inputs
                 <UnorderedList>
                   <UnorderedListItem>
-                    <Link href="/form-input-voornaam">Voornaam</Link>
+                    <Link href="/form-input/voornaam">Voornaam</Link>
                   </UnorderedListItem>
                   <UnorderedListItem>Adelijke titel of predicaat</UnorderedListItem>
                   <UnorderedListItem>
-                    <Link href="/form-input-tussenvoegsels">Tussenvoegsel</Link>
+                    <Link href="/form-input/tussenvoegsels">Tussenvoegsel</Link>
                   </UnorderedListItem>
                   <UnorderedListItem>Achternaam</UnorderedListItem>
                   <UnorderedListItem>Voorletters</UnorderedListItem>
@@ -64,7 +64,7 @@ export default function Home() {
                   <UnorderedListItem>Geboorteland</UnorderedListItem>
                   <UnorderedListItem>Burgerservicenummer (BSN)</UnorderedListItem>
                   <UnorderedListItem>
-                    <Link href="/form-input-email">E-mailadres</Link>
+                    <Link href="/form-input/email">E-mailadres</Link>
                   </UnorderedListItem>
                   <UnorderedListItem>Volledige naam</UnorderedListItem>
                   <UnorderedListItem>Roepnaam</UnorderedListItem>
@@ -73,10 +73,10 @@ export default function Home() {
                   <UnorderedListItem>Telefoonnummer overdag</UnorderedListItem>
                   <UnorderedListItem>Telefoonnummer 's avonds</UnorderedListItem>
                   <UnorderedListItem>
-                    <Link href="/form-input-postcode">Postcode</Link>
+                    <Link href="/form-input/postcode">Postcode</Link>
                   </UnorderedListItem>
                   <UnorderedListItem>
-                    <Link href="/form-input-huisnummer">Huisnummer</Link>
+                    <Link href="/form-input/huisnummer">Huisnummer</Link>
                   </UnorderedListItem>
                   <UnorderedListItem>Huisletter</UnorderedListItem>
                   <UnorderedListItem>Huisnummertoevoeging</UnorderedListItem>

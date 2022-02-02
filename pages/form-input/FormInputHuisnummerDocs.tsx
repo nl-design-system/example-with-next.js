@@ -1,8 +1,7 @@
-import { Paragraph, Heading1, Heading2 } from "../src/components/utrecht";
-import { DocumentationPage } from "../src/components/DocumentationPage";
-import { ExampleBox } from "../src/components";
+import { Paragraph, Heading1, Heading2 } from "../../src/components/utrecht";
+import { ExampleBox } from "../../src/components";
 import { useState } from "react";
-import { InputHouseNumber } from "../src/components/input";
+import { InputHouseNumber } from "../../src/components/input";
 
 export const HouseNumberExample = () => {
   const [value, setValue] = useState("");
@@ -21,9 +20,9 @@ export const HouseNumberExample = () => {
   );
 };
 
-export default function FormInputHuisnummerDocumentation() {
+export function FormInputHuisnummerDocs() {
   return (
-    <DocumentationPage title="Huisnummer">
+    <>
       <Heading1>Huisnummer</Heading1>
       <Paragraph>
         Deze pagina gaat over de invoer van het nummer gedeelte, dat komt na de straatnaam en komt voor de huisletter en
@@ -54,6 +53,9 @@ export default function FormInputHuisnummerDocumentation() {
       <ExampleBox>
         <HouseNumberExample />
       </ExampleBox>
-    </DocumentationPage>
+    </>
   );
 }
+
+FormInputHuisnummerDocs.slug = "huisnummer";
+FormInputHuisnummerDocs.title = "Huisnummer";

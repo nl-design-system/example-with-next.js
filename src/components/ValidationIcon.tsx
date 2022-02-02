@@ -1,7 +1,4 @@
-export type FormValidationError = {
-  id: string;
-  message: string;
-};
+import { FormValidationError } from "./input/model";
 
 export const ValidationIcon = ({ errors }: { errors?: FormValidationError[] }) => {
   // Icon that can be displayed in the form label,

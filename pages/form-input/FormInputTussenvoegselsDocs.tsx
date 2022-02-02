@@ -1,9 +1,8 @@
-import { Paragraph, Heading1, Heading2, Link } from "../src/components/utrecht";
-import { DocumentationPage } from "../src/components/DocumentationPage";
+import { Paragraph, Heading1, Heading2, Link } from "../../src/components/utrecht";
 
-export default function FormInputTussenvoegsels() {
+export function FormInputTussenvoegselsDocs() {
   return (
-    <DocumentationPage title="Tussenvoegsels">
+    <>
       <Heading1>Tussenvoegsels</Heading1>
       <Heading2>Validatie</Heading2>
       <Paragraph>
@@ -32,6 +31,9 @@ export default function FormInputTussenvoegsels() {
         Voor tussenvoegsels is geen optie voor <code>autocomplete</code> in HTML, tussenvoegsel is onderdeel van{" "}
         <code>autocomplete="family-name"</code>.
       </Paragraph>
-    </DocumentationPage>
+    </>
   );
 }
+
+FormInputTussenvoegselsDocs.title = "Tussenvoegsels";
+FormInputTussenvoegselsDocs.slug = "tussenvoegsels";
