@@ -35,13 +35,16 @@ import { Button, Fieldset, FieldsetLegend, RadioButton, Textarea } from "../utre
 import { SaveButton } from "../SaveButton";
 import { ValidationMessages } from "../ValidationMessages";
 import { ValidationIcon } from "../ValidationIcon";
+import { FormFieldState, FormValidationError, FormValidationFunction, FormNormalizeFunction } from "../input/model";
 import {
-  FormFieldDefinition,
-  FormFieldState,
-  FormValidationError,
-  FormValidationFunction,
-  FormNormalizeFunction,
-} from "../input/model";
+  trimWhitespace,
+  normalizeWhitespace,
+  removeWhitespace,
+  normalizeUnicode,
+  toUpperCase,
+} from "../../data/normalize";
+import { createValidators } from "../../data/validate";
+
 import { Input } from "../input/Input";
 
 interface Props {
@@ -58,62 +61,12 @@ export type FormInputValidityState = Partial<{
 const errorIds = (errors: FormValidationError[] | undefined): string | undefined =>
   errors ? errors.map(({ id }) => id).join(" ") : undefined;
 
-const createValidators = (def: FormFieldDefinition): FormValidationFunction[] => {
-  const validators: FormValidationFunction[] = [];
-  if (typeof def.maxLength === "number") {
-    validators.push((value: string): FormValidationError[] => {
-      if (typeof def.maxLength === "number" && value.length > def.maxLength) {
-        return [
-          {
-            id: "3c1ac06c-80f0-41fc-ad37-7637ebd2e1ce",
-            message: "invalid-max-length",
-          },
-        ];
-      } else {
-        return [];
-      }
-    });
-  }
-  if (typeof def.minLength === "number") {
-    validators.push((value: string): FormValidationError[] => {
-      if (typeof def.minLength === "number" && value.length < def.minLength) {
-        return [
-          {
-            id: "2ea07f70-e269-477a-91d7-9ea3f24a0aa3",
-            message: "invalid-min-length",
-          },
-        ];
-      } else {
-        return [];
-      }
-    });
-  }
-  if (typeof def.pattern === "string") {
-    validators.push((value: string): FormValidationError[] => {
-      if (typeof def.pattern === "string" && !new RegExp("^(?:" + def.pattern + ")$").test(value)) {
-        return [
-          {
-            id: "3249dd09-baa8-498e-9709-af3062737f50",
-            message: "invalid-pattern",
-          },
-        ];
-      } else {
-        return [];
-      }
-    });
-  }
-  return validators;
-};
-
 export const BasicForm = ({ setDetails }: Props) => {
   const { t } = useTranslation("form");
 
-  const trimWhitespace = (value: string) => value.trim();
-  const normalizeWhitespace = (value: string) => value.replace(/\s+/g, " ");
-  const removeWhitespace = (value: string) => value.replace(/\s+/g, "");
-  const normalizeUnicode = (value: string) => value.normalize("NFC");
-  const toInteger = (value: string): number | string => (/^[\d+]$/.test(value) ? parseInt(value, 10) : value);
-  const toUpperCase = (value: string): string => String(value).toUpperCase();
+  const toInteger: FormNormalizeFunction = (value: string): number | string =>
+    /^[\d+]$/.test(value) ? parseInt(value, 10) : value;
+
   const formatPostCodeWithSpace = (value: string): string =>
     value.replace(/^\s*([0-9]{4})\s*([A-Za-z]{2})\s*$/, "$1 $2").toUpperCase();
 

@@ -1,4 +1,5 @@
-export type BSNType = string;
+import { FormFieldDefinition } from '../components/input/model';
+import { createDefinition } from './create';
 
 /*
 The following info is obtained from Logisch Ontwerp GBA 3.14:
@@ -9,26 +10,14 @@ The following info is obtained from Logisch Ontwerp GBA 3.14:
 - "(9*s0)+(8*s1)+(7*s2)+...+(2*s7)-(1*s8) is deelbaar door 11.
 */
 
-export const validation = {
-  minLength: 9,
+export const bsnValidation: FormFieldDefinition = createDefinition({
+  integer: true,
   maxLength: 9,
-  numeric: true,
-  pattern: '^[0-9]{9}$',
-};
+  minLength: 9,
+  pattern: '[0-9]{9}',
+});
 
-/*
-export const validate = (str: string) =>
-  /^[0-9]{9}$/.test(str) &&
-  String(str)
-    .split('')
-    .map((str) => parseInt(str, 10))
-    .reverse()
-    .map((n, index) => n * (index + 1))
-    .reduce((a, b, index) => (index === 0 ? a - b : a + b), 0) %
-    11 ===
-    0;
-*/
-export const validate = (str: string) => {
+export const validateBSN = (str: string) => {
   if (/^[0-9]{9}$/.test(str)) {
     const n = String(str)
       .split('')

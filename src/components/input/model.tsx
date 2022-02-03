@@ -1,3 +1,5 @@
+export type NormalizerId = "trim-whitespace" | "normalize-whitespace" | "normalize-unicode";
+
 export interface FormFieldDefinition {
   maxLength?: number;
   minLength?: number;
@@ -9,6 +11,8 @@ export interface FormFieldDefinition {
   caseInsensitive?: boolean;
   multiline?: boolean;
   translate?: boolean;
+  preserveWhitespace?: boolean;
+  normalizers?: NormalizerId[];
 }
 
 export type FormValidationError = {
@@ -30,6 +34,11 @@ export interface FormFieldState<T = any> {
   definition: FormFieldDefinition;
   validators: FormValidationFunction[];
   normalizers: FormNormalizeFunction[];
+  defaultState: {
+    value: string;
+    invalid: boolean;
+    errors: FormValidationError[];
+  };
   inputState: {
     dirty: boolean;
     value: string;
