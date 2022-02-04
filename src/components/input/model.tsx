@@ -49,3 +49,8 @@ export interface FormFieldState<T = any> {
     value: T;
   };
 }
+
+export interface FormValidationResult {
+  invalid: boolean;
+  errors: FormValidationError[];
+}

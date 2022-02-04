@@ -1,4 +1,4 @@
-import { FormFieldState } from "./model";
+import { FormFieldState, FormValidationResult } from "./model";
 
 export const resetField = (field: FormFieldState): FormFieldState => ({
   ...field,
@@ -10,7 +10,7 @@ export const resetField = (field: FormFieldState): FormFieldState => ({
   },
 });
 
-export const createField = (field: Omit<FormFieldState, "inputState" | "outputState">): FormFieldState => {
+export const createFieldState = (field: Omit<FormFieldState, "inputState" | "outputState">): FormFieldState => {
   return resetField({
     ...field,
     defaultState: {
@@ -29,3 +29,29 @@ export const createField = (field: Omit<FormFieldState, "inputState" | "outputSt
     },
   });
 };
+
+const validateField = ({ validators }: FormFieldState, value: string): FormValidationResult => {
+  const errors = validators?.flatMap((validator) => validator(value));
+  return {
+    errors,
+    invalid: errors.length >= 1,
+  };
+};
+
+const _setField = (field: FormFieldState, value: string): FormFieldState => {
+  return {
+    ...field,
+    inputState: {
+      ...field.inputState,
+      dirty: true,
+      value,
+      ...validateField(field, value),
+    },
+  };
+};
+
+export const setField = (fields: FormFieldState[], id: string, value: any): FormFieldState[] =>
+  fields.map((field) => {
+    console.log(id, field.id, field.id === id, value);
+    return field.id === id ? _setField(field, value) : field;
+  });

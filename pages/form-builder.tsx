@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent } from "react";
 import { useTranslation } from "next-i18next";
 import { Button } from "../src/components/utrecht";
 import { FormFieldState } from "../src/components/input/model";
@@ -6,13 +6,11 @@ import { FormBuilder } from "../src/components/input/FormBuilder";
 import { voornaamValidation, voorvoegselGeslachtsnaamValidation, geslachtsnaamValidation } from "../src/data/index";
 import { chooseNormalizers, lookupNormalizers } from "../src/data/normalize";
 import { createValidators } from "../src/data/validate";
-import { createField, resetField } from "../src/components/input/controller";
 
 export default function FormBuilderPage() {
   const { t } = useTranslation("form");
-
   let formFields: FormFieldState[] = [
-    createField({
+    {
       id: "516a5fb3-ed7d-4045-97ef-42016a1f8740",
       labelKey: "given-name",
       name: "given-name",
@@ -32,8 +30,8 @@ export default function FormBuilderPage() {
           },
         ],
       },
-    }),
-    createField({
+    },
+    {
       id: "42f867b9-415f-478e-9b6b-e2a05c729a1b",
       labelKey: "family-name-prefix",
       name: "family-name-prefix",
@@ -53,8 +51,8 @@ export default function FormBuilderPage() {
           },
         ],
       },
-    }),
-    createField({
+    },
+    {
       id: "4fc72917-2fa2-4e4d-9967-374a103802d9",
       labelKey: "family-name",
       name: "family-name",
@@ -69,22 +67,17 @@ export default function FormBuilderPage() {
         invalid: false,
         errors: [],
       },
-    }),
+    },
   ];
 
-  const [fields, setFields] = useState(formFields);
-
   const handleReset = (event: FormEvent) => {
-    event.preventDefault();
-    setFields(formFields.map((field) => resetField(field)));
+    console.log("reset", event);
   };
-
-  console.log(formFields[0]);
 
   return (
     <>
       <form onReset={handleReset}>
-        <FormBuilder fields={fields} />
+        <FormBuilder fields={formFields} />
         <Button type="submit">{t("submit")}</Button>
         <Button type="reset">{t("reset")}</Button>
       </form>
