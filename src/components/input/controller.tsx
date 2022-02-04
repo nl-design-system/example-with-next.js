@@ -1,4 +1,6 @@
-import { FormFieldState, FormValidationResult } from "./model";
+import { FormState, FormFieldState, FormValidationResult } from "./model";
+import { MIN_LENGTH_ERROR_ID } from "../../data/validate/error/MinLengthError";
+import { RequiredError } from "../../data/validate/error/RequiredError";
 
 export const resetField = (field: FormFieldState): FormFieldState => ({
   ...field,
@@ -30,15 +32,23 @@ export const createFieldState = (field: Omit<FormFieldState, "inputState" | "out
   });
 };
 
-const validateField = ({ validators }: FormFieldState, value: string): FormValidationResult => {
-  const errors = validators?.flatMap((validator) => validator(value));
+export const validateField = ({ required, validators }: FormFieldState, value: string): FormValidationResult => {
+  let errors = validators?.flatMap((validator) => validator(value));
+
+  // Validate that required fields are filled out
+  if (required && !value) {
+    errors.push(RequiredError());
+    // Replace the "minimum length" with "this field is required" message for empty required fields
+    errors = errors.filter((error) => error.id !== MIN_LENGTH_ERROR_ID);
+  }
+
   return {
     errors,
-    invalid: errors.length >= 1,
+    invalid: !!errors && errors.length >= 1,
   };
 };
 
-const _setField = (field: FormFieldState, value: string): FormFieldState => {
+export const setFieldValue = (field: FormFieldState, value: string): FormFieldState => {
   return {
     ...field,
     inputState: {
@@ -52,6 +62,10 @@ const _setField = (field: FormFieldState, value: string): FormFieldState => {
 
 export const setField = (fields: FormFieldState[], id: string, value: any): FormFieldState[] =>
   fields.map((field) => {
-    console.log(id, field.id, field.id === id, value);
-    return field.id === id ? _setField(field, value) : field;
+    return field.id === id ? setFieldValue(field, value) : field;
   });
+
+export const getFormState = (fields: FormFieldState[]): FormState => ({
+  dirty: fields.some(({ inputState: { dirty } }) => dirty),
+  invalid: fields.some(({ inputState: { invalid } }) => invalid),
+});

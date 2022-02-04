@@ -54,3 +54,8 @@ export interface FormValidationResult {
   invalid: boolean;
   errors: FormValidationError[];
 }
+
+export interface FormState {
+  dirty: boolean;
+  invalid: boolean;
+}

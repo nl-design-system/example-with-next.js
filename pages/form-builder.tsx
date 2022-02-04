@@ -14,7 +14,7 @@ export default function FormBuilderPage() {
       id: "516a5fb3-ed7d-4045-97ef-42016a1f8740",
       labelKey: "given-name",
       name: "given-name",
-      required: false,
+      required: true,
       fieldType: "input",
       inputSubtype: "text",
       definition: voornaamValidation,
@@ -66,6 +66,18 @@ export default function FormBuilderPage() {
         value: "",
         invalid: false,
         errors: [],
+      },
+    },
+    {
+      id: "04361bcc-839f-47dc-8f30-d697002a78e0",
+      labelKey: "email",
+      required: false,
+      inputSubtype: "text", // TODO: email
+      definition: {
+        pattern: ".+@.+",
+      },
+      defaultState: {
+        value: "",
       },
     },
   ];

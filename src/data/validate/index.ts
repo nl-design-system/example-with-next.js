@@ -1,44 +1,32 @@
-import { FormFieldDefinition, FormValidationFunction, FormValidationError } from "../../components/input/model";
+import { FormFieldDefinition, FormValidationFunction, FormValidationError } from '../../components/input/model';
+import { MinLengthError } from './error/MinLengthError';
+import { MaxLengthError } from './error/MaxLengthError';
+import { PatternError } from './error/PatternError';
 
 export const createValidators = (def: FormFieldDefinition): FormValidationFunction[] => {
   const validators: FormValidationFunction[] = [];
-  if (typeof def.maxLength === "number") {
+  if (typeof def.maxLength === 'number') {
     validators.push((value: string): FormValidationError[] => {
-      if (typeof def.maxLength === "number" && value.length > def.maxLength) {
-        return [
-          {
-            id: "3c1ac06c-80f0-41fc-ad37-7637ebd2e1ce",
-            message: "invalid-max-length",
-          },
-        ];
+      if (typeof def.maxLength === 'number' && value.length > def.maxLength) {
+        return [MaxLengthError()];
       } else {
         return [];
       }
     });
   }
-  if (typeof def.minLength === "number") {
+  if (typeof def.minLength === 'number') {
     validators.push((value: string): FormValidationError[] => {
-      if (typeof def.minLength === "number" && value.length < def.minLength) {
-        return [
-          {
-            id: "2ea07f70-e269-477a-91d7-9ea3f24a0aa3",
-            message: "invalid-min-length",
-          },
-        ];
+      if (typeof def.minLength === 'number' && value.length < def.minLength) {
+        return [MinLengthError()];
       } else {
         return [];
       }
     });
   }
-  if (typeof def.pattern === "string") {
+  if (typeof def.pattern === 'string') {
     validators.push((value: string): FormValidationError[] => {
-      if (typeof def.pattern === "string" && !new RegExp("^(?:" + def.pattern + ")$").test(value)) {
-        return [
-          {
-            id: "3249dd09-baa8-498e-9709-af3062737f50",
-            message: "invalid-pattern",
-          },
-        ];
+      if (typeof def.pattern === 'string' && !new RegExp('^(?:' + def.pattern + ')$').test(value)) {
+        return [PatternError()];
       } else {
         return [];
       }
