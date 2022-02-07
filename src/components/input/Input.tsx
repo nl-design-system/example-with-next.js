@@ -5,11 +5,11 @@ import { ValidationMessages } from "../ValidationMessages";
 import { InputHTMLAttributes } from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  field: FormFieldState;
+  state: FormFieldState;
 }
 
 export const Input = ({
-  field: {
+  state: {
     labelKey,
     id,
     name,
@@ -27,7 +27,11 @@ export const Input = ({
 
   return (
     <FormField id={id}>
-      <FormLabel htmlFor={`${id}-input`}>{t(labelKey)}</FormLabel>
+      <FormLabel htmlFor={`${id}-input`}>
+        {t(labelKey)}
+        {inputState.deferInvalid ? " (defer invalid) " : ""}
+        {inputState.deferValueMissing ? " (defer required) " : ""}
+      </FormLabel>
       <TextInput
         aria-describedby={Array.isArray(errors) && errors.length > 0 ? errors.map(({ id }) => id).join(" ") : undefined}
         aria-invalid={invalid}

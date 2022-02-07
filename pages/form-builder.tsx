@@ -1,15 +1,11 @@
-import { FormEvent } from "react";
-import { useTranslation } from "next-i18next";
-import { Button } from "../src/components/utrecht";
-import { FormFieldState } from "../src/components/input/model";
+import { FormFieldDeclaration } from "../src/components/input/model";
 import { FormBuilder } from "../src/components/input/FormBuilder";
 import { voornaamValidation, voorvoegselGeslachtsnaamValidation, geslachtsnaamValidation } from "../src/data/index";
 import { chooseNormalizers, lookupNormalizers } from "../src/data/normalize";
 import { createValidators } from "../src/data/validate";
 
 export default function FormBuilderPage() {
-  const { t } = useTranslation("form");
-  let formFields: FormFieldState[] = [
+  let formFields: FormFieldDeclaration[] = [
     {
       id: "516a5fb3-ed7d-4045-97ef-42016a1f8740",
       labelKey: "given-name",
@@ -82,17 +78,9 @@ export default function FormBuilderPage() {
     },
   ];
 
-  const handleReset = (event: FormEvent) => {
-    console.log("reset", event);
-  };
-
   return (
     <>
-      <form onReset={handleReset}>
-        <FormBuilder fields={formFields} />
-        <Button type="submit">{t("submit")}</Button>
-        <Button type="reset">{t("reset")}</Button>
-      </form>
+      <FormBuilder fields={formFields} />
     </>
   );
 }

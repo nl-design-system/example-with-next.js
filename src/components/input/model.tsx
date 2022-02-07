@@ -20,11 +20,26 @@ export type FormValidationError = {
   message: string;
 };
 
+// Based on HTML:
+// https://html.spec.whatwg.org/multipage/custom-elements.html#validitystateflags
+export interface ValidityState {
+  valueMissing: boolean;
+  typeMismatch: boolean;
+  patternMismatch: boolean;
+  tooLong: boolean;
+  tooShort: boolean;
+  rangeUnderflow: boolean;
+  rangeOverflow: boolean;
+  stepMismatch: boolean;
+  badInput: boolean;
+  // customError: boolean;
+}
+
 export type FormValidationFunction = (value: string) => FormValidationError[];
 
 export type FormNormalizeFunction = (value: string) => string | number;
 
-export interface FormFieldState<T = any> {
+export interface FormFieldDeclaration {
   id: string;
   name?: string;
   labelKey: string;
@@ -32,6 +47,16 @@ export interface FormFieldState<T = any> {
   fieldType?: "input";
   inputSubtype?: "text";
   definition: FormFieldDefinition;
+  validators?: FormValidationFunction[];
+  normalizers?: FormNormalizeFunction[];
+  defaultState?: {
+    value: string;
+    invalid?: boolean;
+    errors?: FormValidationError[];
+  };
+}
+
+export interface FormFieldState<T = any> extends FormFieldDeclaration {
   validators: FormValidationFunction[];
   normalizers: FormNormalizeFunction[];
   defaultState: {
@@ -41,6 +66,11 @@ export interface FormFieldState<T = any> {
   };
   inputState: {
     dirty: boolean;
+    // name could also be `deferValueMissing` after `element.validity.valueMissing` in HTML
+    // https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#the-constraint-validation-api
+    deferValueMissing: boolean;
+    // name could also be `deferBadInput` after `element.validity.badInput` in HTML
+    deferInvalid: boolean;
     value: string;
     invalid: boolean;
     errors: FormValidationError[];

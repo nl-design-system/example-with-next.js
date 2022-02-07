@@ -35,7 +35,12 @@ import { Button, Fieldset, FieldsetLegend, RadioButton, Textarea } from "../utre
 import { SaveButton } from "../SaveButton";
 import { ValidationMessages } from "../ValidationMessages";
 import { ValidationIcon } from "../ValidationIcon";
-import { FormFieldState, FormValidationError, FormValidationFunction, FormNormalizeFunction } from "../input/model";
+import {
+  FormFieldDeclaration,
+  FormValidationError,
+  FormValidationFunction,
+  FormNormalizeFunction,
+} from "../input/model";
 import {
   trimWhitespace,
   normalizeWhitespace,
@@ -44,7 +49,7 @@ import {
   toUpperCase,
 } from "../../data/normalize";
 import { createValidators } from "../../data/validate";
-
+import { createFieldState } from "../input/controller";
 import { Input } from "../input/Input";
 
 interface Props {
@@ -112,7 +117,7 @@ export const BasicForm = ({ setDetails }: Props) => {
     "kvk-number": createValidators(kvkValidation),
   };
 
-  const formFields: { [index: string]: FormFieldState } = {
+  const formFields: { [index: string]: FormFieldDeclaration } = {
     "given-name": {
       id: "516a5fb3-ed7d-4045-97ef-42016a1f8740",
       labelKey: "given-name",
@@ -123,14 +128,10 @@ export const BasicForm = ({ setDetails }: Props) => {
       definition: voornaamValidation,
       validators: createValidators(voornaamValidation),
       normalizers: [trimWhitespace, normalizeWhitespace, normalizeUnicode],
-      inputState: {
-        dirty: false,
+      defaultState: {
         value: "",
         invalid: false,
         errors: [],
-      },
-      outputState: {
-        value: null,
       },
     },
   };
@@ -321,7 +322,7 @@ export const BasicForm = ({ setDetails }: Props) => {
       <form onSubmit={handleSubmit}>
         <div className="form-section">
           <Heading2>{t("personal-details")}</Heading2>
-          <Input field={formFields["given-name"]} />
+          <Input state={createFieldState(formFields["given-name"])} />
           <InputGivenName
             id="given-name2"
             name="given-name"
