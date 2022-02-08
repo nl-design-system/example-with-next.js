@@ -60,6 +60,7 @@ export interface FormFieldDeclaration {
 export interface FormFieldState<T = any> extends FormFieldDeclaration {
   validators: FormValidationFunction[];
   normalizers: FormNormalizeFunction[];
+  noscript: boolean; // Enable server side rendering
   defaultState: {
     value: string;
     invalid: boolean;

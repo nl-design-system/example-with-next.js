@@ -5,10 +5,10 @@ export const resetField = (field: FormFieldState): FormFieldState => ({
   ...field,
   inputState: {
     dirty: false,
-    deferInvalid: true,
-    deferValueMissing: true,
-    deferTooLong: true,
-    deferTooShort: true,
+    deferInvalid: field.defaultState?.invalid ? false : true,
+    deferValueMissing: field.defaultState?.value ? false : true,
+    deferTooLong: false,
+    deferTooShort: String(field.defaultState.value).length < (field.definition.minLength || 0),
     errors: field.defaultState?.errors || [],
     invalid: field.defaultState?.invalid || false,
     value: field.defaultState?.value || "",
@@ -18,6 +18,7 @@ export const resetField = (field: FormFieldState): FormFieldState => ({
 export const createFieldState = (field: FormFieldDeclaration): FormFieldState => {
   return resetField({
     ...field,
+    noscript: false,
     validators: field.validators || [],
     normalizers: field.normalizers || [],
     defaultState: {
@@ -27,8 +28,8 @@ export const createFieldState = (field: FormFieldDeclaration): FormFieldState =>
     },
     inputState: {
       dirty: false,
-      deferTooLong: true,
-      deferTooShort: true,
+      deferTooLong: false,
+      deferTooShort: false,
       deferValueMissing: true,
       deferInvalid: true,
       value: "",
@@ -56,16 +57,34 @@ export const normalizerField = (state: FormFieldState): FormFieldState => {
   };
 };
 
-export const validateField = ({ required, validators }: FormFieldState, value: string): FormValidationResult => {
+export const validateField = (
+  { required, validators, inputState }: FormFieldState,
+  value: string
+): FormValidationResult => {
   let errors = validators?.flatMap((validator) => validator(value));
+
+  let deferTooShort = inputState.deferTooShort;
+  let deferPatternMismatch = false;
 
   // Validate that required fields are filled out
   if (required && !value) {
     errors.push(ValueMissingError());
-    // Replace the "minimum length" with "this field is required" message for empty required fields
-    errors = errors.filter((error) => error.tooShort);
+
+    deferTooShort = true;
+    deferPatternMismatch = true;
   }
 
+  if (deferTooShort) {
+    // Replace the "minimum length" with "this field is required" message for empty required fields
+    errors = errors.filter((error) => !error.tooShort);
+  }
+
+  if (deferPatternMismatch) {
+    // Replace the "pattern mismatch" with "this field is required" message for empty required fields
+    errors = errors.filter((error) => !error.patternMismatch);
+  }
+
+  console.log(required, !value, errors);
   return {
     errors,
     invalid: !!errors && errors.length >= 1,
