@@ -7,6 +7,7 @@ export interface ValidationError {
 
 interface ValidationMessagesProps {
   errors?: ValidationError[];
+  t?: (key: string) => string;
 }
 
 export const def = {
@@ -15,13 +16,13 @@ export const def = {
   numeric: true,
 };
 
-export const ValidationMessages = ({ errors }: ValidationMessagesProps) => {
+export const ValidationMessages = ({ errors, t = (str) => str }: ValidationMessagesProps) => {
   return (
     <>
       {errors &&
         errors.map(({ id, message }) => (
           <FormFieldDescription id={id} key={id} invalid>
-            <Paragraph>{message}</Paragraph>
+            <Paragraph>{t(message)}</Paragraph>
           </FormFieldDescription>
         ))}
     </>

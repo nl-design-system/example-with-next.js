@@ -321,7 +321,7 @@ export const BasicForm = ({ setDetails }: Props) => {
       <form onSubmit={handleSubmit}>
         <div className="form-section">
           <Heading2>{t("personal-details")}</Heading2>
-          <Input state={createFieldState(formFields["given-name"])} />
+          <Input state={createFieldState(formFields["given-name"])} t={t} />
           <InputGivenName
             id="given-name2"
             name="given-name"

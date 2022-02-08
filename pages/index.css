@@ -6,6 +6,11 @@
 :root {
   --utrecht-paragraph-margin-block-start: 1em;
   --utrecht-paragraph-margin-block-end: 1em;
+  --utrecht-feedback-invalid-color: var(--utrecht-color-invalid);
+}
+
+.utrecht-form-field-description {
+  --utrecht-paragraph-color: currentColor;
 }
 
 :not([hidden]) + .utrecht-paragraph {
@@ -81,4 +86,8 @@ label {
 .data-list-value--email,
 .data-list-value--url {
   font-variant-ligatures: none;
+}
+
+.utrecht-button + .utrecht-button {
+  margin-inline-start: var(--utrecht-space-inline-md);
 }

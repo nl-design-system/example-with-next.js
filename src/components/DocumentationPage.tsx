@@ -2,7 +2,6 @@
 import Head from "next/head";
 import { Document, Page, PageContent, PageContentMain, PageHeader, PageFooter } from "./utrecht";
 import { PageHeaderTemplate } from "./huwelijksplanner/PageHeaderTemplate";
-import { PageFooterTemplate } from "./huwelijksplanner/PageFooterTemplate";
 import { SkipLink } from "./SkipLink";
 import { PropsWithChildren } from "react";
 
@@ -24,9 +23,7 @@ export const DocumentationPage = ({ children, title, t = (str) => str }: PropsWi
       <PageContent>
         <PageContentMain id="main">{children}</PageContentMain>
       </PageContent>
-      <PageFooter>
-        <PageFooterTemplate />
-      </PageFooter>
+      <PageFooter>{t("common:footer-text")}</PageFooter>
     </Page>
   </Document>
 );

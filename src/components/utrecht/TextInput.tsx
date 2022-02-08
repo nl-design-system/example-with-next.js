@@ -9,6 +9,8 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   type?: TextInputTypes;
 }
 
+const TODO_NON_ARBITRARY_MAX_LENGTH = 30;
+
 export const TextInput = forwardRef(
   (
     {
@@ -43,7 +45,8 @@ export const TextInput = forwardRef(
         className
       )}
       style={{
-        ["--maxlength" as any]: typeof maxLength === "number" ? maxLength : undefined,
+        ["--maxlength" as any]:
+          typeof maxLength === "number" ? Math.min(maxLength, TODO_NON_ARBITRARY_MAX_LENGTH) : undefined,
         ...style,
       }}
       maxLength={maxLength}

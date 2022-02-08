@@ -3,8 +3,20 @@ import { FormBuilder } from "../src/components/input/FormBuilder";
 import { voornaamValidation, voorvoegselGeslachtsnaamValidation, geslachtsnaamValidation } from "../src/data/index";
 import { chooseNormalizers, lookupNormalizers } from "../src/data/normalize";
 import { createValidators } from "../src/data/validate";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "react-i18next";
+import { DocumentationPage } from "../src/components/DocumentationPage";
+import { Heading1 } from "../src/components/utrecht";
+
+export const getServerSideProps = async ({ locale }: { locale: string }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["form", "common"])),
+  },
+});
 
 export default function FormBuilderPage() {
+  const { t } = useTranslation(["form", "common"]);
+
   let formFields: FormFieldDeclaration[] = [
     {
       id: "516a5fb3-ed7d-4045-97ef-42016a1f8740",
@@ -40,12 +52,7 @@ export default function FormBuilderPage() {
       defaultState: {
         value: "",
         invalid: true,
-        errors: [
-          {
-            id: "5fe3dcc9-8b23-4c13-a3d5-8388d4c52c4a",
-            message: "bad!",
-          },
-        ],
+        errors: [],
       },
     },
     {
@@ -79,14 +86,31 @@ export default function FormBuilderPage() {
   ];
 
   return (
-    <>
+    <DocumentationPage title={t("page-title")} t={t}>
+      <Heading1>{t("page-title")}</Heading1>
       <FormBuilder
+        t={t}
         fields={formFields}
         customSubmit={() => {
-          console.log("SUBMIT SUCCESS!!!");
-          return Promise.resolve();
+          return new Promise<void>((resolve, reject) => {
+            const success = Math.random() >= 0.5;
+            const latency = 1500;
+
+            if (success) {
+              setTimeout(() => {
+                resolve();
+              }, latency);
+            } else {
+              setTimeout(() => {
+                reject({
+                  id: "6a889eab-85b3-4211-8f93-2f3a2a15d32c",
+                  message: "HTTP 500: Internal Server Error",
+                });
+              }, latency);
+            }
+          });
         }}
       />
-    </>
+    </DocumentationPage>
   );
 }

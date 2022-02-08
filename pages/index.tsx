@@ -28,6 +28,9 @@ export default function Home() {
             <Heading1>Sitemap</Heading1>
             <UnorderedList>
               <UnorderedListItem>
+                <Link href="/form-builder">Form opgebouwd met JSON-definitie</Link>
+              </UnorderedListItem>
+              <UnorderedListItem>
                 <Link href="/form">Form of forms</Link>
               </UnorderedListItem>
               <UnorderedListItem>

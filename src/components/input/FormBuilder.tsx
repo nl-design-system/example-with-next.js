@@ -19,6 +19,7 @@ type SubmitFunction = () => Promise<any>;
 interface FormBuilderProps {
   fields: FormFieldDeclaration[];
   customSubmit?: SubmitFunction;
+  t: (key: string) => string;
 }
 
 interface SubmitError {
@@ -63,7 +64,7 @@ type Action = ChangeAction | ResetAction | SubmitAction | SubmitFailureAction | 
 
 type FormControl = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
-export const FormBuilder = ({ fields, customSubmit }: FormBuilderProps) => {
+export const FormBuilder = ({ fields, customSubmit, t }: FormBuilderProps) => {
   const fieldsState = fields.map((field) => createFieldState(field));
 
   const [state, dispatch] = useReducer(
@@ -150,12 +151,7 @@ export const FormBuilder = ({ fields, customSubmit }: FormBuilderProps) => {
             submit: {
               ...state.submit,
               busy: true,
-              errors: [
-                {
-                  id: "7bfe146b-5fec-4832-8a12-c406796e62d0",
-                  message: "Internal Server error 500",
-                },
-              ],
+              errors: [],
             },
           };
         }
@@ -224,6 +220,7 @@ export const FormBuilder = ({ fields, customSubmit }: FormBuilderProps) => {
       <form onReset={handleReset} onSubmit={handleSubmit} method="POST">
         {state.fields.map((field) => (
           <Input
+            t={t}
             key={field.id}
             state={field}
             onChange={handleInputChange}
@@ -232,10 +229,7 @@ export const FormBuilder = ({ fields, customSubmit }: FormBuilderProps) => {
           />
         ))}
         <Button type="reset" disabled={!state.form.dirty} onClick={handleReset}>
-          reset
-        </Button>
-        <Button type="reset" onClick={handleReset}>
-          reset
+          {t("reset")}
         </Button>
         <Button
           type="submit"
@@ -244,7 +238,7 @@ export const FormBuilder = ({ fields, customSubmit }: FormBuilderProps) => {
           onClick={handleSubmit}
           aria-describedby={state.submit.validationErrors.map(({ id }) => id).join(" ") || undefined}
         >
-          submit
+          {t("submit")}
         </Button>
         {state.submit.errors.map(({ message }) => (
           <div role="alert">
@@ -252,7 +246,6 @@ export const FormBuilder = ({ fields, customSubmit }: FormBuilderProps) => {
           </div>
         ))}
         <ValidationMessages errors={state.submit.validationErrors} />
-        <pre>{JSON.stringify(state, null, "  ")}</pre>
       </form>
     </>
   );
