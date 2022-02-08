@@ -69,8 +69,7 @@ const errorIds = (errors: FormValidationError[] | undefined): string | undefined
 export const BasicForm = ({ setDetails }: Props) => {
   const { t } = useTranslation("form");
 
-  const toInteger: FormNormalizeFunction = (value: string): number | string =>
-    /^[\d+]$/.test(value) ? parseInt(value, 10) : value;
+  const toInteger = (value: string): number | string => (/^[\d+]$/.test(value) ? parseInt(value, 10) : value);
 
   const formatPostCodeWithSpace = (value: string): string =>
     value.replace(/^\s*([0-9]{4})\s*([A-Za-z]{2})\s*$/, "$1 $2").toUpperCase();
@@ -136,7 +135,7 @@ export const BasicForm = ({ setDetails }: Props) => {
     },
   };
 
-  const convertTypes: Partial<{ [Property in keyof DemoFormInput]: (value: string) => number | boolean }> = {
+  const convertTypes: Partial<{ [Property in keyof DemoFormInput]: (value: string) => any }> = {
     "kvk-number": toInteger,
   };
 

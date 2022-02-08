@@ -1,4 +1,8 @@
-export type NormalizerId = "trim-whitespace" | "normalize-whitespace" | "normalize-unicode";
+import { FormValidationError as ValidationError } from '../../data/validate/error/model';
+
+export type FormValidationError = ValidationError;
+
+export type NormalizerId = 'trim-whitespace' | 'normalize-whitespace' | 'normalize-unicode';
 
 export interface FormFieldDefinition {
   maxLength?: number;
@@ -12,13 +16,10 @@ export interface FormFieldDefinition {
   multiline?: boolean;
   translate?: boolean;
   preserveWhitespace?: boolean;
+  maskInput?: boolean;
+  maskOutput?: boolean;
   normalizers?: NormalizerId[];
 }
-
-export type FormValidationError = {
-  id: string;
-  message: string;
-};
 
 // Based on HTML:
 // https://html.spec.whatwg.org/multipage/custom-elements.html#validitystateflags
@@ -37,15 +38,15 @@ export interface ValidityState {
 
 export type FormValidationFunction = (value: string) => FormValidationError[];
 
-export type FormNormalizeFunction = (value: string) => string | number;
+export type FormNormalizeFunction = (value: string) => string;
 
 export interface FormFieldDeclaration {
   id: string;
   name?: string;
   labelKey: string;
   required?: boolean;
-  fieldType?: "input";
-  inputSubtype?: "text";
+  fieldType?: 'input';
+  inputSubtype?: 'text';
   definition: FormFieldDefinition;
   validators?: FormValidationFunction[];
   normalizers?: FormNormalizeFunction[];
@@ -71,6 +72,8 @@ export interface FormFieldState<T = any> extends FormFieldDeclaration {
     deferValueMissing: boolean;
     // name could also be `deferBadInput` after `element.validity.badInput` in HTML
     deferInvalid: boolean;
+    deferTooLong: boolean;
+    deferTooShort: boolean;
     value: string;
     invalid: boolean;
     errors: FormValidationError[];

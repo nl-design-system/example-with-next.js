@@ -1,6 +1,5 @@
 import { FormFieldDeclaration, FormState, FormFieldState, FormValidationResult } from "./model";
-import { MIN_LENGTH_ERROR_ID } from "../../data/validate/error/MinLengthError";
-import { RequiredError } from "../../data/validate/error/RequiredError";
+import { ValueMissingError } from "../../data/validate/error/ValueMissingError";
 
 export const resetField = (field: FormFieldState): FormFieldState => ({
   ...field,
@@ -8,6 +7,8 @@ export const resetField = (field: FormFieldState): FormFieldState => ({
     dirty: false,
     deferInvalid: true,
     deferValueMissing: true,
+    deferTooLong: true,
+    deferTooShort: true,
     errors: field.defaultState?.errors || [],
     invalid: field.defaultState?.invalid || false,
     value: field.defaultState?.value || "",
@@ -26,6 +27,8 @@ export const createFieldState = (field: FormFieldDeclaration): FormFieldState =>
     },
     inputState: {
       dirty: false,
+      deferTooLong: true,
+      deferTooShort: true,
       deferValueMissing: true,
       deferInvalid: true,
       value: "",
@@ -38,14 +41,29 @@ export const createFieldState = (field: FormFieldDeclaration): FormFieldState =>
   });
 };
 
+export const normalizerField = (state: FormFieldState): FormFieldState => {
+  const {
+    normalizers,
+    inputState: { value },
+  } = state;
+
+  return {
+    ...state,
+    inputState: {
+      ...state.inputState,
+      value: normalizers.reduce((current: string, normalize) => normalize(current), value),
+    },
+  };
+};
+
 export const validateField = ({ required, validators }: FormFieldState, value: string): FormValidationResult => {
   let errors = validators?.flatMap((validator) => validator(value));
 
   // Validate that required fields are filled out
   if (required && !value) {
-    errors.push(RequiredError());
+    errors.push(ValueMissingError());
     // Replace the "minimum length" with "this field is required" message for empty required fields
-    errors = errors.filter((error) => error.id !== MIN_LENGTH_ERROR_ID);
+    errors = errors.filter((error) => error.tooShort);
   }
 
   return {
@@ -53,6 +71,18 @@ export const validateField = ({ required, validators }: FormFieldState, value: s
     invalid: !!errors && errors.length >= 1,
   };
 };
+
+export const formCheckValidity = (fields: FormFieldState[]): FormFieldState[] =>
+  fields.map((field) => {
+    const validity = validateField(field, field.inputState.value);
+    return {
+      ...field,
+      inputState: {
+        ...field.inputState,
+        ...validity,
+      },
+    };
+  });
 
 export const setFieldValue = (field: FormFieldState, value: string): FormFieldState => {
   return {

@@ -17,16 +17,17 @@ export default function FormBuilderPage() {
       validators: createValidators(voornaamValidation),
       normalizers: lookupNormalizers(chooseNormalizers(voornaamValidation)),
       defaultState: {
+        value: "",
         invalid: true,
-        value: "🍺",
-        errors: [
-          {
-            id: "4147d27d-3eea-462f-bb1e-6a7db71f5db9",
-            message: "Voornaam mag geen ‘🍺’ hebben.",
-          },
-        ],
+        // value: "🍺",
+        // errors: [
+        //   {
+        //     id: "4147d27d-3eea-462f-bb1e-6a7db71f5db9",
+        //     message: "Voornaam mag geen ‘🍺’ hebben.",
+        //   },
+        // ],
       },
-    },
+    } /*
     {
       id: "42f867b9-415f-478e-9b6b-e2a05c729a1b",
       labelKey: "family-name-prefix",
@@ -75,12 +76,18 @@ export default function FormBuilderPage() {
       defaultState: {
         value: "",
       },
-    },
+    },*/,
   ];
 
   return (
     <>
-      <FormBuilder fields={formFields} />
+      <FormBuilder
+        fields={formFields}
+        customSubmit={() => {
+          console.log("SUBMIT SUCCESS!!!");
+          return Promise.resolve();
+        }}
+      />
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { useReducer, FormEvent, FocusEvent } from "react";
+import { useReducer, FormEvent, FocusEvent, ChangeEvent } from "react";
 import { FormState, FormValidationError, FormFieldDeclaration, FormFieldState } from "./model";
 import { Input } from "./Input";
 import { Button } from "../utrecht";
@@ -10,10 +10,15 @@ import {
   createFieldState,
   setField,
   getFormState,
+  formCheckValidity,
+  normalizerField,
 } from "./controller";
+
+type SubmitFunction = () => Promise<any>;
 
 interface FormBuilderProps {
   fields: FormFieldDeclaration[];
+  customSubmit?: SubmitFunction;
 }
 
 interface SubmitError {
@@ -42,17 +47,23 @@ interface ResetAction {
 interface SubmitAction {
   type: "submit";
 }
+interface SubmitFailureAction {
+  type: "submit-failure";
+}
+interface SubmitSuccessAction {
+  type: "submit-success";
+}
 
 interface TouchInputAction {
   type: "touch-input";
   id: string;
 }
 
-type Action = ChangeAction | ResetAction | SubmitAction | TouchInputAction;
+type Action = ChangeAction | ResetAction | SubmitAction | SubmitFailureAction | SubmitSuccessAction | TouchInputAction;
 
 type FormControl = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
-export const FormBuilder = ({ fields }: FormBuilderProps) => {
+export const FormBuilder = ({ fields, customSubmit }: FormBuilderProps) => {
   const fieldsState = fields.map((field) => createFieldState(field));
 
   const [state, dispatch] = useReducer(
@@ -103,7 +114,20 @@ export const FormBuilder = ({ fields }: FormBuilderProps) => {
           }),
         };
 
+        // Normalize before validation
+        newState = {
+          ...newState,
+          fields: newState.fields.map(normalizerField),
+        };
+
+        newState = {
+          ...newState,
+          fields: formCheckValidity(newState.fields),
+        };
+
         if (state.form.invalid) {
+          // In addition to errors at form field level,
+          // display an error for the form as a whole.
           newState = {
             ...newState,
             submit: {
@@ -117,6 +141,10 @@ export const FormBuilder = ({ fields }: FormBuilderProps) => {
             },
           };
         } else {
+          // In addition to validation errors,
+          // display errors that relate to the submission process.
+          // Some errors might be recoverable (HTTP status 500, server has issues, but likely temporarily)
+          // and warrant a retry.
           newState = {
             ...newState,
             submit: {
@@ -162,6 +190,10 @@ export const FormBuilder = ({ fields }: FormBuilderProps) => {
   };
 
   const handleSubmit = (event: FormEvent) => {
+    if (customSubmit) {
+      event.preventDefault();
+    }
+
     if (state.form.invalid) {
       event.preventDefault();
       dispatch({ type: "submit" });
@@ -177,7 +209,7 @@ export const FormBuilder = ({ fields }: FormBuilderProps) => {
     });
   };
 
-  const handleInputChange = (event: FormEvent<FormControl>) => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (typeof event.target.dataset.id === "string") {
       dispatch({
         type: "change",
@@ -189,7 +221,7 @@ export const FormBuilder = ({ fields }: FormBuilderProps) => {
 
   return (
     <>
-      <form onReset={handleReset} onSubmit={handleSubmit}>
+      <form onReset={handleReset} onSubmit={handleSubmit} method="POST">
         {state.fields.map((field) => (
           <Input
             key={field.id}
