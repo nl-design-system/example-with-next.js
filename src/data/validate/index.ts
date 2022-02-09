@@ -24,8 +24,10 @@ export const createValidators = (def: FormFieldDefinition): FormValidationFuncti
     });
   }
   if (typeof def.pattern === 'string') {
+    const regexp = typeof def.pattern === 'string' ? new RegExp('^(?:' + def.pattern + ')$') : null;
+
     validators.push((value: string): FormValidationError[] => {
-      if (typeof def.pattern === 'string' && !new RegExp('^(?:' + def.pattern + ')$').test(value)) {
+      if (regexp && !regexp.test(value)) {
         return [PatternMismatchError()];
       } else {
         return [];

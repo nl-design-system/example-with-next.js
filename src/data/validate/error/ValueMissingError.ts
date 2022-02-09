@@ -5,7 +5,7 @@ export const REQUIRED_ERROR_ID = 'ac5e6569-5fd1-4c37-bd80-13bd1835f002';
 export function ValueMissingError(): FormValidationError {
   return {
     id: REQUIRED_ERROR_ID,
-    message: 'This field is required. Please provide a value.',
+    message: 'form:invalid-value-missing',
     valueMissing: true,
   };
 }

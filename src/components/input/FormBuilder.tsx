@@ -1,6 +1,7 @@
 import { useReducer, FormEvent, FocusEvent, ChangeEvent } from "react";
 import { FormState, FormValidationError, FormFieldDeclaration, FormFieldState } from "./model";
 import { Input } from "./Input";
+import { Alert } from "../Alert";
 import { Button } from "../utrecht";
 import { ValidationMessages } from "../ValidationMessages";
 import {
@@ -66,7 +67,7 @@ type FormControl = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
 export const FormBuilder = ({ fields, customSubmit, t }: FormBuilderProps) => {
   const fieldsState = fields.map((field) => createFieldState(field));
-
+  console.log({ fieldsState });
   const [state, dispatch] = useReducer(
     (state: State, action: Action): State => {
       let newState = state;
@@ -109,6 +110,10 @@ export const FormBuilder = ({ fields, customSubmit, t }: FormBuilderProps) => {
                 inputState: {
                   ...field.inputState,
                   deferInvalid: false,
+                  deferTooShort: false,
+                  deferTooLong: false,
+                  deferValueMissing: false,
+                  deferPatternMismatch: false,
                 },
               };
             }
@@ -241,9 +246,9 @@ export const FormBuilder = ({ fields, customSubmit, t }: FormBuilderProps) => {
           {t("submit")}
         </Button>
         {state.submit.errors.map(({ message }) => (
-          <div role="alert">
+          <Alert>
             <p>Error: {message}</p>
-          </div>
+          </Alert>
         ))}
         <ValidationMessages errors={state.submit.validationErrors} />
       </form>

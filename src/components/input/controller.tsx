@@ -1,5 +1,6 @@
 import { FormFieldDeclaration, FormState, FormFieldState, FormValidationResult } from "./model";
 import { ValueMissingError } from "../../data/validate/error/ValueMissingError";
+import { createValidators } from "../../data/validate";
 
 export const resetField = (field: FormFieldState): FormFieldState => ({
   ...field,
@@ -9,6 +10,7 @@ export const resetField = (field: FormFieldState): FormFieldState => ({
     deferValueMissing: field.defaultState?.value ? false : true,
     deferTooLong: false,
     deferTooShort: String(field.defaultState.value).length < (field.definition.minLength || 0),
+    deferPatternMismatch: false,
     errors: field.defaultState?.errors || [],
     invalid: field.defaultState?.invalid || false,
     value: field.defaultState?.value || "",
@@ -19,7 +21,7 @@ export const createFieldState = (field: FormFieldDeclaration): FormFieldState =>
   return resetField({
     ...field,
     noscript: false,
-    validators: field.validators || [],
+    validators: [...(field.validators || []), ...createValidators(field.definition)],
     normalizers: field.normalizers || [],
     defaultState: {
       value: field.defaultState?.value || "",
@@ -30,6 +32,7 @@ export const createFieldState = (field: FormFieldDeclaration): FormFieldState =>
       dirty: false,
       deferTooLong: false,
       deferTooShort: false,
+      deferPatternMismatch: false,
       deferValueMissing: true,
       deferInvalid: true,
       value: "",

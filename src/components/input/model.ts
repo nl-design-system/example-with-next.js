@@ -75,6 +75,7 @@ export interface FormFieldState<T = any> extends FormFieldDeclaration {
     deferInvalid: boolean;
     deferTooLong: boolean;
     deferTooShort: boolean;
+    deferPatternMismatch: boolean;
     value: string;
     invalid: boolean;
     errors: FormValidationError[];

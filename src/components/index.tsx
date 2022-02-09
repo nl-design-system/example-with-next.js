@@ -8,3 +8,4 @@ export { EmptyIndicator } from "./EmptyIndicator";
 export { LanguageToggle } from "./LanguageToggle";
 export { OptionalIndicator } from "./OptionalIndicator";
 export { ExampleBox } from "./ExampleBox";
+export { Alert } from "./Alert";

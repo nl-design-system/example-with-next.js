@@ -24,7 +24,9 @@ export const InputInspector = ({
       <dt>maxLength</dt>
       <dd>{typeof maxLength == "number" ? maxLength : "-"}</dd>
       <dt>pattern</dt>
-      <dd>{pattern ? pattern : ""}</dd>
+      <dd>
+        <code>{pattern ? pattern : ""}</code>
+      </dd>
     </dl>
     <h3>Input State</h3>
     <dl>

@@ -2,7 +2,6 @@ import { FormFieldDeclaration } from "../src/components/input/model";
 import { FormBuilder } from "../src/components/input/FormBuilder";
 import { voornaamValidation, voorvoegselGeslachtsnaamValidation, geslachtsnaamValidation } from "../src/data/index";
 import { chooseNormalizers, lookupNormalizers } from "../src/data/normalize";
-import { createValidators } from "../src/data/validate";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "react-i18next";
 import { DocumentationPage } from "../src/components/DocumentationPage";
@@ -26,7 +25,6 @@ export default function FormBuilderPage() {
       fieldType: "input",
       inputSubtype: "text",
       definition: voornaamValidation,
-      validators: createValidators(voornaamValidation),
       normalizers: lookupNormalizers(chooseNormalizers(voornaamValidation)),
       defaultState: {
         invalid: true,
@@ -47,7 +45,6 @@ export default function FormBuilderPage() {
       fieldType: "input",
       inputSubtype: "text",
       definition: voorvoegselGeslachtsnaamValidation,
-      validators: createValidators(voorvoegselGeslachtsnaamValidation),
       normalizers: lookupNormalizers(voorvoegselGeslachtsnaamValidation.normalizers),
       defaultState: {
         value: "",
@@ -63,7 +60,6 @@ export default function FormBuilderPage() {
       fieldType: "input",
       inputSubtype: "text",
       definition: geslachtsnaamValidation,
-      validators: createValidators(geslachtsnaamValidation),
       normalizers: lookupNormalizers(geslachtsnaamValidation.normalizers),
       defaultState: {
         value: "",
@@ -81,6 +77,42 @@ export default function FormBuilderPage() {
       },
       defaultState: {
         value: "",
+      },
+    },
+    {
+      id: "a5bee2ba-dbfa-4646-a1c6-5c18b1cfe86c",
+      labelKey: "minimaal 5 tekens",
+      required: false,
+      inputSubtype: "text", // TODO: email
+      definition: {
+        minLength: 5,
+      },
+      defaultState: {
+        value: "1234",
+      },
+    },
+    {
+      id: "8c6b0791-70df-4eec-8938-64e0394c32d6",
+      labelKey: "maximaal 5 tekens",
+      required: false,
+      inputSubtype: "text", // TODO: email
+      definition: {
+        maxLength: 5,
+      },
+      defaultState: {
+        value: "123456",
+      },
+    },
+    {
+      id: "10bce566-5e71-4c27-8f85-ff6e3554503e",
+      labelKey: "patroon zonder spaties",
+      required: false,
+      inputSubtype: "text", // TODO: email
+      definition: {
+        pattern: "[^\\s]*",
+      },
+      defaultState: {
+        value: "[    ]",
       },
     },
   ];
