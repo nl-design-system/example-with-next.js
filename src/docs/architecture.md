@@ -1,0 +1,51 @@
+# Architecture of Forms
+
+- [investigation needed] avoid some `autocomplete` values for information that is not about yourself, but about others
+- use autocomplete when appropriate for the following fields:
+  - `given-names`
+  - ...
+- support HTML input types:
+  - `text`
+  - `email`
+  - ...
+- submit button busy indicator
+  - visual indicator
+  - `aria-busy`
+    - enable on submission start
+    - disable on submission end or failure
+- error messages
+  - content design: direction, solution
+  - aria-describedby
+  - color
+- submit with onsubmit inline validate
+  - validation message associated with submit button
+- submit with no validation to save progress
+- submit with no validation when pressing back button
+- submit by browser `application/x-www-form-urlencoded`
+  - display validation error summary (alert?)
+  - display ssr rendered validation messages associated with form fields
+- submit using JavaScript
+- validation logic
+  - `minLength` resulting in `tooShort`
+  - `maxLength` resulting in `tooLong`
+  - `pattern` resulting in `patternMismatch`
+  - `required` resulting in `valueMissing`
+  - `min` resulting in `rangeUnderflow`
+  - `max` resulting in `rangeOverflow`
+  - `step` resulting in `stepMismatch`
+- multistep form
+  - display step number and description in `<title>`
+  - questionnaire with `h1` as label with `aria-labelledby`
+- validation rules should not prevent users from correctly filling out a form
+  - in forms for Dutch citizens, use the maximum length from GBA (Gemeentelijke Basisadministratie) for `maxLength` (or allow even longer values), so every Dutch citizen can fill out the form correctly with complete values.
+- for forms with certain lawful or financial implications, display a summary and allow the user to check and correct the form before submission has consequences.
+  - summary can display various data types:
+    - checkbox: "yes"/"no" or other labels
+- resume editing a form in a partially completed and partially invalid state
+  - display (some) validation messages immediately when opening the form (without `aria-live`)
+  - fill out and pre-select saved values in form field
+- reset the form to a pristine state
+  - disable reset button when form is pristine
+  - restore values (initial or default values)
+  - restore validation state
+  - reset a resumed form to initial values (of the pristine form, not the values of when the form was resumed)

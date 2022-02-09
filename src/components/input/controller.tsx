@@ -77,6 +77,11 @@ export const validateField = (
     deferPatternMismatch = true;
   }
 
+  if (!required && !value) {
+    // If the field is optional, empty values should not be considered too short, but simply absent
+    deferTooShort = true;
+  }
+
   if (deferTooShort) {
     // Replace the "minimum length" with "this field is required" message for empty required fields
     errors = errors.filter((error) => !error.tooShort);

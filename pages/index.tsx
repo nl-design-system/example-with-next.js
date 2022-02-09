@@ -31,6 +31,9 @@ export default function Home() {
                 <Link href="/form-builder">Form opgebouwd met JSON-definitie</Link>
               </UnorderedListItem>
               <UnorderedListItem>
+                <Link href="/architecture">Architecture</Link>
+              </UnorderedListItem>
+              <UnorderedListItem>
                 <Link href="/form">Form of forms</Link>
               </UnorderedListItem>
               <UnorderedListItem>
