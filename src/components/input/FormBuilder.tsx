@@ -245,8 +245,8 @@ export const FormBuilder = ({ fields, customSubmit, t }: FormBuilderProps) => {
         >
           {t("submit")}
         </Button>
-        {state.submit.errors.map(({ message }) => (
-          <Alert>
+        {state.submit.errors.map(({ id, message }) => (
+          <Alert key={id}>
             <p>Error: {message}</p>
           </Alert>
         ))}

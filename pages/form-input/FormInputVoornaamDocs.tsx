@@ -1,6 +1,6 @@
 import { Paragraph, Heading1, Heading2 } from "../../src/components/utrecht";
 
-export function FormInputVoornaamDocs() {
+export default function FormInputVoornaamDocs() {
   return (
     <>
       <Heading1>Voornaam / Voornamen</Heading1>

@@ -1,6 +1,6 @@
 import { Paragraph, Heading1, Heading2, Link } from "../../src/components/utrecht";
 
-export function FormInputTussenvoegselsDocs() {
+export default function FormInputTussenvoegselsDocs() {
   return (
     <>
       <Heading1>Tussenvoegsels</Heading1>

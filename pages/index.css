@@ -57,7 +57,7 @@ label {
 }
 
 .utrecht-textbox {
-  --char-width: 1em;
+  --char-width: calc(2 / 3 * 1em + 1 / 3 * 1ch);
 }
 
 .utrecht-textbox--numeric {

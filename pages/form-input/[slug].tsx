@@ -2,11 +2,11 @@ import { useRouter } from "next/router";
 import { DocumentationPage } from "../../src/components/DocumentationPage";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { FormInputEmailDocs } from "./FormInputEmailDocs";
-import { FormInputHuisnummerDocs } from "./FormInputHuisnummerDocs";
-import { FormInputPostcodeDocs } from "./FormInputPostcodeDocs";
-import { FormInputTussenvoegselsDocs } from "./FormInputTussenvoegselsDocs";
-import { FormInputVoornaamDocs } from "./FormInputVoornaamDocs";
+import FormInputEmailDocs from "./FormInputEmailDocs";
+import FormInputHuisnummerDocs from "./FormInputHuisnummerDocs";
+import FormInputPostcodeDocs from "./FormInputPostcodeDocs";
+import FormInputTussenvoegselsDocs from "./FormInputTussenvoegselsDocs";
+import FormInputVoornaamDocs from "./FormInputVoornaamDocs";
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {

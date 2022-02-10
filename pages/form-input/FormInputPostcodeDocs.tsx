@@ -1,6 +1,6 @@
 import { Paragraph, Heading1, Heading2 } from "../../src/components/utrecht";
 
-export function FormInputPostcodeDocs() {
+export default function FormInputPostcodeDocs() {
   return (
     <>
       <Heading1>Postcode</Heading1>

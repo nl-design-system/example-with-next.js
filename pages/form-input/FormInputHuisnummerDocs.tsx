@@ -20,7 +20,7 @@ export const HouseNumberExample = () => {
   );
 };
 
-export function FormInputHuisnummerDocs() {
+export default function FormInputHuisnummerDocs() {
   return (
     <>
       <Heading1>Huisnummer</Heading1>
