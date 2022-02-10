@@ -28,6 +28,9 @@ export default function Home() {
             <Heading1>Sitemap</Heading1>
             <UnorderedList>
               <UnorderedListItem>
+                <Link href="/common-form-step-0">Common form demo</Link>
+              </UnorderedListItem>
+              <UnorderedListItem>
                 <Link href="/form">Form of forms</Link>
               </UnorderedListItem>
               <UnorderedListItem>
