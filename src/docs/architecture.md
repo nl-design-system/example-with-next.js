@@ -17,6 +17,14 @@
   - content design: direction, solution
   - aria-describedby
   - color
+- use HTML validation for server side rendering (SSR)
+  - `min`
+  - `max`
+  - `step`
+  - `minLength`
+  - `maxLength`
+  - `pattern`
+  - `required`
 - submit with onsubmit inline validate
   - validation message associated with submit button
 - submit with no validation to save progress
@@ -25,7 +33,7 @@
   - display validation error summary (alert?)
   - display ssr rendered validation messages associated with form fields
 - submit using JavaScript
-- validation logic
+- JavaScript validation logic
   - `minLength` resulting in `tooShort`
   - `maxLength` resulting in `tooLong`
   - `pattern` resulting in `patternMismatch`
@@ -40,7 +48,15 @@
   - in forms for Dutch citizens, use the maximum length from GBA (Gemeentelijke Basisadministratie) for `maxLength` (or allow even longer values), so every Dutch citizen can fill out the form correctly with complete values.
 - for forms with certain lawful or financial implications, display a summary and allow the user to check and correct the form before submission has consequences.
   - summary can display various data types:
+    - text
+    - multiline text
     - checkbox: "yes"/"no" or other labels
+    - date
+    - time
+    - datetime
+    - URL / email
+    - number (with number formatting)
+    - numeric with pluralization
 - resume editing a form in a partially completed and partially invalid state
   - display (some) validation messages immediately when opening the form (without `aria-live`)
   - fill out and pre-select saved values in form field
@@ -49,3 +65,20 @@
   - restore values (initial or default values)
   - restore validation state
   - reset a resumed form to initial values (of the pristine form, not the values of when the form was resumed)
+- defer validation for improved usability
+  - validate required fields after submitting the form
+- great error messages
+  - name of field is mentioned in error message
+  - localization of error messages
+    - `tooShort`
+    - `tooLong`
+    - `patternMismatch`
+    - `valueMissing`
+    - `rangeUnderflow`
+    - `rangeOverflow`
+    - `stepMismatch`
+  - parameters for error message
+    - `tooShort` has access to `valueLength` and `minLength`
+    - `tooLong` has access to `valueLength` and `maxLength`
+    - `rangeUnderflow` has access to `value` and `min`
+    - `rangeOverflow` has access to `value` and `max`
