@@ -15,6 +15,7 @@ export const Input = ({ state, onChange, onBlur, onInput, t }: InputProps) => {
     id,
     name,
     required,
+    disabled,
     noscript,
     definition: { autoComplete, spellCheck, numeric, maxLength, minLength, pattern },
     defaultState,
@@ -24,7 +25,9 @@ export const Input = ({ state, onChange, onBlur, onInput, t }: InputProps) => {
 
   return (
     <FormField id={id}>
-      <FormLabel htmlFor={`${id}-input`}>{t(labelKey)}</FormLabel>
+      <FormLabel htmlFor={`${id}-input`} disabled={disabled}>
+        {t(labelKey)}
+      </FormLabel>
       <TextInput
         aria-describedby={Array.isArray(errors) && errors.length > 0 ? errors.map(({ id }) => id).join(" ") : undefined}
         invalid={invalid}
@@ -34,6 +37,7 @@ export const Input = ({ state, onChange, onBlur, onInput, t }: InputProps) => {
         inputMode={numeric ? "numeric" : undefined}
         maxLength={maxLength}
         minLength={minLength}
+        disabled={disabled}
         name={name}
         pattern={noscript ? pattern : undefined}
         required={noscript ? required : false}

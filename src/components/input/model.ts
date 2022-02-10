@@ -45,6 +45,7 @@ export interface FormFieldDeclaration {
   name?: string;
   labelKey: string;
   required?: boolean;
+  disabled?: boolean;
   fieldType?: 'input';
   inputSubtype?: 'text';
   definition: FormFieldDefinition;
