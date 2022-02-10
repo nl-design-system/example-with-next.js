@@ -8,7 +8,7 @@ interface Props {
 
 export const getStaticProps = async () => ({
   props: {
-    html: await getMarkdownHTML("architecture"),
+    html: await getMarkdownHTML("./public/docs/architecture.md"),
   },
 });
 

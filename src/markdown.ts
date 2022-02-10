@@ -1,12 +1,9 @@
 import { remark } from 'remark';
 import html from 'remark-html';
 import { readFileSync } from 'fs';
-import path from 'path';
 
-export async function getMarkdownHTML(id: string) {
-  const postsDirectory = './src/docs/';
-  const fullPath = path.join(postsDirectory, `${id}.md`);
-  const fileContents = readFileSync(fullPath, 'utf8');
+export async function getMarkdownHTML(path: string) {
+  const fileContents = readFileSync(path, 'utf8');
 
   // Use gray-matter to parse the post metadata section
   // const matterResult = matter(fileContents);

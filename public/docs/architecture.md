@@ -1,3 +1,5 @@
+<!-- @license CC0-1.0 -->
+
 # Architecture of Forms
 
 - [investigation needed] avoid some `autocomplete` values for information that is not about yourself, but about others

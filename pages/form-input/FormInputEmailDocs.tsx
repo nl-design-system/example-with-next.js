@@ -1,7 +1,12 @@
-import { Paragraph, Heading1, Heading2 } from "../../src/components/utrecht";
+import { Heading2, HTML } from "../../src/components/utrecht";
 import { useState } from "react";
 import { InputEmail } from "../../src/components/input";
 import { DataListValue, ExampleBox } from "../../src/components";
+
+interface Props {
+  html: string;
+  t: (key: string) => string;
+}
 
 const InputEmailExample = ({ t }: { t: (key: string) => string }) => {
   const [value, setValue] = useState<string>("");
@@ -26,38 +31,10 @@ const InputEmailExample = ({ t }: { t: (key: string) => string }) => {
   );
 };
 
-export default function FormInputEmailDocs({ t }: { t: (key: string) => string }) {
+export default function FormInputEmailDocs({ t, html }: Props) {
   return (
     <>
-      <Heading1>E-mailadres</Heading1>
-      <Heading2>Validatie</Heading2>
-      <Paragraph>
-        Door gebruik te maken van <code>&lt;input type="email"&gt;</code> kan de browser al helpen om te controleren of
-        de notitie een correct e-mailadres is.
-      </Paragraph>
-      <Paragraph>
-        Wacht met validatie tot de gebruiker de kans heeft gehad de invoer compleet te krijgen. Bijvoorbeeld: laat niet
-        gelijk bij de eerste invoer de melding zien dat het apenstaartje nog ontbreekt.
-      </Paragraph>
-      <Heading2>Design</Heading2>
-      <Paragraph>Visuele lengte van invoerveld: standaard-lengte.</Paragraph>
-      <Paragraph>
-        Gebruik een lettertype zonder ligaturen om ambiguiteit te vermijden. Met CSS kan dat met:{" "}
-        <code>font-variant-ligatures: none;</code>
-      </Paragraph>
-      <Paragraph>
-        Door <code>type="email"</code> te gebruiken kan de browser een op touchscreens een aangepast toetsenbord
-        aanbieden voor e-mailadressen.
-      </Paragraph>
-      <Heading2>Autocomplete</Heading2>
-      <Paragraph>
-        Gebruik voor HTML: <code>autocomplete="email"</code>
-      </Paragraph>
-      <Heading2>Content</Heading2>
-      <Paragraph>
-        Vraag alleen om gegevens als ze echt nodig zijn, en laat dan weten waarvoor de informatie nodig is.
-        Bijvoorbeeld: "We sturen je een bevestiging naar dit e-mailadres."
-      </Paragraph>
+      <HTML dangerouslySetInnerHTML={{ __html: html }} />
       <Heading2>Voorbeeld</Heading2>
       <ExampleBox>
         <InputEmailExample t={t} />
@@ -68,3 +45,4 @@ export default function FormInputEmailDocs({ t }: { t: (key: string) => string }
 
 FormInputEmailDocs.slug = "email";
 FormInputEmailDocs.title = "E-mailadres";
+FormInputEmailDocs.markdown = "./public/docs/email.md";
