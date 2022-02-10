@@ -34,6 +34,9 @@ export default function Home() {
                 <Link href="/architecture">Architecture</Link>
               </UnorderedListItem>
               <UnorderedListItem>
+                <Link href="/common-form-step-0">Common form demo</Link>
+              </UnorderedListItem>
+              <UnorderedListItem>
                 <Link href="/form">Form of forms</Link>
               </UnorderedListItem>
               <UnorderedListItem>

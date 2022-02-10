@@ -50,8 +50,7 @@ label {
   --utrecht-heading-3-color: currentColor;
 }
 
-.utrecht-theme,
-.utrecht-document {
+.utrecht-theme {
   --utrecht-typography-sans-serif-font-family: "Lucida Grande", Arial, sans-serif;
   --utrecht-document-font-family: "Lucida Grande", Arial, sans-serif;
 }
@@ -69,10 +68,6 @@ label {
   max-inline-size: 100%;
   /* n times the width of 0 is appropriate for numbers, but too small for letters */
   /* max width of 4 can obscure input if the length is exceeded, perhaps the maxlength should not apply to `--invalid` */
-}
-
-.utrecht-form-field + .utrecht-form-field {
-  margin-block-start: var(--utrecht-space-block-xl);
 }
 
 .example-box {
@@ -94,4 +89,48 @@ label {
 
 :invalid {
   outline: 2px solid red;
+}
+
+.denhaag-theme {
+  --denhaag-color-grey-4: #4b4b4b; /* Rounding error for HSL causes the rendered value in the browser to be too light */
+  --denhaag-typography-sans-serif-alternate-font-family: "TheMix", "TheMixB", sans-serif;
+  --denhaag-typography-sans-serif-font-family: "TheSans", "TheSans C4s", sans-serif;
+  --utrecht-page-footer-background-color: var(--denhaag-color-grey-4);
+  --utrecht-page-footer-background-image: none;
+  --utrecht-page-footer-color: var(--denhaag-color-white);
+  --utrecht-page-footer-padding-block-end: 40px; /* Based on Figma */
+  --utrecht-page-footer-padding-block-start: 40px; /* Based on Figma */
+  --utrecht-page-footer-padding-inline-end: 99px; /* Based on Figma */
+  --utrecht-page-footer-padding-inline-start: 99px; /* Based on Figma */
+  --utrecht-form-label-color: var(--denhaag-color-grey-4); /* Based on Figma */
+  --utrecht-form-label-font-size: 1.125rem; /* Based on Figma */
+  --utrecht-form-label-font-weight: 500; /* Based on Figma */
+  --utrecht-form-input-border-width: 1px;
+  --utrecht-form-input-border-color: var(--den-haag-grey-3);
+  --utrecht-form-input-font-size: 1.125rem;
+  --utrecht-form-input-read-only-border-color: var(--denhaag-color-grey-2);
+  --utrecht-form-input-read-only-color: var(--denhaag-color-grey-2);
+  --utrecht-form-label-disabled-color: var(--denhaag-color-grey-2);
+  --utrecht-form-input-invalid-border-color: var(--denhaag-color-red-3);
+  --utrecht-form-input-invalid-border-width: 1px;
+}
+
+.denhaag-theme .utrecht-page-footer {
+  /* Figma: https://www.figma.com/file/JpoY3waVoQGlLQzQXTL9nn/Design-System---Gemeente-Den-Haag?node-id=10227%3A54524 */
+  --utrecht-heading-2-color: var(--denhaag-color-ocher-3);
+  --utrecht-heading-3-color: var(--denhaag-color-ocher-3);
+  --utrecht-heading-4-color: var(--denhaag-color-ocher-3);
+}
+
+.denhaag-theme .utrecht-page-footer__navigation {
+  /* Figma: https://www.figma.com/file/JpoY3waVoQGlLQzQXTL9nn/Design-System---Gemeente-Den-Haag?node-id=10227%3A54524 */
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: start;
+  justify-items: center;
+}
+
+.denhaag-theme .utrecht-form-label--disabled {
+  color: var(--utrecht-form-label-disabled-color, var(--utrecht-form-label-color));
 }
