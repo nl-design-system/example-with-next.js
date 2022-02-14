@@ -9,7 +9,7 @@ export const ThemeSwitcher = () => {
   const { theme, setTheme, builtInThemes } = useThemeContext();
 
   const selectTheme = (e: ChangeEvent<HTMLSelectElement>) => {
-    const newTheme = builtInThemes.find(({ href }) => e.target.value === href);
+    const newTheme = builtInThemes.find(({ href }) => e.target.value === href) || builtInThemes[0];
     setTheme(newTheme);
   };
 

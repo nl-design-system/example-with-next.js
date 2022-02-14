@@ -4,11 +4,21 @@ import { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext,
 interface ThemeContext {
   theme?: Theme;
   builtInThemes: Theme[];
-  setTheme: Dispatch<SetStateAction<Theme | undefined>>;
+  setTheme: Dispatch<SetStateAction<Theme>>;
   loading?: boolean;
 }
 
 const builtInThemes: Theme[] = [
+  {
+    className: "utrecht-theme",
+    title: "Gemeente Utrecht",
+    href: "https://unpkg.com/@utrecht/design-tokens/dist/theme/index.css",
+  },
+  {
+    className: "denhaag-theme",
+    title: "Gemeente Den Haag",
+    href: "https://unpkg.com/@gemeente-denhaag/design-tokens-components/dist/theme/index.css",
+  },
   {
     className: "amsterdam-theme",
     title: "Gemeente Amsterdam",
@@ -19,11 +29,6 @@ const builtInThemes: Theme[] = [
   //   title: "Gemeente Bodegraven-Reeuwijk",
   //   href: "https://unpkg.com/@nl-design-system-unstable/bodegraven-reeuwijk-design-tokens/dist/index.css",
   // },
-  {
-    className: "denhaag-theme",
-    title: "Gemeente Den Haag",
-    href: "https://unpkg.com/@gemeente-denhaag/design-tokens-components/dist/theme/index.css",
-  },
   // {
   //   className: "drechterland-theme",
   //   title: "Gemeente Drechterland",
@@ -84,11 +89,6 @@ const builtInThemes: Theme[] = [
   //   title: "Gemeente Tilburg",
   //   href: "https://unpkg.com/@nl-design-system-unstable/tilburg-design-tokens/dist/index.css",
   // },
-  {
-    className: "utrecht-theme",
-    title: "Gemeente Utrecht",
-    href: "https://unpkg.com/@utrecht/design-tokens/dist/theme/index.css",
-  },
   // {
   //   className: "venray-theme",
   //   title: "Gemeente Venray",
@@ -116,10 +116,12 @@ const builtInThemes: Theme[] = [
   // },
 ];
 
+const SELECTED_THEME = "selected-theme";
+
 const ThemeContext = createContext<ThemeContext>({ builtInThemes, setTheme: () => {} });
 
 export const ThemeProvider = ({ children }: PropsWithChildren<{}>) => {
-  const [theme, setTheme] = useState(builtInThemes.find((theme) => theme.className === "utrecht-theme"));
+  const [theme, setTheme] = useState(builtInThemes[0]);
   const [stylesheets, setStylesheets] = useState<string[]>([]);
 
   let sharedState: ThemeContext = {
@@ -128,10 +130,22 @@ export const ThemeProvider = ({ children }: PropsWithChildren<{}>) => {
     builtInThemes,
   };
 
+  // Run once after the browser rendering has started
+  useEffect(() => {
+    const savedTheme = builtInThemes.find((theme) => theme.className === sessionStorage.getItem(SELECTED_THEME));
+
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+  }, []);
+
+  // Run every time a new theme is selected
   useEffect(() => {
     if (theme && !stylesheets.includes(theme.href)) {
       setStylesheets((stylesheets) => [...stylesheets, theme.href]);
     }
+
+    sessionStorage.setItem(SELECTED_THEME, theme.className);
   }, [theme]);
 
   return (
@@ -141,7 +155,7 @@ export const ThemeProvider = ({ children }: PropsWithChildren<{}>) => {
           <link rel="stylesheet" type="text/css" href={href} key={href} />
         ))}
       </Head>
-      <div className={theme?.className}>{children}</div>
+      <div className={theme.className}>{children}</div>
     </ThemeContext.Provider>
   );
 };
