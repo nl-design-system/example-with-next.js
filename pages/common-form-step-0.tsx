@@ -48,6 +48,7 @@ export default function CommonFormStep0() {
               onClick={() => {
                 router.push("/common-form-step-1");
               }}
+              distanced
             >
               {t("Start")}
             </Button>

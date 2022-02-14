@@ -82,8 +82,8 @@ export default function CommonFormStep1() {
             {/*TODO: Step indicator component */}
             <Paragraph lead>Stap 1 van 3 — Persoonlijke gegevens</Paragraph>
             <form onSubmit={handleSubmit} method="POST" action="/api/form">
-              <Fieldset>
-                <FieldsetLegend>Wie ben je</FieldsetLegend>
+              <Fieldset distanced>
+                <FieldsetLegend distanced>Wie ben je</FieldsetLegend>
                 {/* GIVEN NAME */}
                 <FormField>
                   <FormLabel htmlFor="given-name">{t("given-name")}</FormLabel>
@@ -112,8 +112,8 @@ export default function CommonFormStep1() {
                 </FormField>
               </Fieldset>
 
-              <Fieldset>
-                <FieldsetLegend>Waar woon je?</FieldsetLegend>
+              <Fieldset distanced>
+                <FieldsetLegend distanced>Waar woon je?</FieldsetLegend>
                 <FormField>
                   <FormLabel htmlFor="street">{t("street")}</FormLabel>
                   <TextInput
@@ -170,8 +170,8 @@ export default function CommonFormStep1() {
                 </FormField>
               </Fieldset>
 
-              <Fieldset>
-                <FieldsetLegend>Hoe kunnen we je bereiken?</FieldsetLegend>
+              <Fieldset distanced>
+                <FieldsetLegend distanced>Hoe kunnen we je bereiken?</FieldsetLegend>
                 <FormField>
                   <FormLabel htmlFor="email">{t("email")}</FormLabel>
                   <TextInput
@@ -208,8 +208,8 @@ export default function CommonFormStep1() {
                 </FormField>
               </Fieldset>
 
-              <Fieldset>
-                <FieldsetLegend>Overige persoonlijke gegevens</FieldsetLegend>
+              <Fieldset distanced>
+                <FieldsetLegend distanced>Overige persoonlijke gegevens</FieldsetLegend>
                 <RadioGroup label={t("gender")} inline distanced>
                   <FormField>
                     <FormLabel type="radio" htmlFor="female">
@@ -247,7 +247,9 @@ export default function CommonFormStep1() {
                   <TextInput id="document-number" name="document-number" />
                 </FormField>
               </Fieldset>
-              <Button type="submit">Volgende stap</Button>
+              <Button type="submit" distanced>
+                Volgende stap
+              </Button>
             </form>
           </PageContentMain>
         </PageContent>

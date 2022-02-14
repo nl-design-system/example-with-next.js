@@ -1,4 +1,4 @@
-import { FormFieldDefinition } from "../components/input/model";
+import { FormFieldDefinition } from '../components/input/model';
 
 export const createDefinition = (def: FormFieldDefinition): FormFieldDefinition => {
   if (def.integer) {

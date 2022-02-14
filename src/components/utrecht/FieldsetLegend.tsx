@@ -1,14 +1,24 @@
 import clsx from "clsx";
 import { HTMLAttributes, PropsWithChildren, ForwardedRef, forwardRef } from "react";
 
-type Props = HTMLAttributes<HTMLLegendElement>;
+interface Props extends HTMLAttributes<HTMLLegendElement> {
+  distanced?: boolean;
+}
 
 export const FieldsetLegend = forwardRef(
-  ({ className, children, ...restProps }: PropsWithChildren<Props>, ref: ForwardedRef<HTMLLegendElement>) => (
+  (
+    { distanced, className, children, ...restProps }: PropsWithChildren<Props>,
+    ref: ForwardedRef<HTMLLegendElement>
+  ) => (
     <legend
       {...restProps}
       ref={ref}
-      className={clsx("utrecht-form-fieldset__legend", "utrecht-form-fieldset__legend--reset-legend", className)}
+      className={clsx(
+        "utrecht-form-fieldset__legend",
+        "utrecht-form-fieldset__legend--reset-legend",
+        distanced && "utrecht-form-fieldset__legend--distanced",
+        className
+      )}
     >
       {children}
     </legend>

@@ -63,8 +63,8 @@ export default function CommonFormStep2() {
             </Paragraph>
             <Paragraph lead>Stap 2 van 3 — Zakelijke gegevens</Paragraph>
             <form onSubmit={handleSubmit}>
-              <Fieldset>
-                <FieldsetLegend>Bedrijfsgegevens</FieldsetLegend>
+              <Fieldset distanced>
+                <FieldsetLegend distanced>Bedrijfsgegevens</FieldsetLegend>
                 <FormField>
                   <FormLabel htmlFor="organization">{t("organization")}</FormLabel>
                   <TextInput id="organization" autoComplete="organization" />
@@ -78,8 +78,8 @@ export default function CommonFormStep2() {
                   <TextInput type="url" id="website" name="website" autoComplete="url" spellCheck={false} />
                 </FormField>
               </Fieldset>
-              <Fieldset>
-                <FieldsetLegend>Bankgegevens</FieldsetLegend>
+              <Fieldset distanced>
+                <FieldsetLegend distanced>Bankgegevens</FieldsetLegend>
                 <FormField>
                   <FormLabel htmlFor="iban">{t("iban")}</FormLabel>
                   <TextInput id="iban" name="iban" spellCheck={false} />
@@ -89,8 +89,8 @@ export default function CommonFormStep2() {
                   <TextInput id="bic" name="bic" spellCheck={false} />
                 </FormField>
               </Fieldset>
-              {/* <Fieldset>
-                <FieldsetLegend>Creditcard gegevens</FieldsetLegend>
+              {/* <Fieldset distanced>
+                <FieldsetLegend distanced>Creditcard gegevens</FieldsetLegend>
                 <FormField>
                   <FormLabel htmlFor="cc-name">{t("cc-name")}</FormLabel>
                   <TextInput id="cc-name" name="cc-name" autoComplete="cc-name" spellCheck={false} />
@@ -128,7 +128,9 @@ export default function CommonFormStep2() {
                 </FormFieldGroup>
               </Fieldset> */}
 
-              <Button type="submit">Volgende</Button>
+              <Button type="submit" distanced>
+                Volgende
+              </Button>
             </form>
           </PageContentMain>
         </PageContent>

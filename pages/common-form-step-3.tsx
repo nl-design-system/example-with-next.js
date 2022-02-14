@@ -203,7 +203,9 @@ export default function CommonFormStep3() {
                   Ik ga akkoord met het verwerken van bovenstaande gegevens
                 </FormLabel>
               </FormField>
-              <Button type="submit">Versturen</Button>
+              <Button type="submit" distanced>
+                Versturen
+              </Button>
             </form>
           </PageContentMain>
         </PageContent>

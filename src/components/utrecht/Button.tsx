@@ -3,11 +3,12 @@ import { forwardRef, ButtonHTMLAttributes, PropsWithChildren, ForwardedRef } fro
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   busy?: boolean;
+  distanced?: boolean;
 }
 
 export const Button = forwardRef(
   (
-    { busy, disabled, type, children, ...restProps }: PropsWithChildren<Props>,
+    { busy, disabled, distanced, type, children, ...restProps }: PropsWithChildren<Props>,
     ref: ForwardedRef<HTMLButtonElement>
   ) => {
     return (
@@ -18,7 +19,8 @@ export const Button = forwardRef(
           "utrecht-button",
           busy && "utrecht-button--busy",
           disabled && "utrecht-button--disabled",
-          type === "submit" && "utrecht-button--submit"
+          type === "submit" && "utrecht-button--submit",
+          distanced && "utrecht-button--distanced"
         )}
         aria-busy={busy && "true"}
         disabled={disabled}
