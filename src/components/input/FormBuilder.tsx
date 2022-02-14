@@ -13,6 +13,8 @@ import {
   getFormState,
   formCheckValidity,
   normalizerField,
+  formSelectOption,
+  formUnselectOption,
 } from "./controller";
 
 type SubmitFunction = () => Promise<any>;
@@ -43,6 +45,19 @@ interface ChangeAction {
   id: string;
   value: string;
 }
+
+interface SelectOptionAction {
+  type: "select-option";
+  id: string;
+  optionId: string;
+}
+
+interface UnselectOptionAction {
+  type: "unselect-option";
+  id: string;
+  optionId: string;
+}
+
 interface ResetAction {
   type: "reset";
 }
@@ -61,13 +76,21 @@ interface TouchInputAction {
   id: string;
 }
 
-type Action = ChangeAction | ResetAction | SubmitAction | SubmitFailureAction | SubmitSuccessAction | TouchInputAction;
+type Action =
+  | ChangeAction
+  | ResetAction
+  | SelectOptionAction
+  | SubmitAction
+  | SubmitFailureAction
+  | SubmitSuccessAction
+  | TouchInputAction
+  | UnselectOptionAction;
 
 type FormControl = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
 export const FormBuilder = ({ fields, customSubmit, t }: FormBuilderProps) => {
   const fieldsState = fields.map((field) => createFieldState(field));
-  console.log({ fieldsState });
+
   const [state, dispatch] = useReducer(
     (state: State, action: Action): State => {
       let newState = state;
@@ -80,7 +103,17 @@ export const FormBuilder = ({ fields, customSubmit, t }: FormBuilderProps) => {
       } else if (action.type === "reset") {
         newState = {
           ...newState,
-          fields: resetForm(fieldsState),
+          fields: resetForm(newState.fields),
+        };
+      } else if (action.type === "select-option") {
+        newState = {
+          ...newState,
+          fields: formSelectOption(newState.fields, action.id, action.optionId),
+        };
+      } else if (action.type === "unselect-option") {
+        newState = {
+          ...newState,
+          fields: formUnselectOption(newState.fields, action.id, action.optionId),
         };
       } else if (action.type === "touch-input") {
         newState = {
@@ -211,7 +244,22 @@ export const FormBuilder = ({ fields, customSubmit, t }: FormBuilderProps) => {
   };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (typeof event.target.dataset.id === "string") {
+    if (typeof event.target.dataset.id === "string" && typeof event.target.dataset.optionId === "string") {
+      const optionId = event.target.dataset.optionId;
+      if (event.target.checked) {
+        dispatch({
+          type: "select-option",
+          id: event.target.dataset.id,
+          optionId,
+        });
+      } else {
+        dispatch({
+          type: "unselect-option",
+          id: event.target.dataset.id,
+          optionId,
+        });
+      }
+    } else if (typeof event.target.dataset.id === "string") {
       dispatch({
         type: "change",
         id: event.target.dataset.id,

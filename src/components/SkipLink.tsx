@@ -17,6 +17,8 @@ export const SkipLink = forwardRef(
     ref: ForwardedRef<HTMLAnchorElement>
   ) => (
     <a
+      // Include `tabindex="-1"` for Internet Explorer
+      tabIndex={-1}
       {...restProps}
       className={clsx("skip-link", hidden && "skip-link--hidden", visible && "skip-link--visible")}
       ref={ref}

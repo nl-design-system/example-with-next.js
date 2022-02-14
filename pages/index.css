@@ -91,3 +91,7 @@ label {
 .utrecht-button + .utrecht-button {
   margin-inline-start: var(--utrecht-space-inline-md);
 }
+
+:invalid {
+  outline: 2px solid red;
+}

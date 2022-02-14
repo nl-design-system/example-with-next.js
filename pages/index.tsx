@@ -48,6 +48,18 @@ export default function Home() {
                   <UnorderedListItem>
                     <Link href="/form-step-2">Form step #2</Link>
                   </UnorderedListItem>
+                  <UnorderedListItem>Checkbox field</UnorderedListItem>
+                  <UnorderedListItem>Checkbox group</UnorderedListItem>
+                  <UnorderedListItem>Data list</UnorderedListItem>
+                  <UnorderedListItem>Date picker</UnorderedListItem>
+                  <UnorderedListItem>Fieldset</UnorderedListItem>
+                  <UnorderedListItem>File input</UnorderedListItem>
+                  <UnorderedListItem>Form input</UnorderedListItem>
+                  <UnorderedListItem>Form step</UnorderedListItem>
+                  <UnorderedListItem>Radio group</UnorderedListItem>
+                  <UnorderedListItem>Select: option input</UnorderedListItem>
+                  <UnorderedListItem>Telephone input</UnorderedListItem>
+                  <UnorderedListItem>Text input</UnorderedListItem>
                 </UnorderedList>
               </UnorderedListItem>
               <UnorderedListItem>

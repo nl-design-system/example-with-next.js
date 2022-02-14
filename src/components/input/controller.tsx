@@ -92,7 +92,6 @@ export const validateField = (
     errors = errors.filter((error) => !error.patternMismatch);
   }
 
-  console.log(required, !value, errors);
   return {
     errors,
     invalid: !!errors && errors.length >= 1,
@@ -161,3 +160,52 @@ export const formEnableValidation = (fields: FormFieldState[]): FormFieldState[]
 
 export const formFieldEnableValidation = (fields: FormFieldState[], id: string): FormFieldState[] =>
   fields.map((field) => (field.id === id ? enableValidation(field) : field));
+
+export const formSelectOption = (fields: FormFieldState[], id: string, optionId: string): FormFieldState[] =>
+  fields.map((field) => {
+    if (
+      field.id === id &&
+      Array.isArray(field.definition.options) &&
+      field.definition.options.find((option) => option.id === optionId)
+    ) {
+      // For radio groups the maximum number of selected options is 1.
+      // Selecting another option discards any currently selected option.
+      //
+      // For checkbox groups the existing selection remains.
+      // It is important to keep the selected options unique.
+      // No option can be selected more than once.
+
+      const baseOptions =
+        field.fieldType === "radiogroup"
+          ? []
+          : (field.inputState.selectedOptions || []).filter((selectedId) => selectedId !== optionId);
+
+      field = {
+        ...field,
+        inputState: {
+          ...field.inputState,
+          dirty: true,
+          selectedOptions: [...baseOptions, optionId],
+        },
+      };
+    }
+    return field;
+  });
+
+export const formUnselectOption = (fields: FormFieldState[], id: string, optionId: string): FormFieldState[] =>
+  fields.map((field) => {
+    if (
+      field.id === id &&
+      Array.isArray(field.definition.options) &&
+      field.definition.options.find((option) => option.id === optionId)
+    ) {
+      field = {
+        ...field,
+        inputState: {
+          ...field.inputState,
+          selectedOptions: (field.inputState.selectedOptions || []).filter((selectedId) => selectedId !== optionId),
+        },
+      };
+    }
+    return field;
+  });

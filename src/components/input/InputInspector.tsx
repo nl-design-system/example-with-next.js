@@ -10,7 +10,7 @@ export const InputInspector = ({
     labelKey,
     inputState,
     required,
-    definition: { autoComplete, spellCheck, minLength, maxLength, pattern, maskOutput },
+    definition: { autoComplete, spellCheck, minLength, maxLength, pattern, maskOutput, numeric, min, max, step },
   },
 }: InputInspectorProps) => (
   <details>
@@ -23,6 +23,12 @@ export const InputInspector = ({
       <dd>{typeof minLength == "number" ? minLength : "-"}</dd>
       <dt>maxLength</dt>
       <dd>{typeof maxLength == "number" ? maxLength : "-"}</dd>
+      <dt>min</dt>
+      <dd>{typeof min == "number" ? min : "-"}</dd>
+      <dt>max</dt>
+      <dd>{typeof max == "number" ? max : "-"}</dd>
+      <dt>step</dt>
+      <dd>{typeof step == "number" ? step : "-"}</dd>
       <dt>pattern</dt>
       <dd>
         <code>{pattern ? pattern : ""}</code>
@@ -43,6 +49,8 @@ export const InputInspector = ({
       <dd>{spellCheck ? "yes" : "no"}</dd>
       <dt>autocomplete</dt>
       <dd>{autoComplete ? autoComplete : "no"}</dd>
+      <dt>numeric</dt>
+      <dd>{numeric ? numeric : "no"}</dd>
     </dl>
     <h3>Validity State</h3>
     <dl>
