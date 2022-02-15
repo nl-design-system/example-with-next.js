@@ -268,38 +268,53 @@ export const FormBuilder = ({ fields, customSubmit, t }: FormBuilderProps) => {
     }
   };
 
-  return (
+  let html = (
     <>
-      <form onReset={handleReset} onSubmit={handleSubmit} method="POST">
-        {state.fields.map((field) => (
-          <Input
-            t={t}
-            key={field.id}
-            state={field}
-            onChange={handleInputChange}
-            onBlur={handleInputBlur}
-            onInput={handleInputChange}
-          />
-        ))}
-        <Button type="reset" disabled={!state.form.dirty} onClick={handleReset}>
-          {t("reset")}
-        </Button>
-        <Button
-          type="submit"
-          aria-disabled={state.form.invalid}
-          busy={state.submit.busy}
-          onClick={handleSubmit}
-          aria-describedby={state.submit.validationErrors.map(({ id }) => id).join(" ") || undefined}
-        >
-          {t("submit")}
-        </Button>
-        {state.submit.errors.map(({ id, message }) => (
-          <Alert key={id}>
-            <p>Error: {message}</p>
-          </Alert>
-        ))}
-        <ValidationMessages errors={state.submit.validationErrors} />
-      </form>
+      {" "}
+      {state.fields.map((field) => (
+        <Input
+          t={t}
+          key={field.id}
+          state={field}
+          onChange={handleInputChange}
+          onBlur={handleInputBlur}
+          onInput={handleInputChange}
+        />
+      ))}
     </>
   );
+
+  if (customSubmit) {
+    html = (
+      <form onReset={handleReset} onSubmit={handleSubmit} method="POST">
+        {html}
+        <div>
+          <div>
+            <Button type="reset" disabled={!state.form.dirty} onClick={handleReset}>
+              {t("reset")}
+            </Button>
+            <Button
+              type="submit"
+              aria-disabled={state.form.invalid}
+              busy={state.submit.busy}
+              onClick={handleSubmit}
+              aria-describedby={state.submit.validationErrors.map(({ id }) => id).join(" ") || undefined}
+            >
+              {t("submit")}
+            </Button>
+          </div>
+          <div>
+            {state.submit.errors.map(({ id, message }) => (
+              <Alert key={id}>
+                <p>Error: {message}</p>
+              </Alert>
+            ))}
+            <ValidationMessages errors={state.submit.validationErrors} />
+          </div>
+        </div>
+      </form>
+    );
+  }
+
+  return html;
 };

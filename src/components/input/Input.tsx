@@ -2,7 +2,7 @@ import { FormField, FormLabel, TextInput, Checkbox, Fieldset, FieldsetLegend, Ra
 import { FormFieldState, FormFieldOption } from "./model";
 import { ValidationMessages } from "../ValidationMessages";
 import { InputHTMLAttributes } from "react";
-import { InputInspector } from "./InputInspector";
+// import { InputInspector } from "./InputInspector";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   state: FormFieldState;
@@ -150,7 +150,7 @@ export const Input = ({ state, onChange, onBlur, onInput, t }: InputProps) => {
         ""
       )}
       <ValidationMessages errors={errors} t={t} />
-      {<InputInspector state={state} />}
+      {/*{<InputInspector state={state} />}*/}
     </FormField>
   );
 };

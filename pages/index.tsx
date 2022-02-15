@@ -34,7 +34,21 @@ export default function Home() {
                 <Link href="/architecture">Architecture</Link>
               </UnorderedListItem>
               <UnorderedListItem>
-                <Link href="/common-form-step-0">Common form demo</Link>
+                Multi-step form demo
+                <UnorderedList>
+                  <UnorderedListItem>
+                    <Link href="/common-form-step-0">Start</Link>
+                  </UnorderedListItem>
+                  <UnorderedListItem>
+                    <Link href="/common-form-step-1">Step 1</Link>
+                  </UnorderedListItem>
+                  <UnorderedListItem>
+                    <Link href="/common-form-step-2">Step 2</Link>
+                  </UnorderedListItem>
+                  <UnorderedListItem>
+                    <Link href="/common-form-step-3">Step 3</Link>
+                  </UnorderedListItem>
+                </UnorderedList>
               </UnorderedListItem>
               <UnorderedListItem>
                 <Link href="/form">Form of forms</Link>

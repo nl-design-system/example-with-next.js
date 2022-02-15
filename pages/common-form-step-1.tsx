@@ -2,6 +2,9 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { FormBuilder } from "../src/components/input/FormBuilder";
+import { voornaamValidation } from "../src/data/index";
+import { chooseNormalizers, lookupNormalizers } from "../src/data/normalize";
 
 import {
   Document,
@@ -61,6 +64,24 @@ export default function CommonFormStep1() {
 
   const { t } = useTranslation("form");
 
+  const wieBenJeFields = [
+    {
+      id: "e4e5dee0-f4fc-4d8e-9d40-5e871566f8c4",
+      labelKey: "given-name",
+      name: "given-name",
+      required: true,
+      fieldType: "input",
+      inputSubtype: "text",
+      definition: voornaamValidation,
+      normalizers: lookupNormalizers(chooseNormalizers(voornaamValidation)),
+      defaultState: {
+        invalid: false,
+        value: "",
+        errors: [],
+      },
+    },
+  ];
+
   useEffect(() => {
     fetch("api/form")
       .then((res) => res.json())
@@ -84,6 +105,7 @@ export default function CommonFormStep1() {
             <form onSubmit={handleSubmit} method="POST" action="/api/form">
               <Fieldset>
                 <FieldsetLegend>Wie ben je</FieldsetLegend>
+                <FormBuilder t={t} fields={wieBenJeFields} />
                 {/* GIVEN NAME */}
                 <FormField>
                   <FormLabel htmlFor="given-name">{t("given-name")}</FormLabel>
