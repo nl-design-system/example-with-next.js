@@ -95,6 +95,8 @@ label {
   --denhaag-color-grey-4: #4b4b4b; /* Rounding error for HSL causes the rendered value in the browser to be too light */
   --denhaag-typography-sans-serif-alternate-font-family: "TheMix", "TheMixB", sans-serif;
   --denhaag-typography-sans-serif-font-family: "TheSans", "TheSans C4s", sans-serif;
+  --utrecht-page-header-padding-inline-end: 100px;
+  --utrecht-page-header-padding-inline-start: 105px;
   --utrecht-page-footer-background-color: var(--denhaag-color-grey-4);
   --utrecht-page-footer-background-image: none;
   --utrecht-page-footer-color: var(--denhaag-color-white);
@@ -124,10 +126,11 @@ label {
   --todo-form-label-margin-block-end: 4px;
   --todo-form-header-background-color: var(--denhaag-color-ocher-3);
   --todo-form-header-padding-inline-start: 100px;
-  --todo-form-header-padding-block-start: 38px;
-  --todo-form-header-padding-block-end: 39px;
-  --todo-form-header-title-font-size: var(--denhaag-typography-scale-xl-font-size);
   --todo-form-header-title-font-weight: 500;
+  --todo-form-stepper-border-color: var(--denhaag-color-grey-2);
+  --todo-form-stepper-border-bottom-width: 1px;
+  --todo-form-stepper-padding-block-start: 70px;
+  --todo-form-stepper-padding-block-end: 36px;
 }
 
 /* Den Haag XXL design for 2160px */
@@ -137,7 +140,9 @@ label {
     --utrecht-page-padding-inline-end: 502px; /* TODO: Overleggen met Roos */
     --utrecht-page-padding-inline-start: 507px; /* TODO: Overleggen met Roos */
     --utrecht-page-header-padding-block-end: 25px;
-    --utrecht-page-header-padding-block-start: 26px;  
+    --utrecht-page-header-padding-block-start: 26px;
+    --todo-form-header-padding-block-start: 32px;
+    --todo-form-header-padding-block-end: 33px;
   }
 }
 
@@ -148,7 +153,10 @@ label {
     --utrecht-page-padding-inline-end: 290px; /* TODO: Overleggen met Roos */
     --utrecht-page-padding-inline-start: 280px; /* TODO: Overleggen met Roos */
     --utrecht-page-header-padding-block-end: 25px;
-    --utrecht-page-header-padding-block-start: 26px;  
+    --utrecht-page-header-padding-block-start: 26px;
+    --todo-form-header-title-font-size: var(--denhaag-typography-scale-2xl-font-size);
+    --todo-form-header-padding-block-start: 32px;
+    --todo-form-header-padding-block-end: 33px;
   }
 }
 
@@ -159,7 +167,10 @@ label {
     --utrecht-page-padding-inline-end: 138px; /* TODO: Overleggen met Roos */
     --utrecht-page-padding-inline-start: 139px; /* TODO: Overleggen met Roos */
     --utrecht-page-header-padding-block-end: 25px;
-    --utrecht-page-header-padding-block-start: 26px;  
+    --utrecht-page-header-padding-block-start: 26px;
+    --todo-form-header-title-font-size: var(--denhaag-typography-scale-xl-font-size);
+    --todo-form-header-padding-block-start: 32px;
+    --todo-form-header-padding-block-end: 33px;
   }
 }
 
@@ -170,7 +181,10 @@ label {
     --utrecht-page-padding-inline-end: 63px; /* TODO: Overleggen met Roos */
     --utrecht-page-padding-inline-start: 58px; /* TODO: Overleggen met Roos */
     --utrecht-page-header-padding-block-end: 25px;
-    --utrecht-page-header-padding-block-start: 26px;  
+    --utrecht-page-header-padding-block-start: 26px;
+    --todo-form-header-title-font-size: var(--denhaag-typography-scale-xl-font-size);
+    --todo-form-header-padding-block-start: 26px;
+    --todo-form-header-padding-block-end: 29px;
   }
 }
 
@@ -181,7 +195,14 @@ label {
     --utrecht-page-padding-inline-end: 24px;
     --utrecht-page-padding-inline-start: 24px;
     --utrecht-page-header-padding-block-end: 16px;
-    --utrecht-page-header-padding-block-start: 15px;  
+    --utrecht-page-header-padding-block-start: 15px;
+    --utrecht-page-header-padding-inline-end: 16px;
+    --utrecht-page-header-padding-inline-start: 16px;
+    --todo-form-header-title-font-size: var(--denhaag-typography-scale-xl-font-size);
+    --todo-form-header-padding-block-start: 17px;
+    --todo-form-header-padding-block-end: 17px;
+    --todo-form-stepper-padding-block-start: 27px;
+    --todo-form-stepper-padding-block-end: 22px;
   }
 }
 
@@ -207,6 +228,22 @@ label {
   justify-items: center;
 }
 
-.denhaag-theme .utrecht-form-label--disabled {
+/* 
+  *****
+  TODO implement these tokens in utrecht components
+  *****
+*/
+.utrecht-form-label {
+  margin-block-start: var(--todo-form-label-margin-block-start);
+  margin-block-end: var(--todo-form-label-margin-block-end);
+}
+
+.utrecht-form-label--disabled {
+  /* Is assigned to font-weight in utrecht/../bem.scss */
   color: var(--utrecht-form-label-disabled-color, var(--utrecht-form-label-color));
+}
+
+.utrecht-page-header {
+  padding-inline-end: var(--utrecht-page-header-padding-inline-end, var(--utrecht-page-padding-inline-end));
+  padding-inline-start: var(--utrecht-page-header-padding-inline-start, var(--utrecht-page-padding-inline-start));
 }

@@ -5,7 +5,6 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import {
   Document,
-  Heading1,
   Page,
   PageHeader,
   PageContent,
@@ -26,6 +25,8 @@ import Head from "next/head";
 import { ThemeSwitcher } from "../src/components/ThemeSwitcher";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { FormHeader, FormHeaderTitle } from "../src/components/FormHeader";
+import { FormStepper } from "../src/components/FormStepper";
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {
@@ -53,14 +54,17 @@ export default function CommonFormStep2() {
         <PageHeader>
           <PageHeaderTemplate />
         </PageHeader>
-        <PageContent>
-          <PageContentMain>
-            <Heading1>{t("page-title")}</Heading1>
-            {/*TODO: Step indicator component */}
-            <Paragraph>
-              <Link href="/common-form-step-1">← Vorige</Link>{" "}
-            </Paragraph>
-            <Paragraph lead>Stap 2 van 3 — Zakelijke gegevens</Paragraph>
+        <PageContentMain>
+          <FormHeader>
+            <FormHeaderTitle>{t("page-title")}</FormHeaderTitle>
+          </FormHeader>
+          <PageContent>
+            <FormStepper>
+              <Paragraph>
+                <Link href="/common-form-step-1">← Vorige</Link>{" "}
+              </Paragraph>
+              <Paragraph lead>Stap 2 van 3 — Zakelijke gegevens</Paragraph>
+            </FormStepper>
             <form onSubmit={handleSubmit}>
               <Fieldset>
                 <FieldsetLegend>Bedrijfsgegevens</FieldsetLegend>
@@ -129,8 +133,8 @@ export default function CommonFormStep2() {
 
               <Button type="submit">Volgende</Button>
             </form>
-          </PageContentMain>
-        </PageContent>
+          </PageContent>
+        </PageContentMain>
         <PageFooter>
           <PageFooterTemplate />
         </PageFooter>

@@ -32,12 +32,12 @@ https://www.w3.org/TR/wai-aria-practices-1.1/#radiobutton
 
 Support the following keys:
 
--   Arrow Up
--   Arrow Down
--   Arrow Left
--   Arrow Right
--   Home
--   End
+- Arrow Up
+- Arrow Down
+- Arrow Left
+- Arrow Right
+- Home
+- End
 
 Pressing `Arrow Up` and `Arrow Left` should select the previous item. <!-- id: 527fe431-74f9-4ccb-9fd6-f2dc5570efda -->
 

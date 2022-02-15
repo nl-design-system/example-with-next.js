@@ -1,8 +1,9 @@
-.form-field-group {}
+.form-field-group {
+}
 
 .form-field-group--inline {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: min-content;
-    grid-gap: var(--form-field-group-inline-grid-gap, 2ch);
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min-content;
+  grid-gap: var(--form-field-group-inline-grid-gap, 2ch);
 }

@@ -26,6 +26,7 @@ import {
 import { PageHeaderTemplate } from "../src/components/huwelijksplanner/PageHeaderTemplate";
 import { PageFooterTemplate } from "../src/components/huwelijksplanner/PageFooterTemplate";
 import Head from "next/head";
+import Link from "next/link";
 import { ThemeSwitcher } from "../src/components/ThemeSwitcher";
 import { RadioGroup } from "../src/components/RadioGroup";
 import { FormFieldGroup } from "../src/components/FormFieldGroup";
@@ -33,6 +34,7 @@ import { DateInput } from "../src/components";
 import { useRouter } from "next/router";
 import { DemoFormInput } from "../types/DemoForm";
 import { FormHeader, FormHeaderTitle } from "../src/components/FormHeader";
+import { FormStepper } from "../src/components/FormStepper";
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {
@@ -97,17 +99,22 @@ export default function CommonFormStep1() {
         <PageHeader>
           <PageHeaderTemplate />
         </PageHeader>
-        <PageContent>
-          <PageContentMain>
-            <FormHeader>
-              <FormHeaderTitle>{t("page-title")}</FormHeaderTitle>
-            </FormHeader>
-            {/*TODO: Step indicator component */}
-            <Paragraph lead>Stap 1 van 3 — Persoonlijke gegevens</Paragraph>
+
+        <PageContentMain>
+          <FormHeader>
+            <FormHeaderTitle>{t("page-title")}</FormHeaderTitle>
+          </FormHeader>
+          <PageContent>
+            <FormStepper>
+              <Paragraph>
+                <Link href="/common-form-step-0">← Vorige</Link>
+              </Paragraph>
+              <Paragraph lead>Stap 1 van 3 — Persoonlijke gegevens</Paragraph>
+            </FormStepper>
             <form onSubmit={handleSubmit} method="POST" action="/api/form">
-              <Fieldset>
+              <Fieldset distanced>
                 <FieldsetLegend>Wie ben je</FieldsetLegend>
-                <FormBuilder t={t} fields={wieBenJeFields} />
+                {/* <FormBuilder t={t} fields={wieBenJeFields} /> */}
                 {/* GIVEN NAME */}
                 <FormField>
                   <FormLabel htmlFor="given-name">{t("given-name")}</FormLabel>
@@ -136,7 +143,7 @@ export default function CommonFormStep1() {
                 </FormField>
               </Fieldset>
 
-              <Fieldset>
+              <Fieldset distanced>
                 <FieldsetLegend>Waar woon je?</FieldsetLegend>
                 <FormField>
                   <FormLabel htmlFor="street">{t("street")}</FormLabel>
@@ -194,7 +201,7 @@ export default function CommonFormStep1() {
                 </FormField>
               </Fieldset>
 
-              <Fieldset>
+              <Fieldset distanced>
                 <FieldsetLegend>Hoe kunnen we je bereiken?</FieldsetLegend>
                 <FormField>
                   <FormLabel htmlFor="email">{t("email")}</FormLabel>
@@ -232,7 +239,7 @@ export default function CommonFormStep1() {
                 </FormField>
               </Fieldset>
 
-              <Fieldset>
+              <Fieldset distanced>
                 <FieldsetLegend>Overige persoonlijke gegevens</FieldsetLegend>
                 <RadioGroup label={t("gender")} inline distanced>
                   <FormField>
@@ -273,8 +280,8 @@ export default function CommonFormStep1() {
               </Fieldset>
               <Button type="submit">Volgende stap</Button>
             </form>
-          </PageContentMain>
-        </PageContent>
+          </PageContent>
+        </PageContentMain>
         <PageFooter>
           <PageFooterTemplate />
           <ThemeSwitcher />

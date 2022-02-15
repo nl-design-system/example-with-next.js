@@ -9,10 +9,10 @@ menu: Components
 
 This is a page that applies to:
 
--   `<input type="radio">` or `role="radio"` radio buttons
--   `<input type="checkbox">` or `role="checkbox"` checkboxes
--   `<textarea>` multiline text inputs
--   `<textarea>` text areas
+- `<input type="radio">` or `role="radio"` radio buttons
+- `<input type="checkbox">` or `role="checkbox"` checkboxes
+- `<textarea>` multiline text inputs
+- `<textarea>` text areas
 
 ## Goal: screen readers say what the form input is about
 
@@ -57,19 +57,17 @@ Alternatively `aria-required="true"` on HTML form elements is just as effective,
 If you use the following, it might seem accessible.
 
 ```html
-<label for="msg">Message <span aria-label="(required field)">*</span></label>
-<input id="message" required />
+<label for="msg">Message <span aria-label="(required field)">*</span></label> <input id="message" required />
 ```
 
 The user experience with screen readers is not optimal however, because "required" is announced twice:
 
--   VoiceOver on macOS 12.1: "TODO"
+- VoiceOver on macOS 12.1: "TODO"
 
 If you need to remark "Fields with \* are required", hide the \* with `aria-hidden="true`.
 
 <!-- id: 65385e08-0c77-46a0-bc2a-c4f113fc7b62 -->
 
 ```html
-<label for="msg">Message <span aria-hidden="true">*</span></label>
-<input id="message" required />
+<label for="msg">Message <span aria-hidden="true">*</span></label> <input id="message" required />
 ```

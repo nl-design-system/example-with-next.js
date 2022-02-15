@@ -1,14 +1,24 @@
 import clsx from "clsx";
 import { FieldsetHTMLAttributes, PropsWithChildren, ForwardedRef, forwardRef } from "react";
 
-type Props = FieldsetHTMLAttributes<HTMLFieldSetElement>;
+interface Props extends FieldsetHTMLAttributes<HTMLFieldSetElement> {
+  distanced?: boolean;
+}
 
 export const Fieldset = forwardRef(
-  ({ className, children, ...restProps }: PropsWithChildren<Props>, ref: ForwardedRef<HTMLFieldSetElement>) => (
+  (
+    { distanced, className, children, ...restProps }: PropsWithChildren<Props>,
+    ref: ForwardedRef<HTMLFieldSetElement>
+  ) => (
     <fieldset
       {...restProps}
       ref={ref}
-      className={clsx("utrecht-form-fieldset", "utrecht-form-fieldset--reset-fieldset", className)}
+      className={clsx(
+        "utrecht-form-fieldset",
+        "utrecht-form-fieldset--reset-fieldset",
+        distanced && "utrecht-form-fieldset--distanced",
+        className
+      )}
     >
       {children}
     </fieldset>

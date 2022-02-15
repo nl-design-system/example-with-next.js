@@ -9,12 +9,12 @@ menu: Components
 
 This applies to multiple heading components:
 
--   `<h1>` and `role="heading" aria-level="1"`
--   `<h2>` and `role="heading" aria-level="2"`
--   `<h3>` and `role="heading" aria-level="3"`
--   `<h4>` and `role="heading" aria-level="4"`
--   `<h5>` and `role="heading" aria-level="5"`
--   `<h6>` and `role="heading" aria-level="6"`
+- `<h1>` and `role="heading" aria-level="1"`
+- `<h2>` and `role="heading" aria-level="2"`
+- `<h3>` and `role="heading" aria-level="3"`
+- `<h4>` and `role="heading" aria-level="4"`
+- `<h5>` and `role="heading" aria-level="5"`
+- `<h6>` and `role="heading" aria-level="6"`
 
 ## Goal: heading levels are available for search engines
 

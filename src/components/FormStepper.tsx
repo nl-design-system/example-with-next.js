@@ -1,21 +1,13 @@
 import clsx from "clsx";
 import { ForwardedRef, forwardRef, HTMLAttributes, PropsWithChildren } from "react";
-import style from "./FormHeader.module.css";
+import style from "./FormStepper.module.css";
 
-type Props = HTMLAttributes<HTMLElement>;
+type Props = HTMLAttributes<HTMLDivElement>;
 
-export const FormHeader = forwardRef(
+export const FormStepper = forwardRef(
   ({ className, children }: PropsWithChildren<Props>, ref: ForwardedRef<HTMLDivElement>) => (
-    <header ref={ref} className={clsx(style["form-header"], className)}>
+    <div ref={ref} className={clsx(style["form-stepper"], className)}>
       {children}
-    </header>
-  )
-);
-
-export const FormHeaderTitle = forwardRef(
-  ({ className, children }: PropsWithChildren<Props>, ref: ForwardedRef<HTMLDivElement>) => (
-    <p ref={ref} className={clsx(style["form-header__title"], className)}>
-      {children}
-    </p>
+    </div>
   )
 );

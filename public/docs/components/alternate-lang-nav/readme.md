@@ -33,7 +33,7 @@ Good:
 
 The result is that screen readers say things like:
 
--   VoiceOver on macOS 12.1: TODO: echt checken met voiceover "Current page, link, English" ... "Link, Nederlands"
+- VoiceOver on macOS 12.1: TODO: echt checken met voiceover "Current page, link, English" ... "Link, Nederlands"
 
 ## Goal: Users that don't understand the language of the current page, can identify the link that brings them to an alternate page in a language they know.
 

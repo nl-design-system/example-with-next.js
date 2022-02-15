@@ -5,7 +5,6 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import {
   Document,
-  Heading1,
   Page,
   PageHeader,
   PageContent,
@@ -27,6 +26,8 @@ import { ThemeSwitcher } from "../src/components/ThemeSwitcher";
 import { DataListValue } from "../src/components";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { FormHeader, FormHeaderTitle } from "../src/components/FormHeader";
+import { FormStepper } from "../src/components/FormStepper";
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {
@@ -64,14 +65,17 @@ export default function CommonFormStep3() {
         <PageHeader>
           <PageHeaderTemplate />
         </PageHeader>
-        <PageContent>
-          <PageContentMain>
-            <Heading1>{t("page-title")}</Heading1>
-            {/*TODO: Step indicator component */}
-            <Paragraph>
-              <Link href="/common-form-step-2">← Vorige</Link>{" "}
-            </Paragraph>
-            <Paragraph lead>Stap 3 van 3 — Controleren, betalen en opsturen</Paragraph>
+        <PageContentMain>
+          <FormHeader>
+            <FormHeaderTitle>{t("page-title")}</FormHeaderTitle>
+          </FormHeader>
+          <PageContent>
+            <FormStepper>
+              <Paragraph>
+                <Link href="/common-form-step-2">← Vorige</Link>
+              </Paragraph>
+              <Paragraph lead>Stap 3 van 3 — Controleren, betalen en opsturen</Paragraph>
+            </FormStepper>
             <div>
               <Heading2>Kloppen deze gegevens?</Heading2>
               <Heading3 id="personal-details">{t("personal-details")}</Heading3>
@@ -205,8 +209,8 @@ export default function CommonFormStep3() {
               </FormField>
               <Button type="submit">Versturen</Button>
             </form>
-          </PageContentMain>
-        </PageContent>
+          </PageContent>
+        </PageContentMain>
         <PageFooter>
           <PageFooterTemplate />
         </PageFooter>

@@ -11,8 +11,8 @@ aria-label=""
 
 ```html
 <dl>
-	<dt id="first-name">First name</dt>
-	<dd>Bobby <button aria-describedby="first-name">Edit</button></dd>
+  <dt id="first-name">First name</dt>
+  <dd>Bobby <button aria-describedby="first-name">Edit</button></dd>
 </dl>
 ```
 
@@ -20,8 +20,8 @@ Alternatively, label text is specifically provided for every button. This is mor
 
 ```html
 <dl>
-	<dt id="first-name">First name</dt>
-	<dd>Bobby <button aria-label="Edit first name">Edit</button></dd>
+  <dt id="first-name">First name</dt>
+  <dd>Bobby <button aria-label="Edit first name">Edit</button></dd>
 </dl>
 ```
 
