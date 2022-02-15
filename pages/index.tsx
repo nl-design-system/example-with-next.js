@@ -1,15 +1,14 @@
-import Head from "next/head";
-import Image from "next/image";
 import {
-  UtrechtHeading,
-  UtrechtParagraph,
-  UtrechtSeparator,
   UtrechtButton,
   UtrechtDocument,
+  UtrechtHeading,
   UtrechtPageFooter,
+  UtrechtParagraph,
+  UtrechtSeparator,
 } from "@utrecht/web-component-library-react";
+import Head from "next/head";
+import Image from "next/image";
 import { AlternateLangNavComponent } from "../src/AlternateLangNavComponent";
-
 import cityScape from "../src/img/amersfoort-koppelpoort.jpg";
 export default function Home() {
   const locales = [
