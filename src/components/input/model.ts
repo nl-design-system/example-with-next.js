@@ -9,7 +9,7 @@ export interface FormFieldOption {
   labelKey?: string;
   value?: string;
   id: string;
-  disabled: boolean; // TODO: Should `disabled` be state instead of the definition?
+  disabled?: boolean; // TODO: Should `disabled` be state instead of the definition?
 }
 
 export interface FormFieldDefinition {
@@ -30,12 +30,14 @@ export interface FormFieldDefinition {
   maskInput?: boolean;
   maskOutput?: boolean;
   normalizers?: NormalizerId[];
+  options?: FormFieldOption[];
 }
 
 export interface FormFieldDefaultState {
   value: string;
   invalid?: boolean;
   errors?: FormValidationError[];
+  selectedOptions?: string[];
 }
 
 export interface FormFieldInputState {
@@ -51,30 +53,7 @@ export interface FormFieldInputState {
   value: string;
   invalid: boolean;
   errors: FormValidationError[];
-}
-
-export interface FormFieldSingleOptionDeclaration {
-  definition: FormFieldDefinition & {
-    options: FormFieldOption[];
-  };
-  defaultState: FormFieldDefaultState & {
-    selectedOption: string;
-  };
-  inputState: FormFieldInputState & {
-    selectedOption: string;
-  };
-}
-
-export interface FormFieldMultipleOptionsDeclaration {
-  definition: FormFieldDefinition & {
-    options: FormFieldOption[];
-  };
-  defaultState: FormFieldDefaultState & {
-    selectedOptions: string[];
-  };
-  inputState: FormFieldInputState & {
-    selectedOptions: string[];
-  };
+  selectedOptions?: string[];
 }
 
 // Based on HTML:
@@ -104,7 +83,7 @@ export interface FormFieldDeclaration {
   disabled?: boolean;
   fieldType?: 'checkbox' | 'checkboxgroup' | 'date' | 'datetime' | 'file' | 'input' | 'radiogroup' | 'select' | 'time';
   inputSubtype?: 'text' | 'email' | 'number' | 'range';
-  definition: FormFieldDefinition | FormFieldSingleOptionDeclaration | FormFieldMultipleOptionsDeclaration;
+  definition: FormFieldDefinition;
   validators?: FormValidationFunction[];
   normalizers?: FormNormalizeFunction[];
   defaultState?: FormFieldDefaultState;

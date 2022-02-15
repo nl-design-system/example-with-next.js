@@ -99,7 +99,7 @@ export default function FormBuilderPage() {
       defaultState: {
         value: "agree",
         errors: [],
-        selectedOption: "0e3fe934-e074-4993-82b9-2f0fce15bb6a",
+        selectedOptions: ["0e3fe934-e074-4993-82b9-2f0fce15bb6a"],
       },
     },
     {

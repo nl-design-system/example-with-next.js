@@ -8,7 +8,6 @@ import { chooseNormalizers, lookupNormalizers } from "../src/data/normalize";
 
 import {
   Document,
-  Heading1,
   Page,
   PageHeader,
   PageContent,

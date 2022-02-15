@@ -47,3 +47,5 @@ export const RadioGroup = forwardRef(
     </Fieldset>
   )
 );
+
+RadioGroup.displayName = "utrecht-form-field-radio-group";

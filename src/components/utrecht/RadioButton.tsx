@@ -4,7 +4,6 @@ import { InputHTMLAttributes, ForwardedRef, forwardRef } from "react";
 interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "readOnly"> {
   invalid?: boolean;
   id: string;
-  value: string;
 }
 
 export const RadioButton = forwardRef(

@@ -13,3 +13,5 @@ export const FormFieldGroup = forwardRef(
     </div>
   )
 );
+
+FormFieldGroup.displayName = "form-field-group";

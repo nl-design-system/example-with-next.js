@@ -137,14 +137,15 @@ export const Input = ({ state, onChange, onBlur, onInput, t }: InputProps) => {
         />
       ) : fieldType === "select" ? (
         <select>
-          {options.map((option: FormFieldOption) => {
-            const { disabled, label, labelKey, value } = option;
-            return (
-              <option key={option.id} disabled={disabled} value={value} data-option-id={option.id}>
-                {labelKey ? t(labelKey) : label}
-              </option>
-            );
-          })}
+          {options &&
+            options.map((option: FormFieldOption) => {
+              const { disabled, label, labelKey, value } = option;
+              return (
+                <option key={option.id} disabled={disabled} value={value} data-option-id={option.id}>
+                  {labelKey ? t(labelKey) : label}
+                </option>
+              );
+            })}
         </select>
       ) : (
         ""

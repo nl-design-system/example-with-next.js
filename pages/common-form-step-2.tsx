@@ -24,7 +24,6 @@ import { PageHeaderTemplate } from "../src/components/huwelijksplanner/PageHeade
 import { PageFooterTemplate } from "../src/components/huwelijksplanner/PageFooterTemplate";
 import Head from "next/head";
 import { ThemeSwitcher } from "../src/components/ThemeSwitcher";
-import { FormFieldGroup } from "../src/components/FormFieldGroup";
 import Link from "next/link";
 import { useRouter } from "next/router";
 

@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { InputHTMLAttributes, ForwardedRef, forwardRef } from "react";
 
-interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "value" | "readOnly"> {
+interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "readOnly"> {
   invalid?: boolean;
   id: string;
 }
