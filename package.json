@@ -7,8 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:js": "eslint --ext '.js,.json,.jsx,.ts,.tsx' --report-unused-disable-directives .",
+    "lint-fix:css": "stylelint --fix '**/*.{css,scss}'",
     "lint-fix:js": "eslint --ext '.js,.json,.jsx,.mdx,.ts,.tsx' --fix --report-unused-disable-directives .",
+    "lint:css": "stylelint '**/*.{css,scss}'",
+    "lint:js": "eslint --ext '.js,.json,.jsx,.ts,.tsx' --report-unused-disable-directives .",
     "prettier": "prettier --write .",
     "update-patch": "npm-check-updates --configFileName .ncurc.patch.js --deep --dep dev,prod --target patch --upgrade && npm install",
     "update-minor": "npm-check-updates --configFileName .ncurc.minor.js --deep --dep dev,prod --target minor --upgrade && npm install",
@@ -39,6 +41,9 @@
     "eslint-plugin-react": "7.28.0",
     "npm-check-updates": "12.3.0",
     "sharp": "0.30.1",
+    "stylelint": "14.5.0",
+    "stylelint-config-prettier": "9.0.3",
+    "stylelint-order": "5.0.0",
     "typescript": "4.4.3"
   }
 }
