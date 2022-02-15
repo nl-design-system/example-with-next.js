@@ -30,6 +30,7 @@ import { FormFieldGroup } from "../src/components/FormFieldGroup";
 import { DateInput } from "../src/components";
 import { useRouter } from "next/router";
 import { DemoFormInput } from "../types/DemoForm";
+import { FormHeader, FormHeaderTitle } from "../src/components/FormHeader";
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {
@@ -78,7 +79,9 @@ export default function CommonFormStep1() {
         </PageHeader>
         <PageContent>
           <PageContentMain>
-            <Heading1>{t("page-title")}</Heading1>
+            <FormHeader>
+              <FormHeaderTitle>{t("page-title")}</FormHeaderTitle>
+            </FormHeader>
             {/*TODO: Step indicator component */}
             <Paragraph lead>Stap 1 van 3 — Persoonlijke gegevens</Paragraph>
             <form onSubmit={handleSubmit} method="POST" action="/api/form">

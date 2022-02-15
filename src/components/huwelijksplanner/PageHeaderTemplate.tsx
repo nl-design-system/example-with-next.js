@@ -7,10 +7,8 @@ import { Link } from "../utrecht/Link";
 import { LanguageToggle } from "../LanguageToggle";
 
 export const PageHeaderTemplate = () => (
-  <>
-    <p>
-      <Link href="/">home</Link>
-    </p>
+  <div className="utrecht-page-header__content">
+    <Link href="/">home</Link>
     <LanguageToggle />
-  </>
+  </div>
 );

@@ -1,0 +1,22 @@
+.form-header {
+  font-family: var(--todo-form-header-font-family, var(--utrecht-document-font-family));
+  background-color: var(--todo-form-header-background-color);
+  color: var(--todo-form-header-color);
+  padding-inline-start: var(--todo-form-header-padding-inline-start);
+  padding-inline-end: var(--todo-form-header-padding-inline-end);
+  padding-block-start: var(--todo-form-header-padding-block-start);
+  padding-block-end: var(--todo-form-header-padding-block-end);
+}
+
+.form-header__title {
+  font-size: var(--todo-form-header-title-font-size);
+  font-weight: var(--todo-form-header-title-font-weight);
+  padding-inline-start: var(--todo-form-header-title-padding-inline-start, 0);
+  padding-inline-end: var(--todo-form-header-title-padding-inline-end, 0);
+  padding-block-start: var(--todo-form-header-title-padding-block-start, 0);
+  padding-block-end: var(--todo-form-header-title-padding-block-end, 0);
+  margin-inline-start: var(--todo-form-header-title-margin-inline-start, 0);
+  margin-inline-end: var(--todo-form-header-title-margin-inline-end, 0);
+  margin-block-start: var(--todo-form-header-title-margin-block-start, 0);
+  margin-block-end: var(--todo-form-header-title-margin-block-end, 0);
+}
