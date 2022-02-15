@@ -1,7 +1,7 @@
-import { Fragment } from "react";
+import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import clsx from "clsx";
+import { Fragment } from "react";
 
 const LinkSeparator = () => <span aria-hidden="true"> | </span>;
 
@@ -73,7 +73,7 @@ export const AlternateLangNavComponent = ({
   currentLang?: string;
   locales: { hrefLang: string; lang: string; textContent: string; title: string }[];
 }) => {
-  const { asPath, locale } = useRouter();
+  const { asPath } = useRouter();
 
   return (
     <AlternateLangNavContainer>

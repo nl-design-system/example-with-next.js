@@ -1,6 +1,6 @@
+import type { AppProps } from "next/app";
 import { useEffect } from "react";
 import "../styles/globals.css";
-import type { AppProps } from "next/app";
 import "@utrecht/design-tokens/dist/index.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
