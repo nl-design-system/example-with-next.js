@@ -107,9 +107,7 @@ export default function Home() {
         <form>
           <UtrechtButton>Click me</UtrechtButton>
         </form>
-        <UtrechtPageFooter>
-          <nl-theme-switcher></nl-theme-switcher>
-        </UtrechtPageFooter>
+        <UtrechtPageFooter>Made with NL Design System</UtrechtPageFooter>
       </UtrechtDocument>
     </>
   );
