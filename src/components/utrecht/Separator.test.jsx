@@ -26,7 +26,7 @@ describe("Separator", () => {
 
     const separator = screen.getByRole("separator");
 
-    expect(separator).toBeEmpty();
+    expect(separator).toBeEmptyDOMElement();
   });
 
   it("can be hidden", () => {
