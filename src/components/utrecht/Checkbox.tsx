@@ -1,13 +1,13 @@
 import clsx from "clsx";
 import { ForwardedRef, forwardRef, InputHTMLAttributes } from "react";
 
-interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "readOnly"> {
+interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "readOnly"> {
   invalid?: boolean;
   id: string;
 }
 
 export const Checkbox = forwardRef(
-  ({ disabled, invalid, required, className, ...restProps }: Props, ref: ForwardedRef<HTMLInputElement>) => (
+  ({ disabled, invalid, required, className, ...restProps }: CheckboxProps, ref: ForwardedRef<HTMLInputElement>) => (
     <input
       {...restProps}
       ref={ref}
