@@ -1,0 +1,11 @@
+.form {
+  border-width: var(--todo-form-border-width, 0);
+  border-bottom-width: var(--todo-form-border-bottom-width, var(--todo-form-border-width));
+  border-top-width: var(--todo-form-border-bottom-width, var(--todo-form-border-width));
+  border-color: var(--todo-form-border-color);
+  border-style: solid;
+  padding-inline-start: var(--todo-form-padding-inline-start);
+  padding-inline-end: var(--todo-form-padding-inline-end);
+  padding-block-start: var(--todo-form-padding-block-start);
+  padding-block-end: var(--todo-form-padding-block-end);
+}

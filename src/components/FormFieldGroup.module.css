@@ -1,5 +1,7 @@
-.form-field-group {
-}
+/**
+ * @license EUPL-1.2
+ * Copyright (c) 2021 Yolijn van der Kolk
+*/
 
 .form-field-group--inline {
   display: grid;

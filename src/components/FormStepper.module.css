@@ -1,3 +1,8 @@
+/**
+ * @license EUPL-1.2
+ * Copyright (c) 2021 Yolijn van der Kolk
+*/
+
 .form-stepper {
   font-family: var(--todo-form-stepper-font-family, var(--utrecht-document-font-family));
   background-color: var(--todo-form-stepper-background-color);
@@ -6,8 +11,4 @@
   padding-inline-end: var(--todo-form-stepper-padding-inline-end);
   padding-block-start: var(--todo-form-stepper-padding-block-start);
   padding-block-end: var(--todo-form-stepper-padding-block-end);
-  border-width: var(--todo-form-stepper-border-width, 0);
-  border-bottom-width: var(--todo-form-stepper-border-bottom-width, var(--todo-form-stepper-border-width));
-  border-color: var(--todo-form-stepper-border-color);
-  border-style: solid;
 }

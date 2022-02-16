@@ -21,12 +21,13 @@ import {
   FieldsetLegend,
   Paragraph,
   Button,
+  Link,
 } from "../src/components/utrecht";
 
 import { PageHeaderTemplate } from "../src/components/huwelijksplanner/PageHeaderTemplate";
 import { PageFooterTemplate } from "../src/components/huwelijksplanner/PageFooterTemplate";
 import Head from "next/head";
-import Link from "next/link";
+import NextLink from "next/link";
 import { ThemeSwitcher } from "../src/components/ThemeSwitcher";
 import { RadioGroup } from "../src/components/RadioGroup";
 import { FormFieldGroup } from "../src/components/FormFieldGroup";
@@ -35,6 +36,8 @@ import { useRouter } from "next/router";
 import { DemoFormInput } from "../types/DemoForm";
 import { FormHeader, FormHeaderTitle } from "../src/components/FormHeader";
 import { FormStepper } from "../src/components/FormStepper";
+import { Form } from "../src/components/Form";
+import { ButtonGroup } from "../src/components/ButtonGroup";
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {
@@ -107,16 +110,18 @@ export default function CommonFormStep1() {
           <PageContent>
             <FormStepper>
               <Paragraph>
-                <Link href="/common-form-step-0">← Vorige</Link>
+                <NextLink href="/common-form-step-0">
+                  <Link>← Vorige</Link>
+                </NextLink>
               </Paragraph>
               <Paragraph lead>Stap 1 van 3 — Persoonlijke gegevens</Paragraph>
             </FormStepper>
-            <form onSubmit={handleSubmit} method="POST" action="/api/form">
+            <Form onSubmit={handleSubmit} method="POST" action="/api/form" id="demo-form">
               <Fieldset distanced>
                 <FieldsetLegend>Wie ben je</FieldsetLegend>
-                {/* <FormBuilder t={t} fields={wieBenJeFields} /> */}
+                <FormBuilder t={t} fields={wieBenJeFields} />
                 {/* GIVEN NAME */}
-                <FormField>
+                <FormField distanced>
                   <FormLabel htmlFor="given-name">{t("given-name")}</FormLabel>
                   <TextInput
                     id="given-name"
@@ -128,7 +133,7 @@ export default function CommonFormStep1() {
                   />
                 </FormField>
                 {/* FAMILY NAME */}
-                <FormField>
+                <FormField distanced>
                   <FormLabel htmlFor="family-name" disabled>
                     {t("family-name")}
                   </FormLabel>
@@ -145,7 +150,7 @@ export default function CommonFormStep1() {
 
               <Fieldset distanced>
                 <FieldsetLegend>Waar woon je?</FieldsetLegend>
-                <FormField>
+                <FormField distanced>
                   <FormLabel htmlFor="street">{t("street")}</FormLabel>
                   <TextInput
                     id="street"
@@ -156,7 +161,7 @@ export default function CommonFormStep1() {
                   />
                 </FormField>
                 <FormFieldGroup inline>
-                  <FormField>
+                  <FormField distanced>
                     <FormLabel htmlFor="house-number">{t("house-number")}</FormLabel>
                     <TextInput
                       id="house-number"
@@ -167,7 +172,7 @@ export default function CommonFormStep1() {
                       onChange={handleInputChange}
                     />
                   </FormField>
-                  <FormField>
+                  <FormField distanced>
                     <FormLabel htmlFor="house-number-suffix">{t("house-number-suffix")}</FormLabel>
                     <TextInput
                       id="house-number-suffix"
@@ -177,7 +182,7 @@ export default function CommonFormStep1() {
                       onChange={handleInputChange}
                     />
                   </FormField>
-                  <FormField>
+                  <FormField distanced>
                     <FormLabel htmlFor="postal-code">{t("postal-code")}</FormLabel>
                     <TextInput
                       id="postal-code"
@@ -189,7 +194,7 @@ export default function CommonFormStep1() {
                     />
                   </FormField>
                 </FormFieldGroup>
-                <FormField>
+                <FormField distanced>
                   <FormLabel htmlFor="place-of-residence">{t("place-of-residence")}</FormLabel>
                   <TextInput
                     id="place-of-residence"
@@ -203,7 +208,7 @@ export default function CommonFormStep1() {
 
               <Fieldset distanced>
                 <FieldsetLegend>Hoe kunnen we je bereiken?</FieldsetLegend>
-                <FormField>
+                <FormField distanced>
                   <FormLabel htmlFor="email">{t("email")}</FormLabel>
                   <TextInput
                     id="email"
@@ -215,7 +220,7 @@ export default function CommonFormStep1() {
                     onChange={handleInputChange}
                   />
                 </FormField>
-                <FormField>
+                <FormField distanced>
                   <FormLabel htmlFor="tel">{t("tel")}</FormLabel>
                   <TextInput
                     id="tel"
@@ -226,7 +231,7 @@ export default function CommonFormStep1() {
                     onChange={handleInputChange}
                   />
                 </FormField>
-                <FormField>
+                <FormField distanced>
                   <FormLabel htmlFor="tel-mobile">{t("tel-mobile")}</FormLabel>
                   <TextInput
                     id="tel-mobile"
@@ -242,44 +247,48 @@ export default function CommonFormStep1() {
               <Fieldset distanced>
                 <FieldsetLegend>Overige persoonlijke gegevens</FieldsetLegend>
                 <RadioGroup label={t("gender")} inline distanced>
-                  <FormField>
+                  <FormField inline>
+                    <RadioButton id="female" name="gender" value="female" />
                     <FormLabel type="radio" htmlFor="female">
                       {t("gender-female")}
                     </FormLabel>
-                    <RadioButton id="female" name="gender" value="female" />
                   </FormField>
-                  <FormField>
+                  <FormField inline>
+                    <RadioButton id="male" name="gender" value="male" />
                     <FormLabel type="radio" htmlFor="male">
                       {t("gender-male")}
                     </FormLabel>
-                    <RadioButton id="male" name="gender" value="male" />
                   </FormField>
-                  <FormField>
+                  <FormField inline>
+                    <RadioButton id="unknown" name="gender" value="unknown" />
                     <FormLabel type="radio" htmlFor="unknown">
                       {t("gender-unknown")}
                     </FormLabel>
-                    <RadioButton id="unknown" name="gender" value="unknown" />
                   </FormField>
                 </RadioGroup>
-                <FormField>
+                <FormField distanced>
                   <FormLabel htmlFor="bday">{t("bday")}</FormLabel>
                   <DateInput id="bday" autoComplete="bday" name="bday" />
                 </FormField>
-                <FormField>
+                <FormField distanced>
                   <FormLabel htmlFor="nationality">{t("nationality")}</FormLabel>
                   <TextInput id="nationality" name="nationality" />
                 </FormField>
-                <FormField>
+                <FormField distanced>
                   <FormLabel htmlFor="bsn">{t("bsn")}</FormLabel>
                   <TextInput id="bsn" name="bsn" inputMode="numeric" />
                 </FormField>
-                <FormField>
+                <FormField distanced>
                   <FormLabel htmlFor="document-number">{t("document-number")}</FormLabel>
                   <TextInput id="document-number" name="document-number" />
                 </FormField>
               </Fieldset>
-              <Button type="submit">Volgende stap</Button>
-            </form>
+            </Form>
+            <ButtonGroup distanced>
+              <Button type="submit" form="demo-form">
+                Volgende stap
+              </Button>
+            </ButtonGroup>
           </PageContent>
         </PageContentMain>
         <PageFooter>

@@ -1,3 +1,8 @@
+/**
+ * @license EUPL-1.2
+ * Copyright (c) 2021 Yolijn van der Kolk
+*/
+
 .form-header {
   font-family: var(--todo-form-header-font-family, var(--utrecht-document-font-family));
   background-color: var(--todo-form-header-background-color);
