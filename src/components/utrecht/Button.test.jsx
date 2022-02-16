@@ -288,8 +288,6 @@ describe("Button", () => {
 
     const button = screen.getByRole("button");
 
-    button.click();
-
     expect(ref.current).toBe(button);
   });
 });
