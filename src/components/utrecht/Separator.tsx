@@ -8,11 +8,9 @@ import { ForwardedRef, forwardRef, HTMLAttributes } from "react";
 
 type SeparatorProps = HTMLAttributes<HTMLHRElement>;
 
-// Do not pass `children` along with `restProps`
-/* eslint no-unused-vars: ["error", { "argsIgnorePattern": "children" }] */
-
+// Do not pass `children` along with `restProps` and use _children as it's unused
 export const Separator = forwardRef(
-  ({ className, children, ...restProps }: SeparatorProps, ref: ForwardedRef<HTMLHRElement>) => (
+  ({ className, children: _children, ...restProps }: SeparatorProps, ref: ForwardedRef<HTMLHRElement>) => (
     <hr {...restProps} ref={ref} className={clsx("utrecht-separator", className)} />
   )
 );
