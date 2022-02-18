@@ -48,7 +48,7 @@ describe("Page header", () => {
 
     const header = container.querySelector(":only-child");
 
-    const richText = header.querySelector("svg");
+    const richText = header?.querySelector("svg");
 
     expect(richText).toBeInTheDocument();
   });
@@ -70,7 +70,7 @@ describe("Page header", () => {
   });
 
   it("supports ForwardRef in React", () => {
-    const ref = createRef();
+    const ref = createRef<HTMLDivElement>();
 
     const { container } = render(<PageHeader ref={ref} />);
 

@@ -272,11 +272,9 @@ describe("Button", () => {
 
     const { container } = render(<Button onClick={handleClick} />);
 
-    const button = container.querySelector(":only-child");
+    const button = container.querySelector<HTMLElement>(":only-child");
 
-    expect(button).toBeInTheDocument();
-
-    (button as HTMLButtonElement)?.click();
+    button?.click();
 
     expect(handleClick).toHaveBeenCalled();
   });

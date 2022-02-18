@@ -46,7 +46,7 @@ describe("Page footer", () => {
 
     const footer = container.querySelector(":only-child");
 
-    const richText = footer.querySelector("address");
+    const richText = footer?.querySelector("address");
 
     expect(richText).toBeInTheDocument();
   });
@@ -68,7 +68,7 @@ describe("Page footer", () => {
   });
 
   it("supports ForwardRef in React", () => {
-    const ref = createRef();
+    const ref = createRef<HTMLDivElement>();
 
     const { container } = render(<PageFooter ref={ref} />);
 
