@@ -16,7 +16,7 @@ describe("Button", () => {
   });
 
   it("renders an HTML button element", () => {
-    const { container } = render(<Button>OK</Button>);
+    const { container } = render(<Button />);
 
     const button = container.querySelector("button");
 
@@ -40,7 +40,7 @@ describe("Button", () => {
   });
 
   it("is not busy by default", () => {
-    render(<Button>Save</Button>);
+    render(<Button />);
 
     const button = screen.getByRole("button");
 
@@ -48,7 +48,7 @@ describe("Button", () => {
   });
 
   it("does not specify `aria-busy` when not busy", () => {
-    render(<Button busy={false}>Save</Button>);
+    render(<Button busy={false} />);
 
     const button = screen.getByRole("button");
 
@@ -56,7 +56,7 @@ describe("Button", () => {
   });
 
   it("is not a submit button by default", () => {
-    const { container } = render(<Button>OK</Button>);
+    const { container } = render(<Button />);
 
     const button = container.querySelector("button");
 
@@ -64,7 +64,7 @@ describe("Button", () => {
   });
 
   it("is not disabled by default", () => {
-    render(<Button>OK</Button>);
+    render(<Button />);
 
     const button = screen.getByRole("button");
 
@@ -76,7 +76,7 @@ describe("Button", () => {
   });
 
   it("can have a busy state", () => {
-    render(<Button busy={true}>Save</Button>);
+    render(<Button busy={true} />);
 
     const button = screen.getByRole("button");
 
@@ -84,7 +84,7 @@ describe("Button", () => {
   });
 
   it("can have a disabled state", () => {
-    render(<Button disabled={true}>Save</Button>);
+    render(<Button disabled={true} />);
 
     const button = screen.getByRole("button");
 
@@ -92,7 +92,7 @@ describe("Button", () => {
   });
 
   it("can be a submit button", () => {
-    const { container } = render(<Button type="submit">Submit</Button>);
+    const { container } = render(<Button type="submit" />);
 
     const button = container.querySelector("button");
 
@@ -100,7 +100,7 @@ describe("Button", () => {
   });
 
   it("can be a reset button", () => {
-    const { container } = render(<Button type="reset">Reset</Button>);
+    const { container } = render(<Button type="reset" />);
 
     const button = container.querySelector("button");
 
@@ -108,7 +108,7 @@ describe("Button", () => {
   });
 
   it("can be hidden", () => {
-    const { container } = render(<Button hidden>Secret button</Button>);
+    const { container } = render(<Button hidden />);
 
     const button = container.querySelector("button");
 
@@ -121,7 +121,7 @@ describe("Button", () => {
 
     render(
       <form onSubmit={handleSubmit} onReset={handleReset}>
-        <Button>Do nothing</Button>
+        <Button />
       </form>
     );
 
@@ -262,7 +262,7 @@ describe("Button", () => {
   });
 
   it("can have a custom class name", () => {
-    render(<Button className="large">Order now</Button>);
+    render(<Button className="large" />);
 
     const button = screen.getByRole("button");
 
@@ -272,7 +272,7 @@ describe("Button", () => {
   it("can trigger a click event", () => {
     const handleClick = jest.fn();
 
-    render(<Button onClick={handleClick}>OK</Button>);
+    render(<Button onClick={handleClick} />);
 
     const button = screen.getByRole("button");
 
@@ -284,7 +284,7 @@ describe("Button", () => {
   it("supports ForwardRef in React", () => {
     const ref = createRef<HTMLButtonElement>();
 
-    render(<Button ref={ref}>OK</Button>);
+    render(<Button ref={ref} />);
 
     const button = screen.getByRole("button");
 

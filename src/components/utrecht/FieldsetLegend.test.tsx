@@ -34,7 +34,7 @@ describe("Fieldset legend", () => {
   });
 
   it("renders an HTML legend element", () => {
-    const { container } = render(<FieldsetLegend>Shipping address</FieldsetLegend>);
+    const { container } = render(<FieldsetLegend />);
 
     const legend = container.querySelector("legend:only-child");
 
@@ -42,7 +42,7 @@ describe("Fieldset legend", () => {
   });
 
   it("renders a design system BEM class name", () => {
-    const { container } = render(<FieldsetLegend>Shipping address</FieldsetLegend>);
+    const { container } = render(<FieldsetLegend />);
 
     const legend = container.querySelector(":only-child");
 
@@ -50,7 +50,7 @@ describe("Fieldset legend", () => {
   });
 
   it("displays as CSS block element", () => {
-    const { container } = render(<FieldsetLegend>Shipping address</FieldsetLegend>);
+    const { container } = render(<FieldsetLegend />);
 
     const legend = container.querySelector(":only-child");
 
@@ -88,7 +88,7 @@ describe("Fieldset legend", () => {
   });
 
   it("can be hidden", () => {
-    const { container } = render(<FieldsetLegend hidden>Shipping address</FieldsetLegend>);
+    const { container } = render(<FieldsetLegend hidden />);
 
     const legend = container.querySelector(":only-child");
 
@@ -96,7 +96,7 @@ describe("Fieldset legend", () => {
   });
 
   it("can have a custom class name", () => {
-    const { container } = render(<FieldsetLegend className="heading-2">Shipping address</FieldsetLegend>);
+    const { container } = render(<FieldsetLegend className="heading-2" />);
 
     const legend = container.querySelector(":only-child");
 
@@ -106,7 +106,7 @@ describe("Fieldset legend", () => {
   it("supports ForwardRef in React", () => {
     const ref = createRef<HTMLLegendElement>();
 
-    const { container } = render(<FieldsetLegend ref={ref}>Shipping address</FieldsetLegend>);
+    const { container } = render(<FieldsetLegend ref={ref} />);
 
     const legend = container.querySelector(":only-child");
 

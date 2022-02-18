@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 
 describe("Document", () => {
   it("renders an HTML div element", () => {
-    const { container } = render(<Document>Hello, world</Document>);
+    const { container } = render(<Document />);
 
     const div = container.querySelector("div:only-child");
 
@@ -13,7 +13,7 @@ describe("Document", () => {
   });
 
   it("renders a design system BEM class name", () => {
-    const { container } = render(<Document>Hello, world</Document>);
+    const { container } = render(<Document />);
 
     const doc = container.querySelector(":only-child");
 
@@ -21,7 +21,7 @@ describe("Document", () => {
   });
 
   it("displays as CSS block element", () => {
-    const { container } = render(<Document>Hello, world</Document>);
+    const { container } = render(<Document />);
 
     const doc = container.querySelector(":only-child");
 
@@ -44,7 +44,7 @@ describe("Document", () => {
   });
 
   it("can be hidden", () => {
-    const { container } = render(<Document hidden>Secret</Document>);
+    const { container } = render(<Document hidden />);
 
     const doc = container.querySelector(":only-child");
 
@@ -52,7 +52,7 @@ describe("Document", () => {
   });
 
   it("can have a custom class name", () => {
-    const { container } = render(<Document className="large">Hello, world</Document>);
+    const { container } = render(<Document className="large" />);
 
     const doc = container.querySelector(":only-child");
 
@@ -62,7 +62,7 @@ describe("Document", () => {
   it("supports ForwardRef in React", () => {
     const ref = createRef<HTMLDivElement>();
 
-    const { container } = render(<Document ref={ref}>Hello, world</Document>);
+    const { container } = render(<Document ref={ref} />);
 
     const doc = container.querySelector(":only-child");
 

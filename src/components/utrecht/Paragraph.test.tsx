@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 
 describe("Paragraph", () => {
   it("renders an HTML p element", () => {
-    const { container } = render(<Paragraph>Hello, world</Paragraph>);
+    const { container } = render(<Paragraph />);
 
     const paragraph = container.querySelector("p");
 
@@ -13,7 +13,7 @@ describe("Paragraph", () => {
   });
 
   it("renders a block element", () => {
-    const { container } = render(<Paragraph>Hello, world</Paragraph>);
+    const { container } = render(<Paragraph />);
 
     const paragraph = container.querySelector("p");
 
@@ -35,7 +35,7 @@ describe("Paragraph", () => {
   });
 
   it("is not a lead paragraph variant by default", () => {
-    const { container } = render(<Paragraph>Hello, world</Paragraph>);
+    const { container } = render(<Paragraph />);
 
     const paragraph = container.querySelector("p");
 
@@ -43,7 +43,7 @@ describe("Paragraph", () => {
   });
 
   it("has a lead paragraph variant", () => {
-    const { container } = render(<Paragraph lead>Hello, world</Paragraph>);
+    const { container } = render(<Paragraph lead />);
 
     const leadParagraph = container.querySelector("p");
 
@@ -51,7 +51,7 @@ describe("Paragraph", () => {
   });
 
   it("can be hidden", () => {
-    const { container } = render(<Paragraph hidden>Secret</Paragraph>);
+    const { container } = render(<Paragraph hidden />);
 
     const paragraph = container.querySelector("p");
 
@@ -59,7 +59,7 @@ describe("Paragraph", () => {
   });
 
   it("can have a custom class name", () => {
-    const { container } = render(<Paragraph className="intro">Order now</Paragraph>);
+    const { container } = render(<Paragraph className="intro" />);
 
     const paragraph = container.querySelector("p");
 
@@ -69,7 +69,7 @@ describe("Paragraph", () => {
   it("supports ForwardRef in React", () => {
     const ref = createRef<HTMLParagraphElement>();
 
-    const { container } = render(<Paragraph ref={ref}>OK</Paragraph>);
+    const { container } = render(<Paragraph ref={ref} />);
 
     const paragraph = container.querySelector("p");
 
