@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 
 describe("Article", () => {
   it("renders an article role element", () => {
-    render(<Article>Breaking news</Article>);
+    render(<Article />);
 
     const article = screen.getByRole("article");
 
@@ -14,7 +14,7 @@ describe("Article", () => {
   });
 
   it("renders an article HTML element", () => {
-    const { container } = render(<Article>Secrets</Article>);
+    const { container } = render(<Article />);
 
     const article = container.querySelector("article");
 
@@ -36,7 +36,7 @@ describe("Article", () => {
   });
 
   it("can be hidden", () => {
-    const { container } = render(<Article hidden>Secrets</Article>);
+    const { container } = render(<Article hidden />);
 
     const article = container.querySelector("article");
 
@@ -44,7 +44,7 @@ describe("Article", () => {
   });
 
   it("can have a custom class name", () => {
-    render(<Article className="breaking-news">Breaking news</Article>);
+    render(<Article className="breaking-news" />);
 
     const article = screen.getByRole("article");
 

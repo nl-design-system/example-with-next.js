@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 
 describe("Backdrop", () => {
   it("renders an HTML div element", () => {
-    const { container } = render(<Backdrop></Backdrop>);
+    const { container } = render(<Backdrop />);
 
     const backdrop = container.querySelector("div:only-child");
 
@@ -13,7 +13,7 @@ describe("Backdrop", () => {
   });
 
   it("renders a design system BEM class name", () => {
-    const { container } = render(<Backdrop></Backdrop>);
+    const { container } = render(<Backdrop />);
 
     const backdrop = container.querySelector(":only-child");
 
@@ -21,7 +21,7 @@ describe("Backdrop", () => {
   });
 
   it("displays as CSS block element", () => {
-    const { container } = render(<Backdrop></Backdrop>);
+    const { container } = render(<Backdrop />);
 
     const backdrop = container.querySelector(":only-child");
 
@@ -32,7 +32,7 @@ describe("Backdrop", () => {
   it("renders rich text content", () => {
     const { container } = render(
       <Backdrop>
-        <dialog open></dialog>
+        <dialog open />
       </Backdrop>
     );
 
@@ -44,7 +44,7 @@ describe("Backdrop", () => {
   });
 
   it("can be hidden", () => {
-    const { container } = render(<Backdrop hidden>Secrets</Backdrop>);
+    const { container } = render(<Backdrop hidden />);
 
     const backdrop = container.querySelector(":only-child");
 
@@ -52,7 +52,7 @@ describe("Backdrop", () => {
   });
 
   it("can have a custom class name", () => {
-    const { container } = render(<Backdrop className="lightbox"></Backdrop>);
+    const { container } = render(<Backdrop className="lightbox" />);
 
     const backdrop = container.querySelector(":only-child");
 
@@ -62,7 +62,7 @@ describe("Backdrop", () => {
   it("supports ForwardRef in React", () => {
     const ref = createRef<HTMLDivElement>();
 
-    const { container } = render(<Backdrop ref={ref}></Backdrop>);
+    const { container } = render(<Backdrop ref={ref} />);
 
     const backdrop = container.querySelector(":only-child");
 

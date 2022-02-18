@@ -27,7 +27,7 @@ describe("Heading 4", () => {
   });
 
   it("renders an HTML h4 element", () => {
-    const { container } = render(<Heading4>Breaking news</Heading4>);
+    const { container } = render(<Heading4 />);
 
     const heading = container.querySelector("h4");
 
@@ -51,7 +51,7 @@ describe("Heading 4", () => {
   });
 
   it("can be hidden", () => {
-    const { container } = render(<Heading4 hidden>Secret</Heading4>);
+    const { container } = render(<Heading4 hidden />);
 
     const heading = container.querySelector("h4");
 
@@ -59,7 +59,7 @@ describe("Heading 4", () => {
   });
 
   it("can have a custom class name", () => {
-    render(<Heading4 className="large">Order now</Heading4>);
+    render(<Heading4 className="large" />);
 
     const heading = screen.getByRole("heading");
 
@@ -69,7 +69,7 @@ describe("Heading 4", () => {
   it("supports ForwardRef in React", () => {
     const ref = createRef<HTMLHeadingElement>();
 
-    render(<Heading4 ref={ref}>OK</Heading4>);
+    render(<Heading4 ref={ref} />);
 
     const heading = screen.getByRole("heading");
 
