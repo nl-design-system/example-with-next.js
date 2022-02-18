@@ -1,7 +1,7 @@
 .form {
   border-width: var(--todo-form-border-width, 0);
-  border-bottom-width: var(--todo-form-border-bottom-width, var(--todo-form-border-width));
-  border-top-width: var(--todo-form-border-bottom-width, var(--todo-form-border-width));
+  border-bottom-width: var(--todo-form-border-bottom-width, var(--todo-form-border-width, 0));
+  border-top-width: var(--todo-form-border-bottom-width, var(--todo-form-border-width, 0));
   border-color: var(--todo-form-border-color);
   border-style: solid;
   padding-inline-start: var(--todo-form-padding-inline-start);
