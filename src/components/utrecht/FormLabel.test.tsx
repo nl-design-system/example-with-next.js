@@ -88,7 +88,9 @@ describe("Form label", () => {
 
     const label = container.querySelector(":only-child");
 
-    expect(label).toBeInTheDocument();
+    const richText = label?.querySelector("strong");
+
+    expect(richText).toBeInTheDocument();
   });
 
   it("can be associated with an HTML form input", () => {
