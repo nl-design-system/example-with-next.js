@@ -46,7 +46,7 @@ describe("Ordered list item", () => {
 
     const listItem = container.querySelector(":only-child");
 
-    const richText = listItem.querySelector("strong");
+    const richText = listItem?.querySelector("strong");
 
     expect(richText).toBeInTheDocument();
   });
@@ -68,7 +68,7 @@ describe("Ordered list item", () => {
   });
 
   it("supports ForwardRef in React", () => {
-    const ref = createRef();
+    const ref = createRef<HTMLLIElement>();
 
     const { container } = render(<OrderedListItem ref={ref} />);
 

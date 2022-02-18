@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { createRef } from "react";
+import { createRef, FormEvent } from "react";
 import { Button } from "./Button";
 import "@testing-library/jest-dom";
 
@@ -172,7 +172,7 @@ describe("Button", () => {
   });
 
   it("can trigger a form submit", () => {
-    const cancelSubmit = (event) => {
+    const cancelSubmit = (event: FormEvent) => {
       // Avoid actually triggering a submit, which has no implementation outside of a browser.
       event.preventDefault();
     };
@@ -215,7 +215,7 @@ describe("Button", () => {
   });
 
   it("can trigger a form submit of an associated owner form", () => {
-    const cancelSubmit = (event) => {
+    const cancelSubmit = (event: FormEvent) => {
       // Avoid actually triggering a submit, which has no implementation outside of a browser.
       event.preventDefault();
     };
@@ -282,7 +282,7 @@ describe("Button", () => {
   });
 
   it("supports ForwardRef in React", () => {
-    const ref = createRef();
+    const ref = createRef<HTMLButtonElement>();
 
     render(<Button ref={ref}>OK</Button>);
 

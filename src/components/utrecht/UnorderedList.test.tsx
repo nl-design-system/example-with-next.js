@@ -1,49 +1,50 @@
 import { render, screen } from "@testing-library/react";
 import { createRef } from "react";
-import { OrderedList } from "./OrderedList";
-import { OrderedListItem } from "./OrderedListItem";
+import { UnorderedList } from "./UnorderedList";
+import { UnorderedListItem } from "./UnorderedListItem";
 import "@testing-library/jest-dom";
 
-describe("Ordered list", () => {
+describe("Unordered list", () => {
   it("renders a list role element", () => {
-    render(<OrderedList />);
+    render(<UnorderedList />);
 
     const list = screen.getByRole("list");
 
     expect(list).toBeInTheDocument();
   });
 
-  it("renders an HTML ol element", () => {
-    const { container } = render(<OrderedList />);
+  it("renders an HTML ul element", () => {
+    const { container } = render(<UnorderedList />);
 
-    const list = container.querySelector("ol:only-child");
+    const list = container.querySelector("ul:only-child");
 
     expect(list).toBeInTheDocument();
   });
 
   it("renders a design system BEM class name", () => {
-    const { container } = render(<OrderedList />);
+    const { container } = render(<UnorderedList />);
 
     const list = container.querySelector(":only-child");
 
-    expect(list).toHaveClass("utrecht-ordered-list");
+    expect(list).toHaveClass("utrecht-unordered-list");
   });
 
   it("can contain a list item", () => {
     const { container } = render(
-      <OrderedList>
-        <OrderedListItem />
-      </OrderedList>
+      <UnorderedList>
+        <UnorderedListItem />
+      </UnorderedList>
     );
 
     const list = container.querySelector(":only-child");
-    const listItem = list.querySelector(":only-child");
+
+    const listItem = list?.querySelector(":only-child");
 
     expect(listItem).toBe(screen.getByRole("listitem"));
   });
 
   it("displays as block element", () => {
-    const { container } = render(<OrderedList />);
+    const { container } = render(<UnorderedList />);
 
     const list = container.querySelector(":only-child");
 
@@ -52,7 +53,7 @@ describe("Ordered list", () => {
   });
 
   it("can be hidden", () => {
-    const { container } = render(<OrderedList hidden />);
+    const { container } = render(<UnorderedList hidden />);
 
     const list = container.querySelector(":only-child");
 
@@ -60,17 +61,17 @@ describe("Ordered list", () => {
   });
 
   it("can have a custom class name", () => {
-    const { container } = render(<OrderedList className="latin-numerals" />);
+    const { container } = render(<UnorderedList className="squares" />);
 
     const list = container.querySelector(":only-child");
 
-    expect(list).toHaveClass("latin-numerals");
+    expect(list).toHaveClass("squares");
   });
 
   it("supports ForwardRef in React", () => {
-    const ref = createRef();
+    const ref = createRef<HTMLUListElement>();
 
-    const { container } = render(<OrderedList ref={ref} />);
+    const { container } = render(<UnorderedList ref={ref} />);
 
     const list = container.querySelector(":only-child");
 

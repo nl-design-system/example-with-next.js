@@ -29,7 +29,7 @@ describe("Paragraph", () => {
 
     const paragraph = container.querySelector("p");
 
-    const richText = paragraph.querySelector("strong");
+    const richText = paragraph?.querySelector("strong");
 
     expect(richText).toBeInTheDocument();
   });
@@ -67,7 +67,7 @@ describe("Paragraph", () => {
   });
 
   it("supports ForwardRef in React", () => {
-    const ref = createRef();
+    const ref = createRef<HTMLParagraphElement>();
 
     const { container } = render(<Paragraph ref={ref}>OK</Paragraph>);
 

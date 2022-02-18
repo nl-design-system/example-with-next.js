@@ -59,6 +59,19 @@ describe("Fieldset legend", () => {
   });
 
   it("renders rich text content", () => {
+    const { container } = render(
+      <FieldsetLegend>
+        <h2>Shipping address</h2>
+      </FieldsetLegend>
+    );
+
+    const legend = container.querySelector(":only-child");
+    const richText = legend?.querySelector("h2");
+
+    expect(richText).toBeInTheDocument();
+  });
+
+  it("can render a rich text content as a label to a group", () => {
     render(
       <Fieldset>
         <FieldsetLegend>
@@ -72,12 +85,6 @@ describe("Fieldset legend", () => {
     });
 
     expect(fieldset).toBeInTheDocument();
-
-    const legend = fieldset.querySelector(":only-child");
-
-    const richText = legend.querySelector("h2");
-
-    expect(richText).toBeInTheDocument();
   });
 
   it("can be hidden", () => {
@@ -97,7 +104,7 @@ describe("Fieldset legend", () => {
   });
 
   it("supports ForwardRef in React", () => {
-    const ref = createRef();
+    const ref = createRef<HTMLLegendElement>();
 
     const { container } = render(<FieldsetLegend ref={ref}>Shipping address</FieldsetLegend>);
 
