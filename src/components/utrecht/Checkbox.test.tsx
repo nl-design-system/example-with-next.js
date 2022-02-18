@@ -80,7 +80,7 @@ describe("Checkbox", () => {
     it("renders a design system BEM modifier class name", () => {
       const { container } = render(<Checkbox invalid />);
 
-      const checkbox = container.querySelector("input");
+      const checkbox = container.querySelector(":only-child");
 
       expect(checkbox).toHaveClass("utrecht-checkbox--invalid");
     });
@@ -123,7 +123,7 @@ describe("Checkbox", () => {
     it("renders a design system BEM modifier class name", () => {
       const { container } = render(<Checkbox disabled />);
 
-      const checkbox = container.querySelector("input");
+      const checkbox = container.querySelector(":only-child");
 
       expect(checkbox).toHaveClass("utrecht-checkbox--disabled");
     });
