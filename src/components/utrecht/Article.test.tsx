@@ -16,23 +16,27 @@ describe("Article", () => {
   it("renders an article HTML element", () => {
     const { container } = render(<Article />);
 
-    const article = container.querySelector("article");
+    const article = container.querySelector("article:only-child");
 
     expect(article).toBeInTheDocument();
   });
 
   it("renders rich text content", () => {
-    render(
+    const { container } = render(
       <Article>
         <strong>Breaking</strong> news
       </Article>
     );
 
-    const article = screen.getByRole("article");
+    const article = container.querySelector(":only-child");
 
-    const richText = article.querySelector("strong");
+    expect(article).toBeInTheDocument();
 
-    expect(richText).toBeInTheDocument();
+    if (article) {
+      const richText = article.querySelector("strong");
+
+      expect(richText).toBeInTheDocument();
+    }
   });
 
   it("can be hidden", () => {
@@ -44,9 +48,9 @@ describe("Article", () => {
   });
 
   it("can have a custom class name", () => {
-    render(<Article className="breaking-news" />);
+    const { container } = render(<Article className="breaking-news" />);
 
-    const article = screen.getByRole("article");
+    const article = container.querySelector(":only-child");
 
     expect(article).toHaveClass("breaking-news");
   });
@@ -54,9 +58,9 @@ describe("Article", () => {
   it("supports ForwardRef in React", () => {
     const ref = createRef<HTMLElement>();
 
-    render(<Article ref={ref}>Breaking news</Article>);
+    const { container } = render(<Article ref={ref}>Breaking news</Article>);
 
-    const article = screen.getByRole("article");
+    const article = container.querySelector(":only-child");
 
     expect(ref.current).toBe(article);
   });

@@ -16,15 +16,15 @@ describe("Separator", () => {
   it("renders an hr HTML element", () => {
     const { container } = render(<Separator />);
 
-    const separator = container.querySelector("hr");
+    const separator = container.querySelector("hr:only-child");
 
     expect(separator).toBeInTheDocument();
   });
 
   it("renders no content inside the separator", () => {
-    render(<Separator>Hello world</Separator>);
+    const { container } = render(<Separator>Hello world</Separator>);
 
-    const separator = screen.getByRole("separator");
+    const separator = container.querySelector(":only-child");
 
     expect(separator).toBeEmptyDOMElement();
   });
@@ -32,15 +32,15 @@ describe("Separator", () => {
   it("can be hidden", () => {
     const { container } = render(<Separator hidden />);
 
-    const separator = container.querySelector("hr");
+    const separator = container.querySelector(":only-child");
 
     expect(separator).not.toBeVisible();
   });
 
   it("can have a custom class name", () => {
-    render(<Separator className="decorative" />);
+    const { container } = render(<Separator className="decorative" />);
 
-    const separator = screen.getByRole("separator");
+    const separator = container.querySelector(":only-child");
 
     expect(separator).toHaveClass("decorative");
   });
@@ -48,9 +48,9 @@ describe("Separator", () => {
   it("supports ForwardRef in React", () => {
     const ref = createRef<HTMLHRElement>();
 
-    render(<Separator ref={ref} />);
+    const { container } = render(<Separator ref={ref} />);
 
-    const separator = screen.getByRole("separator");
+    const separator = container.querySelector(":only-child");
 
     expect(ref.current).toBe(separator);
   });

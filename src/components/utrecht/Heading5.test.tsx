@@ -29,7 +29,7 @@ describe("Heading 5", () => {
   it("renders an HTML h5 element", () => {
     const { container } = render(<Heading5 />);
 
-    const heading = container.querySelector("h5");
+    const heading = container.querySelector("h5:only-child");
 
     expect(heading).toBeInTheDocument();
   });
@@ -53,15 +53,15 @@ describe("Heading 5", () => {
   it("can be hidden", () => {
     const { container } = render(<Heading5 hidden />);
 
-    const heading = container.querySelector("h5");
+    const heading = container.querySelector(":only-child");
 
     expect(heading).not.toBeVisible();
   });
 
   it("can have a custom class name", () => {
-    render(<Heading5 className="large" />);
+    const { container } = render(<Heading5 className="large" />);
 
-    const heading = screen.getByRole("heading");
+    const heading = container.querySelector(":only-child");
 
     expect(heading).toHaveClass("large");
   });
@@ -69,9 +69,9 @@ describe("Heading 5", () => {
   it("supports ForwardRef in React", () => {
     const ref = createRef<HTMLHeadingElement>();
 
-    render(<Heading5 ref={ref} />);
+    const { container } = render(<Heading5 ref={ref} />);
 
-    const heading = screen.getByRole("heading");
+    const heading = container.querySelector(":only-child");
 
     expect(ref.current).toBe(heading);
   });

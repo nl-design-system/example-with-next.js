@@ -18,39 +18,37 @@ describe("Button", () => {
   it("renders an HTML button element", () => {
     const { container } = render(<Button />);
 
-    const button = container.querySelector("button");
+    const button = container.querySelector("button:only-child");
 
     expect(button).toBeInTheDocument();
   });
 
   it("renders labels that contain HTML rich text content", () => {
-    render(
+    const { container } = render(
       <Button>
         Order <strong>now</strong>
       </Button>
     );
 
-    const button = screen.getByRole("button", {
-      name: "Order now",
-    });
+    const button = container.querySelector(":only-child");
 
-    const richText = button.querySelector("strong");
+    const richText = button?.querySelector("strong");
 
     expect(richText).toBeInTheDocument();
   });
 
   it("is not busy by default", () => {
-    render(<Button />);
+    const { container } = render(<Button />);
 
-    const button = screen.getByRole("button");
+    const button = container.querySelector(":only-child");
 
     expect(button).not.toHaveAttribute("aria-busy");
   });
 
   it("does not specify `aria-busy` when not busy", () => {
-    render(<Button busy={false} />);
+    const { container } = render(<Button busy={false} />);
 
-    const button = screen.getByRole("button");
+    const button = container.querySelector(":only-child");
 
     expect(button).not.toHaveAttribute("aria-busy");
   });
@@ -58,15 +56,15 @@ describe("Button", () => {
   it("is not a submit button by default", () => {
     const { container } = render(<Button />);
 
-    const button = container.querySelector("button");
+    const button = container.querySelector(":only-child");
 
     expect(button).not.toHaveAttribute("type", "submit");
   });
 
   it("is not disabled by default", () => {
-    render(<Button />);
+    const { container } = render(<Button />);
 
-    const button = screen.getByRole("button");
+    const button = container.querySelector(":only-child");
 
     expect(button).not.toBeDisabled();
 
@@ -76,17 +74,17 @@ describe("Button", () => {
   });
 
   it("can have a busy state", () => {
-    render(<Button busy={true} />);
+    const { container } = render(<Button busy={true} />);
 
-    const button = screen.getByRole("button");
+    const button = container.querySelector(":only-child");
 
     expect(button).toHaveAttribute("aria-busy", "true");
   });
 
   it("can have a disabled state", () => {
-    render(<Button disabled={true} />);
+    const { container } = render(<Button disabled={true} />);
 
-    const button = screen.getByRole("button");
+    const button = container.querySelector(":only-child");
 
     expect(button).toBeDisabled();
   });
@@ -94,7 +92,7 @@ describe("Button", () => {
   it("can be a submit button", () => {
     const { container } = render(<Button type="submit" />);
 
-    const button = container.querySelector("button");
+    const button = container.querySelector(":only-child");
 
     expect(button).toHaveAttribute("type", "submit");
   });
@@ -102,7 +100,7 @@ describe("Button", () => {
   it("can be a reset button", () => {
     const { container } = render(<Button type="reset" />);
 
-    const button = container.querySelector("button");
+    const button = container.querySelector(":only-child");
 
     expect(button).toHaveAttribute("type", "reset");
   });
@@ -110,7 +108,7 @@ describe("Button", () => {
   it("can be hidden", () => {
     const { container } = render(<Button hidden />);
 
-    const button = container.querySelector("button");
+    const button = container.querySelector(":only-child");
 
     expect(button).not.toBeVisible();
   });
@@ -262,9 +260,9 @@ describe("Button", () => {
   });
 
   it("can have a custom class name", () => {
-    render(<Button className="large" />);
+    const { container } = render(<Button className="large" />);
 
-    const button = screen.getByRole("button");
+    const button = container.querySelector(":only-child");
 
     expect(button).toHaveClass("large");
   });
@@ -272,11 +270,13 @@ describe("Button", () => {
   it("can trigger a click event", () => {
     const handleClick = jest.fn();
 
-    render(<Button onClick={handleClick} />);
+    const { container } = render(<Button onClick={handleClick} />);
 
-    const button = screen.getByRole("button");
+    const button = container.querySelector(":only-child");
 
-    button.click();
+    expect(button).toBeInTheDocument();
+
+    (button as HTMLButtonElement)?.click();
 
     expect(handleClick).toHaveBeenCalled();
   });
@@ -284,9 +284,9 @@ describe("Button", () => {
   it("supports ForwardRef in React", () => {
     const ref = createRef<HTMLButtonElement>();
 
-    render(<Button ref={ref} />);
+    const { container } = render(<Button ref={ref} />);
 
-    const button = screen.getByRole("button");
+    const button = container.querySelector(":only-child");
 
     expect(ref.current).toBe(button);
   });
