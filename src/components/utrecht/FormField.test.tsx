@@ -37,9 +37,9 @@ describe("Form field", () => {
       </FormField>
     );
 
-    const dialog = screen.getByRole("textbox");
+    const textbox = screen.getByRole("textbox");
 
-    expect(dialog).toBeInTheDocument();
+    expect(textbox).toBeInTheDocument();
   });
 
   it("can be hidden", () => {
