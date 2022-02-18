@@ -21,6 +21,7 @@
     "lint:package-json": "npmPkgJsonLint '**/package.json'",
     "lint:package-lock": "npm ls",
     "lint:prettier": "prettier --check .",
+    "lint:ts": "tsc --noEmit --project tsconfig.json",
     "prettier": "prettier --write .",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --verbose",
     "update-patch": "npm-check-updates --configFileName .ncurc.patch.js --deep --dep dev,prod --target patch --upgrade && npm install",
