@@ -3,7 +3,6 @@ import { ForwardedRef, forwardRef, InputHTMLAttributes } from "react";
 
 interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "readOnly"> {
   invalid?: boolean;
-  id: string;
 }
 
 export const Checkbox = forwardRef(
