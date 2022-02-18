@@ -38,7 +38,7 @@ describe("Page", () => {
 
     const page = container.querySelector(":only-child");
 
-    const richText = page.querySelector("h1");
+    const richText = page?.querySelector("h1");
 
     expect(richText).toBeInTheDocument();
   });
@@ -60,7 +60,7 @@ describe("Page", () => {
   });
 
   it("supports ForwardRef in React", () => {
-    const ref = createRef();
+    const ref = createRef<HTMLDivElement>();
 
     const { container } = render(<Page ref={ref} />);
 

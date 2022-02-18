@@ -22,7 +22,7 @@ describe("URL value", () => {
 
     const urlValue = container.querySelector(":only-child");
 
-    const richText = urlValue.querySelector("strong");
+    const richText = urlValue?.querySelector("strong");
 
     expect(richText).toBeInTheDocument();
   });
@@ -44,7 +44,7 @@ describe("URL value", () => {
   });
 
   it("supports ForwardRef in React", () => {
-    const ref = createRef();
+    const ref = createRef<HTMLElement>();
 
     const { container } = render(<URLValue ref={ref}>{"https://example.com/"}</URLValue>);
 

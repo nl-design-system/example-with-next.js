@@ -30,13 +30,9 @@ describe("Article", () => {
 
     const article = container.querySelector(":only-child");
 
-    expect(article).toBeInTheDocument();
+    const richText = article?.querySelector("strong");
 
-    if (article) {
-      const richText = article.querySelector("strong");
-
-      expect(richText).toBeInTheDocument();
-    }
+    expect(richText).toBeInTheDocument();
   });
 
   it("can be hidden", () => {
