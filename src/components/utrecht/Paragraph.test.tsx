@@ -7,7 +7,7 @@ describe("Paragraph", () => {
   it("renders an HTML p element", () => {
     const { container } = render(<Paragraph />);
 
-    const paragraph = container.querySelector("p");
+    const paragraph = container.querySelector("p:only-child");
 
     expect(paragraph).toBeInTheDocument();
   });
@@ -15,7 +15,7 @@ describe("Paragraph", () => {
   it("renders a block element", () => {
     const { container } = render(<Paragraph />);
 
-    const paragraph = container.querySelector("p");
+    const paragraph = container.querySelector(":only-child");
 
     expect(paragraph).toHaveStyle({ display: "block" });
   });
@@ -27,7 +27,7 @@ describe("Paragraph", () => {
       </Paragraph>
     );
 
-    const paragraph = container.querySelector("p");
+    const paragraph = container.querySelector(":only-child");
 
     const richText = paragraph?.querySelector("strong");
 
@@ -37,7 +37,7 @@ describe("Paragraph", () => {
   it("is not a lead paragraph variant by default", () => {
     const { container } = render(<Paragraph />);
 
-    const paragraph = container.querySelector("p");
+    const paragraph = container.querySelector(":only-child");
 
     expect(paragraph).not.toHaveClass("utrecht-paragraph--lead");
   });
@@ -45,7 +45,7 @@ describe("Paragraph", () => {
   it("has a lead paragraph variant", () => {
     const { container } = render(<Paragraph lead />);
 
-    const leadParagraph = container.querySelector("p");
+    const leadParagraph = container.querySelector(":only-child");
 
     expect(leadParagraph).toHaveClass("utrecht-paragraph--lead");
   });
@@ -53,7 +53,7 @@ describe("Paragraph", () => {
   it("can be hidden", () => {
     const { container } = render(<Paragraph hidden />);
 
-    const paragraph = container.querySelector("p");
+    const paragraph = container.querySelector(":only-child");
 
     expect(paragraph).not.toBeVisible();
   });
@@ -61,7 +61,7 @@ describe("Paragraph", () => {
   it("can have a custom class name", () => {
     const { container } = render(<Paragraph className="intro" />);
 
-    const paragraph = container.querySelector("p");
+    const paragraph = container.querySelector(":only-child");
 
     expect(paragraph).toHaveClass("intro");
   });
@@ -71,7 +71,7 @@ describe("Paragraph", () => {
 
     const { container } = render(<Paragraph ref={ref} />);
 
-    const paragraph = container.querySelector("p");
+    const paragraph = container.querySelector(":only-child");
 
     expect(ref.current).toBe(paragraph);
   });

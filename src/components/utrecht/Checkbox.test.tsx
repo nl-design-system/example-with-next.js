@@ -167,7 +167,7 @@ describe("Checkbox", () => {
     it("renders a design system BEM modifier class name", () => {
       const { container } = render(<Checkbox required />);
 
-      const checkbox = container.querySelector("input");
+      const checkbox = container.querySelector(":only-child");
 
       expect(checkbox).toHaveClass("utrecht-checkbox--required");
     });
@@ -210,7 +210,7 @@ describe("Checkbox", () => {
   it("can be hidden", () => {
     const { container } = render(<Checkbox hidden />);
 
-    const checkbox = container.querySelector("input");
+    const checkbox = container.querySelector(":only-child");
 
     expect(checkbox).not.toBeVisible();
   });
