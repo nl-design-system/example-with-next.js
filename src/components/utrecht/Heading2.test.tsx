@@ -1,11 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import { createRef } from "react";
-import { Heading1 } from "./Heading1";
+import { Heading2 } from "./Heading2";
 import "@testing-library/jest-dom";
 
-describe("Heading 1", () => {
+describe("Heading 2", () => {
   it("renders a heading role element", () => {
-    render(<Heading1>Breaking news</Heading1>);
+    render(<Heading2>Breaking news</Heading2>);
 
     const heading = screen.getByRole("heading", {
       name: "Breaking news",
@@ -15,30 +15,30 @@ describe("Heading 1", () => {
     expect(heading).toBeVisible();
   });
 
-  it("renders a heading at heading level 1", () => {
-    render(<Heading1>Breaking news</Heading1>);
+  it("renders a heading at heading level 2", () => {
+    render(<Heading2>Breaking news</Heading2>);
 
     const heading = screen.getByRole("heading", {
       name: "Breaking news",
-      level: 1,
+      level: 2,
     });
 
     expect(heading).toBeInTheDocument();
   });
 
-  it("renders an HTML h1 element", () => {
-    const { container } = render(<Heading1>Breaking news</Heading1>);
+  it("renders an HTML h2 element", () => {
+    const { container } = render(<Heading2>Breaking news</Heading2>);
 
-    const heading = container.querySelector("h1");
+    const heading = container.querySelector("h2");
 
     expect(heading).toBeInTheDocument();
   });
 
   it("renders rich text content", () => {
     render(
-      <Heading1>
+      <Heading2>
         <strong>Breaking</strong> news
-      </Heading1>
+      </Heading2>
     );
 
     const heading = screen.getByRole("heading", {
@@ -51,15 +51,15 @@ describe("Heading 1", () => {
   });
 
   it("can be hidden", () => {
-    const { container } = render(<Heading1 hidden>Secret</Heading1>);
+    const { container } = render(<Heading2 hidden>Secret</Heading2>);
 
-    const heading = container.querySelector("h1");
+    const heading = container.querySelector("h2");
 
     expect(heading).not.toBeVisible();
   });
 
   it("can have a custom class name", () => {
-    render(<Heading1 className="large">Order now</Heading1>);
+    render(<Heading2 className="large">Order now</Heading2>);
 
     const heading = screen.getByRole("heading");
 
@@ -67,9 +67,9 @@ describe("Heading 1", () => {
   });
 
   it("supports ForwardRef in React", () => {
-    const ref = createRef();
+    const ref = createRef<HTMLHeadingElement>();
 
-    render(<Heading1 ref={ref}>OK</Heading1>);
+    render(<Heading2 ref={ref}>OK</Heading2>);
 
     const heading = screen.getByRole("heading");
 

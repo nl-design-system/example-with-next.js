@@ -52,7 +52,7 @@ describe("Article", () => {
   });
 
   it("supports ForwardRef in React", () => {
-    const ref = createRef();
+    const ref = createRef<HTMLElement>();
 
     render(<Article ref={ref}>Breaking news</Article>);
 

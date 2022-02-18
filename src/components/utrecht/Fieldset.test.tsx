@@ -55,7 +55,7 @@ describe("Fieldset", () => {
 
     const fieldset = container.querySelector(":only-child");
 
-    const richText = fieldset.querySelector("p");
+    const richText = fieldset?.querySelector("p");
 
     expect(richText).toBeInTheDocument();
   });
@@ -77,7 +77,7 @@ describe("Fieldset", () => {
   });
 
   it("supports ForwardRef in React", () => {
-    const ref = createRef();
+    const ref = createRef<HTMLFieldSetElement>();
 
     const { container } = render(<Fieldset ref={ref} />);
 

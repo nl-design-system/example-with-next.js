@@ -46,7 +46,7 @@ describe("Separator", () => {
   });
 
   it("supports ForwardRef in React", () => {
-    const ref = createRef();
+    const ref = createRef<HTMLHRElement>();
 
     render(<Separator ref={ref} />);
 

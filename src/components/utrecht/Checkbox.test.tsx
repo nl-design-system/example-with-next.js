@@ -229,9 +229,9 @@ describe("Checkbox", () => {
 
       const { container } = render(<Checkbox onChange={handleChange} />);
 
-      const checkbox = container.querySelector(":only-child");
+      const checkbox = container.querySelector<HTMLElement>(":only-child");
 
-      checkbox.click();
+      checkbox?.click();
 
       expect(handleChange).toHaveBeenCalled();
     });
@@ -241,9 +241,9 @@ describe("Checkbox", () => {
 
       const { container } = render(<Checkbox disabled onChange={handleChange} />);
 
-      const checkbox = container.querySelector(":only-child");
+      const checkbox = container.querySelector<HTMLElement>(":only-child");
 
-      checkbox.click();
+      checkbox?.click();
 
       expect(handleChange).not.toHaveBeenCalled();
     });
@@ -255,9 +255,9 @@ describe("Checkbox", () => {
 
       const { container } = render(<Checkbox onInput={handleInput} />);
 
-      const checkbox = container.querySelector(":only-child");
+      const checkbox = container.querySelector<HTMLElement>(":only-child");
 
-      checkbox.click();
+      checkbox?.click();
 
       expect(handleInput).toHaveBeenCalled();
     });
@@ -267,16 +267,16 @@ describe("Checkbox", () => {
 
       const { container } = render(<Checkbox disabled onInput={handleInput} />);
 
-      const checkbox = container.querySelector(":only-child");
+      const checkbox = container.querySelector<HTMLElement>(":only-child");
 
-      checkbox.click();
+      checkbox?.click();
 
       expect(handleInput).not.toHaveBeenCalled();
     });
   });
 
   it("supports ForwardRef in React", () => {
-    const ref = createRef();
+    const ref = createRef<HTMLInputElement>();
 
     const { container } = render(<Checkbox ref={ref} />);
 

@@ -38,7 +38,7 @@ describe("Backdrop", () => {
 
     const backdrop = container.querySelector(":only-child");
 
-    const dialog = backdrop.querySelector("dialog");
+    const dialog = backdrop?.querySelector("dialog");
 
     expect(dialog).toBeInTheDocument();
   });
@@ -60,7 +60,7 @@ describe("Backdrop", () => {
   });
 
   it("supports ForwardRef in React", () => {
-    const ref = createRef();
+    const ref = createRef<HTMLDivElement>();
 
     const { container } = render(<Backdrop ref={ref}></Backdrop>);
 
