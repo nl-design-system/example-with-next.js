@@ -21,6 +21,14 @@ describe("Article", () => {
     expect(article).toBeInTheDocument();
   });
 
+  it("renders a design system BEM class name", () => {
+    const { container } = render(<Article />);
+
+    const article = container.querySelector(":only-child");
+
+    expect(article).toHaveClass("utrecht-article");
+  });
+
   it("renders rich text content", () => {
     const { container } = render(
       <Article>

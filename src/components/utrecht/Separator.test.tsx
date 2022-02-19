@@ -21,6 +21,14 @@ describe("Separator", () => {
     expect(separator).toBeInTheDocument();
   });
 
+  it("renders a design system BEM class name", () => {
+    const { container } = render(<Separator />);
+
+    const separator = container.querySelector(":only-child");
+
+    expect(separator).toHaveClass("utrecht-separator");
+  });
+
   it("renders no content inside the separator", () => {
     const { container } = render(<Separator>Hello world</Separator>);
 

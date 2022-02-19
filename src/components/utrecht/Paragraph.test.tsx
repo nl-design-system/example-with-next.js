@@ -20,6 +20,14 @@ describe("Paragraph", () => {
     expect(paragraph).toHaveStyle({ display: "block" });
   });
 
+  it("renders a design system BEM class name", () => {
+    const { container } = render(<Paragraph />);
+
+    const paragraph = container.querySelector(":only-child");
+
+    expect(paragraph).toHaveClass("utrecht-paragraph");
+  });
+
   it("renders rich text content", () => {
     const { container } = render(
       <Paragraph>
