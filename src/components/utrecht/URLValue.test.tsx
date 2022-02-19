@@ -12,6 +12,14 @@ describe("URL value", () => {
     expect(urlValue).toBeInTheDocument();
   });
 
+  it("renders a design system BEM class name", () => {
+    const { container } = render(<URLValue />);
+
+    const urlValue = container.querySelector(":only-child");
+
+    expect(urlValue).toHaveClass("utrecht-url");
+  });
+
   it("renders rich text content", () => {
     const { container } = render(
       <URLValue>

@@ -37,6 +37,14 @@ describe("Button", () => {
     expect(richText).toBeInTheDocument();
   });
 
+  it("renders a design system BEM class name", () => {
+    const { container } = render(<Button />);
+
+    const button = container.querySelector(":only-child");
+
+    expect(button).toHaveClass("utrecht-button");
+  });
+
   it("is not busy by default", () => {
     const { container } = render(<Button />);
 

@@ -34,6 +34,14 @@ describe("Heading 6", () => {
     expect(heading).toBeInTheDocument();
   });
 
+  it("renders a design system BEM class name", () => {
+    const { container } = render(<Heading6 />);
+
+    const heading = container.querySelector(":only-child");
+
+    expect(heading).toHaveClass("utrecht-heading-6");
+  });
+
   it("renders rich text content", () => {
     render(
       <Heading6>
