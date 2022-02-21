@@ -3,7 +3,7 @@ import { createRef } from "react";
 import { Link } from "./Link";
 import "@testing-library/jest-dom";
 
-describe("URL value", () => {
+describe("Link", () => {
   it("renders an link role element", () => {
     render(<Link href="/">Home</Link>);
 
