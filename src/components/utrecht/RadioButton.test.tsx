@@ -41,7 +41,7 @@ describe("RadioButton", () => {
     it("renders a design system BEM modifier class name", () => {
       const { container } = render(<RadioButton checked />);
 
-      const radioButton = container.querySelector("input");
+      const radioButton = container.querySelector(":only-child");
 
       expect(radioButton).toHaveClass("utrecht-radio-button--checked");
     });
@@ -116,7 +116,7 @@ describe("RadioButton", () => {
     it("renders a design system BEM modifier class name", () => {
       const { container } = render(<RadioButton invalid />);
 
-      const radioButton = container.querySelector("input");
+      const radioButton = container.querySelector(":only-child");
 
       expect(radioButton).toHaveClass("utrecht-radio-button--invalid");
     });
@@ -159,7 +159,7 @@ describe("RadioButton", () => {
     it("renders a design system BEM modifier class name", () => {
       const { container } = render(<RadioButton disabled />);
 
-      const radioButton = container.querySelector("input");
+      const radioButton = container.querySelector(":only-child");
 
       expect(radioButton).toHaveClass("utrecht-radio-button--disabled");
     });
