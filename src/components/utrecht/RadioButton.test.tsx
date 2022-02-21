@@ -85,6 +85,14 @@ describe("RadioButton", () => {
   });
 
   describe("invalid variant", () => {
+    it("defers rendering of aria-invalid to the radiogroup", () => {
+      const { container } = render(<RadioButton invalid />);
+
+      const radioButton = container.querySelector(":only-child");
+
+      expect(radioButton).not.toHaveAttribute("aria-invalid");
+    });
+
     it("can have an invalid state", () => {
       const { container } = render(<RadioButton invalid />);
 
@@ -101,14 +109,6 @@ describe("RadioButton", () => {
       const radioButton = container.querySelector(":only-child");
 
       expect(radioButton).not.toBeInvalid();
-    });
-
-    it("defers rendering of aria-invalid to the radiogroup", () => {
-      const { container } = render(<RadioButton invalid />);
-
-      const radioButton = container.querySelector(":only-child");
-
-      expect(radioButton).not.toHaveAttribute("aria-invalid");
     });
 
     it("renders a design system BEM modifier class name", () => {
