@@ -1,24 +1,30 @@
 import type { AppProps } from "next/app";
 import { useEffect } from "react";
+import { appWithTranslation } from "next-i18next";
+import { ThemeProvider } from "../src/context/ThemeContext";
+
+import "@utrecht/design-tokens/dist/theme/index.css";
+import "@utrecht/component-library-css/dist/bem.css";
+import "@utrecht/component-library-css/dist/html.css";
+import "@utrecht/design-tokens/dist/theme/index.css";
+import "@gemeente-denhaag/design-tokens-components/dist/theme/index.css";
+import "@nl-design-system-unstable/amsterdam-design-tokens/dist/index.css";
+
 import "../styles/globals.css";
-import "@utrecht/design-tokens/dist/index.css";
+import "../styles/utrecht-theme.css";
+import "../styles/denhaag-theme.css";
+import "../styles/amsterdam-theme.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     import("@utrecht/web-component-library-stencil/dist/utrecht/utrecht.esm.js");
   }, []);
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.async = true;
-    script.src = "https://unpkg.com/@nl-design-system-unstable/theme-switcher";
-    document.body.appendChild(script);
-  }, []);
 
-  useEffect(() => {
-    document.documentElement.classList.add("utrecht-theme");
-  }, []);
-
-  return <Component {...pageProps} />;
+  return (
+    <ThemeProvider>
+      <Component {...pageProps} />
+    </ThemeProvider>
+  );
 }
 
-export default MyApp;
+export default appWithTranslation(MyApp);

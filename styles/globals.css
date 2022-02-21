@@ -4,3 +4,182 @@ body {
   margin-inline-end: 0;
   margin-inline-start: 0;
 }
+
+/* HACK */
+.utrecht-form-label {
+  white-space: nowrap /* HACK to force min-width of formfields in 2 languages */
+}
+
+.utrecht-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* TODO */
+.utrecht-form-label {
+  display: block;
+}
+
+.utrecht-form-label--checkbox,
+.utrecht-form-label--radio {
+  display: inline;
+  margin-inline-start: var(--todo-utrecht-form-label-margin-inline-start);
+  margin-inline-end: var(--todo-utrecht-form-label-margin-inline-end);
+}
+
+.todo-radio-group {
+  --utrecht-form-fieldset-legend-color: var(--utrecht-form-label-color);
+  --utrecht-form-fieldset-legend-font-family: var(--utrecht-form-label-font-family);
+  --utrecht-form-fieldset-legend-font-size: var(--utrecht-form-label-font-size);
+  --utrecht-form-fieldset-legend-font-weight: var(--utrecht-form-label-font-weight);
+  --utrecht-form-fieldset-legend-line-height: var(--utrecht-form-label-line-height);
+  --utrecht-form-fieldset-legend-text-transform: var(--utrecht-form-label-text-transform);
+  --utrecht-form-fieldset-legend-margin-block-end: var(--utrecht-form-label-margin-block-end);
+  --utrecht-form-fieldset-legend-margin-block-start: var(--utrecht-form-label-margin-block-start);
+}
+
+.todo-radio-group--inline {
+  --utrecht-form-field-margin-block-end: 0;
+  --utrecht-form-field-margin-block-start: 0;
+  display: inline-flex;
+  gap: var(--todo-radio-group-gap);
+}
+
+.todo-form--distanced {
+  margin-block-start: var(--todo-form-margin-block-start, 0);
+  margin-block-end: var(--todo-form-margin-block-end, 0);
+  margin-inline-start: var(--todo-form-margin-inline-start, 0);
+  margin-inline-end: var(--todo-form-margin-inline-end, 0);
+}
+
+.todo-button-group {
+  display: flex;
+  justify-content: flex-start;
+  gap: var(--todo-button-group-gap);
+  padding-block-start: var(--todo-button-group-padding-block-start, 0);
+  padding-block-end: var(--todo-button-group-padding-block-end, 0);
+  padding-inline-start: var(--todo-button-group-padding-inline-start, 0);
+  padding-inline-end: var(--todo-button-group-padding-inline-end, 0);
+}
+
+.todo-button-group--reverse {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.utrecht-form-label {
+  margin-block-end: var(--todo-form-label-margin-block-end, 0);
+}
+
+.utrecht-form-label--disabled {
+  /* Is assigned to font-weight in utrecht/../bem.scss */
+  color: var(--utrecht-form-label-disabled-color, var(--utrecht-form-label-color));
+}
+
+.utrecht-form-field--inline {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--todo-form-field-inline-gap);
+}
+
+/* Don't set padding and inline-size on page directly, but use those tokens in page-header page-footer and page-content instead */
+.utrecht-page {
+  max-inline-size: 100%;
+  padding-inline-end: 0;
+  padding-inline-start: 0;
+}
+
+.utrecht-page-content {
+  margin-inline-end: auto;
+  margin-inline-start: auto;
+  max-inline-size: calc(var(--utrecht-page-content-max-inline-size, var(--utrecht-page-max-inline-size)) -
+      var(--utrecht-page-content-margin-inline-start, var(--utrecht-page-margin-inline-start, 0px)) -
+      var(--utrecht-page-content-margin-inline-end, var(--utrecht-page-margin-inline-end, 0px))
+  );
+  padding-inline-end: var(--utrecht-page-content-margin-inline-end, var(--utrecht-page-margin-inline-end));
+  padding-inline-start: var(--utrecht-page-content-margin-inline-start, var(--utrecht-page-margin-inline-start));
+}
+
+.utrecht-page-header {
+  margin-inline-end: auto;
+  margin-inline-start: auto;
+  max-inline-size: calc(
+    var(--utrecht-page-header-max-inline-size, var(--utrecht-page-max-inline-size)) -
+      var(--utrecht-page-header-margin-inline-start, var(--utrecht-page-margin-inline-start, 0px)) -
+      var(--utrecht-page-header-margin-inline-end, var(--utrecht-page-margin-inline-end, 0px))
+  );
+  padding-inline-end: var(--utrecht-page-header-padding-inline-end, var(--utrecht-page-padding-inline-end));
+  padding-inline-start: var(--utrecht-page-header-padding-inline-start, var(--utrecht-page-padding-inline-start));
+}
+
+.utrecht-page-footer {
+  margin-inline-end: auto;
+  margin-inline-start: auto;
+  max-inline-size: calc(
+    var(--utrecht-page-footer-max-inline-size, var(--utrecht-page-max-inline-size)) -
+      var(--utrecht-page-footer-margin-inline-start, var(--utrecht-page-margin-inline-start, 0px)) -
+      var(--utrecht-page-footer-margin-inline-end, var(--utrecht-page-margin-inline-end, 0px))
+  );
+  padding-inline-end: var(--utrecht-page-footer-margin-inline-end, var(--utrecht-page-margin-inline-end));
+  padding-inline-start: var(--utrecht-page-footer-margin-inline-start, var(--utrecht-page-margin-inline-start));
+}
+
+.utrecht-button {
+  background-color: var(--utrecht-button-background-color);
+  border-width: var(--utrecht-button-border-width, 0);
+  color: var(--utrecht-button-color);
+  border-color: var(--utrecht-button-border-color);
+}
+
+.utrecht-button--primary-action {
+  background-color: var(--utrecht-button-primary-action-background-color, var(--utrecht-button-background-color));
+  border-width: var(--utrecht-button-primary-action-border-width, var(--utrecht-button-border-width, 0));
+  color: var(--utrecht-button-primary-action-color, var(--utrecht-button-color));
+  border-color: var(--utrecht-button-primary-action-border-color, var(--utrecht-button-border-color));
+}
+
+.todo-form-stepper {
+  font-size: var(--todo-form-stepper-font-size);
+  color: var(--todo-form-stepper-color);
+  font-weight: var(--todo-form-stepper-font-weight);
+  padding-inline-end: var(--todo-form-stepper-padding-inline-end);
+  padding-inline-start: var(--todo-form-stepper-padding-inline-start);
+  padding-block-end: var(--todo-form-stepper-padding-block-end);
+  padding-block-start: var(--todo-form-stepper-padding-block-start);
+  border-width: var(--todo-form-stepper-border-width, 0);
+  border-color: var(--todo-form-stepper-border-color);
+  border-style: solid;
+  border-bottom-width: var(--todo-form-stepper-border-bottom-width, var(--todo-form-stepper-border-width), 0);
+}
+
+.todo-form-stepper--distanced {
+  margin-block-end: var(--todo-form-stepper-margin-block-end, 0);
+  margin-block-start: var(--todo-form-stepper-margin-block-start, 0);
+}
+
+.todo-form-field-group--inline {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min-content;
+  gap: var(--todo-form-field-group-gap);
+}
+
+.todo-form-summary-item {
+  display: grid;
+  grid-template-areas:
+  'form-summary-item-title form-summary-item-edit-link'
+  'form-summary-item-data  form-summary-item-data';
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr auto;
+}
+
+.todo-form-summary-item__title {
+  grid-area: form-summary-item-title;
+}
+.todo-form-summary-item__data {
+  grid-area: form-summary-item-data;
+}
+.todo-form-summary-item__edit-link {
+  grid-area: form-summary-item-edit-link;
+}
