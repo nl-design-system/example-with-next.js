@@ -38,12 +38,12 @@ describe("Textarea", () => {
   });
 
   describe("disabled variant", () => {
-    it("renders a design system BEM modifier class name", () => {
+    it("can have a disabled state", () => {
       const { container } = render(<Textarea disabled />);
 
       const textarea = container.querySelector(":only-child");
 
-      expect(textarea).toHaveClass("utrecht-textarea--disabled");
+      expect(textarea).toBeDisabled();
     });
 
     it("is not disabled by default", () => {
@@ -52,6 +52,14 @@ describe("Textarea", () => {
       const textarea = container.querySelector(":only-child");
 
       expect(textarea).not.toBeDisabled();
+    });
+
+    it("renders a design system BEM modifier class name", () => {
+      const { container } = render(<Textarea disabled />);
+
+      const textarea = container.querySelector(":only-child");
+
+      expect(textarea).toHaveClass("utrecht-textarea--disabled");
     });
 
     it("omits non-essential disabled attributes when not disabled", () => {
@@ -64,14 +72,6 @@ describe("Textarea", () => {
       expect(textarea).not.toHaveAttribute("disabled");
     });
 
-    it("can have a disabled state", () => {
-      const { container } = render(<Textarea disabled />);
-
-      const textarea = container.querySelector(":only-child");
-
-      expect(textarea).toBeDisabled();
-    });
-
     it("can have a disabled state in CSS", () => {
       const { container } = render(<Textarea disabled />);
 
@@ -82,12 +82,12 @@ describe("Textarea", () => {
   });
 
   describe("invalid variant", () => {
-    it("renders a design system BEM modifier class name", () => {
+    it("can have an invalid state", () => {
       const { container } = render(<Textarea invalid />);
 
       const textarea = container.querySelector(":only-child");
 
-      expect(textarea).toHaveClass("utrecht-textarea--invalid");
+      expect(textarea).toBeInvalid();
     });
 
     it("is not invalid by default", () => {
@@ -98,20 +98,20 @@ describe("Textarea", () => {
       expect(textarea).not.toBeInvalid();
     });
 
+    it("renders a design system BEM modifier class name", () => {
+      const { container } = render(<Textarea invalid />);
+
+      const textarea = container.querySelector(":only-child");
+
+      expect(textarea).toHaveClass("utrecht-textarea--invalid");
+    });
+
     it("omits non-essential invalid attributes when not invalid", () => {
       const { container } = render(<Textarea invalid={false} />);
 
       const textarea = container.querySelector(":only-child");
 
       expect(textarea).not.toHaveAttribute("aria-invalid");
-    });
-
-    it("can have an invalid state", () => {
-      const { container } = render(<Textarea invalid />);
-
-      const textarea = container.querySelector(":only-child");
-
-      expect(textarea).toBeInvalid();
     });
 
     it("can have a invalid state in CSS", () => {
@@ -125,12 +125,13 @@ describe("Textarea", () => {
   });
 
   describe("read-only variant", () => {
-    it("renders a design system BEM modifier class name", () => {
+    it("can have a read-only state", () => {
       const { container } = render(<Textarea readOnly />);
 
       const textarea = container.querySelector(":only-child");
 
-      expect(textarea).toHaveClass("utrecht-textarea--readonly");
+      // Unfortunately there is no `toBeReadonly()` (yet)
+      expect(textarea).toHaveAttribute("readonly");
     });
 
     it("is not read-only by default", () => {
@@ -140,6 +141,14 @@ describe("Textarea", () => {
 
       expect(textarea).not.toHaveAttribute("aria-readonly");
       expect(textarea).not.toHaveAttribute("readonly");
+    });
+
+    it("renders a design system BEM modifier class name", () => {
+      const { container } = render(<Textarea readOnly />);
+
+      const textarea = container.querySelector(":only-child");
+
+      expect(textarea).toHaveClass("utrecht-textarea--readonly");
     });
 
     it("omits non-essential read-only attributes when not read-only", () => {
@@ -152,15 +161,6 @@ describe("Textarea", () => {
       expect(textarea).not.toHaveAttribute("readonly");
     });
 
-    it("can have a read-only state", () => {
-      const { container } = render(<Textarea readOnly />);
-
-      const textarea = container.querySelector(":only-child");
-
-      // Unfortunately there is no `toBeReadonly()` (yet)
-      expect(textarea).toHaveAttribute("readonly");
-    });
-
     it("can have a read-only state in CSS", () => {
       const { container } = render(<Textarea readOnly />);
 
@@ -171,12 +171,12 @@ describe("Textarea", () => {
   });
 
   describe("required variant", () => {
-    it("renders a design system BEM modifier class name", () => {
+    it("can have a required state", () => {
       const { container } = render(<Textarea required />);
 
       const textarea = container.querySelector(":only-child");
 
-      expect(textarea).toHaveClass("utrecht-textarea--required");
+      expect(textarea).toBeRequired();
     });
 
     it("is not required by default", () => {
@@ -187,6 +187,14 @@ describe("Textarea", () => {
       expect(textarea).not.toBeRequired();
     });
 
+    it("renders a design system BEM modifier class name", () => {
+      const { container } = render(<Textarea required />);
+
+      const textarea = container.querySelector(":only-child");
+
+      expect(textarea).toHaveClass("utrecht-textarea--required");
+    });
+
     it("omits non-essential required attributes when not required", () => {
       const { container } = render(<Textarea required={false} />);
 
@@ -195,14 +203,6 @@ describe("Textarea", () => {
       expect(textarea).not.toHaveAttribute("aria-required");
 
       expect(textarea).not.toHaveAttribute("required");
-    });
-
-    it("can have a required state", () => {
-      const { container } = render(<Textarea required />);
-
-      const textarea = container.querySelector(":only-child");
-
-      expect(textarea).toBeRequired();
     });
 
     it("can have a required state in CSS", () => {
@@ -230,56 +230,16 @@ describe("Textarea", () => {
     expect(textarea).toHaveClass("ballot-box");
   });
 
-  describe.skip("change event", () => {
-    it("can trigger a change event", () => {
-      const handleChange = jest.fn();
+  describe("change event", () => {
+    it.todo("can trigger a change event");
 
-      const { container } = render(<Textarea onChange={handleChange} />);
-
-      const textarea = container.querySelector<HTMLElement>(":only-child");
-
-      textarea?.click();
-
-      expect(handleChange).toHaveBeenCalled();
-    });
-
-    it("does not trigger a change event when disabled", () => {
-      const handleChange = jest.fn();
-
-      const { container } = render(<Textarea disabled onChange={handleChange} />);
-
-      const textarea = container.querySelector<HTMLElement>(":only-child");
-
-      textarea?.click();
-
-      expect(handleChange).not.toHaveBeenCalled();
-    });
+    it.todo("does not trigger a change event when disabled");
   });
 
-  describe.skip("input event", () => {
-    it("can trigger a input event", () => {
-      const handleInput = jest.fn();
+  describe("input event", () => {
+    it.todo("can trigger a input event");
 
-      const { container } = render(<Textarea onInput={handleInput} />);
-
-      const textarea = container.querySelector<HTMLElement>(":only-child");
-
-      textarea?.click();
-
-      expect(handleInput).toHaveBeenCalled();
-    });
-
-    it("does not trigger a input event when disabled", () => {
-      const handleInput = jest.fn();
-
-      const { container } = render(<Textarea disabled onInput={handleInput} />);
-
-      const textarea = container.querySelector<HTMLElement>(":only-child");
-
-      textarea?.click();
-
-      expect(handleInput).not.toHaveBeenCalled();
-    });
+    it.todo("does not trigger a input event when disabled");
   });
 
   it("supports ForwardRef in React", () => {
