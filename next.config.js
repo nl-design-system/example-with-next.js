@@ -3,8 +3,8 @@ const { i18n } = require('./next-i18next.config');
 
 module.exports = {
   reactStrictMode: true,
-  ...withTM(),
   i18n,
+  ...withTM(),
   async headers() {
     return [
       {

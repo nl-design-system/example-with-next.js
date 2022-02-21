@@ -3,9 +3,9 @@
   "rules": {
     "order/order": ["custom-properties", "declarations"],
     "order/properties-alphabetical-order": true,
-    "custom-property-pattern": "^(example|utrecht)-[a-z0-9-]+$",
-    "selector-class-pattern": "^(example|utrecht)-[a-z0-9_-]+$",
-    "keyframes-name-pattern": "^(example|utrecht)-[a-z0-9-]+$",
+    "custom-property-pattern": "^(amsterdam|denhaag|example|todo|utrecht)-[a-z0-9-]+$",
+    "selector-class-pattern": "^(amsterdam|denhaag|example|todo|utrecht)-[a-z0-9_-]+$",
+    "keyframes-name-pattern": "^(amsterdam|denhaag|example|todo|utrecht)-[a-z0-9-]+$",
     "at-rule-no-unknown": null,
     "block-no-empty": [true],
     "color-no-invalid-hex": [true],
