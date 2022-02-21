@@ -127,7 +127,7 @@ describe("RadioButton", () => {
       expect(radioButton).not.toHaveAttribute("aria-invalid");
     });
 
-    it("can have a invalid state in CSS", () => {
+    it("can have an invalid state in CSS", () => {
       const handleChange = () => {};
       const { container } = render(<RadioButton required checked={false} onChange={handleChange} />);
 
@@ -222,32 +222,6 @@ describe("RadioButton", () => {
       const radioButton = container.querySelector(":required");
 
       expect(radioButton).toBeInTheDocument();
-    });
-  });
-
-  describe("in radiogroup", () => {
-    it("can have an invalid state", () => {
-      const { container } = render(
-        <div role="radiogroup" aria-invalid="true">
-          <RadioButton />
-        </div>
-      );
-
-      const radioButton = container.querySelector(":only-child");
-
-      expect(radioButton).toBeInvalid();
-    });
-
-    it("can have an required state", () => {
-      const { container } = render(
-        <div role="radiogroup" aria-required="true">
-          <RadioButton />
-        </div>
-      );
-
-      const radioButton = container.querySelector(":only-child");
-
-      expect(radioButton).toBeRequired();
     });
   });
 
