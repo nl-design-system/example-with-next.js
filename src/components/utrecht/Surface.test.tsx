@@ -7,9 +7,9 @@ describe("Surface", () => {
   it("renders an HTML div element", () => {
     const { container } = render(<Surface />);
 
-    const div = container.querySelector("div:only-child");
+    const surface = container.querySelector("div:only-child");
 
-    expect(div).toBeInTheDocument();
+    expect(surface).toBeInTheDocument();
   });
 
   it("renders a design system BEM class name", () => {
