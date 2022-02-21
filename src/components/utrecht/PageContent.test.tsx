@@ -7,26 +7,26 @@ describe("Page content", () => {
   it("renders an HTML div element", () => {
     const { container } = render(<PageContent />);
 
-    const footer = container.querySelector("div:only-child");
+    const pageContent = container.querySelector("div:only-child");
 
-    expect(footer).toBeInTheDocument();
+    expect(pageContent).toBeInTheDocument();
   });
 
   it("renders a design system BEM class name", () => {
     const { container } = render(<PageContent />);
 
-    const footer = container.querySelector(":only-child");
+    const pageContent = container.querySelector(":only-child");
 
-    expect(footer).toHaveClass("utrecht-page-content");
+    expect(pageContent).toHaveClass("utrecht-page-content");
   });
 
   it("displays as CSS block element (or equivalent)", () => {
     const { container } = render(<PageContent />);
 
-    const footer = container.querySelector(":only-child");
+    const pageContent = container.querySelector(":only-child");
 
-    expect(footer).toBeVisible();
-    expect(footer).toHaveStyle({ display: "block" });
+    expect(pageContent).toBeVisible();
+    expect(pageContent).toHaveStyle({ display: "block" });
   });
 
   it("renders rich text content", () => {
@@ -36,9 +36,9 @@ describe("Page content", () => {
       </PageContent>
     );
 
-    const footer = container.querySelector(":only-child");
+    const pageContent = container.querySelector(":only-child");
 
-    const richText = footer?.querySelector("h1");
+    const richText = pageContent?.querySelector("h1");
 
     expect(richText).toBeInTheDocument();
   });
@@ -46,17 +46,17 @@ describe("Page content", () => {
   it("can be hidden", () => {
     const { container } = render(<PageContent hidden />);
 
-    const footer = container.querySelector(":only-child");
+    const pageContent = container.querySelector(":only-child");
 
-    expect(footer).not.toBeVisible();
+    expect(pageContent).not.toBeVisible();
   });
 
   it("can have a custom class name", () => {
     const { container } = render(<PageContent className="condensed" />);
 
-    const footer = container.querySelector(":only-child");
+    const pageContent = container.querySelector(":only-child");
 
-    expect(footer).toHaveClass("condensed");
+    expect(pageContent).toHaveClass("condensed");
   });
 
   it("supports ForwardRef in React", () => {
@@ -64,9 +64,9 @@ describe("Page content", () => {
 
     const { container } = render(<PageContent ref={ref} />);
 
-    const footer = container.querySelector(":only-child");
+    const pageContent = container.querySelector(":only-child");
 
-    expect(ref.current).toBe(footer);
+    expect(ref.current).toBe(pageContent);
   });
 });
 
