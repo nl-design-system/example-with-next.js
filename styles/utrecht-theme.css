@@ -1,0 +1,16 @@
+.utrecht-theme {
+  --todo-form-header-title-font-size: var(--utrecht-heading-1-font-size);
+  --todo-form-header-title-font-weight: var(--utrecht-heading-1-font-weight, var(--utrecht-heading-font-weight, bold));
+  --todo-form-header-font-family: var(--utrecht-heading-1-font-family);
+  --todo-form-header-padding-inline-start: var(--utrecht-page-padding-inline-start);
+  --todo-form-header-padding-inline-end: var(--utrecht-page-padding-inline-end);
+  --utrecht-page-footer-max-inline-size: 100%;
+  --utrecht-typography-sans-serif-font-family: "Lucida Grande", arial, sans-serif;
+  --utrecht-document-font-family: "Lucida Grande", arial, sans-serif;
+  --todo-button-group-gap: var(--utrecht-space-inline-sm);
+  --todo-form-field-group-gap: var(--utrecht-space-inline-sm);
+  --todo-button-group-padding-block-start: var(--utrecht-button-margin-block-start);
+  --todo-form-stepper-margin-block-end: var(--utrecht-space-block-xl);
+  --utrecht-form-field-margin-block-start: 13px;
+  --todo-utrecht-form-label-margin-inline-start: var(--utrecht-space-inline-sm);
+}
