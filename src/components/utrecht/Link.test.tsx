@@ -113,7 +113,7 @@ describe("URL value", () => {
   describe("with simulated state", () => {
     describe("active variant", () => {
       it("renders a design system BEM class name", () => {
-        const { container } = render(<Link active />);
+        const { container } = render(<Link activeStyle />);
 
         const link = container.querySelector(":only-child");
 
@@ -123,7 +123,7 @@ describe("URL value", () => {
 
     describe("focus variant", () => {
       it("renders a design system BEM class name", () => {
-        const { container } = render(<Link focus />);
+        const { container } = render(<Link focusStyle />);
 
         const link = container.querySelector(":only-child");
 
@@ -133,7 +133,7 @@ describe("URL value", () => {
 
     describe("focus-visible variant", () => {
       it("renders a design system BEM class name", () => {
-        const { container } = render(<Link focusVisible />);
+        const { container } = render(<Link focusVisibleStyle />);
 
         const link = container.querySelector(":only-child");
 
@@ -143,7 +143,7 @@ describe("URL value", () => {
 
     describe("hover variant", () => {
       it("renders a design system BEM class name", () => {
-        const { container } = render(<Link hover />);
+        const { container } = render(<Link hoverStyle />);
 
         const link = container.querySelector(":only-child");
 
@@ -153,7 +153,7 @@ describe("URL value", () => {
 
     describe("visited variant", () => {
       it("renders a design system BEM class name", () => {
-        const { container } = render(<Link visited />);
+        const { container } = render(<Link visitedStyle />);
 
         const link = container.querySelector(":only-child");
 
