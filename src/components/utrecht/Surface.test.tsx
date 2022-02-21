@@ -52,11 +52,11 @@ describe("Surface", () => {
   });
 
   it("can have a custom class name", () => {
-    const { container } = render(<Surface className="large" />);
+    const { container } = render(<Surface className="checkerboard" />);
 
     const surface = container.querySelector(":only-child");
 
-    expect(surface).toHaveClass("large");
+    expect(surface).toHaveClass("checkerboard");
   });
 
   it("supports ForwardRef in React", () => {
