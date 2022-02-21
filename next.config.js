@@ -1,12 +1,10 @@
 const withTM = require('next-transpile-modules')(['@utrecht/web-component-library-react']);
+const { i18n } = require('./next-i18next.config');
 
 module.exports = {
   reactStrictMode: true,
   ...withTM(),
-  i18n: {
-    locales: ['en', 'nl'],
-    defaultLocale: 'en',
-  },
+  i18n,
   async headers() {
     return [
       {
