@@ -38,6 +38,14 @@ describe("RadioButton", () => {
   });
 
   describe("checked variant", () => {
+    it("renders a design system BEM modifier class name", () => {
+      const { container } = render(<RadioButton checked />);
+
+      const radioButton = container.querySelector("input");
+
+      expect(radioButton).toHaveClass("utrecht-radio-button--checked");
+    });
+
     it("is not checked by default", () => {
       const { container } = render(<RadioButton />);
 
@@ -77,12 +85,16 @@ describe("RadioButton", () => {
   });
 
   describe("invalid variant", () => {
-    it("renders a design system BEM modifier class name", () => {
-      const { container } = render(<RadioButton invalid />);
+    it("can have an invalid state", () => {
+      const { container } = render(
+        <div role="radiogroup" aria-invalid="true">
+          <RadioButton invalid />
+        </div>
+      );
 
-      const radioButton = container.querySelector("input");
+      const radioButton = container.querySelector(":only-child");
 
-      expect(radioButton).toHaveClass("utrecht-radio-button--invalid");
+      expect(radioButton).toBeInvalid();
     });
 
     it("is not invalid by default", () => {
@@ -93,20 +105,28 @@ describe("RadioButton", () => {
       expect(radioButton).not.toBeInvalid();
     });
 
-    it("omits non-essential invalid attributes when not invalid", () => {
-      const { container } = render(<RadioButton invalid={false} />);
+    it("defers rendering of aria-invalid to the radiogroup", () => {
+      const { container } = render(<RadioButton invalid />);
 
       const radioButton = container.querySelector(":only-child");
 
       expect(radioButton).not.toHaveAttribute("aria-invalid");
     });
 
-    it("can have an invalid state", () => {
+    it("renders a design system BEM modifier class name", () => {
       const { container } = render(<RadioButton invalid />);
+
+      const radioButton = container.querySelector("input");
+
+      expect(radioButton).toHaveClass("utrecht-radio-button--invalid");
+    });
+
+    it("omits non-essential invalid attributes when not invalid", () => {
+      const { container } = render(<RadioButton invalid={false} />);
 
       const radioButton = container.querySelector(":only-child");
 
-      expect(radioButton).toBeInvalid();
+      expect(radioButton).not.toHaveAttribute("aria-invalid");
     });
 
     it("can have a invalid state in CSS", () => {
@@ -120,12 +140,12 @@ describe("RadioButton", () => {
   });
 
   describe("disabled variant", () => {
-    it("renders a design system BEM modifier class name", () => {
+    it("can have a disabled state", () => {
       const { container } = render(<RadioButton disabled />);
 
-      const radioButton = container.querySelector("input");
+      const radioButton = container.querySelector(":only-child");
 
-      expect(radioButton).toHaveClass("utrecht-radio-button--disabled");
+      expect(radioButton).toBeDisabled();
     });
 
     it("is not disabled by default", () => {
@@ -134,6 +154,14 @@ describe("RadioButton", () => {
       const radioButton = container.querySelector(":only-child");
 
       expect(radioButton).not.toBeDisabled();
+    });
+
+    it("renders a design system BEM modifier class name", () => {
+      const { container } = render(<RadioButton disabled />);
+
+      const radioButton = container.querySelector("input");
+
+      expect(radioButton).toHaveClass("utrecht-radio-button--disabled");
     });
 
     it("omits non-essential disabled attributes when not disabled", () => {
@@ -146,14 +174,6 @@ describe("RadioButton", () => {
       expect(radioButton).not.toHaveAttribute("disabled");
     });
 
-    it("can have a disabled state", () => {
-      const { container } = render(<RadioButton disabled />);
-
-      const radioButton = container.querySelector(":only-child");
-
-      expect(radioButton).toBeDisabled();
-    });
-
     it("can have a disabled state in CSS", () => {
       const { container } = render(<RadioButton disabled />);
 
@@ -164,12 +184,12 @@ describe("RadioButton", () => {
   });
 
   describe("required variant", () => {
-    it("renders a design system BEM modifier class name", () => {
+    it("can have a required state", () => {
       const { container } = render(<RadioButton required />);
 
       const radioButton = container.querySelector(":only-child");
 
-      expect(radioButton).toHaveClass("utrecht-radio-button--required");
+      expect(radioButton).toBeRequired();
     });
 
     it("is not required by default", () => {
@@ -180,6 +200,14 @@ describe("RadioButton", () => {
       expect(radioButton).not.toBeRequired();
     });
 
+    it("renders a design system BEM modifier class name", () => {
+      const { container } = render(<RadioButton required />);
+
+      const radioButton = container.querySelector(":only-child");
+
+      expect(radioButton).toHaveClass("utrecht-radio-button--required");
+    });
+
     it("omits non-essential required attributes when not required", () => {
       const { container } = render(<RadioButton required={false} />);
 
@@ -188,14 +216,6 @@ describe("RadioButton", () => {
       expect(radioButton).not.toHaveAttribute("aria-required");
 
       expect(radioButton).not.toHaveAttribute("required");
-    });
-
-    it("can have a required state", () => {
-      const { container } = render(<RadioButton required />);
-
-      const radioButton = container.querySelector(":only-child");
-
-      expect(radioButton).toBeRequired();
     });
 
     it("can have a required state in CSS", () => {
