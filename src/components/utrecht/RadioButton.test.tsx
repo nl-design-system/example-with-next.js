@@ -86,15 +86,13 @@ describe("RadioButton", () => {
 
   describe("invalid variant", () => {
     it("can have an invalid state", () => {
-      const { container } = render(
-        <div role="radiogroup" aria-invalid="true">
-          <RadioButton invalid />
-        </div>
-      );
+      const { container } = render(<RadioButton invalid />);
 
       const radioButton = container.querySelector(":only-child");
 
-      expect(radioButton).toBeInvalid();
+      // Since `aria-invalid` is not allowed on the radio button itself,
+      // se cannot test for `toBeInvalid()` without embedding it in context.
+      expect(radioButton).toBeInTheDocument();
     });
 
     it("is not invalid by default", () => {
@@ -224,6 +222,32 @@ describe("RadioButton", () => {
       const radioButton = container.querySelector(":required");
 
       expect(radioButton).toBeInTheDocument();
+    });
+  });
+
+  describe("in radiogroup", () => {
+    it("can have an invalid state", () => {
+      const { container } = render(
+        <div role="radiogroup" aria-invalid="true">
+          <RadioButton />
+        </div>
+      );
+
+      const radioButton = container.querySelector(":only-child");
+
+      expect(radioButton).toBeInvalid();
+    });
+
+    it("can have an required state", () => {
+      const { container } = render(
+        <div role="radiogroup" aria-required="true">
+          <RadioButton />
+        </div>
+      );
+
+      const radioButton = container.querySelector(":only-child");
+
+      expect(radioButton).toBeRequired();
     });
   });
 
