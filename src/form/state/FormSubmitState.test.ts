@@ -2,7 +2,7 @@ import { createSubmitState } from './FormSubmitState';
 
 describe('Form submit action state', () => {
   describe('busy', () => {
-    it('is initially not busy', () => {
+    it('is not busy by default', () => {
       const submit = createSubmitState({});
 
       expect(submit.busy).toBe(false);
@@ -19,7 +19,7 @@ describe('Form submit action state', () => {
   });
 
   describe('disabled', () => {
-    it('is initially not disabled', () => {
+    it('is not disabled by default', () => {
       const submit = createSubmitState({});
 
       expect(submit.disabled).toBe(false);
@@ -36,7 +36,7 @@ describe('Form submit action state', () => {
   });
 
   describe('errors in submission handling', () => {
-    it('has no errors initially', () => {
+    it('has no errors by default', () => {
       const submit = createSubmitState({});
 
       expect(submit.errors).toStrictEqual([]);
@@ -51,7 +51,7 @@ describe('Form submit action state', () => {
   });
 
   describe('validation errors', () => {
-    it('has no validation errors initially', () => {
+    it('has no validation errors by default', () => {
       const submit = createSubmitState({});
 
       expect(submit.validityErrors).toStrictEqual([]);
