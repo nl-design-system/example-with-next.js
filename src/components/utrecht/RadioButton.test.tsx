@@ -85,21 +85,13 @@ describe("RadioButton", () => {
   });
 
   describe("invalid variant", () => {
-    it("defers rendering of aria-invalid to the radiogroup", () => {
-      const { container } = render(<RadioButton invalid />);
-
-      const radioButton = container.querySelector(":only-child");
-
-      expect(radioButton).not.toHaveAttribute("aria-invalid");
-    });
-
     it("can have an invalid state", () => {
       const { container } = render(<RadioButton invalid />);
 
       const radioButton = container.querySelector(":only-child");
 
       // Since `aria-invalid` is not allowed on the radio button itself,
-      // se cannot test for `toBeInvalid()` without embedding it in context.
+      // this test cannot use `toBeInvalid()` without embedding it in context.
       expect(radioButton).toBeInTheDocument();
     });
 
@@ -109,6 +101,14 @@ describe("RadioButton", () => {
       const radioButton = container.querySelector(":only-child");
 
       expect(radioButton).not.toBeInvalid();
+    });
+
+    it("defers rendering of aria-invalid to the radiogroup", () => {
+      const { container } = render(<RadioButton invalid />);
+
+      const radioButton = container.querySelector(":only-child");
+
+      expect(radioButton).not.toHaveAttribute("aria-invalid");
     });
 
     it("renders a design system BEM modifier class name", () => {
