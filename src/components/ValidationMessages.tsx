@@ -1,12 +1,13 @@
+import { useTranslation } from "react-i18next";
 import { FormValidationError } from "../form/error/FormValidationError.model";
 import { FormFieldDescription, Paragraph } from "./utrecht";
 
 interface ValidationMessagesProps {
   errors?: (FormValidationError & { id?: string })[]; // TODO: Remove `id` hack
-  t?: (_key: string) => string;
 }
 
-export const ValidationMessages = ({ errors, t = (str) => str }: ValidationMessagesProps) => {
+export const ValidationMessages = ({ errors }: ValidationMessagesProps) => {
+  const { t } = useTranslation(["form-error"]);
   return (
     <>
       {errors &&
