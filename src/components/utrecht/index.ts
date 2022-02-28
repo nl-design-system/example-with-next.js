@@ -29,6 +29,7 @@ export { PageFooter } from './PageFooter';
 export { PageHeader } from './PageHeader';
 export { Paragraph } from './Paragraph';
 export { RadioButton } from './RadioButton';
+export { Select, SelectOption } from './Select';
 export { Separator } from './Separator';
 export { Surface } from './Surface';
 export { Table } from './Table';
