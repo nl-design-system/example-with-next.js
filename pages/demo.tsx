@@ -4,7 +4,8 @@ import Head from "next/head";
 import { useReducer } from "react";
 import { Input } from "../src/components/Input";
 import { createDemoForm } from "../src/demo/demo-form";
-import { createInitialFormState, formReducer, useInput } from "../src/form/action/reducer";
+import { useInput } from "../src/form/action/hooks";
+import { createInitialFormState, formReducer } from "../src/form/action/reducer";
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {
@@ -30,20 +31,22 @@ export default function Home() {
 
   const [state, dispatch] = useReducer(
     formReducer,
-    createInitialFormState([
-      geslacht,
-      voornaam,
-      achternaam,
-      straatnaam,
-      huisnummer,
-      huisnummerToevoeging,
-      postcode,
-      email,
-      telephone,
-      telephoneMobile,
-      bericht,
-      dataverwerking,
-    ])
+    createInitialFormState({
+      fields: [
+        geslacht,
+        voornaam,
+        achternaam,
+        straatnaam,
+        huisnummer,
+        huisnummerToevoeging,
+        postcode,
+        email,
+        telephone,
+        telephoneMobile,
+        bericht,
+        dataverwerking,
+      ],
+    })
   );
 
   return (

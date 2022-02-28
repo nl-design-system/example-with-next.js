@@ -1,5 +1,6 @@
 import { useTranslation } from "next-i18next";
-import { FormStateDispatch, State, useInput } from "../../form/action/reducer";
+import { FormStateDispatch, useInput } from "../../form/action/hooks";
+import { State } from "../../form/action/reducer";
 import { Input } from "../Input";
 import { Heading1 } from "../utrecht/Heading1";
 
