@@ -18,7 +18,8 @@ import { Page } from "../../src/components/utrecht/Page";
 import { PageContent } from "../../src/components/utrecht/PageContent";
 import { PageHeader } from "../../src/components/utrecht/PageHeader";
 import { createDemoForm } from "../../src/demo/demo-form";
-import { createInitialFormState, formReducer, FormStateDispatch, State } from "../../src/form/action/reducer";
+import { FormStateDispatch } from "../../src/form/action/hooks";
+import { createInitialFormState, formReducer, State } from "../../src/form/action/reducer";
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {
@@ -91,21 +92,23 @@ export default function StepperForm() {
 
   const [state, dispatch] = useReducer(
     formReducer,
-    createInitialFormState([
-      geslacht,
-      voornaam,
-      achternaam,
-      straatnaam,
-      huisnummer,
-      huisnummerToevoeging,
-      postcode,
-      woonplaatsnaamToevoeging,
-      email,
-      telephone,
-      telephoneMobile,
-      bericht,
-      dataverwerking,
-    ])
+    createInitialFormState({
+      fields: [
+        geslacht,
+        voornaam,
+        achternaam,
+        straatnaam,
+        huisnummer,
+        huisnummerToevoeging,
+        postcode,
+        woonplaatsnaamToevoeging,
+        email,
+        telephone,
+        telephoneMobile,
+        bericht,
+        dataverwerking,
+      ],
+    })
   );
   // console.log("initial state", state);
   const submit = () => {
