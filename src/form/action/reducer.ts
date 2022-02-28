@@ -1,4 +1,3 @@
-import { ChangeEvent } from 'react';
 import { ValueMissingError } from '../error/ValueMissingError';
 import { FormField } from '../state/FormField.model';
 import { createInputState } from '../state/FormFieldInputState';
@@ -10,9 +9,6 @@ import { formSelectOption, formUnselectOption } from '../state/options';
 import { formCheckValidity } from '../validate/validate-field';
 import { validateField } from '../validate/validate-field';
 import { FormAction } from './FormAction.model';
-import { InputChangeAction } from './InputChangeAction.model';
-import { InputOptionSelectAction } from './InputOptionSelectAction.model';
-import { InputOptionUnselectAction } from './InputOptionUnselectAction.model';
 
 export const resetField = (field: FormField): FormField => ({
   ...field,
@@ -64,6 +60,23 @@ export const formEnableRequiredValidation = (fields: FormField[]): FormField[] =
 export const formFieldEnableRequiredValidation = (fields: FormField[], id: string): FormField[] =>
   fields.map((field) => (field.declaration.id === id ? enableRequiredValidation(field) : field));
 
+export const completeSubmit = (submit: FormSubmitState): FormSubmitState => ({
+  ...submit,
+  busy: false,
+  errors: [],
+  validityErrors: [],
+});
+
+export const failSubmit = (
+  submit: FormSubmitState,
+  data?: Pick<FormSubmitState, 'errors' | 'validityErrors'>,
+): FormSubmitState => ({
+  ...submit,
+  busy: false,
+  errors: data?.errors || [],
+  validityErrors: data?.validityErrors || [],
+});
+
 export interface State {
   form: FormState;
   fields: FormField[];
@@ -80,7 +93,7 @@ const getFormState = (states: FormFieldInputState[]): FormState =>
     { dirty: false, invalid: false },
   );
 
-export const createInitialFormState = (fields: FormField[]): State => ({
+export const createInitialFormState = ({ fields }: { fields: FormField[] }): State => ({
   fields,
   form: getFormState(fields.map(({ inputState }) => inputState)),
   submit: createSubmitState({}),
@@ -185,6 +198,16 @@ export const formReducer = (state: State, action: FormAction): State => {
         },
       };
     }
+  } else if (action.type === 'submit-success') {
+    newState = {
+      ...newState,
+      submit: completeSubmit(newState.submit),
+    };
+  } else if (action.type === 'submit-failure') {
+    newState = {
+      ...newState,
+      submit: failSubmit(newState.submit),
+    };
   }
 
   newState = {
@@ -193,39 +216,4 @@ export const formReducer = (state: State, action: FormAction): State => {
   };
 
   return newState;
-};
-
-export type FormStateDispatch = (_action: FormAction) => void;
-
-export const useInput = (field: FormField, dispatch: FormStateDispatch): { onChange: (_event: any) => void } => {
-  return {
-    onChange: (event: ChangeEvent<HTMLInputElement>) => {
-      if (typeof event.target.dataset.id === 'string' && typeof event.target.dataset.optionId === 'string') {
-        const optionId = event.target.dataset.optionId;
-        if (event.target.checked) {
-          const action: InputOptionSelectAction = {
-            type: 'select-option',
-            id: event.target.dataset.id,
-            optionId,
-          };
-          dispatch(action);
-        } else {
-          const action: InputOptionUnselectAction = {
-            type: 'unselect-option',
-            id: event.target.dataset.id,
-            optionId,
-          };
-          dispatch(action);
-        }
-      } else if (typeof event.target.dataset.id === 'string') {
-        const change: InputChangeAction = {
-          type: 'change',
-          id: event.target.dataset.id,
-          value: event.target.value,
-        };
-
-        dispatch(change);
-      }
-    },
-  };
 };
