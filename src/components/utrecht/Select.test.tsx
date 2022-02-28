@@ -3,7 +3,7 @@ import { createRef } from "react";
 import { Select, SelectOption } from "./Select";
 import "@testing-library/jest-dom";
 
-fdescribe("Select", () => {
+describe("Select", () => {
   it("renders a combobox role element", () => {
     render(<Select />);
 
@@ -264,7 +264,7 @@ fdescribe("Select", () => {
   });
 });
 
-fdescribe("Select option", () => {
+describe("Select option", () => {
   it("renders an option role element", () => {
     render(<SelectOption />);
 

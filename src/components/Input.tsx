@@ -1,10 +1,20 @@
-import clsx from "clsx";
 import { InputHTMLAttributes } from "react";
 import { useTranslation } from "react-i18next";
 import { FormField as FormFieldState } from "../form/state/FormField.model";
 import { FormFieldOption } from "../form/state/FormFieldOption.model";
 import { ValidationMessages } from "./ValidationMessages";
-import { Checkbox, Fieldset, FieldsetLegend, FormField, FormLabel, RadioButton, Textarea, Textbox } from "./utrecht";
+import {
+  Checkbox,
+  Fieldset,
+  FieldsetLegend,
+  FormField,
+  FormLabel,
+  RadioButton,
+  Select,
+  SelectOption,
+  Textarea,
+  Textbox,
+} from "./utrecht";
 
 interface InputProps extends InputHTMLAttributes<HTMLElement> {
   state: FormFieldState;
@@ -167,14 +177,17 @@ export const Input = ({ state, onChange, onBlur, onInput, className }: InputProp
           onBlur={onBlur}
         />
       ) : fieldType === "select" ? (
-        <select
+        <Select
           id={formControlId}
-          className={clsx(
-            "utrecht-select",
-            disabled && "utrecht-select--disabled",
-            invalid && "utrecht-select--invalid",
-            required && "utrecht-select--required"
-          )}
+          aria-describedby={errorMessageIds}
+          invalid={invalid}
+          data-id={id}
+          disabled={disabled}
+          name={name}
+          required={required}
+          onChange={onChange}
+          onInput={onInput}
+          onBlur={onBlur}
         >
           {options &&
             options.map((option: FormFieldOption) => {
@@ -182,12 +195,12 @@ export const Input = ({ state, onChange, onBlur, onInput, className }: InputProp
               // TODO: `disabled` state for options
               const disabled = false;
               return (
-                <option key={option.id} disabled={disabled} value={value} data-option-id={option.id}>
+                <SelectOption key={option.id} disabled={disabled} value={value} data-option-id={option.id}>
                   {labelKey ? t(labelKey, label) : label}
-                </option>
+                </SelectOption>
               );
             })}
-        </select>
+        </Select>
       ) : (
         ""
       )}
