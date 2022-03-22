@@ -4,3 +4,11 @@ body {
   margin-inline-end: 0;
   margin-inline-start: 0;
 }
+
+.example-value--date {
+  color: grey;
+}
+
+.example-value--positive {
+  color: green;
+}
