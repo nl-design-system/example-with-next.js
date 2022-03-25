@@ -15,7 +15,7 @@ module.exports = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'",
+            value: "default-src 'self'; style-src data: 'self' 'unsafe-inline'; script-src data: 'self' 'unsafe-eval'",
           },
           {
             key: 'Referrer-Policy',
