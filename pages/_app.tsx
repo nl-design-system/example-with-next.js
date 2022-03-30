@@ -8,12 +8,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     import("@utrecht/web-component-library-stencil/dist/utrecht/utrecht.esm.js");
   }, []);
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.async = true;
-    script.src = "https://unpkg.com/@nl-design-system-unstable/theme-switcher";
-    document.body.appendChild(script);
-  }, []);
 
   useEffect(() => {
     document.documentElement.classList.add("utrecht-theme");
