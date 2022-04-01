@@ -4,7 +4,7 @@
  */
 
 import clsx from "clsx";
-import { ForwardedRef, forwardRef, PropsWithChildren, TableHTMLAttributes } from "react";
+import { ForwardedRef, forwardRef, HTMLAttributes, PropsWithChildren } from "react";
 
 type TableHeaderProps = HTMLAttributes<HTMLTableSectionElement>;
 

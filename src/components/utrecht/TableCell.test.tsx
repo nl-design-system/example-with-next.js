@@ -26,10 +26,91 @@ describe("Table cell", () => {
       </Table>
     );
 
-    const cell = screen.getByRole("cell");
+    const tableCell = screen.getByRole("cell");
 
-    expect(cell).toBeInTheDocument();
-    expect(cell).toBeVisible();
+    expect(tableCell).toBeInTheDocument();
+    expect(tableCell).toBeVisible();
+  });
+
+  it("renders a td HTML element", () => {
+    render(
+      <Table>
+        <TableBody>
+          <TableRow data-testid="table-row">
+            <TableCell />
+          </TableRow>
+        </TableBody>
+      </Table>
+    );
+    const tableRow = screen.getByTestId("table-row");
+    const tableCell = tableRow?.querySelector("td:only-child");
+
+    expect(tableCell).toBeInTheDocument();
+  });
+
+  it("renders a design system BEM class name", () => {
+    render(
+      <Table>
+        <TableBody>
+          <TableRow>
+            <TableCell data-testid="table-cell" />
+          </TableRow>
+        </TableBody>
+      </Table>
+    );
+    const tableCell = screen.getByTestId("table-cell");
+
+    expect(tableCell).toHaveClass("utrecht-table__cell");
+  });
+
+  it("renders rich text content", () => {
+    render(
+      <Table>
+        <TableBody>
+          <TableRow>
+            <TableCell data-testid="table-cell">
+              <data value="1234">1,234</data>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    );
+    const tableCell = screen.getByTestId("table-cell");
+    const richText = tableCell?.querySelector("data");
+
+    expect(richText).toBeInTheDocument();
+  });
+
+  it("can be hidden", () => {
+    render(
+      <Table>
+        <TableBody>
+          <TableRow>
+            <TableCell data-testid="table-cell" hidden />
+          </TableRow>
+        </TableBody>
+      </Table>
+    );
+    const tableCell = screen.getByTestId("table-cell");
+
+    expect(tableCell).not.toBeVisible();
+  });
+
+  it("can have a custom class name", () => {
+    render(
+      <Table>
+        <TableBody>
+          <TableRow>
+            <TableCell className="negative" data-testid="table-cell">
+              -42
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    );
+    const tableCell = screen.getByTestId("table-cell");
+
+    expect(tableCell).toHaveClass("negative");
   });
 
   it("supports ForwardRef in React", () => {
@@ -39,99 +120,13 @@ describe("Table cell", () => {
       <Table>
         <TableBody>
           <TableRow>
-            <TableCell ref={ref} />
+            <TableCell data-testid="table-cell" ref={ref} />
           </TableRow>
         </TableBody>
       </Table>
     );
+    const tableCell = screen.getByTestId("table-cell");
 
-    const row = screen.getByRole("row");
-    const cell = row.querySelector(":only-child");
-
-    expect(ref.current).toBe(cell);
-  });
-
-  it("renders a td HTML element", () => {
-    const { container } = render(
-      <Table>
-        <TableBody>
-          <TableRow>
-            <TableCell />
-          </TableRow>
-        </TableBody>
-      </Table>
-    );
-    const cell = container.querySelector("td:only-child");
-
-    expect(cell).toBeInTheDocument();
-  });
-
-  it("renders a design system BEM class name", () => {
-    const ref = createRef<HTMLTableCellElement>();
-    render(
-      <Table>
-        <TableBody>
-          <TableRow>
-            <TableCell ref={ref} />
-          </TableRow>
-        </TableBody>
-      </Table>
-    );
-    const cell = ref.current;
-
-    expect(cell).toHaveClass("utrecht-table__cell");
-  });
-
-  it("renders rich text content", () => {
-    const ref = createRef<HTMLTableCellElement>();
-    render(
-      <Table>
-        <TableBody>
-          <TableRow>
-            <TableCell ref={ref}>
-              <data value="1234">1,234</data>
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    );
-
-    const cell = ref.current;
-
-    const richText = cell?.querySelector("data");
-
-    expect(richText).toBeInTheDocument();
-  });
-
-  it("can be hidden", () => {
-    const ref = createRef<HTMLTableCellElement>();
-    render(
-      <Table>
-        <TableBody>
-          <TableRow>
-            <TableCell ref={ref} hidden />
-          </TableRow>
-        </TableBody>
-      </Table>
-    );
-
-    expect(ref.current).not.toBeVisible();
-  });
-
-  it("can have a custom class name", () => {
-    const ref = createRef<HTMLTableCellElement>();
-    render(
-      <Table>
-        <TableBody>
-          <TableRow>
-            <TableCell ref={ref} className="negative">
-              -42
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    );
-
-    expect(ref.current).toHaveClass("negative");
+    expect(ref.current).toBe(tableCell);
   });
 });

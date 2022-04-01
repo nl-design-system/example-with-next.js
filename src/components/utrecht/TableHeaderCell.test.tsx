@@ -36,7 +36,7 @@ describe("Table header cell", () => {
     render(
       <Table>
         <TableBody>
-          <TableRow>
+          <TableRow data-testid="table-row">
             <TableHeaderCell scope="row" />
           </TableRow>
         </TableBody>
@@ -48,63 +48,43 @@ describe("Table header cell", () => {
     expect(cell).toBeInTheDocument();
   });
 
-  it("supports ForwardRef in React", () => {
-    const ref = createRef<HTMLTableCellElement>();
-
+  it("renders a th HTML element", () => {
     render(
       <Table>
         <TableBody>
-          <TableRow>
-            <TableHeaderCell ref={ref} />
-          </TableRow>
-        </TableBody>
-      </Table>
-    );
-
-    const row = screen.getByRole("row");
-    const cell = row.querySelector(":only-child");
-
-    expect(ref.current).toBe(cell);
-  });
-
-  it("renders a th HTML element", () => {
-    const { container } = render(
-      <Table>
-        <TableBody>
-          <TableRow>
+          <TableRow data-testid="table-row">
             <TableHeaderCell />
           </TableRow>
         </TableBody>
       </Table>
     );
-    const cell = container.querySelector("th:only-child");
+    const tableRow = screen.getByTestId("table-row");
+    const tableHeaderCell = tableRow?.querySelector("th:only-child");
 
-    expect(cell).toBeInTheDocument();
+    expect(tableHeaderCell).toBeInTheDocument();
   });
 
   it("renders a design system BEM class name", () => {
-    const ref = createRef<HTMLTableCellElement>();
     render(
       <Table>
         <TableBody>
           <TableRow>
-            <TableHeaderCell ref={ref} />
+            <TableHeaderCell data-testid="table-header-cell" />
           </TableRow>
         </TableBody>
       </Table>
     );
-    const cell = ref.current;
+    const tableHeaderCell = screen.getByTestId("table-header-cell");
 
-    expect(cell).toHaveClass("utrecht-table__header-cell");
+    expect(tableHeaderCell).toHaveClass("utrecht-table__header-cell");
   });
 
   it("renders rich text content", () => {
-    const ref = createRef<HTMLTableCellElement>();
     render(
       <Table>
         <TableBody>
           <TableRow>
-            <TableHeaderCell ref={ref}>
+            <TableHeaderCell data-testid="table-header-cell">
               <abbr title="Uniform Resource Identifier ">URI</abbr>
             </TableHeaderCell>
           </TableRow>
@@ -112,42 +92,59 @@ describe("Table header cell", () => {
       </Table>
     );
 
-    const cell = ref.current;
-
-    const richText = cell?.querySelector("abbr");
+    const tableHeaderCell = screen.getByTestId("table-header-cell");
+    const richText = tableHeaderCell?.querySelector("abbr");
 
     expect(richText).toBeInTheDocument();
   });
 
   it("can be hidden", () => {
-    const ref = createRef<HTMLTableCellElement>();
     render(
       <Table>
         <TableBody>
           <TableRow>
-            <TableHeaderCell ref={ref} hidden />
+            <TableHeaderCell data-testid="table-header-cell" hidden />
           </TableRow>
         </TableBody>
       </Table>
     );
+    const tableHeaderCell = screen.getByTestId("table-header-cell");
 
-    expect(ref.current).not.toBeVisible();
+    expect(tableHeaderCell).not.toBeVisible();
   });
 
   it("can have a custom class name", () => {
-    const ref = createRef<HTMLTableCellElement>();
     render(
       <Table>
         <TableBody>
           <TableRow>
-            <TableHeaderCell ref={ref} className="negative">
-              -42
+            <TableHeaderCell className="sort-ascending" data-testid="table-header-cell">
+              Subject
             </TableHeaderCell>
           </TableRow>
         </TableBody>
       </Table>
     );
+    const tableCell = screen.getByTestId("table-header-cell");
 
-    expect(ref.current).toHaveClass("negative");
+    expect(tableCell).toHaveClass("sort-ascending");
+  });
+
+  it("supports ForwardRef in React", () => {
+    const ref = createRef<HTMLTableCellElement>();
+
+    render(
+      <Table>
+        <TableBody>
+          <TableRow>
+            <TableHeaderCell data-testid="table-header-cell" ref={ref} />
+          </TableRow>
+        </TableBody>
+      </Table>
+    );
+
+    const tableHeaderCell = screen.getByTestId("table-header-cell");
+
+    expect(ref.current).toBe(tableHeaderCell);
   });
 });
