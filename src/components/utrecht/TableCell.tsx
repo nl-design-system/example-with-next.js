@@ -19,4 +19,4 @@ export const TableCell = forwardRef(
   )
 );
 
-TableCell.displayName = "utrecht-table__cell";
+TableCell.displayName = "utrecht-table-cell";

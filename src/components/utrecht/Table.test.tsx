@@ -1,10 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { createRef } from "react";
 import { Table } from "./Table";
-import { TableBody } from "./TableBody";
-import { TableFooter } from "./TableFooter";
-import { TableHeader } from "./TableHeader";
-import { TableRow } from "./TableRow";
 import "@testing-library/jest-dom";
 
 describe("Table", () => {
@@ -55,123 +51,6 @@ describe("Table", () => {
     const table = container.querySelector(":only-child");
 
     expect(table).toHaveClass("utrecht-table");
-  });
-
-  it("renders table section for header", () => {
-    render(
-      <Table>
-        <TableHeader />
-      </Table>
-    );
-
-    const table = screen.getByRole("table");
-
-    const section = table.querySelector(":only-child");
-
-    expect(section).toBeInTheDocument();
-  });
-
-  it("renders table section for footer", () => {
-    render(
-      <Table>
-        <TableFooter />
-      </Table>
-    );
-
-    const table = screen.getByRole("table");
-
-    const section = table.querySelector(":only-child");
-
-    expect(section).toBeInTheDocument();
-  });
-
-  it("renders table section for body", () => {
-    render(
-      <Table>
-        <TableBody />
-      </Table>
-    );
-
-    const table = screen.getByRole("table");
-
-    const section = table.querySelector(":only-child");
-
-    expect(section).toBeInTheDocument();
-  });
-
-  // Skip because React rendering does not allow tables without thead/tfoot/tbody
-  it.skip("renders table rows", () => {
-    const { container } = render(
-      <Table>
-        <TableRow />
-        <TableRow />
-        <TableRow />
-      </Table>
-    );
-    const table = container.querySelector(":only-child");
-    const row = table?.querySelector(":only-child");
-
-    expect(row).toBe(screen.getByRole("row"));
-  });
-
-  it("renders table rows grouped in header section", () => {
-    const { container } = render(
-      <Table>
-        <TableHeader>
-          <TableRow />
-        </TableHeader>
-      </Table>
-    );
-
-    const table = container.querySelector(":only-child");
-    const header = table?.querySelector(":only-child");
-    const headerChild = header?.querySelector(":only-child");
-
-    expect(headerChild).toBeInTheDocument();
-
-    const row = screen.getByRole("row");
-
-    expect(row).toBe(headerChild);
-  });
-
-  it("renders table rows grouped in footer section", () => {
-    const { container } = render(
-      <Table>
-        <TableFooter>
-          <TableRow />
-        </TableFooter>
-      </Table>
-    );
-
-    const table = container.querySelector(":only-child");
-    const footer = table?.querySelector(":only-child");
-    const footerChild = footer?.querySelector(":only-child");
-
-    expect(footerChild).toBeInTheDocument();
-
-    const row = screen.getByRole("row");
-
-    expect(row).toBe(footerChild);
-  });
-
-  it("renders table rows grouped in body section", () => {
-    const { container } = render(
-      <Table>
-        <TableBody>
-          <TableRow />
-        </TableBody>
-      </Table>
-    );
-
-    const table = container.querySelector(":only-child");
-    const body = table?.querySelector(":only-child");
-    const bodyChild = body?.querySelector(":only-child");
-
-    expect(bodyChild).toBeInTheDocument();
-
-    const row = screen.getByRole("row");
-
-    expect(row).toBe(bodyChild);
   });
 
   it("can be hidden", () => {

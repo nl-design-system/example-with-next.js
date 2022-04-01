@@ -6,7 +6,7 @@
 import clsx from "clsx";
 import { ForwardedRef, forwardRef, PropsWithChildren, TableHTMLAttributes } from "react";
 
-type TableFooterProps = TableHTMLAttributes<HTMLTableSectionElement>;
+type TableFooterProps = HTMLAttributes<HTMLTableSectionElement>;
 
 export const TableFooter = forwardRef(
   (
@@ -19,4 +19,4 @@ export const TableFooter = forwardRef(
   )
 );
 
-TableFooter.displayName = "utrecht-table__footer";
+TableFooter.displayName = "utrecht-table-footer";

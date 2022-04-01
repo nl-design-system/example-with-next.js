@@ -6,7 +6,7 @@
 import clsx from "clsx";
 import { ForwardedRef, forwardRef, PropsWithChildren, TableHTMLAttributes } from "react";
 
-type TableHeaderProps = TableHTMLAttributes<HTMLTableSectionElement>;
+type TableHeaderProps = HTMLAttributes<HTMLTableSectionElement>;
 
 export const TableHeader = forwardRef(
   (
@@ -19,4 +19,4 @@ export const TableHeader = forwardRef(
   )
 );
 
-TableHeader.displayName = "utrecht-table__header";
+TableHeader.displayName = "utrecht-table-header";

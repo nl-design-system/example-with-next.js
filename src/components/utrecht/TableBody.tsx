@@ -6,7 +6,7 @@
 import clsx from "clsx";
 import { ForwardedRef, forwardRef, PropsWithChildren, TableHTMLAttributes } from "react";
 
-type TableBodyProps = TableHTMLAttributes<HTMLTableSectionElement>;
+type TableBodyProps = HTMLAttributes<HTMLTableSectionElement>;
 
 export const TableBody = forwardRef(
   (
@@ -19,4 +19,4 @@ export const TableBody = forwardRef(
   )
 );
 
-TableBody.displayName = "utrecht-table__body";
+TableBody.displayName = "utrecht-table-body";
