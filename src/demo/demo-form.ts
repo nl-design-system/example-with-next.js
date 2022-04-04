@@ -80,7 +80,7 @@ export const createDemoForm = () => {
     declaration: {
       id: 'efa07d7e-856c-46c3-a042-b25c8c29457c',
       fieldType: 'input',
-      labelKey: 'house-number',
+      labelKey: 'form:house-number',
       label: 'huisnummer',
     },
     definition: {
