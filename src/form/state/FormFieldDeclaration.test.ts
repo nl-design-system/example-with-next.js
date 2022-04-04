@@ -58,6 +58,14 @@ describe('Form control of a form field', () => {
       expect(field.fieldType).toBe('time');
     });
 
+    it('can be a textarea', () => {
+      const field = createDeclaration({
+        fieldType: 'textarea',
+      });
+
+      expect(field.fieldType).toBe('textarea');
+    });
+
     it('can be a checkbox group', () => {
       const field = createDeclaration({
         fieldType: 'checkboxgroup',

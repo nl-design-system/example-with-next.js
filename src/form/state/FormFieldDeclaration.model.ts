@@ -1,5 +1,14 @@
 export interface FormFieldDeclaration {
-  fieldType?: 'checkbox' | 'checkboxgroup' | 'date' | 'datetime' | 'input' | 'radiogroup' | 'select' | 'time';
+  fieldType?:
+    | 'checkbox'
+    | 'checkboxgroup'
+    | 'date'
+    | 'datetime'
+    | 'input'
+    | 'radiogroup'
+    | 'select'
+    | 'textarea'
+    | 'time';
   id: string;
   inputSubtype?: 'text' | 'email' | 'number' | 'range';
   labelKey?: string;
