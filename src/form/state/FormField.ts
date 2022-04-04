@@ -1,4 +1,5 @@
 import { FormValidationFunction } from '../validate/FormValidationFunction.model';
+import { createValidators } from '../validate/field';
 import { FormField } from './FormField.model';
 import { FormFieldDeclaration } from './FormFieldDeclaration.model';
 import { createDefaultState } from './FormFieldDefaultState';
@@ -17,11 +18,12 @@ type PartialFormField = {
 
 export const createFormField = (partial: PartialFormField): FormField => {
   const defaultState = createDefaultState(partial.defaultState);
+  const definition = partial.definition || {};
   return {
     declaration: partial.declaration,
     defaultState,
-    definition: partial.definition || {},
+    definition,
     inputState: createInputState(defaultState),
-    validators: partial.validators || [],
+    validators: partial.validators || createValidators(definition),
   };
 };
