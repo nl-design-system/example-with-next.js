@@ -38,6 +38,7 @@ export const enableValidation = (field: FormField): FormField => ({
   ...field,
   inputState: {
     ...field.inputState,
+    deferTooShort: false,
     deferInvalid: false,
   },
 });
@@ -158,6 +159,11 @@ export const formReducer = (state: State, action: FormAction): State => {
         };
       }
     }
+
+    newState = {
+      ...newState,
+      fields: formCheckValidity(newState.fields),
+    };
   } else if (action.type === 'submit') {
     newState = {
       ...newState,

@@ -9,7 +9,7 @@ export const createInputState = (
   deferInvalid: defaultState?.invalid ? false : true,
   deferPatternMismatch: false,
   deferTooLong: false,
-  deferTooShort: definition && defaultState ? String(defaultState?.value).length < (definition.minLength || 0) : false,
+  deferTooShort: definition && defaultState ? String(defaultState.value).length < (definition.minLength || 0) : false,
   deferValueMissing: defaultState?.value ? false : true,
   dirty: false,
   errors: defaultState?.errors || [],

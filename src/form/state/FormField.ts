@@ -19,11 +19,12 @@ type PartialFormField = {
 export const createFormField = (partial: PartialFormField): FormField => {
   const defaultState = createDefaultState(partial.defaultState);
   const definition = partial.definition || {};
+
   return {
     declaration: partial.declaration,
     defaultState,
     definition,
-    inputState: createInputState(defaultState),
+    inputState: createInputState(defaultState, definition),
     validators: partial.validators || createValidators(definition),
   };
 };
