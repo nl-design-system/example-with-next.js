@@ -11,7 +11,7 @@ export interface FormFieldDefinition {
   min?: number;
   minLength?: number;
   multiline?: boolean;
-  normalizers?: string[];
+  normalizers?: (string | ((_: string) => string))[];
   numeric?: boolean;
   options?: FormFieldOption[];
   pattern?: string;
