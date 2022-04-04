@@ -15,7 +15,7 @@ export const geslachtsnaamValidation: FormFieldDefinition = {
   autoComplete: 'family-name',
   maxLength: 200,
   minLength: 1,
-  normalizers: ['normalize-unicode'],
+  normalizers: ['normalize-whitespace', 'trim-whitespace', 'normalize-unicode'],
   pattern: teletex,
   preserveWhitespace: false,
   spellCheck: false,

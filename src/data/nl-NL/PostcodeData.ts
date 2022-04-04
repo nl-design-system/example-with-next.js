@@ -13,5 +13,6 @@ export const postcodeValidation: FormFieldDefinition = {
   caseInsensitive: true,
   maxLength: 6,
   minLength: 6,
+  normalizers: ['remove-whitespace', 'normalize-unicode'],
   pattern: '[0-9]{4}[A-Za-z]{2}',
 };
