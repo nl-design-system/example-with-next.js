@@ -13,11 +13,23 @@ export const Address = ({ dispatch, state }: { dispatch: FormStateDispatch; stat
 
       <Input state={state.fields[3]} {...useInput(state.fields[3], dispatch)} />
 
-      <div className="todo-form-field-group todo-form-field-group--inline">
-        <Input state={state.fields[4]} {...useInput(state.fields[4], dispatch)} />
-        <Input state={state.fields[5]} {...useInput(state.fields[5], dispatch)} />
-        <Input state={state.fields[6]} {...useInput(state.fields[6], dispatch)} />
-      </div>
+      <Input
+        state={state.fields[4]}
+        {...useInput(state.fields[4], dispatch)}
+        className="todo-form-field--max-length todo-form-field--house-number"
+      />
+
+      <Input
+        state={state.fields[5]}
+        {...useInput(state.fields[5], dispatch)}
+        className="todo-form-field--max-length todo-form-field--house-number-suffix"
+      />
+
+      <Input
+        state={state.fields[6]}
+        {...useInput(state.fields[6], dispatch)}
+        className="todo-form-field--max-length todo-form-field--postcode"
+      />
 
       <Input state={state.fields[7]} {...useInput(state.fields[7], dispatch)} />
     </>
