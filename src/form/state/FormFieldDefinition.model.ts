@@ -3,6 +3,7 @@ import { FormFieldOption } from './FormFieldOption.model';
 export interface FormFieldDefinition {
   autoComplete?: string | string[];
   caseInsensitive?: boolean;
+  example?: string;
   integer?: boolean;
   maskInput?: boolean;
   maskOutput?: boolean;
@@ -15,6 +16,7 @@ export interface FormFieldDefinition {
   numeric?: boolean;
   options?: FormFieldOption[];
   pattern?: string;
+  patternKey?: string;
   preserveWhitespace?: boolean;
   required?: boolean;
   spellCheck?: boolean;

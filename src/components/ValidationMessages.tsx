@@ -9,7 +9,7 @@ interface ValidationMessagesProps {
 }
 
 export const ValidationMessages = ({ errors, field }: ValidationMessagesProps) => {
-  const { t } = useTranslation(["form-error"]);
+  const { t } = useTranslation(["form-error", "form"]);
   return (
     <>
       {errors &&
@@ -23,7 +23,7 @@ export const ValidationMessages = ({ errors, field }: ValidationMessagesProps) =
                 min: field.definition.min,
                 max: field.definition.max,
                 step: field.definition.step,
-                pattern: field.definition.pattern,
+                pattern: field.definition.patternKey ? t(field.definition.patternKey) : field.definition.pattern,
               })}
             </Paragraph>
           </FormFieldDescription>
