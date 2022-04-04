@@ -205,6 +205,7 @@ export const Input = ({ state, onChange, onBlur, onInput, className }: InputProp
         ""
       )}
       <ValidationMessages
+        field={state}
         errors={errors.map((error, index) => ({
           ...error,
           id: `${id}-error-${index}`,
