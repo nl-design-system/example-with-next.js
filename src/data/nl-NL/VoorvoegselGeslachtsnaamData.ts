@@ -18,7 +18,7 @@ import { FormFieldDefinition } from '../../form/state/FormFieldDefinition.model'
 export const voorvoegselGeslachtsnaamValidation: FormFieldDefinition = {
   maxLength: 10,
   minLength: 1,
-  normalizers: ['normalize-unicode'],
+  normalizers: ['normalize-whitespace', 'trim-whitespace', 'normalize-unicode'],
   pattern: "[A-Za-z' ]{0,10}",
   preserveWhitespace: false,
   spellCheck: false,

@@ -13,5 +13,6 @@ import { teletex } from './TeletexData';
 export const huisnummertoevoegingValidation: FormFieldDefinition = {
   maxLength: 4,
   minLength: 1,
+  normalizers: ['normalize-whitespace', 'trim-whitespace', 'normalize-unicode'],
   pattern: teletex,
 };

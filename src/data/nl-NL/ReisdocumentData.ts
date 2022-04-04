@@ -12,5 +12,6 @@ import { FormFieldDefinition } from '../../form/state/FormFieldDefinition.model'
 export const reisdocumentValidation: FormFieldDefinition = {
   maxLength: 9,
   minLength: 9,
+  normalizers: ['normalize-whitespace', 'trim-whitespace', 'normalize-unicode'],
   pattern: '[A-Za-z0-9]{9}',
 };

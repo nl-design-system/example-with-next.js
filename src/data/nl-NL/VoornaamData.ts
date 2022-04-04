@@ -15,6 +15,7 @@ export const voornaamValidation: FormFieldDefinition = {
   autoComplete: 'given-name',
   maxLength: 200,
   minLength: 1,
+  normalizers: ['normalize-whitespace', 'trim-whitespace', 'normalize-unicode'],
   pattern: teletex,
   preserveWhitespace: false,
   spellCheck: false,

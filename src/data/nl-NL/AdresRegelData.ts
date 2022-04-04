@@ -13,6 +13,7 @@ export const adresRegel1Validation: FormFieldDefinition = {
   autoComplete: 'address-line1',
   maxLength: 35,
   minLength: 1,
+  normalizers: ['normalize-whitespace', 'trim-whitespace', 'normalize-unicode'],
   pattern: teletex,
 };
 
@@ -28,6 +29,7 @@ export const adresRegel2Validation: FormFieldDefinition = {
   autoComplete: 'address-line2',
   maxLength: 35,
   minLength: 1,
+  normalizers: ['normalize-whitespace', 'trim-whitespace', 'normalize-unicode'],
   pattern: teletex,
 };
 
@@ -43,5 +45,6 @@ export const adresRegel3Validation: FormFieldDefinition = {
   autoComplete: 'address-line3',
   maxLength: 35,
   minLength: 1,
+  normalizers: ['normalize-whitespace', 'trim-whitespace', 'normalize-unicode'],
   pattern: teletex,
 };

@@ -16,4 +16,5 @@ import { FormFieldDefinition } from '../../form/state/FormFieldDefinition.model'
 export const huisnummerValidation: FormFieldDefinition = {
   maxLength: 5,
   integer: true,
+  normalizers: ['normalize-whitespace', 'trim-whitespace', 'normalize-unicode'],
 };
