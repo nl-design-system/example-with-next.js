@@ -1,12 +1,10 @@
 const withTM = require('next-transpile-modules')(['@utrecht/web-component-library-react']);
+const { i18n } = require('./next-i18next.config');
 
 module.exports = {
   reactStrictMode: true,
+  i18n,
   ...withTM(),
-  i18n: {
-    locales: ['en', 'nl'],
-    defaultLocale: 'en',
-  },
   async headers() {
     return [
       {
@@ -15,7 +13,8 @@ module.exports = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'",
+            value:
+              "default-src 'self'; img-src 'self' data:; script-src 'self' 'unsafe-eval' data:; style-src 'self' 'unsafe-inline' data:",
           },
           {
             key: 'Referrer-Policy',
