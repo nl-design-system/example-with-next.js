@@ -13,4 +13,5 @@ export const huisletterValidation: FormFieldDefinition = {
   maxLength: 1,
   normalizers: ['normalize-whitespace', 'trim-whitespace', 'normalize-unicode'],
   pattern: '[A-Za-z]?',
+  patternKey: 'single-alphabet-character-pattern',
 };

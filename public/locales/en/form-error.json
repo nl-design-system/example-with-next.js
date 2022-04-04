@@ -1,3 +1,21 @@
 {
-  "ValueMissingError": "Dit veld heeft geen inhoud. Vul alsjeblieft iets in."
+  "DefaultError": "Fill in a valid {{label}}.",
+  "example": "Enter {{label}} in this manner: {{example}}.",
+  "ValueMissingError": "Enter a {{label}}.",
+  "TooLongError": "{{label}} should be between {{minLength}} and {{maxLength}} characters long.",
+  "TooShortError": "{{label}} should be between {{minLength}} and {{maxLength}} characters long.",
+  "RangeUnderflowError": "{{label}} should be {{min}} or more.",
+  "RangeOverflowError": "{{label}} should be {{max}} or less.",
+  "StepMismatchError": "{{label}} should be between {{min}} and {{max}}.",
+  "invalid-field-checkbox-group-required": "Choose an answer.",
+  "invalid-field-file-required": "Provide a file.",
+  "PatternMismatchError": "{{label}} should be {{pattern}}",
+  "alphabet-pattern": "only characters from the alphabet",
+  "alphabet-whitespace-pattern": "only characters from the alphabet and spaces",
+  "alpha-numeric-pattern": "only aphabetic characters (a-z) and numbers (0-9)",
+  "integer-pattern": "an integer",
+  "number-pattern": "a number",
+  "postcode-pattern": "4 numbers followed by 2 alphabetic characters",
+  "single-alphabet-character-pattern": "1 alphabetic character",
+  "teletex-pattern": "aphabetic characters and numbers, without special characters or emojis"
 }

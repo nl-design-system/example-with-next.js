@@ -15,4 +15,5 @@ export const locatiebeschrijvingValidation: FormFieldDefinition = {
   multiline: true,
   normalizers: ['normalize-whitespace', 'trim-whitespace', 'normalize-unicode'],
   pattern: teletexMultiline,
+  patternKey: 'teletex-pattern',
 };

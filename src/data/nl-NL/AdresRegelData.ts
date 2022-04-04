@@ -15,6 +15,7 @@ export const adresRegel1Validation: FormFieldDefinition = {
   minLength: 1,
   normalizers: ['normalize-whitespace', 'trim-whitespace', 'normalize-unicode'],
   pattern: teletex,
+  patternKey: 'teletex-pattern',
 };
 
 /**
@@ -31,6 +32,7 @@ export const adresRegel2Validation: FormFieldDefinition = {
   minLength: 1,
   normalizers: ['normalize-whitespace', 'trim-whitespace', 'normalize-unicode'],
   pattern: teletex,
+  patternKey: 'teletex-pattern',
 };
 
 /**
@@ -47,4 +49,5 @@ export const adresRegel3Validation: FormFieldDefinition = {
   minLength: 1,
   normalizers: ['normalize-whitespace', 'trim-whitespace', 'normalize-unicode'],
   pattern: teletex,
+  patternKey: 'teletex-pattern',
 };

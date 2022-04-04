@@ -11,4 +11,5 @@ export const kvkValidation: FormFieldDefinition = {
   integer: true,
   normalizers: ['normalize-whitespace', 'trim-whitespace', 'normalize-unicode'],
   pattern: '[0-9]{8}',
+  patternKey: 'integer-pattern',
 };
