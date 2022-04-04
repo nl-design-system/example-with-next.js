@@ -13,4 +13,5 @@
   --todo-form-stepper-margin-block-end: var(--utrecht-space-block-xl);
   --utrecht-form-field-margin-block-start: 13px;
   --todo-utrecht-form-label-margin-inline-start: var(--utrecht-space-inline-sm);
+  --todo-radio-group-gap: var(--utrecht-space-inline-lg);
 }
