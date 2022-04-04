@@ -1,3 +1,5 @@
 .amsterdam-theme {
   --utrecht-page-content-padding-block-end: 70px; /* Standaard marge 70px */
+  --todo-radio-group-gap: 24px; /* FIXME: made up value */
+  --todo-utrecht-form-label-margin-inline-start: 1ch; /* FIXME: made up value */
 }
