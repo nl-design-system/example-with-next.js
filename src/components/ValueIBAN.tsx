@@ -31,7 +31,7 @@ export const ValueIBAN = forwardRef(
         {...restProps}
         ref={ref}
         value={normalized}
-        className={clsx("example-value", "example-value--iban", className)}
+        className={clsx("example-value", "example-value--iban", "notranslate", className)}
       >
         {children || formatted}
       </data>

@@ -42,6 +42,14 @@ describe("IBAN value", () => {
     expect(currency).toHaveClass("example-value--iban");
   });
 
+  it("renders a notranslate class name that blocks automatic translation tools", () => {
+    const { container } = render(<ValueIBAN iban="GO 00 BACK 1234 6789 9012" />);
+
+    const currency = container.querySelector(":only-child");
+
+    expect(currency).toHaveClass("notranslate");
+  });
+
   it("renders rich text content", () => {
     const { container } = render(
       <ValueIBAN iban="MU43BOMM0101123456789101000MUR">
