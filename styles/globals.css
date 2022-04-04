@@ -190,6 +190,10 @@ body {
   --max-length: 7;
 }
 
+.todo-form-field--family-name-prefix {
+  --max-length: 10;
+}
+
 .todo-form-field--max-length .utrecht-textbox {
   --char-width: var(--_char-width, calc((1 / 3 * 1ch + 2 / 3 * 1em)));
   inline-size: calc(var(--char-width) * var(--max-length));
