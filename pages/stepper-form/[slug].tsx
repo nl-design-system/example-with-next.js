@@ -23,7 +23,7 @@ import { createInitialFormState, formReducer, State } from "../../src/form/actio
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ["stepper-form", "form", "theme-switcher"])),
+    ...(await serverSideTranslations(locale, ["stepper-form", "form", "form-error", "theme-switcher"])),
   },
 });
 

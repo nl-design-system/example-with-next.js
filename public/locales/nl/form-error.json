@@ -1,0 +1,19 @@
+{
+  "ValueMissingError": "Dit veld heeft geen inhoud. Vul alsjeblieft iets in.",
+  "invalid-field": "Vul een geldig(e) {{label}} in.",
+  "invalid-field-example": "Vul {{label}} in op deze manier: {{example}}.",
+  "invalid-field-required": "Vul {{label}} in.",
+  "TooLongError": "{{label}} moet {{maxLength}} tekens of minder zijn.",
+  "TooShortError": "{{label}} moet {{minLength}} of meer tekens zijn.",
+  "invalid-field-length-range": "{{label}} moet tussen {{minLength}} en {{maxLength}} tekens zijn.",
+  "invalid-field-disallowed-chars": "{{label}} mag geen ‘{{chars}}’ hebben.",
+  "invalid-field-disallowed-chars-list": "{{label}} mag geen ‘{{chars}}’ hebben.",
+  "invalid-field-number": "{{label}} moet een nummer zijn.",
+  "invalid-field-integer": "{{label}} moet een geheel getal zijn.",
+  "RangeUnderflowError": "{{label}} moet {{min}} of meer zijn.",
+  "RangeOverflowError": "{{label}} moet {{max}} of minder zijn.",
+  "StepMismatchError": "{{label}} moet tussen {{min}} en {{max}} zijn.",
+  "invalid-field-checkbox-group-required": "Kies een antwoord.",
+  "invalid-field-file-required": "Stuur een bijlage mee.",
+  "PatternMismatchError": "{{label}} moet aan het volgende patroon voldoen: {{pattern}}"
+}

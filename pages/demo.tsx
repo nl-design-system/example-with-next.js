@@ -9,7 +9,7 @@ import { createInitialFormState, formReducer } from "../src/form/action/reducer"
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ["form-error", "form", "common"])),
+    ...(await serverSideTranslations(locale, ["form-error", "form", "form-error", "common"])),
   },
 });
 
