@@ -18,6 +18,7 @@
   "contact-preference": "Voorkeur hoe wij contact opnemen",
   "country": "Land",
   "data-item-input-empty": "Niets ingevuld",
+  "data-processing-consent": "Ik ga akkoord met de verwerking van mijn gegevens",
   "document-number": "Reisdocument nummer",
   "email": "E-mailadres",
   "family-name": "Achternaam",
@@ -65,6 +66,5 @@
   "tel-mobile": "Mobiel telefoonnummer",
   "website": "Website",
   "year-of-establishment": "Jaar van oprichting",
-  "your-question": "Jouw vraag",
-  "data-processing-consent": "I accept handing of this data"
+  "your-question": "Jouw vraag"
 }
