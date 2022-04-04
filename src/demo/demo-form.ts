@@ -3,6 +3,7 @@ import { huisnummerValidation } from '../data/nl-NL/HuisnummerData';
 import { huisnummertoevoegingValidation } from '../data/nl-NL/HuisnummerToevoegingData';
 import { postcodeValidation } from '../data/nl-NL/PostcodeData';
 import { voornaamValidation } from '../data/nl-NL/VoornaamData';
+import { voorvoegselGeslachtsnaamValidation } from '../data/nl-NL/VoorvoegselGeslachtsnaamData';
 import { woonplaatsnaamValidation } from '../data/nl-NL/WoonplaatsnaamData';
 import { createFormField } from '../form/state/FormField';
 
@@ -48,6 +49,19 @@ export const createDemoForm = () => {
     definition: {
       ...voornaamValidation,
       required: true,
+    },
+  });
+
+  const tussenvoegsel = createFormField({
+    declaration: {
+      id: 'cd40db1d-dfd5-4222-8342-5bd0fd6407b2',
+      fieldType: 'input',
+      labelKey: 'form:family-name-prefix',
+      label: 'Tussenvoegsel',
+    },
+    definition: {
+      ...voorvoegselGeslachtsnaamValidation,
+      required: false,
     },
   });
 
@@ -200,6 +214,7 @@ export const createDemoForm = () => {
   return {
     geslacht,
     voornaam,
+    tussenvoegsel,
     achternaam,
     straatnaam,
     huisnummer,
