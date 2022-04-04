@@ -19,6 +19,8 @@ export const PersonalDetails = ({ dispatch, state }: { dispatch: FormStateDispat
 
       <Input state={state.fields[1]} {...useInput(state.fields[1], dispatch)} />
 
+      <Input state={state.fields[13]} {...useInput(state.fields[13], dispatch)} />
+
       <Input state={state.fields[2]} {...useInput(state.fields[2], dispatch)} />
     </>
   );

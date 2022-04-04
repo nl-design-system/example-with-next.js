@@ -77,6 +77,7 @@ export default function StepperForm() {
   const {
     geslacht,
     voornaam,
+    tussenvoegsel,
     achternaam,
     straatnaam,
     huisnummer,
@@ -107,6 +108,7 @@ export default function StepperForm() {
         telephoneMobile,
         bericht,
         dataverwerking,
+        tussenvoegsel,
       ],
     })
   );
