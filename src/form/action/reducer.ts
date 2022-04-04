@@ -127,6 +127,37 @@ export const formReducer = (state: State, action: FormAction): State => {
       ...newState,
       fields: formFieldEnableValidation(newState.fields, action.id),
     };
+
+    const field = newState.fields.find((field) => field.declaration.id === action.id);
+
+    if (field) {
+      const currentValue = field.inputState.value;
+      const normalized = field.definition.normalizers
+        ? field.definition.normalizers.reduce((value: string, normalizer) => {
+            if (typeof normalizer === 'function') {
+              return normalizer(value);
+            } else if (normalizer === 'trim-whitespace' && typeof value === 'string') {
+              return value.trim();
+            } else if (normalizer === 'normalize-whitespace' && typeof value === 'string') {
+              return value.replace(/\s+/g, ' ');
+            } else if (normalizer === 'remove-whitespace' && typeof value === 'string') {
+              return value.replace(/\s+/g, '');
+            } else if (normalizer === 'normalize-unicode' && typeof value === 'string') {
+              return value.normalize();
+            } else {
+              // TODO: Support normalizer keywords
+              return value;
+            }
+          }, currentValue)
+        : currentValue;
+
+      if (normalized !== currentValue) {
+        newState = {
+          ...newState,
+          fields: setField(newState.fields, action.id, normalized),
+        };
+      }
+    }
   } else if (action.type === 'submit') {
     newState = {
       ...newState,

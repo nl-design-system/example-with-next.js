@@ -4,8 +4,12 @@ import { FormAction } from './FormAction.model';
 import { InputChangeAction } from './InputChangeAction.model';
 import { InputOptionSelectAction } from './InputOptionSelectAction.model';
 import { InputOptionUnselectAction } from './InputOptionUnselectAction.model';
+import { InputTouchAction } from './InputTouchAction.model';
 
-type SomeInputProps = { onChange: (_event: any) => void };
+type SomeInputProps = {
+  onBlur?: (_event: any) => void;
+  onChange: (_event: any) => void;
+};
 
 export type FormStateDispatch = (_action: FormAction) => void;
 
@@ -64,6 +68,20 @@ const handleCheckboxChange = (input: HTMLInputElement, dispatch: FormStateDispat
 
 export const useInput = (field: FormField, dispatch: FormStateDispatch): SomeInputProps => {
   return {
+    onBlur: (event: FocusEvent) => {
+      const input =
+        (event.target as HTMLInputElement)?.localName === 'input' ? (event.target as HTMLInputElement) : null;
+
+      // TODO: Radio group / checkbox group
+      if (typeof input?.dataset.id === 'string') {
+        const touchAction: InputTouchAction = {
+          type: 'touch-input',
+          id: input.dataset.id,
+        };
+
+        dispatch(touchAction);
+      }
+    },
     onChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
       const input = event.target.localName === 'input' ? (event.target as HTMLInputElement) : null;
       const select = event.target.localName === 'select' ? (event.target as HTMLSelectElement) : null;
