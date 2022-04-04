@@ -24,6 +24,15 @@ export const validateField = (
   if (!required && !value) {
     // If the field is optional, empty values should not be considered too short, but simply absent
     deferTooShort = true;
+
+    // If the field is optional, pattern doesn't apply to fields left empty
+    deferPatternMismatch = true;
+  }
+
+  if (errors.some((error) => error?.tooShort || error?.tooLong)) {
+    // Only validate the pattern once minLength and maxLength are okay,
+    // otherwise the user will be confronted with two errors caused by the same mistake.
+    deferPatternMismatch = true;
   }
 
   if (deferTooShort) {
