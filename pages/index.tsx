@@ -13,7 +13,7 @@ import { UnorderedListItem } from "../src/components/utrecht/UnorderedListItem";
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ["common", "stepper-form", "theme-switcher"])),
+    ...(await serverSideTranslations(locale, ["demo-overview", "stepper-form", "theme-switcher"])),
   },
 });
 
@@ -25,7 +25,7 @@ export default function Home() {
       <UtrechtDocument>
         <Head>
           <title>Demo</title>
-          <meta name="description" content="NL Design System examples" />
+          <meta name="description" content={t("demo-overview:page-title")} />
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <PageHeader>
@@ -36,7 +36,7 @@ export default function Home() {
         </PageHeader>
         <main>
           <PageContent>
-            <UtrechtHeading level={1}>NL Design System examples</UtrechtHeading>
+            <UtrechtHeading level={1}>{t("demo-overview:page-title")}</UtrechtHeading>
             <UnorderedList>
               <UnorderedListItem>
                 <NextLink href="/stepper-form/step-1" passHref>
