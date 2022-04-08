@@ -8,26 +8,34 @@ interface ValidationMessagesProps {
   field: FormField;
 }
 
-export const ValidationMessages = ({ errors, field }: ValidationMessagesProps) => {
+export const ValidationMessages = ({
+  errors,
+  field: {
+    declaration: { label, labelKey },
+    definition: { min, minLength, max, maxLength },
+  },
+}: ValidationMessagesProps) => {
   const { t } = useTranslation(["form-error", "form"]);
   return (
     <>
       {errors &&
-        errors.map(({ id, name, message }) => (
-          <FormFieldDescription id={id} key={message} invalid>
-            <Paragraph>
-              {t(name, {
-                label: field.declaration.labelKey ? t(field.declaration.labelKey) : field.declaration.label,
-                minLength: field.definition.minLength,
-                maxLength: field.definition.maxLength,
-                min: field.definition.min,
-                max: field.definition.max,
-                step: field.definition.step,
-                pattern: field.definition.patternKey ? t(field.definition.patternKey) : field.definition.pattern,
-              })}
-            </Paragraph>
-          </FormFieldDescription>
-        ))}
+        errors.map(({ id, name, message }) => {
+          return (
+            <FormFieldDescription id={id} key={message} invalid>
+              <Paragraph>
+                {t(name, {
+                  ns: "form-error",
+                  context: labelKey,
+                  label: t([labelKey, label], { ns: "form" }).toLowerCase(),
+                  min,
+                  minLength,
+                  max,
+                  maxLength,
+                })}
+              </Paragraph>
+            </FormFieldDescription>
+          );
+        })}
     </>
   );
 };

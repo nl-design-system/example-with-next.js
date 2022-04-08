@@ -40,7 +40,7 @@ export const Input = ({ state, onChange, onBlur, onInput, className }: InputProp
   if (fieldType === "radiogroup" || fieldType === "checkboxgroup") {
     return (
       <Fieldset role={fieldType === "radiogroup" ? "radiogroup" : undefined} className={className}>
-        <FieldsetLegend>{labelKey ? t(labelKey, label) : label}</FieldsetLegend>
+        <FieldsetLegend>{labelKey ? t([labelKey, label], { ns: "form" }) : label}</FieldsetLegend>
         {options &&
           options.map((option: FormFieldOption) => {
             const { label, labelKey, value } = option;
@@ -66,7 +66,7 @@ export const Input = ({ state, onChange, onBlur, onInput, className }: InputProp
                     value={value}
                   />
                   <FormLabel htmlFor={optionControlId} disabled={optionDisabled} type="checkbox">
-                    {labelKey ? t(labelKey, label) : label}
+                    {labelKey ? t([labelKey, label], { ns: "form" }) : label}
                   </FormLabel>
                 </FormField>
               );
@@ -89,7 +89,7 @@ export const Input = ({ state, onChange, onBlur, onInput, className }: InputProp
                     value={value}
                   />
                   <FormLabel htmlFor={optionControlId} disabled={optionDisabled} type="radio">
-                    {labelKey ? t(labelKey, label) : label}
+                    {labelKey ? t([labelKey, label], { ns: "form" }) : label}
                   </FormLabel>
                 </FormField>
               );
@@ -118,7 +118,7 @@ export const Input = ({ state, onChange, onBlur, onInput, className }: InputProp
           value={defaultState?.value}
         />
         <FormLabel htmlFor={`${id}-input`} disabled={disabled} type="checkbox">
-          {labelKey ? t(labelKey, label) : label}
+          {labelKey ? t([labelKey, label], { ns: "form" }) : label}
         </FormLabel>
       </FormField>
     );
@@ -127,7 +127,7 @@ export const Input = ({ state, onChange, onBlur, onInput, className }: InputProp
   return (
     <FormField id={id} className={className}>
       <FormLabel htmlFor={`${id}-input`} disabled={disabled}>
-        {labelKey ? t(labelKey, label) : label}
+        {labelKey ? t([labelKey, label], { ns: "form" }) : label}
       </FormLabel>
       {fieldType === "input" && inputSubtype !== "range" ? (
         <Textbox
@@ -196,7 +196,7 @@ export const Input = ({ state, onChange, onBlur, onInput, className }: InputProp
               const disabled = false;
               return (
                 <SelectOption key={option.id} disabled={disabled} value={value} data-option-id={option.id}>
-                  {labelKey ? t(labelKey, label) : label}
+                  {labelKey ? t([labelKey, label], { ns: "form" }) : label}
                 </SelectOption>
               );
             })}

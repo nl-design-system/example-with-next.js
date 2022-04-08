@@ -1,9 +1,11 @@
 {
   "close-form": "Close form",
   "download-form": "Download form",
+  "explain-gender-field": "Gender will be used to determine the salutation in our communication",
   "form-complete": "Your question has been submitted",
   "form-summary": "Overview of your details",
   "form-summary-description": "Is the data we have gathered correct?",
+  "last-step": "Last step",
   "next-step": "Next step",
   "organization": "Organization",
   "page-title": "Demo Stepper Form",
@@ -13,6 +15,5 @@
   "to-summary": "Verify data",
   "your-address": "Your address",
   "your-contact-details": "Your contact details",
-  "your-personal-details": "Your personal details",
-  "your-question": "Last step"
+  "your-personal-details": "Your personal details"
 }

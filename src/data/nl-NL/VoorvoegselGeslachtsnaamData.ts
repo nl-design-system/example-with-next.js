@@ -20,7 +20,6 @@ export const voorvoegselGeslachtsnaamValidation: FormFieldDefinition = {
   minLength: 1,
   normalizers: ['normalize-whitespace', 'trim-whitespace', 'normalize-unicode'],
   pattern: "[A-Za-z' ]{0,10}",
-  patternKey: 'alphabet-whitespace-pattern',
   preserveWhitespace: false,
   spellCheck: false,
 };

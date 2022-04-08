@@ -14,5 +14,4 @@ export const reisdocumentValidation: FormFieldDefinition = {
   minLength: 9,
   normalizers: ['normalize-whitespace', 'trim-whitespace', 'normalize-unicode'],
   pattern: '[A-Za-z0-9]{9}',
-  patternKey: 'alpha-numeric-pattern',
 };

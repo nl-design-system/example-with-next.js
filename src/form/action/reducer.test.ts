@@ -28,6 +28,7 @@ describe('Form reducer', () => {
           id: 'answer-to-life-the-universe-and-everything',
           fieldType: 'input',
           label: 'The answer to life, the universe and everything?',
+          labelKey: 'ultimate-question',
         },
       }),
     ],
@@ -109,6 +110,7 @@ describe('Form reducer', () => {
               id: 'answer-to-life-the-universe-and-everything',
               fieldType: 'input',
               label: 'The answer to life, the universe and everything?',
+              labelKey: 'ultimate-question',
             },
             defaultState,
             definition: {

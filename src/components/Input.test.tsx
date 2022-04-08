@@ -9,7 +9,7 @@ describe("Form field with input", () => {
   describe("with textbox", () => {
     it("to render", () => {
       const state = createFormField({
-        declaration: { id, fieldType: "input", label: "Message" },
+        declaration: { id, fieldType: "input", label: "Message", labelKey: "message" },
       });
       const { container } = render(<Input state={state} onChange={() => {}} />);
 
@@ -28,7 +28,7 @@ describe("Form field with input", () => {
   describe("with textarea", () => {
     it("to render", () => {
       const state = createFormField({
-        declaration: { id, fieldType: "textarea", label: "Message" },
+        declaration: { id, fieldType: "textarea", label: "Message", labelKey: "message" },
       });
       const { container } = render(<Input state={state} onChange={() => {}} />);
 
@@ -47,7 +47,7 @@ describe("Form field with input", () => {
   describe("with checkbox", () => {
     it("to render", () => {
       const state = createFormField({
-        declaration: { id, fieldType: "checkbox", label: "Receive spam" },
+        declaration: { id, fieldType: "checkbox", label: "Receive spam", labelKey: "message" },
       });
       const { container } = render(<Input state={state} onChange={() => {}} />);
 
@@ -66,11 +66,11 @@ describe("Form field with input", () => {
   describe("with radio group", () => {
     it("to render", () => {
       const state = createFormField({
-        declaration: { id, fieldType: "radiogroup", label: "Are you OK?" },
+        declaration: { id, fieldType: "radiogroup", label: "Are you OK?", labelKey: "question-ok" },
         definition: {
           options: [
-            { id: "feeling-1", label: "Yes", value: "Y" },
-            { id: "feeling-2", label: "No", value: "N" },
+            { id: "feeling-1", label: "Yes", labelKey: "option-yes", value: "Y" },
+            { id: "feeling-2", label: "No", labelKey: "option-no", value: "N" },
           ],
         },
       });
@@ -97,11 +97,11 @@ describe("Form field with input", () => {
   describe("with checkbox group", () => {
     it("to render", () => {
       const state = createFormField({
-        declaration: { id, fieldType: "checkboxgroup", label: "Toppings" },
+        declaration: { id, fieldType: "checkboxgroup", label: "Toppings", labelKey: "toppings" },
         definition: {
           options: [
-            { id: "topping-1", label: "Cheese", value: "cheese" },
-            { id: "topping-2", label: "Basil", value: "basil" },
+            { id: "topping-1", label: "Cheese", labelKey: "cheese", value: "cheese" },
+            { id: "topping-2", label: "Basil", labelKey: "basil", value: "basil" },
           ],
         },
       });
@@ -128,11 +128,11 @@ describe("Form field with input", () => {
   describe("with combobox", () => {
     it("to render", () => {
       const state = createFormField({
-        declaration: { id, fieldType: "select", label: "Favourite topping" },
+        declaration: { id, fieldType: "select", label: "Favourite topping", labelKey: "favourite-topping" },
         definition: {
           options: [
-            { id: "topping-1", label: "Cheese", value: "cheese" },
-            { id: "topping-2", label: "Basil", value: "basil" },
+            { id: "topping-1", label: "Cheese", value: "cheese", labelKey: "cheese" },
+            { id: "topping-2", label: "Basil", value: "basil", labelKey: "basil" },
           ],
         },
       });

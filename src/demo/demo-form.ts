@@ -12,7 +12,7 @@ export const createDemoForm = () => {
     declaration: {
       id: '6c68547f-c29a-4ad6-a372-de38d184e334',
       fieldType: 'radiogroup',
-      labelKey: 'form:gender',
+      labelKey: 'gender',
       label: 'Geslacht',
     },
     definition: {
@@ -21,19 +21,19 @@ export const createDemoForm = () => {
           id: 'e6e4059f-1a15-4bde-87e9-3bf7ffee3699',
           value: 'V',
           label: 'Vrouw',
-          labelKey: 'form:gender-female',
+          labelKey: 'gender-female',
         },
         {
           id: 'b45dd458-3af7-4414-b1ac-a430622f4946',
           value: 'M',
           label: 'Man',
-          labelKey: 'form:gender-male',
+          labelKey: 'gender-male',
         },
         {
           id: '5010af86-9e5d-482a-97ce-d9b093760910',
           value: 'O',
           label: 'Onbekend',
-          labelKey: 'form:gender-unknown',
+          labelKey: 'gender-unknown',
         },
       ],
     },
@@ -43,7 +43,7 @@ export const createDemoForm = () => {
     declaration: {
       id: '0d2ae246-fd0f-458c-a7eb-1afb34ac934b',
       fieldType: 'input',
-      labelKey: 'form:given-name',
+      labelKey: 'given-name',
       label: 'Voornaam',
     },
     definition: {
@@ -56,7 +56,7 @@ export const createDemoForm = () => {
     declaration: {
       id: 'cd40db1d-dfd5-4222-8342-5bd0fd6407b2',
       fieldType: 'input',
-      labelKey: 'form:family-name-prefix',
+      labelKey: 'family-name-prefix',
       label: 'Tussenvoegsel',
     },
     definition: {
@@ -69,7 +69,7 @@ export const createDemoForm = () => {
     declaration: {
       id: '7a50c629-3a0e-4769-adb3-41aa628d7077',
       fieldType: 'input',
-      labelKey: 'form:family-name',
+      labelKey: 'family-name',
       label: 'Achternaam',
     },
     definition: {
@@ -82,7 +82,7 @@ export const createDemoForm = () => {
     declaration: {
       id: 'f82bb987-a790-4fd0-9f50-bdd7da8b38dc',
       fieldType: 'input',
-      labelKey: 'form:street',
+      labelKey: 'street',
       label: 'Straatnaam',
     },
     definition: {
@@ -94,7 +94,7 @@ export const createDemoForm = () => {
     declaration: {
       id: 'efa07d7e-856c-46c3-a042-b25c8c29457c',
       fieldType: 'input',
-      labelKey: 'form:house-number',
+      labelKey: 'house-number',
       label: 'huisnummer',
     },
     definition: {
@@ -107,7 +107,7 @@ export const createDemoForm = () => {
     declaration: {
       id: '0528663b-3398-4af0-aaf8-90b79372c124',
       fieldType: 'input',
-      labelKey: 'form:house-number-suffix',
+      labelKey: 'house-number-suffix',
       label: 'toevoeging',
     },
     definition: {
@@ -116,11 +116,11 @@ export const createDemoForm = () => {
     },
   });
 
-  const woonplaatsnaamToevoeging = createFormField({
+  const woonplaatsnaam = createFormField({
     declaration: {
       id: '048b7737-2529-4977-9087-eda540235b8e',
       fieldType: 'input',
-      labelKey: 'form:place-of-residence',
+      labelKey: 'place-of-residence',
       label: 'Woonplaats',
     },
     definition: {
@@ -133,7 +133,7 @@ export const createDemoForm = () => {
     declaration: {
       id: 'f18f3c36-d73e-4035-8d0e-ea0be39a5115',
       fieldType: 'input',
-      labelKey: 'form:postal-code',
+      labelKey: 'postal-code',
       label: 'postcode',
     },
     definition: {
@@ -147,7 +147,7 @@ export const createDemoForm = () => {
       id: '26965f4b-f54c-43c1-9d07-0944d0a8ec2f',
       fieldType: 'input',
       inputSubtype: 'email',
-      labelKey: 'form:email',
+      labelKey: 'email',
       label: 'E-mailadres',
     },
     definition: {
@@ -162,7 +162,7 @@ export const createDemoForm = () => {
       fieldType: 'input',
       // TODO: Support 'tel`
       // inputSubtype: 'tel',
-      labelKey: 'form:tel',
+      labelKey: 'tel',
       label: 'Telefoonnummer',
     },
     definition: {
@@ -177,7 +177,7 @@ export const createDemoForm = () => {
       fieldType: 'input',
       // TODO: Support 'tel`
       // inputSubtype: 'tel',
-      labelKey: 'form:tel-mobile',
+      labelKey: 'tel-mobile',
       label: 'Mobiel nummer',
     },
     definition: {
@@ -190,7 +190,7 @@ export const createDemoForm = () => {
     declaration: {
       id: 'b35faa7e-0f5d-4e8a-b3ef-611a2cd074ac',
       fieldType: 'textarea',
-      labelKey: 'form:your-question',
+      labelKey: 'your-question',
       label: 'bericht',
     },
     definition: {
@@ -203,7 +203,7 @@ export const createDemoForm = () => {
     declaration: {
       id: '45f62f69-38c4-4f33-b001-6d46c8df8161',
       fieldType: 'checkbox',
-      labelKey: 'form:data-processing-consent',
+      labelKey: 'data-processing-consent',
       label: 'Ik ga akkoord met de verwerking van mijn gegevens',
     },
     definition: {
@@ -220,7 +220,7 @@ export const createDemoForm = () => {
     huisnummer,
     huisnummerToevoeging,
     postcode,
-    woonplaatsnaamToevoeging,
+    woonplaatsnaam,
     email,
     telephone,
     telephoneMobile,

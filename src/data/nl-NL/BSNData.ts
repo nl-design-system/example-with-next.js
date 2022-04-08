@@ -17,7 +17,6 @@ export const bsnValidation: FormFieldDefinition = {
   minLength: 9,
   normalizers: ['normalize-whitespace', 'trim-whitespace', 'normalize-unicode'],
   pattern: '[0-9]{9}',
-  patternKey: 'integer-pattern',
 };
 
 export const validateBSN = (str: string) => {
