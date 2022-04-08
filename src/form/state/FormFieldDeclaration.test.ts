@@ -4,6 +4,7 @@ const createDeclaration = (arg: Partial<FormFieldDeclaration>): FormFieldDeclara
   ...arg,
   id: '95c4f597-99ab-4938-9c78-c4d81b75033b',
   label: 'example',
+  labelKey: 'example',
   name: 'example',
 });
 

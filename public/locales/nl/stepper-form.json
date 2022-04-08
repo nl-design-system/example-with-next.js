@@ -1,9 +1,11 @@
 {
   "close-form": "Sluit formulier",
   "download-form": "Download formulier",
+  "explain-gender-field": "Geslacht gebruiken we om de aanhef van onze communicatie mee te bepalen",
   "form-complete": "Uw vraag is verstuurd",
   "form-summary": "Overzicht van uw gegevens",
   "form-summary-description": "Kloppen deze gegevens die wij hebben verzameld?",
+  "last-step": "Laatste stap",
   "next-step": "Volgende stap",
   "organization": "Bedrijfsnaam",
   "page-title": "Demo Stappen Formulier",
@@ -13,6 +15,5 @@
   "to-summary": "Gegevens controleren",
   "your-address": "Uw adres",
   "your-contact-details": "Uw contactgegevens",
-  "your-personal-details": "Uw persoonlijke gegevens",
-  "your-question": "Laatste stap"
+  "your-personal-details": "Uw persoonlijke gegevens"
 }

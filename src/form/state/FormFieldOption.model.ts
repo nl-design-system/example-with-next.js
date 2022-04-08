@@ -4,7 +4,7 @@
  */
 export interface FormFieldOption {
   id: string;
-  label?: string;
-  labelKey?: string;
+  label: string;
+  labelKey: string;
   value?: string;
 }

@@ -15,6 +15,5 @@ export const postcodeValidation: FormFieldDefinition = {
   minLength: 6,
   normalizers: ['remove-whitespace', 'normalize-unicode'],
   pattern: '[0-9]{4}[A-Za-z]{2}',
-  patternKey: 'postcode-pattern',
   example: '1234AB',
 };

@@ -17,5 +17,4 @@ export const huisnummerValidation: FormFieldDefinition = {
   maxLength: 5,
   integer: true,
   normalizers: ['normalize-whitespace', 'trim-whitespace', 'normalize-unicode'],
-  patternKey: 'integer-pattern',
 };

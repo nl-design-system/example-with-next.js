@@ -1,6 +1,8 @@
 {
-  "accept-data-handling": "I accept handing of this personal data",
   "address": "Address",
+  "address-line-1": "Adres, line 1",
+  "address-line-2": "Adres, line 2",
+  "address-line-3": "Adres, line 3",
   "adelijke-titel-predicaat": "Title of nobility or predicate",
   "bday": "Birthday",
   "bic": "BIC",
@@ -29,7 +31,7 @@
   "gender-male": "Male",
   "gender-required": "Gender is required. Choose one of the options to describe your gender.",
   "gender-unknown": "Unknown",
-  "given-name": "Given names",
+  "given-name": "Given name (1 or more)",
   "given-name-initials": "Initials",
   "given-name-latin": "Given name contains characters that are prohibitted. Enter the given name in Dutch script.",
   "given-name-required": "Given name is required. Enter one or more names to continue.",

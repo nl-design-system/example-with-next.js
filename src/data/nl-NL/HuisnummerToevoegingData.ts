@@ -15,5 +15,4 @@ export const huisnummertoevoegingValidation: FormFieldDefinition = {
   minLength: 1,
   normalizers: ['normalize-whitespace', 'trim-whitespace', 'normalize-unicode'],
   pattern: teletex,
-  patternKey: 'teletex-pattern',
 };

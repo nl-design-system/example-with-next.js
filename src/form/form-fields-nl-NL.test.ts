@@ -24,6 +24,7 @@ describe('frequently used Dutch form fields', () => {
         declaration: {
           id,
           label: 'Voornaam',
+          labelKey: 'given-name',
           fieldType: 'input',
           inputSubtype: 'text',
         },
@@ -42,6 +43,7 @@ describe('frequently used Dutch form fields', () => {
         declaration: {
           id,
           label: 'Voornamen',
+          labelKey: 'give-name',
           fieldType: 'input',
           inputSubtype: 'text',
         },
@@ -54,12 +56,13 @@ describe('frequently used Dutch form fields', () => {
     });
   });
 
-  describe('tussenvoegsels', () => {
+  describe('voorvoegsel', () => {
     it('should support its definition', () => {
       const def = createFormField({
         declaration: {
           id,
-          label: 'Tussenvoegsels',
+          label: 'Voorvoegsel',
+          labelKey: 'family-name-prefix',
           fieldType: 'input',
           inputSubtype: 'text',
         },
@@ -77,6 +80,7 @@ describe('frequently used Dutch form fields', () => {
         declaration: {
           id,
           label: 'Achternaam',
+          labelKey: 'family-name',
           fieldType: 'input',
           inputSubtype: 'text',
         },
@@ -94,6 +98,7 @@ describe('frequently used Dutch form fields', () => {
         declaration: {
           id,
           label: 'Straatnaam',
+          labelKey: 'street',
           fieldType: 'input',
           inputSubtype: 'text',
         },
@@ -109,6 +114,7 @@ describe('frequently used Dutch form fields', () => {
         declaration: {
           id,
           label: 'Huisnummer',
+          labelKey: 'house-number',
           fieldType: 'input',
           inputSubtype: 'text',
         },
@@ -126,6 +132,7 @@ describe('frequently used Dutch form fields', () => {
         declaration: {
           id,
           label: 'Huisletter',
+          labelKey: 'house-number-letter-suffix',
           fieldType: 'input',
           inputSubtype: 'text',
         },
@@ -143,6 +150,7 @@ describe('frequently used Dutch form fields', () => {
         declaration: {
           id,
           label: 'Huisnummertoevoeging',
+          labelKey: 'house-number-suffix',
           fieldType: 'input',
           inputSubtype: 'text',
         },
@@ -160,6 +168,7 @@ describe('frequently used Dutch form fields', () => {
         declaration: {
           id,
           label: 'Postcode',
+          labelKey: 'postal-code',
           fieldType: 'input',
           inputSubtype: 'text',
         },
@@ -177,6 +186,7 @@ describe('frequently used Dutch form fields', () => {
         declaration: {
           id,
           label: 'Woontplaatsnaam',
+          labelKey: 'place-of-residence',
           fieldType: 'input',
           inputSubtype: 'text',
         },
@@ -194,6 +204,7 @@ describe('frequently used Dutch form fields', () => {
         declaration: {
           id,
           label: 'Locatiebeschrijving',
+          labelKey: 'location-description',
           fieldType: 'input',
           inputSubtype: 'text',
         },
@@ -211,6 +222,7 @@ describe('frequently used Dutch form fields', () => {
         declaration: {
           id,
           label: 'Adres, regel 1',
+          labelKey: 'address-line-1',
           fieldType: 'input',
           inputSubtype: 'text',
         },
@@ -228,6 +240,7 @@ describe('frequently used Dutch form fields', () => {
         declaration: {
           id,
           label: 'Adres, regel 2',
+          labelKey: 'address-line-2',
           fieldType: 'input',
           inputSubtype: 'text',
         },
@@ -245,6 +258,7 @@ describe('frequently used Dutch form fields', () => {
         declaration: {
           id,
           label: 'Adres, regel 3',
+          labelKey: 'address-line-3',
           fieldType: 'input',
           inputSubtype: 'text',
         },
@@ -262,6 +276,7 @@ describe('frequently used Dutch form fields', () => {
         declaration: {
           id,
           label: 'E-mailadres',
+          labelKey: 'email',
           fieldType: 'input',
           inputSubtype: 'email',
         },
@@ -279,6 +294,7 @@ describe('frequently used Dutch form fields', () => {
         declaration: {
           id,
           label: 'Burgerservicenummer',
+          labelKey: 'bsn',
           fieldType: 'input',
           inputSubtype: 'text',
         },
@@ -296,6 +312,7 @@ describe('frequently used Dutch form fields', () => {
         declaration: {
           id,
           label: 'Geboorteplaats',
+          labelKey: 'place-of-birth',
           fieldType: 'input',
           inputSubtype: 'text',
         },
@@ -313,6 +330,7 @@ describe('frequently used Dutch form fields', () => {
         declaration: {
           id,
           label: 'Nummer Nederlands reisdocument',
+          labelKey: 'document-number',
           fieldType: 'input',
           inputSubtype: 'text',
         },
@@ -330,6 +348,7 @@ describe('frequently used Dutch form fields', () => {
         declaration: {
           id,
           label: 'KVK-nummer',
+          labelKey: 'kvk',
           fieldType: 'input',
           inputSubtype: 'text',
         },

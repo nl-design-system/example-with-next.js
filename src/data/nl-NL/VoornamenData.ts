@@ -22,7 +22,6 @@ export const voornamenValidation: FormFieldDefinition = {
   minLength: 1,
   normalizers: ['normalize-whitespace', 'trim-whitespace', 'normalize-unicode'],
   pattern: teletex,
-  patternKey: 'teletex-pattern',
   preserveWhitespace: false,
   spellCheck: false,
 };

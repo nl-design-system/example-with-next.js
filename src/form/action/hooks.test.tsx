@@ -9,7 +9,7 @@ describe("Form state hook for <Input>", () => {
   const fakeDispatch: FormStateDispatch = (_action: FormAction) => {};
   const id = "f870a988-95b4-4a90-9699-fec4cb2ccbab";
   const formField = createFormField({
-    declaration: { id, fieldType: "input", label: "Name" },
+    declaration: { id, fieldType: "input", label: "Name", labelKey: "name" },
     defaultState: { value: "Bobby Tables" },
   });
   let useTranslationMock: any;
@@ -64,11 +64,11 @@ describe("Form state hook for <Input>", () => {
     it("change event results in a change action", () => {
       const dispatch = jest.fn(fakeDispatch);
       const formField = createFormField({
-        declaration: { id, fieldType: "select", label: "What number is an odd number?" },
+        declaration: { id, fieldType: "select", label: "What number is an odd number?", labelKey: "question-odd" },
         definition: {
           options: [
-            { id: "5c6a6655-4369-4194-833b-4165bd0d1353", label: "One", value: "1" },
-            { id: "3a85c16e-55bc-4d0f-b129-3136fdf51058", label: "Two", value: "2" },
+            { id: "5c6a6655-4369-4194-833b-4165bd0d1353", label: "One", labelKey: "number-1", value: "1" },
+            { id: "3a85c16e-55bc-4d0f-b129-3136fdf51058", label: "Two", labelKey: "number-2", value: "2" },
           ],
         },
         defaultState: {
@@ -110,7 +110,7 @@ describe("Form state hook for <Input>", () => {
     it("dispatches a select option action", () => {
       const dispatch = jest.fn(fakeDispatch);
       const formField = createFormField({
-        declaration: { id, fieldType: "checkbox", label: "Sign up for the newsletter" },
+        declaration: { id, fieldType: "checkbox", label: "Sign up for the newsletter", labelKey: "option-newsletter" },
       });
       render(<Input state={formField} {...useInput(formField, dispatch)} />);
       const checkbox = screen.getByRole<HTMLInputElement>("checkbox");
@@ -129,7 +129,7 @@ describe("Form state hook for <Input>", () => {
     it("dispatches a unselect option action", () => {
       const dispatch = jest.fn(fakeDispatch);
       const formField = createFormField({
-        declaration: { id, fieldType: "checkbox", label: "Sign up for the newsletter" },
+        declaration: { id, fieldType: "checkbox", label: "Sign up for the newsletter", labelKey: "option-newsletter" },
         defaultState: {
           value: "true",
         },
@@ -153,11 +153,11 @@ describe("Form state hook for <Input>", () => {
     it("dispatches a change action", () => {
       const dispatch = jest.fn(fakeDispatch);
       const formField = createFormField({
-        declaration: { id, fieldType: "radiogroup", label: "What number is an odd number?" },
+        declaration: { id, fieldType: "radiogroup", label: "What number is an odd number?", labelKey: "question-odd" },
         definition: {
           options: [
-            { id: "5c6a6655-4369-4194-833b-4165bd0d1353", label: "One", value: "1" },
-            { id: "3a85c16e-55bc-4d0f-b129-3136fdf51058", label: "Two", value: "2" },
+            { id: "5c6a6655-4369-4194-833b-4165bd0d1353", label: "One", labelKey: "number-1", value: "1" },
+            { id: "3a85c16e-55bc-4d0f-b129-3136fdf51058", label: "Two", labelKey: "number-2", value: "2" },
           ],
         },
         defaultState: {

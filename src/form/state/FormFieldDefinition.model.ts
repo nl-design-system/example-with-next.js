@@ -16,7 +16,6 @@ export interface FormFieldDefinition {
   numeric?: boolean;
   options?: FormFieldOption[];
   pattern?: string;
-  patternKey?: string;
   preserveWhitespace?: boolean;
   required?: boolean;
   spellCheck?: boolean;

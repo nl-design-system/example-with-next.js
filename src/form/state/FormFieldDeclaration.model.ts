@@ -11,7 +11,7 @@ export interface FormFieldDeclaration {
     | 'time';
   id: string;
   inputSubtype?: 'text' | 'email' | 'number' | 'range';
-  labelKey?: string;
+  labelKey: string;
   label: string;
   name?: string;
   // TODO:
