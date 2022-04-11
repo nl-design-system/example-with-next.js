@@ -30,7 +30,7 @@
     "watch:test": "NODE_OPTIONS=--experimental-vm-modules jest --watch"
   },
   "dependencies": {
-    "@utrecht/design-tokens": "1.0.0-alpha.172",
+    "@utrecht/design-tokens": "1.0.0-alpha.185",
     "@utrecht/web-component-library-react": "1.0.0-alpha.178",
     "@utrecht/web-component-library-stencil": "1.0.0-alpha.178",
     "clsx": "1.1.1",
