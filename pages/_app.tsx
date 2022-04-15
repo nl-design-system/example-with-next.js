@@ -1,6 +1,7 @@
 import type { AppProps } from "next/app";
 import { useEffect } from "react";
 import "../styles/globals.css";
+import "../src/components/DataList.css";
 import "@utrecht/design-tokens/dist/index.css";
 import "@utrecht/component-library-css/dist/bem.css";
 

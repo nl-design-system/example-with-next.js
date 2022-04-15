@@ -1,6 +1,5 @@
 import clsx from "clsx";
 import { forwardRef, ForwardedRef, HTMLAttributes, PropsWithChildren } from "react";
-import style from "./DataListValue.module.css";
 
 interface DataListLabelProps extends HTMLAttributes<HTMLElement> {}
 

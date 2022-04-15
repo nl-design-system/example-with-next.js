@@ -1,0 +1,23 @@
+dt {
+  color: red;
+}
+
+.example-data-list__label {
+  width: 40%;
+  font-weight: bold;
+}
+.example-data-list__label,
+.example-data-list__value {
+  padding-inline-start: 0.4em;
+  padding-inline-end: 0.4em;
+  padding-block-start: 0.5em;
+  padding-block-start: 0.5em;
+}
+
+.example-data-list__value {
+  background-color: rgb(233 242 250);
+}
+
+.example-data-list__item + .example-data-list__item {
+  margin-block-start: 0.4em;
+}

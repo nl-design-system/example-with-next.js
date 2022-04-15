@@ -1,19 +1,27 @@
 import clsx from "clsx";
-import { PropsWithChildren, HTMLAttributes } from "react";
-import { EmptyIndicator } from "./EmptyIndicator";
-import style from "./DataListValue.module.css";
+import { forwardRef, ForwardedRef, PropsWithChildren, HTMLAttributes } from "react";
 
-interface Props extends HTMLAttributes<HTMLElement> {
+interface DataListValueProps extends HTMLAttributes<HTMLElement> {
   value?: number | string;
-  emptyDescription: string;
+  emptyDescription?: string;
+  multiline?: boolean;
+  translate?: boolean;
 }
 
-export const DataListValue = ({ value, children, className, emptyDescription }: PropsWithChildren<Props>) => {
-  const empty = value === undefined || value === "" || value === null;
+export const DataListValue = forwardRef(
+  (
+    { value, children, className, emptyDescription, multiline, translate }: PropsWithChildren<DataListValueProps>,
+    ref: ForwardedRef<HTMLElement>
+  ) => {
+    const empty = value === undefined || value === "" || value === null;
 
-  return (
-    <dd className={clsx(style["data-list-value"], className)}>
-      {empty ? <EmptyIndicator title={emptyDescription} /> : children}
-    </dd>
-  );
-};
+    return (
+      <dd
+        className={clsx("example-data-list__value", className, multiline && "example-data-list-value--multiline")}
+        translate={typeof translate === "boolean" ? (translate ? "yes" : "no") : undefined}
+      >
+        {empty ? <span aria-label={emptyDescription}>-</span> : children}
+      </dd>
+    );
+  }
+);

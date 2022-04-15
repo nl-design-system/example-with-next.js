@@ -15,6 +15,11 @@ import {
   TableHeaderCell,
   TableRow,
 } from "../src/components";
+import { DataList } from "../src/components/DataList";
+import { DataListItem } from "../src/components/DataListItem";
+import { DataListLabel } from "../src/components/DataListLabel";
+import { DataListValue } from "../src/components/DataListValue";
+import "./table-example-4b.css";
 
 export default function TableExample4() {
   return (
@@ -29,43 +34,43 @@ export default function TableExample4() {
               <Heading1>Voorbeeld met tabel</Heading1>
               <section>
                 <Heading2>Zaakdetails</Heading2>
-                <dl>
-                  <div>
-                    <dt>Zaaknummer</dt>
-                    <dd>9919905</dd>
-                  </div>
-                  <div>
-                    <dt>Zaaktype</dt>
-                    <dd>Klacht behandelen</dd>
-                  </div>
-                  <div>
-                    <dt>Omschrijving</dt>
-                    <dd></dd>
-                  </div>
-                  <div>
-                    <dt>Toelichting:</dt>
-                    <dd>tourbillon@example.com</dd>
-                  </div>
-                  <div>
-                    <dt>Registratiedatum:</dt>
-                    <dd>29-03-2022</dd>
-                  </div>
-                </dl>
+                <DataList>
+                  <DataListItem>
+                    <DataListLabel>Zaaknummer</DataListLabel>
+                    <DataListValue>9919905</DataListValue>
+                  </DataListItem>
+                  <DataListItem>
+                    <DataListLabel>Zaaktype</DataListLabel>
+                    <DataListValue>Klacht behandelen</DataListValue>
+                  </DataListItem>
+                  <DataListItem>
+                    <DataListLabel>Omschrijving</DataListLabel>
+                    <DataListValue></DataListValue>
+                  </DataListItem>
+                  <DataListItem>
+                    <DataListLabel>Toelichting:</DataListLabel>
+                    <DataListValue>tourbillon@example.com</DataListValue>
+                  </DataListItem>
+                  <DataListItem>
+                    <DataListLabel>Registratiedatum:</DataListLabel>
+                    <DataListValue>29-03-2022</DataListValue>
+                  </DataListItem>
+                </DataList>
                 <Heading2>Doorlooptijd</Heading2>
-                <dl>
-                  <div>
-                    <dt>Startdatum</dt>
-                    <dd>30-03-2022</dd>
-                  </div>
-                  <div>
-                    <dt>Geplande einddatum</dt>
-                    <dd>16-05-2022</dd>
-                  </div>
-                  <div>
-                    <dt>Einddatum</dt>
-                    <dd></dd>
-                  </div>
-                </dl>
+                <DataList>
+                  <DataListItem>
+                    <DataListLabel>Startdatum</DataListLabel>
+                    <DataListValue>30-03-2022</DataListValue>
+                  </DataListItem>
+                  <DataListItem>
+                    <DataListLabel>Geplande einddatum</DataListLabel>
+                    <DataListValue>16-05-2022</DataListValue>
+                  </DataListItem>
+                  <DataListItem>
+                    <DataListLabel>Einddatum</DataListLabel>
+                    <DataListValue></DataListValue>
+                  </DataListItem>
+                </DataList>
                 <Paragraph>
                   <Link href="/">Bekijk de documenten</Link>
                 </Paragraph>

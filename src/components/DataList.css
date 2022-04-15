@@ -1,0 +1,13 @@
+.example-data-list__label {
+  font-size: var(--example-data-list-label-font-size);
+  font-weight: var(--example-data-list-label-font-weight);
+}
+
+.example-data-list__value {
+  font-size: var(--example-data-list-value-font-size);
+  font-weight: var(--example-data-list-value-font-weight);
+}
+
+.example-data-list__value--multiline {
+  white-space: pre;
+}
