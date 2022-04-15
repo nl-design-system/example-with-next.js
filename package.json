@@ -34,7 +34,7 @@
     "@utrecht/web-component-library-react": "1.0.0-alpha.178",
     "@utrecht/web-component-library-stencil": "1.0.0-alpha.178",
     "clsx": "1.1.1",
-    "next": "12.1.0",
+    "next": "12.1.5",
     "next-transpile-modules": "9.0.0",
     "prettier": "2.5.1",
     "react": "17.0.2",
