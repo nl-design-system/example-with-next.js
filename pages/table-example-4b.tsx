@@ -19,7 +19,6 @@ import { DataList } from "../src/components/DataList";
 import { DataListItem } from "../src/components/DataListItem";
 import { DataListLabel } from "../src/components/DataListLabel";
 import { DataListValue } from "../src/components/DataListValue";
-import "./table-example-4b.css";
 
 export default function TableExample4() {
   return (
@@ -34,10 +33,10 @@ export default function TableExample4() {
               <Heading1>Voorbeeld met tabel</Heading1>
               <section>
                 <Heading2>Zaakdetails</Heading2>
-                <DataList>
+                <DataList className="example-data-list--small">
                   <DataListItem>
                     <DataListLabel>Zaaknummer</DataListLabel>
-                    <DataListValue>9919905</DataListValue>
+                    <DataListValue className="example-data-list__value--numeric">9919905</DataListValue>
                   </DataListItem>
                   <DataListItem>
                     <DataListLabel>Zaaktype</DataListLabel>
@@ -49,7 +48,7 @@ export default function TableExample4() {
                   </DataListItem>
                   <DataListItem>
                     <DataListLabel>Toelichting:</DataListLabel>
-                    <DataListValue>tourbillon@example.com</DataListValue>
+                    <DataListValue className="example-data-list__value--email">tourbillon@example.com</DataListValue>
                   </DataListItem>
                   <DataListItem>
                     <DataListLabel>Registratiedatum:</DataListLabel>
@@ -57,7 +56,7 @@ export default function TableExample4() {
                   </DataListItem>
                 </DataList>
                 <Heading2>Doorlooptijd</Heading2>
-                <DataList>
+                <DataList className="example-data-list--wide">
                   <DataListItem>
                     <DataListLabel>Startdatum</DataListLabel>
                     <DataListValue>30-03-2022</DataListValue>

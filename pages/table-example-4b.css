@@ -1,14 +1,16 @@
-dt {
-  color: red;
+.example-data-list__label {
+  max-inline-size: 40%;
+  font-weight: bold;
+  padding-inline-start: 0; /* was:  0.4em, but doesn't align with other text start offsets */
 }
 
-.example-data-list__label {
-  width: 40%;
-  font-weight: bold;
-}
 .example-data-list__label,
 .example-data-list__value {
-  padding-inline-start: 0.4em;
+  padding-inline-start: 0;
+}
+
+.example-data-list__label,
+.example-data-list__value {
   padding-inline-end: 0.4em;
   padding-block-start: 0.5em;
   padding-block-start: 0.5em;
@@ -18,6 +20,30 @@ dt {
   background-color: rgb(233 242 250);
 }
 
+.example-data-list--wide .example-data-list__value {
+  max-inline-size: 60%;
+  padding-inline-start: 0.4em;
+}
+
+.example-data-list__item {
+  display: flex;
+}
+
 .example-data-list__item + .example-data-list__item {
   margin-block-start: 0.4em;
+}
+
+main {
+  max-inline-size: 768px;
+}
+
+.example-data-list--small {
+}
+
+.example-data-list--wide {
+}
+
+.example-data-list__label,
+.example-data-list__value {
+  padding-inline-start: 0;
 }
