@@ -45,6 +45,11 @@ export default function Home() {
                   <Link>{t("stepper-form:page-title")}</Link>
                 </NextLink>
               </UnorderedListItem>
+              <UnorderedListItem>
+                <NextLink href="/first-name" passHref>
+                  <Link>Formulierveld: voornaam</Link>
+                </NextLink>
+              </UnorderedListItem>
             </UnorderedList>
           </PageContent>
         </main>
