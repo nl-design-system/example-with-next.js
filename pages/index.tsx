@@ -3,13 +3,15 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import NextLink from "next/link";
-import { LanguageToggle } from "../src/components/LanguageToggle";
-import { ThemeSwitcher } from "../src/components/ThemeSwitcher";
-import { Link } from "../src/components/utrecht/Link";
-import { PageContent } from "../src/components/utrecht/PageContent";
-import { PageHeader } from "../src/components/utrecht/PageHeader";
-import { UnorderedList } from "../src/components/utrecht/UnorderedList";
-import { UnorderedListItem } from "../src/components/utrecht/UnorderedListItem";
+import {
+  LanguageToggle,
+  Link,
+  PageContent,
+  PageHeader,
+  ThemeSwitcher,
+  UnorderedList,
+  UnorderedListItem,
+} from "../src/components";
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {

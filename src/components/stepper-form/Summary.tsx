@@ -1,9 +1,7 @@
 import { useTranslation } from "next-i18next";
 import NextLink from "next/link";
 import { State } from "../../form/action/reducer";
-import { Heading1 } from "../utrecht/Heading1";
-import { Link } from "../utrecht/Link";
-import { Paragraph } from "../utrecht/Paragraph";
+import { Heading1, Link, Paragraph } from "../index";
 
 export const Summary = ({ state }: { state: State }) => {
   const { t } = useTranslation("stepper-form");
