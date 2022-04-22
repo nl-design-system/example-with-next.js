@@ -1,8 +1,7 @@
 import { useTranslation } from "next-i18next";
 import { FormStateDispatch, useInput } from "../../form/action/hooks";
 import { State } from "../../form/action/reducer";
-import { Input } from "../Input";
-import { Heading1 } from "../utrecht/Heading1";
+import { Heading1, Input } from "../index";
 
 export const PersonalDetails = ({ dispatch, state }: { dispatch: FormStateDispatch; state: State }) => {
   const { t } = useTranslation("stepper-form");

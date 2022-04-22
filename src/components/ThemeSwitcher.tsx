@@ -4,8 +4,7 @@
 import { useTranslation } from "next-i18next";
 import { ChangeEvent } from "react";
 import { useThemeContext } from "../context/ThemeContext";
-import { FormField } from "./utrecht/FormField";
-import { FormLabel } from "./utrecht/FormLabel";
+import { FormField, FormLabel } from "./index";
 
 export const ThemeSwitcher = () => {
   const { theme, setTheme, builtInThemes } = useThemeContext();

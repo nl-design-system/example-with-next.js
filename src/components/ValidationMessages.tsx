@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { FormValidationError } from "../form/error/FormValidationError.model";
 import { FormField } from "../form/state/FormField.model";
-import { FormFieldDescription, Paragraph } from "./utrecht";
+import { FormFieldDescription, Paragraph } from "./index";
 
 interface ValidationMessagesProps {
   errors?: (FormValidationError & { id?: string })[]; // TODO: Remove `id` hack

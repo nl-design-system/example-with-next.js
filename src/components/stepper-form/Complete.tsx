@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import { Heading1 } from "../utrecht/Heading1";
+import { Heading1 } from "../index";
 
 export const Complete = () => {
   const { t } = useTranslation("stepper-form");

@@ -14,7 +14,7 @@ import {
   SelectOption,
   Textarea,
   Textbox,
-} from "./utrecht";
+} from "./index";
 
 interface InputProps extends InputHTMLAttributes<HTMLElement> {
   state: FormFieldState;
