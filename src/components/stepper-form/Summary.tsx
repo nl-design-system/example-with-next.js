@@ -1,5 +1,4 @@
 import { useTranslation } from "next-i18next";
-import NextLink from "next/link";
 import { State } from "../../form/action/reducer";
 import { Heading1, Link, Paragraph } from "../index";
 
@@ -71,9 +70,7 @@ export const Summary = ({ state }: { state: State }) => {
             </dt>
             <dd className="todo-form-summary-item__data">{field.inputState.value}</dd>
             <div className="todo-form-summary-item__edit-link">
-              <NextLink href={`${step}#${field.declaration.id}`} passHref>
-                <Link>✎ {t("edit", { key: field.declaration.id })}</Link>
-              </NextLink>
+              <Link href={`${step}#${field.declaration.id}`}>✎ {t("edit", { key: field.declaration.id })}</Link>
             </div>
           </div>
         ))}

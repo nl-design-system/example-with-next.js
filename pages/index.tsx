@@ -2,7 +2,6 @@ import { UtrechtDocument, UtrechtHeading } from "@utrecht/web-component-library-
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
-import NextLink from "next/link";
 import {
   LanguageToggle,
   Link,
@@ -41,9 +40,7 @@ export default function Home() {
             <UtrechtHeading level={1}>{t("demo-overview:page-title")}</UtrechtHeading>
             <UnorderedList>
               <UnorderedListItem>
-                <NextLink href="/stepper-form/step-1" passHref>
-                  <Link>{t("stepper-form:page-title")}</Link>
-                </NextLink>
+                <Link href="/stepper-form/step-1">{t("stepper-form:page-title")}</Link>
               </UnorderedListItem>
             </UnorderedList>
           </PageContent>
