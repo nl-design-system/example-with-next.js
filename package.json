@@ -54,7 +54,7 @@
     "@typescript-eslint/parser": "5.20.0",
     "@utrecht/component-library-css": "1.0.0-alpha.192",
     "@utrecht/component-library-react": "1.0.0-alpha.3",
-    "eslint": "8.13.0",
+    "eslint": "8.14.0",
     "eslint-config-next": "12.1.5",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-import": "2.26.0",
