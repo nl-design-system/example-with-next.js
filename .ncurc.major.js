@@ -21,6 +21,7 @@ module.exports = {
     '@types/react',
     '@types/react-dom',
     'css-loader',
+    '@testing-library/react',
     // Webpack 5 update can only happen after Storybook supports it, we'll need to do a manual upgrade then.
     // For now keep the loader versions compatible with Webpack 4.
     'sass-loader',
