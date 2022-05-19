@@ -4,7 +4,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { FormEvent } from "react";
 import { useReducer } from "react";
-import { Button, Document, Page, PageContent, PageHeader } from "../../src/components";
+import { Button, Document, Page, PageContent, PageHeader, PrimaryActionButton } from "../../src/components";
 import { LanguageToggle } from "../../src/components/LanguageToggle";
 import { ThemeSwitcher } from "../../src/components/ThemeSwitcher";
 import { Address } from "../../src/components/stepper-form/Address";
@@ -166,9 +166,9 @@ export default function StepperForm() {
                   <FormStep dispatch={dispatch} step={step} state={state} />
                   <div className="todo-button-group todo-button-group--reverse">
                     {NextStep[step] && (
-                      <Button type="submit" form="stepper-form" className="utrecht-button--primary-action">
+                      <PrimaryActionButton type="submit" form="stepper-form">
                         {NextStep[step] === "summary" ? t("to-summary") : t("next-step")} →
-                      </Button>
+                      </PrimaryActionButton>
                     )}
                     {PreviousStep[step] && <Button onClick={previousStep}>{t("previous-step")}</Button>}
                   </div>
@@ -178,9 +178,7 @@ export default function StepperForm() {
               <>
                 <Summary state={state} />
                 <div className="todo-button-group todo-button-group--reverse">
-                  <Button onClick={sendForm} className="utrecht-button--primary-action">
-                    {t("send-form")}
-                  </Button>
+                  <PrimaryActionButton onClick={sendForm}>{t("send-form")}</PrimaryActionButton>
                   <Button onClick={previousStep}>{t("previous-step")}</Button>
                 </div>
               </>
@@ -188,9 +186,7 @@ export default function StepperForm() {
               <>
                 <Complete />
                 <div className="todo-button-group">
-                  <Button onClick={closeForm} className="utrecht-button--primary-action">
-                    {t("close-form")}
-                  </Button>
+                  <PrimaryActionButton onClick={closeForm}>{t("close-form")}</PrimaryActionButton>
                   <Button
                     onClick={() => {
                       /**TODO print form */
