@@ -8,51 +8,51 @@ export const Summary = ({ state }: { state: State }) => {
   const fields = [
     {
       field: state.fields[0],
-      step: "step-1",
+      step: "1",
     },
     {
       field: state.fields[1],
-      step: "step-1",
+      step: "1",
     },
     {
       field: state.fields[2],
-      step: "step-1",
+      step: "1",
     },
     {
       field: state.fields[3],
-      step: "step-2",
+      step: "2",
     },
     {
       field: state.fields[4],
-      step: "step-2",
+      step: "2",
     },
     {
       field: state.fields[5],
-      step: "step-2",
+      step: "2",
     },
     {
       field: state.fields[6],
-      step: "step-2",
+      step: "2",
     },
     {
       field: state.fields[7],
-      step: "step-2",
+      step: "2",
     },
     {
       field: state.fields[8],
-      step: "step-3",
+      step: "3",
     },
     {
       field: state.fields[9],
-      step: "step-3",
+      step: "3",
     },
     {
       field: state.fields[10],
-      step: "step-3",
+      step: "3",
     },
     {
       field: state.fields[11],
-      step: "step-4",
+      step: "4",
     },
   ];
 

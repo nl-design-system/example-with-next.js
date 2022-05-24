@@ -1,11 +1,11 @@
+import { Heading1 } from "@utrecht/component-library-react/Heading1";
 import { useTranslation } from "next-i18next";
 import { FormStateDispatch, useInput } from "../../form/action/hooks";
 import { State } from "../../form/action/reducer";
-import { Heading1, Input } from "../index";
+import { Input } from "../Input";
 
 export const Address = ({ dispatch, state }: { dispatch: FormStateDispatch; state: State }) => {
   const { t } = useTranslation("stepper-form");
-
   return (
     <>
       <Heading1>{t("your-address")}</Heading1>

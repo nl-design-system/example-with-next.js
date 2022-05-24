@@ -18,10 +18,6 @@
   --todo-form-margin-block-start: 72px;
   --todo-form-padding-block-end: 88px;
   --todo-form-stepper-font-size: var(--denhaag-typography-scale-lg-font-size);
-  --todo-form-stepper-margin-block-end: 36px;
-  --todo-form-stepper-padding-block-start: 70px;
-  --todo-form-stepper-border-bottom-width: 2px;
-  --todo-form-stepper-border-color: var(--denhaag-color-grey-2);
   --todo-radio-group-gap: 28px;
   --todo-utrecht-form-label-margin-inline-start: 8px;
   --utrecht-button-margin-block-start: 42px;
@@ -72,8 +68,8 @@
 @media (min-width: 1769px) {
   .denhaag-theme {
     --utrecht-page-content-padding-block-end: 70px; /* TODO: Overleggen met Roos */
-    --utrecht-page-padding-inline-end: 502px; /* TODO: Overleggen met Roos */
-    --utrecht-page-padding-inline-start: 507px; /* TODO: Overleggen met Roos */
+    /* --utrecht-page-padding-inline-end: 502px; TODO: Overleggen met Roos */
+    /* --utrecht-page-padding-inline-start: 507px; TODO: Overleggen met Roos */
     --utrecht-page-header-padding-block-end: 25px;
     --utrecht-page-header-padding-block-start: 26px;
     --todo-form-header-padding-block-start: 32px;
@@ -86,8 +82,8 @@
 @media (max-width: 1768px) {
   .denhaag-theme {
     --utrecht-page-content-padding-block-end: 70px; /* TODO: Overleggen met Roos */
-    --utrecht-page-padding-inline-end: 290px; /* TODO: Overleggen met Roos */
-    --utrecht-page-padding-inline-start: 280px; /* TODO: Overleggen met Roos */
+    /* --utrecht-page-padding-inline-end: 290px; TODO: Overleggen met Roos */
+    /* --utrecht-page-padding-inline-start: 280px; TODO: Overleggen met Roos */
     --utrecht-page-header-padding-block-end: 25px;
     --utrecht-page-header-padding-block-start: 26px;
     --todo-form-header-title-font-size: var(--denhaag-typography-scale-2xl-font-size);
@@ -101,8 +97,8 @@
 @media (max-width: 1280px) {
   .denhaag-theme {
     --utrecht-page-content-padding-block-end: 70px; /* TODO: Overleggen met Roos */
-    --utrecht-page-padding-inline-end: 138px; /* TODO: Overleggen met Roos */
-    --utrecht-page-padding-inline-start: 139px; /* TODO: Overleggen met Roos */
+    /* --utrecht-page-padding-inline-end: 138px; TODO: Overleggen met Roos */
+    /* --utrecht-page-padding-inline-start: 139px; TODO: Overleggen met Roos */
     --utrecht-page-header-padding-block-end: 25px;
     --utrecht-page-header-padding-block-start: 26px;
     --todo-form-header-title-font-size: var(--denhaag-typography-scale-xl-font-size);
@@ -116,8 +112,8 @@
 @media (max-width: 1024px) {
   .denhaag-theme {
     --utrecht-page-content-padding-block-end: 70px; /* TODO: Overleggen met Roos */
-    --utrecht-page-padding-inline-end: 63px; /* TODO: Overleggen met Roos */
-    --utrecht-page-padding-inline-start: 58px; /* TODO: Overleggen met Roos */
+    /* --utrecht-page-padding-inline-end: 63px; TODO: Overleggen met Roos */
+    /* --utrecht-page-padding-inline-start: 58px; TODO: Overleggen met Roos */
     --utrecht-page-header-padding-block-end: 25px;
     --utrecht-page-header-padding-block-start: 26px;
     --todo-form-header-title-font-size: var(--denhaag-typography-scale-xl-font-size);
@@ -131,8 +127,8 @@
 @media (max-width: 768px) {
   .denhaag-theme {
     --utrecht-page-content-padding-block-end: 68px;
-    --utrecht-page-padding-inline-end: 24px;
-    --utrecht-page-padding-inline-start: 24px;
+    /* --utrecht-page-padding-inline-end: 24px; */
+    /* --utrecht-page-padding-inline-start: 24px; */
     --utrecht-page-header-padding-block-end: 16px;
     --utrecht-page-header-padding-block-start: 15px;
     --utrecht-page-header-padding-inline-end: 16px;

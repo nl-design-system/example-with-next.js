@@ -6,7 +6,7 @@ export default function StepperForm() {
 
   // Hack to catch root without slug. Might be handled with custom routing, but will work till then
   useEffect(() => {
-    push(`${pathname}/step-1`);
+    push(`${pathname}/1`);
   }, [pathname, push]);
 
   return null;

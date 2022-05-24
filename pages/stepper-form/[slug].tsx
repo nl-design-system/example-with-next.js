@@ -1,10 +1,10 @@
+import { PageContentMain } from "@utrecht/component-library-react/PageContent";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { FormEvent } from "react";
 import { useReducer } from "react";
-import { Button, Document, Page, PageContent, PageHeader, PrimaryActionButton } from "../../src/components";
 import { LanguageToggle } from "../../src/components/LanguageToggle";
 import { ThemeSwitcher } from "../../src/components/ThemeSwitcher";
 import { Address } from "../../src/components/stepper-form/Address";
@@ -16,6 +16,7 @@ import { Summary } from "../../src/components/stepper-form/Summary";
 import { createDemoForm } from "../../src/demo/demo-form";
 import { FormStateDispatch } from "../../src/form/action/hooks";
 import { createInitialFormState, formReducer, State } from "../../src/form/action/reducer";
+import { useThemeComponents } from "../../src/hooks/useThemeComponents";
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {
@@ -23,41 +24,19 @@ export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   },
 });
 
-const FORM_STEPS = 4;
+const FORM_STEPS = ["step-1", "step-2", "step-3", "step-4", "summary"];
 
-const PreviousStep: { [key: string]: string } = {
-  "step-2": "step-1",
-  "step-3": "step-2",
-  "step-4": "step-3",
-  summary: "step-4",
-};
-
-const NextStep: { [key: string]: string } = {
-  "step-1": "step-2",
-  "step-2": "step-3",
-  "step-3": "step-4",
-  "step-4": "summary",
-};
-
-const FormStep = ({
-  dispatch,
-  step,
-  state,
-}: {
-  dispatch: FormStateDispatch;
-  step?: string | string[];
-  state: State;
-}) => {
-  if (step === "step-1") {
+const FormStep = ({ dispatch, step, state }: { dispatch: FormStateDispatch; step: number; state: State }) => {
+  if (FORM_STEPS[step - 1] === "step-1") {
     return <PersonalDetails dispatch={dispatch} state={state} />;
   }
-  if (step === "step-2") {
+  if (FORM_STEPS[step - 1] === "step-2") {
     return <Address dispatch={dispatch} state={state} />;
   }
-  if (step === "step-3") {
+  if (FORM_STEPS[step - 1] === "step-3") {
     return <ContactDetails dispatch={dispatch} state={state} />;
   }
-  if (step === "step-4") {
+  if (FORM_STEPS[step - 1] === "step-4") {
     return <LastStep dispatch={dispatch} state={state} />;
   }
   return null;
@@ -68,7 +47,7 @@ export default function StepperForm() {
   const router = useRouter();
   const formData = {}; //TODO keep track of state
   const { slug } = router.query;
-  const step = slug && typeof slug === "string" ? slug : "step-1";
+  const step = slug && typeof slug === "string" ? parseInt(slug, 10) : 1;
 
   const {
     geslacht,
@@ -119,18 +98,16 @@ export default function StepperForm() {
     e.preventDefault();
 
     submit().then(() => {
-      const next = NextStep[step];
-      if (next) {
-        console.log("NEXT", next);
-        router.push(next);
+      if (step < FORM_STEPS.length) {
+        router.push(`${step + 1}`);
       }
     });
   };
 
   const previousStep = () => {
     submit().then(() => {
-      if (PreviousStep[step]) {
-        router.push(PreviousStep[step]);
+      if (step > 1) {
+        router.push(`${step - 1}`);
       }
     });
   };
@@ -145,6 +122,20 @@ export default function StepperForm() {
     router.push("/");
   };
 
+  const {
+    Button,
+    Document,
+    FormProgress,
+    Page,
+    PageContent,
+    PageFooter,
+    PageFooterContent,
+    PageFooterTemplate,
+    PageHeader,
+    PageHeaderTemplate,
+    PrimaryActionButton,
+  } = useThemeComponents();
+
   return (
     <Document>
       <Head>
@@ -152,53 +143,69 @@ export default function StepperForm() {
       </Head>
       <Page>
         <PageHeader>
-          <ThemeSwitcher />
-          <LanguageToggle />
+          <PageHeaderTemplate>
+            <ThemeSwitcher />
+            <LanguageToggle />
+          </PageHeaderTemplate>
         </PageHeader>
-        <main>
-          <PageContent>
-            {step.includes("step") ? (
-              <>
-                <div className="todo-form-stepper todo-form-stepper--distanced">
-                  <p>{t("stepper", { step: step.replace("step-", ""), total: FORM_STEPS })}</p>
-                </div>
-                <form onSubmit={handleSubmit} id="stepper-form" className="todo-form">
+        <PageContent>
+          {step <= FORM_STEPS.length - 1 && (
+            <FormProgress
+              value={step}
+              label={t("stepper", { step, total: FORM_STEPS.length })}
+              max={FORM_STEPS.length - 1}
+              previousHref={router.asPath.replace(`${step}`, `${step - 1}`)}
+            ></FormProgress>
+          )}
+          {FORM_STEPS[step - 1]?.includes("step") ? (
+            <>
+              <PageContentMain>
+                <form onSubmit={handleSubmit} id="stepper-form" className="todo-form todo-form--distanced">
                   <FormStep dispatch={dispatch} step={step} state={state} />
                   <div className="todo-button-group todo-button-group--reverse">
-                    {NextStep[step] && (
+                    {FORM_STEPS.length > step && (
                       <PrimaryActionButton type="submit" form="stepper-form">
-                        {NextStep[step] === "summary" ? t("to-summary") : t("next-step")} →
+                        {FORM_STEPS[step] === "summary" ? t("to-summary") : t("next-step")} →
                       </PrimaryActionButton>
                     )}
-                    {PreviousStep[step] && <Button onClick={previousStep}>{t("previous-step")}</Button>}
+                    {step > 1 && <Button onClick={previousStep}>{t("previous-step")}</Button>}
                   </div>
                 </form>
-              </>
-            ) : step === "summary" ? (
-              <>
+              </PageContentMain>
+            </>
+          ) : FORM_STEPS[step - 1] === "summary" ? (
+            <>
+              <PageContentMain>
                 <Summary state={state} />
-                <div className="todo-button-group todo-button-group--reverse">
-                  <PrimaryActionButton onClick={sendForm}>{t("send-form")}</PrimaryActionButton>
-                  <Button onClick={previousStep}>{t("previous-step")}</Button>
-                </div>
-              </>
-            ) : (
-              <>
+              </PageContentMain>
+              <div className="todo-button-group todo-button-group--reverse">
+                <PrimaryActionButton onClick={sendForm}>{t("send-form")}</PrimaryActionButton>
+                <Button onClick={previousStep}>{t("previous-step")}</Button>
+              </div>
+            </>
+          ) : (
+            <>
+              <PageContentMain>
                 <Complete />
-                <div className="todo-button-group">
-                  <PrimaryActionButton onClick={closeForm}>{t("close-form")}</PrimaryActionButton>
-                  <Button
-                    onClick={() => {
-                      /**TODO print form */
-                    }}
-                  >
-                    🗳 {t("download-form")}
-                  </Button>
-                </div>
-              </>
-            )}
-          </PageContent>
-        </main>
+              </PageContentMain>
+              <div className="todo-button-group">
+                <PrimaryActionButton onClick={closeForm}>{t("close-form")}</PrimaryActionButton>
+                <Button
+                  onClick={() => {
+                    /**TODO print form */
+                  }}
+                >
+                  🗳 {t("download-form")}
+                </Button>
+              </div>
+            </>
+          )}
+        </PageContent>
+        <PageFooter>
+          <PageFooterContent>
+            <PageFooterTemplate />
+          </PageFooterContent>
+        </PageFooter>
       </Page>
     </Document>
   );

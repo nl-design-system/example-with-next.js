@@ -1,8 +1,21 @@
-import { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  PropsWithChildren,
+  ReactNode,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import builtInThemes from "../themes";
 
+type ComponentDeclaration = { [key: string]: ReactNode };
 interface Theme {
+  id: string;
   className: string;
   title: string;
+  components?: ComponentDeclaration;
 }
 
 interface ThemeContextState {
@@ -11,21 +24,6 @@ interface ThemeContextState {
   setTheme: Dispatch<SetStateAction<Theme>>;
   loading?: boolean;
 }
-
-const builtInThemes: Theme[] = [
-  {
-    className: "utrecht-theme",
-    title: "Utrecht",
-  },
-  {
-    className: "denhaag-theme",
-    title: "Den Haag",
-  },
-  {
-    className: "amsterdam-theme",
-    title: "Amsterdam",
-  },
-];
 
 const SELECTED_THEME = "selected-theme";
 

@@ -40,7 +40,7 @@ export default function Home() {
             <UtrechtHeading level={1}>{t("demo-overview:page-title")}</UtrechtHeading>
             <UnorderedList>
               <UnorderedListItem>
-                <Link href="/stepper-form/step-1">{t("stepper-form:page-title")}</Link>
+                <Link href="/stepper-form/1">{t("stepper-form:page-title")}</Link>
               </UnorderedListItem>
             </UnorderedList>
           </PageContent>

@@ -1,4 +1,5 @@
 .utrecht-theme {
+  --todo-form-margin-block-start: var(--utrecht-space-block-xl);
   --todo-form-header-title-font-size: var(--utrecht-heading-1-font-size);
   --todo-form-header-title-font-weight: var(--utrecht-heading-1-font-weight, var(--utrecht-heading-font-weight, bold));
   --todo-form-header-font-family: var(--utrecht-heading-1-font-family);
@@ -10,8 +11,34 @@
   --todo-button-group-gap: var(--utrecht-space-inline-sm);
   --todo-form-field-group-gap: var(--utrecht-space-inline-sm);
   --todo-button-group-padding-block-start: var(--utrecht-button-margin-block-start);
-  --todo-form-stepper-margin-block-end: var(--utrecht-space-block-xl);
   --utrecht-form-field-margin-block-start: 13px;
   --todo-utrecht-form-label-margin-inline-start: var(--utrecht-space-inline-sm);
   --todo-radio-group-gap: var(--utrecht-space-inline-lg);
+  --denhaag-form-progress-progress-bar-background-color: var(--utrecht-color-blue-40);
+  --denhaag-form-progress-progress-height: 2px;
+  --denhaag-form-progress-header-margin-block-end: var(--utrecht-space-block-md);
+  --utrecht-page-margin-inline-end: 0px;
+  --utrecht-page-margin-inline-start: 0px;
+  --utrecht-page-max-inline-size: auto;
+  --utrecht-page-background-color: var(--utrecht-color-grey-95, red);
+  --utrecht-page-content-max-inline-size: 1184px;
+  --utrecht-page-content-padding-inline-end: 2em;
+  --utrecht-page-content-padding-inline-start: 2em;
+  --utrecht-page-content-background-color: var(--utrecht-color-white);
+  --utrecht-page-padding-block-end: 0px;
+  --utrecht-page-padding-block-start: 0px;
+  --utrecht-page-padding-inline-end: 0px;
+  --utrecht-page-padding-inline-start: 0px;
+  --denhaag-form-progress-progress-background-color: var(--utrecht-color-blue-90);
+  /* --utrecht-page-footer-padding-block-end: 40px; Based on Figma */
+  /* --utrecht-page-footer-padding-block-start: 40px; Based on Figma */
+  /* --utrecht-page-footer-padding-inline-end: 99px; Based on Figma */
+  /* --utrecht-page-footer-padding-inline-start: 99px; Based on Figma */
+  /* --utrecht-page-header-padding-inline-end: 100px; */
+  /* --utrecht-page-header-padding-inline-start: 105px; */
+  --utrecht-page-header-background-color: var(--utrecht-color-white);
+  --utrecht-page-header-max-inline-size: 1184px;
+  --utrecht-page-footer-margin-block-start: -20px;
+  --utrecht-page-content-z-index: 30;
+  --utrecht-page-footer-z-index: 20;
 }

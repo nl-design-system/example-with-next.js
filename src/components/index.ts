@@ -5,6 +5,10 @@
 
 // Components maintained by others:
 export * from '@utrecht/component-library-react';
+export { FormProgress } from '@gemeente-denhaag/components-react';
+
+// Components TODO: add to another project
+export { PageFooterContent } from './PageFooterContent';
 
 // Components for this project:
 export { Input } from './Input';
@@ -13,3 +17,4 @@ export { Link } from './Link';
 export { ThemeSwitcher } from './ThemeSwitcher';
 export { ValidationMessages } from './ValidationMessages';
 export { ValueCurrency } from './ValueCurrency';
+export * from './Templates';

@@ -16,17 +16,15 @@ export const ThemeSwitcher = () => {
   };
 
   return (
-    <div>
-      <FormField>
-        <FormLabel htmlFor="theme-switcher">{t("pick-theme")}</FormLabel>
-        <select id="theme-switcher" value={theme?.className} onChange={selectTheme}>
-          {builtInThemes.map(({ title, className }) => (
-            <option key={className} value={className}>
-              {title}
-            </option>
-          ))}
-        </select>
-      </FormField>
-    </div>
+    <FormField>
+      <FormLabel htmlFor="theme-switcher">{t("pick-theme")}</FormLabel>
+      <select id="theme-switcher" value={theme?.className} onChange={selectTheme}>
+        {builtInThemes.map(({ title, className }) => (
+          <option key={className} value={className}>
+            {title}
+          </option>
+        ))}
+      </select>
+    </FormField>
   );
 };
