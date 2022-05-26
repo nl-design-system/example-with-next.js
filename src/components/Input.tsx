@@ -1,3 +1,4 @@
+import { Datepicker } from "@gemeente-denhaag/components-react";
 import { InputHTMLAttributes } from "react";
 import { useTranslation } from "react-i18next";
 import { FormField as FormFieldState } from "../form/state/FormField.model";
@@ -120,6 +121,28 @@ export const Input = ({ state, onChange, onBlur, onInput, className }: InputProp
         <FormLabel htmlFor={`${id}-input`} disabled={disabled} type="checkbox">
           {labelKey ? t([labelKey, label], { ns: "form" }) : label}
         </FormLabel>
+      </FormField>
+    );
+  }
+
+  if (fieldType === "date") {
+    return (
+      <FormField id={id} className={className}>
+        <FormLabel htmlFor={`${id}-input`} disabled={disabled}>
+          {labelKey ? t([labelKey, label], { ns: "form" }) : label}
+        </FormLabel>
+        <Datepicker
+          aria-required={noscript ? undefined : required} // Don't let it affect CSS :invalid
+          data-id={id}
+          disabled={disabled}
+          id={formControlId}
+          name={name}
+          onBlur={onBlur}
+          onChange={(evt) => onChange && onChange(evt as any)} // Hacky hack as types don't match
+          onInput={onInput}
+          required={noscript ? required : false}
+          value={defaultState?.value}
+        ></Datepicker>
       </FormField>
     );
   }

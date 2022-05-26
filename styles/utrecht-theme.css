@@ -45,3 +45,72 @@
   --utrecht-form-input-invalid-border-color: var(
     --utrecht-color-red-40
   ); /* Is now red-30 in the design token assignment */
+
+  /* Rijkshuisstijl test */
+  --denhaag-datepicker-width: 177px;
+  --denhaag-datepicker-input-border-color: white;
+  --denhaag-datepicker-input-border-radius: 0px;
+  --denhaag-datepicker-input-border-style: none;
+  --denhaag-datepicker-input-border-width: 0px;
+  --denhaag-datepicker-input-background-color: white;
+  --denhaag-datepicker-input-color: black;
+  --denhaag-datepicker-input-font-size: 18px;
+  --denhaag-datepicker-input-height: 44px;
+  --denhaag-datepicker-input-line-height: 44px;
+  --denhaag-datepicker-input-padding-inline: 0;
+  --denhaag-datepicker-input-placeholder-color: grey; /*??*/
+  --denhaag-datepicker-input-hover-border-color: rgb(114, 150, 223); /*??*/
+  --denhaag-datepicker-input-hover-border-width: 1px;
+  --denhaag-datepicker-button-color: white;
+  --todo-denhaag-datepicker-button-background-color: #01689b;
+  --todo-denhaag-datepicker-button-width: 44px;
+  --denhaag-datepicker-button-inset-inline-end: -44px;
+  --denhaag-datepicker-button-font-size: 24px;
+  --denhaag-datepicker-calendar-border-color: #ddeff8;
+  /* --denhaag-datepicker-calendar-border-radius */
+  /* --denhaag-datepicker-calendar-border-style */
+  /* --denhaag-datepicker-calendar-border-width */
+  --denhaag-datepicker-calendar-background-color: #ddeff8;
+  --denhaag-datepicker-calendar-padding-inline: 44px;
+  --denhaag-datepicker-calendar-padding-block-end: 30px;
+  --todo-denhaag-datepicker-calendar-table-padding-block-start: 30px;
+  --denhaag-datepicker-calendar-header-height: 44px;
+  --todo-denhaag-datepicker-calendar-header-background-color: #01689b;
+  --todo-denhaag-datepicker-calendar-header-color: white;
+  /* --denhaag-datepicker-calendar-header-padding-block-end */
+  --denhaag-datepicker-calendar-month-font-size: 20px;
+  /* --denhaag-datepicker-calendar-month-line-height */
+  /* --denhaag-datepicker-calendar-month-font-weight:  */
+  /* --denhaag-datepicker-calendar-heading-color */
+  --denhaag-datepicker-calendar-heading-font-weight: 600;
+  /* --denhaag-datepicker-calendar-day-border-radius */
+  /* --todo-denhaag-datepicker-calendar-day-border-width */
+  /* --todo-denhaag-datepicker-calendar-day-border-color */
+  --denhaag-datepicker-calendar-day-width: 44px;
+  /* --denhaag-datepicker-calendar-day-font-size */
+  /* --denhaag-datepicker-calendar-day-line-height */
+  /* --denhaag-datepicker-calendar-day-color */
+  --todo-denhaag-datepicker-calendar-day-border-width: 2px;
+  --todo-denhaag-datepicker-calendar-day-border-color: transparent;
+  --denhaag-datepicker-calendar-day-current-background-color: #eef7fb; /*??*/
+  /* --denhaag-datepicker-calendar-day-hover-color */
+  --todo-denhaag-datepicker-calendar-day-hover-border-color: #007bc7;
+  --denhaag-datepicker-calendar-day-selected-background-color: white;
+  /* --denhaag-datepicker-calendar-day-selected-color */
+  --denhaag-datepicker-calendar-day-selected-hover-background-color: white;
+  /* --denhaag-datepicker-calendar-table-border-spacing */
+  /* --denhaag-datepicker-calendar-navigation-font-size */
+  /* --denhaag-datepicker-disabled-input-border-color" */
+  /* --denhaag-datepicker-disabled-input-color" */
+  /* --denhaag-datepicker-disabled-button-color */
+  /* --denhaag-datepicker-error-icon-color */
+  /* --denhaag-datepicker-error-icon-font-size */
+  /* --denhaag-datepicker-error-icon-inset-inline-end */
+  /* --denhaag-datepicker-error-input-border-color */
+  --todo-denhaag-datepicker-calendar-navigation-font-size: 24px;
+  --denhaag-focus-border-width: 2px;
+  --denhaag-focus-border-style: dotted;
+  --denhaag-focus-border-color: black;
+  --denhaag-focus-border: var(--denhaag-focus-border-width) var(--denhaag-focus-border-style)
+    var(--denhaag-focus-border-color);
+}

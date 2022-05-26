@@ -64,6 +64,7 @@ export default function StepperForm() {
     telephoneMobile,
     bericht,
     dataverwerking,
+    datumIncident,
   } = createDemoForm();
 
   const [state, dispatch] = useReducer(
@@ -84,6 +85,7 @@ export default function StepperForm() {
         bericht,
         dataverwerking,
         tussenvoegsel,
+        datumIncident,
       ],
     })
   );

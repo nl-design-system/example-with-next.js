@@ -211,6 +211,15 @@ export const createDemoForm = () => {
     },
   });
 
+  const datumIncident = createFormField({
+    declaration: {
+      id: 'cb66d88c-bf3d-4863-917f-90db103d5c6c',
+      fieldType: 'date',
+      labelKey: 'date-of-incident',
+      label: 'Datum van het incident',
+    },
+  });
+
   return {
     geslacht,
     voornaam,
@@ -226,5 +235,6 @@ export const createDemoForm = () => {
     telephoneMobile,
     bericht,
     dataverwerking,
+    datumIncident,
   };
 };

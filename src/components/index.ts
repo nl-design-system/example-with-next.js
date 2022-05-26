@@ -5,7 +5,7 @@
 
 // Components maintained by others:
 export * from '@utrecht/component-library-react';
-export { FormProgress } from '@gemeente-denhaag/components-react';
+export { FormProgress, Datepicker } from '@gemeente-denhaag/components-react';
 
 // Components TODO: add to another project
 export { PageFooterContent } from './PageFooterContent';

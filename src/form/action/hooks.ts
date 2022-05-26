@@ -26,6 +26,18 @@ const handleTextboxChange = (textbox: HTMLInputElement | HTMLTextAreaElement, di
   }
 };
 
+const handleDateInputChange = (dateInput: HTMLInputElement, dispatch: FormStateDispatch) => {
+  if (typeof dateInput.dataset.id === 'string') {
+    const change: InputChangeAction = {
+      type: 'change',
+      id: dateInput.dataset.id,
+      value: dateInput.value,
+    };
+
+    dispatch(change);
+  }
+};
+
 const handleSelectChange = (select: HTMLSelectElement, dispatch: FormStateDispatch) => {
   if (typeof select.dataset.id === 'string') {
     const selectedOptions = Array.from(select.options)
@@ -96,6 +108,8 @@ export const useInput = (field: FormField, dispatch: FormStateDispatch): SomeInp
           handleCheckboxChange(input, dispatch);
         } else if (typeof input.dataset.id === 'string') {
           handleTextboxChange(input, dispatch);
+        } else if (input.type === 'date') {
+          handleDateInputChange(input, dispatch);
         } else {
           throw new Error('element must have data-id attribute');
         }

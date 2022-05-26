@@ -212,3 +212,63 @@ body {
 .denhaag-form-progress__previous {
   display: none;
 }
+
+.denhaag-datepicker__button {
+  background-color: var(--todo-denhaag-datepicker-button-background-color) !important;
+  width: var(--todo-denhaag-datepicker-button-width) !important;
+}
+
+.denhaag-datepicker.denhaag-datepicker--has-value:after {
+  width: 0 !important;
+}
+
+.denhaag-datepicker__calendar-header {
+  padding-inline: var(
+    --denhaag-datepicker-calendar-header-padding-inline,
+    var(--denhaag-datepicker-calendar-padding-inline)
+  );
+  background-color: var(--todo-denhaag-datepicker-calendar-header-background-color);
+  color: var(--todo-denhaag-datepicker-calendar-header-color);
+}
+
+.denhaag-datepicker__calendar-table {
+  padding-inline: var(
+    --todo-denhaag-datepicker-calendar-table-padding-inline,
+    var(--denhaag-datepicker-calendar-padding-inline)
+  );
+  padding-block-end: var(
+    --todo-denhaag-datepicker-calendar-table-padding-block-end,
+    var(--denhaag-datepicker-calendar-table-padding-block, var(--denhaag-datepicker-calendar-padding-block-end))
+  );
+  padding-block-start: var(
+    --todo-denhaag-datepicker-calendar-table-padding-block-start,
+    var(--denhaag-datepicker-calendar-table-padding-block)
+  );
+}
+
+.denhaag-datepicker__calendar {
+  padding-block-end: 0 !important;
+  padding-inline-end: 0 !important;
+  padding-inline-start: 0 !important;
+}
+
+.denhaag-datepicker__calendar-heading {
+  min-width: var(--denhaag-datepicker-calendar-day-width);
+  /* text-transform: capitalize; */
+}
+
+.denhaag-datepicker__calendar-day {
+  border: 0px solid transparent !important;
+  border-width: var(--todo-denhaag-datepicker-calendar-day-border-width, 0) !important;
+  border-color: var(--todo-denhaag-datepicker-calendar-day-border-color, transparent) !important;
+}
+
+.denhaag-datepicker__calendar-day:hover {
+  border-color: var(
+    --todo-denhaag-datepicker-calendar-day-hover-border-color
+  ) !important; /* Also TODO Handle disabled border on hover */
+}
+
+.denhaag-datepicker__calendar-navigation {
+  font-size: var(--todo-denhaag-datepicker-calendar-navigation-font-size);
+}
