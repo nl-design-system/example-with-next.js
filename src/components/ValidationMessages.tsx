@@ -8,6 +8,9 @@ interface ValidationMessagesProps {
   field: FormField;
 }
 
+// TODO: some type of icon to indicate invalidness with
+const InvalidIcon = () => <span>⚠ </span>;
+
 export const ValidationMessages = ({
   errors,
   field: {
@@ -23,6 +26,7 @@ export const ValidationMessages = ({
           return (
             <FormFieldDescription id={id} key={message} invalid>
               <Paragraph>
+                <InvalidIcon />
                 {t(name, {
                   ns: "form-error",
                   context: labelKey,

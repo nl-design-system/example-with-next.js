@@ -41,4 +41,7 @@
   --utrecht-page-footer-margin-block-start: -20px;
   --utrecht-page-content-z-index: 30;
   --utrecht-page-footer-z-index: 20;
-}
+  --utrecht-form-field-description-invalid-color: var(--utrecht-color-red-40);
+  --utrecht-form-input-invalid-border-color: var(
+    --utrecht-color-red-40
+  ); /* Is now red-30 in the design token assignment */

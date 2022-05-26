@@ -136,6 +136,24 @@ body {
   color: var(--utrecht-button-primary-action-color, var(--utrecht-button-color));
 }
 
+.utrecht-form-field-description--invalid {
+  --utrecht-paragraph-color: var(
+    --utrecht-form-field-description-invalid-color,
+    var(--utrecht-feedback-invalid-color, var(--utrecht-feedback-danger-color))
+  );
+}
+
+.utrecht-textbox--html-input:invalid,
+.utrecht-textbox--html-input[aria-invalid="true"] {
+  border-bottom-width: var(
+    --utrecht-textbox-invalid-border-bottom-width,
+    var(
+      --utrecht-form-input-invalid-border-bottom-width,
+      var(--utrecht-textbox-border-bottom-width, var(--utrecht-form-input-border-bottom-width))
+    )
+  ) !important;
+}
+
 .todo-form-field-group--inline {
   display: grid;
   gap: var(--todo-form-field-group-gap);
