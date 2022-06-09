@@ -3,6 +3,7 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import {
+  Heading2,
   LanguageToggle,
   Link,
   PageContent,
@@ -41,6 +42,14 @@ export default function Home() {
             <UnorderedList>
               <UnorderedListItem>
                 <Link href="/stepper-form/step-1">{t("stepper-form:page-title")}</Link>
+              </UnorderedListItem>
+            </UnorderedList>
+            <Heading2>Experiments</Heading2>
+            <UnorderedList>
+              <UnorderedListItem>
+                <Link href="/form">
+                  Form built-with <code>react-hook-form</code>
+                </Link>
               </UnorderedListItem>
             </UnorderedList>
           </PageContent>
