@@ -17,6 +17,7 @@ import "../styles/utrecht-theme.css";
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     import("@utrecht/web-component-library-stencil/dist/utrecht/utrecht.esm.js");
+    import("@frameless/icon-web-component-stencil/dist/icons/icons.esm.js");
   }, []);
 
   return (

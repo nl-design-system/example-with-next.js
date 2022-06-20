@@ -201,3 +201,8 @@ body {
   box-sizing: content-box;
   inline-size: calc(var(--todo-char-width) * var(--todo-max-length));
 }
+
+.example-iconset-list {
+  --utrecht-icon-size: 48px;
+  --utrecht-icon-color: tomato;
+}
