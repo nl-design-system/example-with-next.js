@@ -35,7 +35,7 @@
     "@utrecht/component-library-css": "1.0.0-alpha.219",
     "@utrecht/design-tokens": "1.0.0-alpha.212",
     "@utrecht/web-component-library-react": "1.0.0-alpha.218",
-    "@utrecht/web-component-library-stencil": "1.0.0-alpha.218",
+    "@utrecht/web-component-library-stencil": "1.0.0-alpha.244",
     "clsx": "1.1.1",
     "next": "12.1.6",
     "next-transpile-modules": "9.0.0",
