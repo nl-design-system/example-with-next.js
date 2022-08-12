@@ -4,3 +4,7 @@ body {
   margin-inline-end: 0;
   margin-inline-start: 0;
 }
+
+.utrecht-theme {
+  --example-data-list-label-font-weight: bold;
+}

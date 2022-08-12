@@ -17,7 +17,12 @@ export const DataListValue = forwardRef(
 
     return (
       <dd
-        className={clsx("example-data-list__value", className, multiline && "example-data-list-value--multiline")}
+        className={clsx(
+          "example-data-list__value",
+          "example-data-list__value--html-dd",
+          className,
+          multiline && "example-data-list-value--multiline"
+        )}
         translate={typeof translate === "boolean" ? (translate ? "yes" : "no") : undefined}
       >
         {empty ? <span aria-label={emptyDescription}>-</span> : children}

@@ -1,3 +1,59 @@
+.example-data-list--wide .example-data-list__label {
+  inline-size: 40%;
+}
+.example-data-list__label {
+  padding-inline-start: 0; /* was:  0.4em, but doesn't align with other text start offsets */
+}
+
+.example-data-list__label,
+.example-data-list__value {
+  padding-inline-start: 0;
+  min-block-size: 24px;
+  box-sizing: content-box;
+}
+
+.example-data-list__label,
+.example-data-list__value {
+  padding-inline-end: 0.4em;
+  padding-block-start: 0.5em;
+  padding-block-end: 0.5em;
+}
+
+.example-data-list__value--html-dd {
+  /* reset browser styling of <dd> */
+  margin-inline-start: 0;
+}
+
+.example-data-list__value {
+  background-color: rgb(233 242 250);
+}
+
+.example-data-list--wide .example-data-list__value {
+  inline-size: 60%;
+  padding-inline-start: 0.4em;
+}
+
+.example-data-list--wide .example-data-list__item {
+  display: flex;
+}
+
+.example-data-list__item + .example-data-list__item {
+  margin-block-start: 0.4em;
+}
+
+.example-data-list--small {
+  max-inline-size: 768px; /* DELETEME*/
+  outline: 1px solid red;
+  display: ;
+}
+.example-data-list--small .example-data-list--wide {
+}
+
+.example-data-list__label,
+.example-data-list__value {
+  padding-inline-start: 0;
+}
+
 .example-data-list__label {
   font-size: var(--example-data-list-label-font-size);
   font-weight: var(--example-data-list-label-font-weight);
@@ -9,5 +65,13 @@
 }
 
 .example-data-list__value--multiline {
-  white-space: pre;
+  white-space: pre-line;
+}
+
+.example-data-list__value--email {
+  font-variant-ligatures: none;
+}
+
+.example-data-list__value--numeric {
+  font-variant-numeric: lining-nums tabular-nums;
 }
