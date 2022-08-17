@@ -1,6 +1,5 @@
 import { appWithTranslation } from "next-i18next";
 import type { AppProps } from "next/app";
-import { useEffect } from "react";
 import { ThemeProvider } from "../src/context/ThemeContext";
 
 import "@utrecht/design-tokens/dist/index.css";
@@ -14,16 +13,10 @@ import "../styles/denhaag-theme.css";
 import "../styles/globals.css";
 import "../styles/utrecht-theme.css";
 
-function MyApp({ Component, pageProps }: AppProps) {
-  useEffect(() => {
-    import("@utrecht/web-component-library-stencil/dist/utrecht/utrecht.esm.js");
-  }, []);
-
-  return (
-    <ThemeProvider>
-      <Component {...pageProps} />
-    </ThemeProvider>
-  );
-}
+const MyApp = ({ Component, pageProps }: AppProps) => (
+  <ThemeProvider>
+    <Component {...pageProps} />
+  </ThemeProvider>
+);
 
 export default appWithTranslation(MyApp);
