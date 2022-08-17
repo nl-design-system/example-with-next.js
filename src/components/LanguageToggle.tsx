@@ -3,47 +3,34 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 export const LanguageToggle = () => {
-  const router = useRouter();
-  const { pathname, query } = useRouter();
-
-  const slugs = Array.isArray(query.slug) ? query.slug : [query.slug];
-  const href = `${pathname.replace("[slug]", "")}${slugs.join("/")}`;
-
+  const { locales, asPath, locale: currentLocale } = useRouter();
+  type T = keyof typeof mappedLocales;
+  const mappedLocales = { nl: "Netherlands", en: "English" };
   return (
     <div className="utrecht-alternate-lang-nav">
-      <Link href={href} locale="nl">
-        <a
-          className={clsx(
-            "utrecht-link",
-            "utrecht-link--alternate-lang",
-            router.locale === "nl" && "utrecht-link--current-lang"
-          )}
-          // aria-current={router.locale === "nl" ? "page" : ""}
-          hrefLang="nl"
-          lang="nl"
-          rel={router.locale !== "nl" ? "alternate" : ""}
-          title="Nederlands"
-        >
-          NL
-        </a>
-      </Link>
-      <span aria-hidden="true"> | </span>
-      <Link href={href} locale="en">
-        <a
-          className={clsx(
-            "utrecht-link",
-            "utrecht-link--alternate-lang",
-            router.locale === "en" && "utrecht-link--current-lang"
-          )}
-          // aria-current={router.locale === "nl" ? "page" : ""}
-          hrefLang="en"
-          lang="en"
-          title="English"
-          rel={router.locale !== "en" ? "alternate" : ""}
-        >
-          EN
-        </a>
-      </Link>
+      {locales &&
+        locales.length > 0 &&
+        locales.map((locale, i) => (
+          <>
+            <Link href={asPath} locale={locale} key={i}>
+              <a
+                className={clsx(
+                  "utrecht-link",
+                  "utrecht-link--alternate-lang",
+                  locale === currentLocale && "utrecht-link--current-lang"
+                )}
+                hrefLang={locale}
+                lang={locale}
+                rel={locale !== currentLocale ? "alternate" : ""}
+                title={mappedLocales[locale as T]}
+              >
+                {locale.toUpperCase()}
+              </a>
+            </Link>
+            {i === 0 && <span aria-hidden="true"> | </span>}
+            {/*TODO figure a way better than this, incase we add more languages*/}
+          </>
+        ))}
     </div>
   );
 };
