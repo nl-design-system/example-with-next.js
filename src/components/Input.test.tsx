@@ -11,7 +11,7 @@ describe("Form field with input", () => {
       const state = createFormField({
         declaration: { id, fieldType: "input", label: "Message", labelKey: "message" },
       });
-      const { container } = render(<Input state={state} onChange={() => {}} />);
+      const { container } = render(<Input state={state} onChange={() => undefined} />);
 
       const formField = container.querySelector(":only-child");
 
@@ -30,7 +30,7 @@ describe("Form field with input", () => {
       const state = createFormField({
         declaration: { id, fieldType: "textarea", label: "Message", labelKey: "message" },
       });
-      const { container } = render(<Input state={state} onChange={() => {}} />);
+      const { container } = render(<Input state={state} onChange={() => undefined} />);
 
       const formField = container.querySelector(":only-child");
 
@@ -49,7 +49,7 @@ describe("Form field with input", () => {
       const state = createFormField({
         declaration: { id, fieldType: "checkbox", label: "Receive spam", labelKey: "message" },
       });
-      const { container } = render(<Input state={state} onChange={() => {}} />);
+      const { container } = render(<Input state={state} onChange={() => undefined} />);
 
       const formField = container.querySelector(":only-child");
 
@@ -74,7 +74,7 @@ describe("Form field with input", () => {
           ],
         },
       });
-      const { container } = render(<Input state={state} onChange={() => {}} />);
+      const { container } = render(<Input state={state} onChange={() => undefined} />);
 
       const formField = container.querySelector(":only-child");
 
@@ -105,7 +105,7 @@ describe("Form field with input", () => {
           ],
         },
       });
-      const { container } = render(<Input state={state} onChange={() => {}} />);
+      const { container } = render(<Input state={state} onChange={() => undefined} />);
 
       const formField = container.querySelector(":only-child");
 
@@ -136,7 +136,7 @@ describe("Form field with input", () => {
           ],
         },
       });
-      const { container } = render(<Input state={state} onChange={() => {}} />);
+      const { container } = render(<Input state={state} onChange={() => undefined} />);
 
       const formField = container.querySelector(":only-child");
 

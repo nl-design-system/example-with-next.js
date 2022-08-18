@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChangeEvent } from 'react';
 import { FormField } from '../state/FormField.model';
 import { FormAction } from './FormAction.model';

@@ -1,4 +1,4 @@
-import { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useEffect, useState } from "react";
+import React, { createContext, Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 
 interface Theme {
   className: string;
@@ -29,12 +29,12 @@ const builtInThemes: Theme[] = [
 
 const SELECTED_THEME = "selected-theme";
 
-const ThemeContext = createContext<ThemeContextState>({ builtInThemes, setTheme: () => {} });
+const ThemeContext = createContext<ThemeContextState>({ builtInThemes, setTheme: () => undefined });
 
-export const ThemeProvider = ({ children }: PropsWithChildren<{}>) => {
+export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setTheme] = useState(builtInThemes[0]);
 
-  let sharedState: ThemeContextState = {
+  const sharedState: ThemeContextState = {
     theme,
     setTheme,
     builtInThemes,
