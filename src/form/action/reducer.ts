@@ -29,7 +29,7 @@ export const setFieldValue = (field: FormField, value: string): FormField => {
   };
 };
 
-export const setField = (fields: FormField[], id: string, value: any): FormField[] =>
+export const setField = (fields: FormField[], id: string, value: string): FormField[] =>
   fields.map((field) => {
     return field.declaration.id === id ? setFieldValue(field, value) : field;
   });

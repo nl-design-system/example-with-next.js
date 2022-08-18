@@ -6,12 +6,14 @@ import { createFormField } from "../state/FormField";
 import "@testing-library/jest-dom";
 
 describe("Form state hook for <Input>", () => {
-  const fakeDispatch: FormStateDispatch = (_action: FormAction) => {};
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const fakeDispatch: FormStateDispatch = (_action: FormAction) => undefined;
   const id = "f870a988-95b4-4a90-9699-fec4cb2ccbab";
   const formField = createFormField({
     declaration: { id, fieldType: "input", label: "Name", labelKey: "name" },
     defaultState: { value: "Bobby Tables" },
   });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let useTranslationMock: any;
 
   beforeAll(() => {
@@ -102,8 +104,8 @@ describe("Form state hook for <Input>", () => {
   });
 
   describe.skip("multiple select", () => {
-    it("change event results in a select option action", () => {});
-    it("change event results in a unselect option action", () => {});
+    it("change event results in a select option action", () => undefined);
+    it("change event results in a unselect option action", () => undefined);
   });
 
   describe("checkbox", () => {
