@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import React from "react";
 
 export const LanguageToggle = () => {
   const { locales, asPath, locale: currentLocale } = useRouter();
@@ -11,8 +12,8 @@ export const LanguageToggle = () => {
       {locales &&
         locales.length > 0 &&
         locales.map((locale, i) => (
-          <>
-            <Link href={asPath} locale={locale} key={i}>
+          <React.Fragment key={i}>
+            <Link href={asPath} locale={locale}>
               <a
                 className={clsx(
                   "utrecht-link",
@@ -29,7 +30,7 @@ export const LanguageToggle = () => {
             </Link>
             {i === 0 && <span aria-hidden="true"> | </span>}
             {/*TODO figure a way better than this, incase we add more languages*/}
-          </>
+          </React.Fragment>
         ))}
     </div>
   );
