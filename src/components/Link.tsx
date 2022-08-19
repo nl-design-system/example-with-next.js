@@ -1,5 +1,5 @@
 import { Link as DesignSystemLink } from "@utrecht/component-library-react";
-import type { LinkProps as DesignSystemLinkProps } from "@utrecht/component-library-react/dist/cjs/Link";
+import type { LinkProps as DesignSystemLinkProps } from "@utrecht/component-library-react/dist/Link";
 import NextLink from "next/link";
 import { AnchorHTMLAttributes, ForwardedRef, forwardRef, PropsWithChildren } from "react";
 
