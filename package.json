@@ -8,6 +8,10 @@
   ],
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "^20",
+    "pnpm": "^8"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -20,14 +24,13 @@
     "lint:css": "stylelint '**/*.{css,scss}'",
     "lint:js": "eslint --ext '*.{js, json, jsx, ts, tsx}'",
     "lint:package-json": "npmPkgJsonLint '**/package.json'",
-    "lint:package-lock": "npm ls",
     "lint:prettier": "prettier --check .",
     "lint:ts": "tsc --noEmit --project tsconfig.json",
     "prettier": "prettier --write .",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --verbose",
-    "update-patch": "npm-check-updates --configFileName .ncurc.patch.js --deep --dep dev,prod --target patch --upgrade && npm install",
-    "update-minor": "npm-check-updates --configFileName .ncurc.minor.js --deep --dep dev,prod --target minor --upgrade && npm install",
-    "update-major": "npm-check-updates --configFileName .ncurc.major.js --deep --dep dev,prod --target latest --upgrade && npm install",
+    "update-patch": "npm-check-updates --configFileName .ncurc.patch.js --deep --dep dev,prod --target patch --upgrade && pnpm install",
+    "update-minor": "npm-check-updates --configFileName .ncurc.minor.js --deep --dep dev,prod --target minor --upgrade && pnpm install",
+    "update-major": "npm-check-updates --configFileName .ncurc.major.js --deep --dep dev,prod --target latest --upgrade && pnpm install",
     "watch:test": "NODE_OPTIONS=--experimental-vm-modules jest --watch",
     "prepare": "husky install"
   },
@@ -47,6 +50,7 @@
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "13.3.0",
     "@testing-library/user-event": "14.4.3",
+    "@types/jest": "29.5.11",
     "@types/node": "18.7.6",
     "@types/react": "18.0.17",
     "@typescript-eslint/eslint-plugin": "5.33.1",

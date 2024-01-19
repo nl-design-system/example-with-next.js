@@ -8,35 +8,43 @@ on:
 
 jobs:
   continuous-integration:
+    name: Continuous integration
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Download code from GitHub
+        uses: actions/checkout@v4.1.1
+
+      - name: Install pnpm package manager
+        uses: pnpm/action-setup@v2.4.0
+        with:
+          version: 8.14
 
       - name: Set up Node.js version
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4.0.1
         with:
-          node-version: "16.x"
+          node-version-file: .nvmrc
+          cache: pnpm
 
-      - name: Install
+      - name: Install dependencies specified in package.json
         run: |
-          npm ci
-          npm ls
+          pnpm install
+          pnpm ls
 
-      - name: "Continuous Integration: lint"
+      - name: Run the lint script in package.json scripts
         run: |
-          npm run lint --if-present
+          pnpm run lint
 
-      - name: "Continuous Integration: build"
+      - name: Run the build script in package.json scripts
         run: |
-          npm run build --if-present
+          pnpm run build
 
-      - name: "Continuous Integration: test"
+      - name: Run the test script in package.json scripts
         run: |
-          npm run test --if-present
+          pnpm run test
 
-      - name: "Retain build artifacts"
-        uses: actions/upload-artifact@v2
+      - name:
+        uses: actions/upload-artifact@v4.2.0
         with:
           name: build
           path: .next/
