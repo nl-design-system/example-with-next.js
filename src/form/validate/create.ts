@@ -1,3 +1,4 @@
+import { FormValidationFunction } from './FormValidationFunction.model';
 import { FormValidationError } from '../error/FormValidationError.model';
 import { PatternMismatchError } from '../error/PatternMismatchError';
 import { RangeOverflowError } from '../error/RangeOverflowError';
@@ -5,7 +6,6 @@ import { RangeUnderflowError } from '../error/RangeUnderflowError';
 import { StepMismatchError } from '../error/StepMismatchError';
 import { TooLongError } from '../error/TooLongError';
 import { TooShortError } from '../error/TooShortError';
-import { FormValidationFunction } from './FormValidationFunction.model';
 
 export const createMaxLengthValidator =
   (maxLength: number): FormValidationFunction =>

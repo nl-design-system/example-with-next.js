@@ -1,3 +1,4 @@
+import { FormAction } from './FormAction.model';
 import { ValueMissingError } from '../error/ValueMissingError';
 import { FormField } from '../state/FormField.model';
 import { createInputState } from '../state/FormFieldInputState';
@@ -8,7 +9,6 @@ import { FormSubmitState } from '../state/FormSubmitState.model';
 import { formSelectOption, formUnselectOption } from '../state/options';
 import { formCheckValidity } from '../validate/validate-field';
 import { validateField } from '../validate/validate-field';
-import { FormAction } from './FormAction.model';
 
 export const resetField = (field: FormField): FormField => ({
   ...field,

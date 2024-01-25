@@ -1,6 +1,6 @@
 import { UtrechtButton, UtrechtDocument, UtrechtPageFooter } from "@utrecht/web-component-library-react";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useReducer } from "react";
 import { Input } from "../src/components/Input";
 import { createDemoForm } from "../src/demo/demo-form";

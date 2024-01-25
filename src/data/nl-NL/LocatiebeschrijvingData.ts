@@ -1,5 +1,5 @@
-import { FormFieldDefinition } from '../../form/state/FormFieldDefinition.model';
 import { teletexMultiline } from './TeletexData';
+import { FormFieldDefinition } from '../../form/state/FormFieldDefinition.model';
 
 /**
  * Locatiebeschrijving

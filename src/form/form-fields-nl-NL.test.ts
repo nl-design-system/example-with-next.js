@@ -1,3 +1,4 @@
+import { createFormField } from './state/FormField';
 import { adresRegel1Validation, adresRegel2Validation, adresRegel3Validation } from '../data/nl-NL/AdresRegelData';
 import { bsnValidation } from '../data/nl-NL/BSNData';
 import { placeOfBirthValidation } from '../data/nl-NL/GeboorteplaatsData';
@@ -13,7 +14,6 @@ import { voornaamValidation } from '../data/nl-NL/VoornaamData';
 import { voornamenValidation } from '../data/nl-NL/VoornamenData';
 import { voorvoegselGeslachtsnaamValidation } from '../data/nl-NL/VoorvoegselGeslachtsnaamData';
 import { woonplaatsnaamValidation } from '../data/nl-NL/WoonplaatsnaamData';
-import { createFormField } from './state/FormField';
 
 const id = 'c4141c8b-7b76-4d8b-8935-a5e6efcfb61c';
 

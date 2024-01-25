@@ -1,10 +1,10 @@
-import { createFormField } from '../state/FormField';
 import { FormResetAction } from './FormResetAction.model';
 import { FormSubmitAction } from './FormSubmitAction.model';
 import { FormSubmitFailureAction } from './FormSubmitFailureAction.model';
 import { FormSubmitSuccessAction } from './FormSubmitSuccessAction.model';
 import { InputChangeAction } from './InputChangeAction.model';
 import { createInitialFormState, formReducer } from './reducer';
+import { createFormField } from '../state/FormField';
 
 describe('Form state', () => {
   it('is initially not dirty', () => {

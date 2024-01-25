@@ -1,7 +1,5 @@
 import { InputHTMLAttributes } from "react";
 import { useTranslation } from "react-i18next";
-import { FormField as FormFieldState } from "../form/state/FormField.model";
-import { FormFieldOption } from "../form/state/FormFieldOption.model";
 import { ValidationMessages } from "./ValidationMessages";
 import {
   Checkbox,
@@ -15,6 +13,8 @@ import {
   Textarea,
   Textbox,
 } from "./index";
+import { FormField as FormFieldState } from "../form/state/FormField.model";
+import { FormFieldOption } from "../form/state/FormFieldOption.model";
 
 interface InputProps extends InputHTMLAttributes<HTMLElement> {
   state: FormFieldState;

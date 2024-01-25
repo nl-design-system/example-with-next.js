@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChangeEvent } from 'react';
-import { FormField } from '../state/FormField.model';
 import { FormAction } from './FormAction.model';
 import { InputChangeAction } from './InputChangeAction.model';
 import { InputOptionSelectAction } from './InputOptionSelectAction.model';
 import { InputOptionUnselectAction } from './InputOptionUnselectAction.model';
 import { InputTouchAction } from './InputTouchAction.model';
+import { FormField } from '../state/FormField.model';
 
 type SomeInputProps = {
   onBlur?: (_event: any) => void;

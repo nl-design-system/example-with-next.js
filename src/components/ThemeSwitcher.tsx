@@ -3,8 +3,8 @@
 
 import { useTranslation } from "next-i18next";
 import { ChangeEvent } from "react";
-import { useThemeContext } from "../context/ThemeContext";
 import { FormField, FormLabel } from "./index";
+import { useThemeContext } from "../context/ThemeContext";
 
 export const ThemeSwitcher = () => {
   const { theme, setTheme, builtInThemes } = useThemeContext();

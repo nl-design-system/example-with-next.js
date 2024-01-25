@@ -1,4 +1,3 @@
-import { FormFieldDefinition } from '../state/FormFieldDefinition.model';
 import { FormValidationFunction } from './FormValidationFunction.model';
 import {
   createMaxLengthValidator,
@@ -8,6 +7,7 @@ import {
   createPatternValidator,
   createStepValidator,
 } from './create';
+import { FormFieldDefinition } from '../state/FormFieldDefinition.model';
 
 export const createValidators = (def: FormFieldDefinition): FormValidationFunction[] => {
   const validators: FormValidationFunction[] = [];

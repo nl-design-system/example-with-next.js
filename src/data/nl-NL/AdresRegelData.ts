@@ -1,5 +1,5 @@
-import { FormFieldDefinition } from '../../form/state/FormFieldDefinition.model';
 import { teletex } from './TeletexData';
+import { FormFieldDefinition } from '../../form/state/FormFieldDefinition.model';
 
 /**
  * Regel 1 adres buitenland

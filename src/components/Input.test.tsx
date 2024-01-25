@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import { createFormField } from "../form/state/FormField";
 import { Input } from "./Input";
+import { createFormField } from "../form/state/FormField";
 import "@testing-library/jest-dom";
 
 const id = "example";

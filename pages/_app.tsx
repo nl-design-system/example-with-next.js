@@ -1,5 +1,5 @@
-import { appWithTranslation } from "next-i18next";
 import type { AppProps } from "next/app";
+import { appWithTranslation } from "next-i18next";
 import { ThemeProvider } from "../src/context/ThemeContext";
 
 import "@utrecht/design-tokens/dist/index.css";
