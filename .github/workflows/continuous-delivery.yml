@@ -11,32 +11,39 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Download code from GitHub
+        uses: actions/checkout@v4.1.1
+
+      - name: Install pnpm package manager
+        uses: pnpm/action-setup@v2.4.0
+        with:
+          version: 8.14
 
       - name: Set up Node.js version
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4.0.1
         with:
-          node-version: "16.x"
+          node-version-file: .nvmrc
+          cache: pnpm
 
       - name: Install
         run: |
-          npm ci
-          npm ls
+          pnpm install
+          pnpm ls
 
       - name: "Continuous Integration: lint"
         run: |
-          npm run lint --if-present
+          pnpm run --if-present lint
 
       - name: "Continuous Integration: build"
         run: |
-          npm run build --if-present
+          pnpm run --if-present build
 
       - name: "Continuous Integration: test"
         run: |
-          npm run test --if-present
+          pnpm run --if-present test
 
       - name: "Retain build artifacts"
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4.3.0
         with:
           name: build
           path: .next/

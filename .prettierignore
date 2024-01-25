@@ -1,6 +1,8 @@
 # Ignore 3rd party files
 node_modules
 
+pnpm-lock.yaml
+
 # Ignore generated files
 .next/
 coverage/
