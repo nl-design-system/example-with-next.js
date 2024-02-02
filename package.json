@@ -40,7 +40,7 @@
     "@utrecht/component-library-css": "1.0.0-alpha.304",
     "@utrecht/component-library-react": "1.0.0-alpha.113",
     "@utrecht/design-tokens": "1.0.0-alpha.297",
-    "@utrecht/web-component-library-react": "1.0.0-alpha.303",
+    "@utrecht/web-component-library-react": "1.0.2",
     "clsx": "1.2.1",
     "next": "12.2.5",
     "react": "18.2.0",
