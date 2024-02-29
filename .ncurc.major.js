@@ -1,6 +1,7 @@
 const minorConfig = require('./.ncurc.minor');
 
 module.exports = {
+  ...minorConfig,
   reject: [
     ...minorConfig.reject,
     // Storybook needs React 16 to have support out of the box.
@@ -14,4 +15,5 @@ module.exports = {
     // We don't yet use Node 17 so the types of node should also be locked at Node 16.
     '@types/node',
   ],
+  target: 'latest',
 };
