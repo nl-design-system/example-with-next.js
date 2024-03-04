@@ -18,8 +18,8 @@ dependencies:
     specifier: 1.0.0-alpha.113
     version: 1.0.0-alpha.113(react-dom@18.2.0)(react@18.2.0)
   '@utrecht/design-tokens':
-    specifier: 1.0.0-alpha.297
-    version: 1.0.0-alpha.297
+    specifier: 1.0.0-alpha.634
+    version: 1.0.0-alpha.634
   '@utrecht/web-component-library-react':
     specifier: 1.0.0-alpha.303
     version: 1.0.0-alpha.303(react-dom@18.2.0)(react@18.2.0)
@@ -1428,8 +1428,8 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@utrecht/design-tokens@1.0.0-alpha.297:
-    resolution: {integrity: sha512-gAXai9AueTwe/44mzxJ8YrEtrgocicpNxSyRPysxupOHNphBTu+aaH50aW9SfEEF20wGcWX9NDtOvfAYkilzRQ==}
+  /@utrecht/design-tokens@1.0.0-alpha.634:
+    resolution: {integrity: sha512-/nSzwRUQVfYQO9/urpJhQE8PZqRxWPnFJX9tBWKOBbTqMo9nbLWfuY8V9n5/Ym1EdkP2ZccBOe90B9xtVQyXAw==}
     dev: false
 
   /@utrecht/web-component-library-react@1.0.0-alpha.303(react-dom@18.2.0)(react@18.2.0):
