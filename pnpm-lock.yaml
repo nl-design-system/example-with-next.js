@@ -15,8 +15,8 @@ dependencies:
     specifier: 1.0.0-alpha.304
     version: 1.0.0-alpha.304
   '@utrecht/component-library-react':
-    specifier: 1.0.0-alpha.113
-    version: 1.0.0-alpha.113(react-dom@18.2.0)(react@18.2.0)
+    specifier: 3.0.0
+    version: 3.0.0(react-dom@18.2.0)(react@18.2.0)
   '@utrecht/design-tokens':
     specifier: 1.0.0-alpha.297
     version: 1.0.0-alpha.297
@@ -1495,13 +1495,24 @@ packages:
     resolution: {integrity: sha512-i0ZHdQaD/HMSAanvodipp23CnQy6kHeX2D9CaNm1uBGuAF1GEt8uZ1qwW4SH0rS0iYpUVnafnKdrjZrjP0g48g==}
     dev: false
 
-  /@utrecht/component-library-react@1.0.0-alpha.113(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-U2xE1xQrglsH8NjxFjDssKAQBreY9z4znaQojwzL6eTUV7pi8vMRtPldNSRsZQY1NAUN4MiAafqF0+zw+aOfkQ==}
+  /@utrecht/component-library-react@3.0.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-7ftpjtQ6ygIMqlB+pWQZAT7psFo1oXkbBSlbVw/uMV5OABRDX5t3V2lN/UDTPjdMRtcj8ZBYl19zPcfkV+Gc5w==}
     peerDependencies:
-      react: 16 - 18
-      react-dom: 16 - 18
+      date-fns: ^2.30.0
+      react: '18'
+      react-dom: '18'
+      react-vega: ^7.6.0
+      vega: ^5.25.0
+    peerDependenciesMeta:
+      date-fns:
+        optional: true
+      react-vega:
+        optional: true
+      vega:
+        optional: true
     dependencies:
       clsx: 1.2.1
+      lodash.chunk: 4.2.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
@@ -4652,6 +4663,10 @@ packages:
     dependencies:
       p-locate: 5.0.0
     dev: true
+
+  /lodash.chunk@4.2.0:
+    resolution: {integrity: sha512-ZzydJKfUHJwHa+hF5X66zLFCBrWn5GeF28OHEr4WVWtNDXlQ/IjWKPBiikqKo2ne0+v6JgCgJ0GzJp8k8bHC7w==}
+    dev: false
 
   /lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
