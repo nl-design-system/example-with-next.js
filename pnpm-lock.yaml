@@ -12,8 +12,8 @@ dependencies:
     specifier: 1.0.0-alpha.30
     version: 1.0.0-alpha.30
   '@utrecht/component-library-css':
-    specifier: 1.0.0-alpha.304
-    version: 1.0.0-alpha.304
+    specifier: 3.0.0
+    version: 3.0.0
   '@utrecht/component-library-react':
     specifier: 1.0.0-alpha.113
     version: 1.0.0-alpha.113(react-dom@18.2.0)(react@18.2.0)
@@ -1491,8 +1491,8 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: true
 
-  /@utrecht/component-library-css@1.0.0-alpha.304:
-    resolution: {integrity: sha512-i0ZHdQaD/HMSAanvodipp23CnQy6kHeX2D9CaNm1uBGuAF1GEt8uZ1qwW4SH0rS0iYpUVnafnKdrjZrjP0g48g==}
+  /@utrecht/component-library-css@3.0.0:
+    resolution: {integrity: sha512-g4DUnyGqkpg0f307tYbg+KZHHvvIllm4svK8u9TEIcHbXsa86wc+T4ncBZqLbNik4EPOX+g4nDEnePVmFgPS/A==}
     dev: false
 
   /@utrecht/component-library-react@1.0.0-alpha.113(react-dom@18.2.0)(react@18.2.0):
